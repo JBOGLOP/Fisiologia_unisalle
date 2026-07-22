@@ -93,6 +93,34 @@ Fuera de plazo cada actividad queda bloqueada indicando el motivo.
 
 ---
 
+## Cómo está organizado
+
+Una carpeta por sesión. Todo lo de esa sesión vive ahí: el guion, la clase y —solo en el equipo del docente— la guía docente.
+
+```
+Fisiologia_unisalle/
+├── README.md                  ← este índice
+├── 01-induccion/
+│   ├── README.md              ← contenidos, lecturas, trabajo independiente
+│   ├── clase.html             ← clase interactiva
+│   └── guia-docente.docx      ← NO se publica
+├── 02-sindrome-y-lesion/      ← igual
+├── 03-primer-parcial/ … 15-socializacion-notas-3/
+│   └── README.md
+└── app/                       ← NO se publica: código del portal de actividades
+```
+
+**Qué no se publica y por qué.** El repositorio es público, así que dos cosas quedan solo en el equipo del docente, excluidas por `.gitignore`:
+
+| Ruta | Motivo |
+|---|---|
+| `*/guia-docente.docx` | Contiene el banco de preguntas con las respuestas y el alcance de los parciales |
+| `app/` | `Contenido.gs` incluye las respuestas correctas del quiz calificable |
+
+La bibliografía y el syllabus están fuera de esta carpeta, en `privado/`, y nunca entran al repositorio.
+
+---
+
 ## Metodología y evaluación
 
 **Opciones metodológicas:** clases magistrales participativas, exposiciones, aprendizaje basado en problemas, quices e infografía.

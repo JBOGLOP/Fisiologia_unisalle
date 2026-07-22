@@ -1,10 +1,24 @@
-# Material protegido por derechos de autor — NO publicar
-Libros/
-*.pdf
+# ─────────────────────────────────────────────────────────────
+#  Lo que NUNCA se publica en GitHub
+# ─────────────────────────────────────────────────────────────
 
-# Guías docentes con claves de respuesta — se mantienen fuera del repositorio público
-*Guia_docente*
-*guia_docente*
+# Guías docentes: contienen el banco de preguntas CON respuestas
+guia-docente.docx
+**/guia-docente.docx
+
+# Código del portal de actividades.
+# Contenido.gs incluye las respuestas correctas del quiz calificable.
+app/
+
+# Bibliografía y documentos institucionales
+*.pdf
+Libros/
+
+# Accesos directos de Google Drive
+*.gsheet
+*.gdoc
+*.gslides
+*.gform
 
 # Sistema
 Thumbs.db
