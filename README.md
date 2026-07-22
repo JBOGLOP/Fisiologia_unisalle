@@ -3,6 +3,8 @@
 **Universidad de La Salle** · Facultad de Ciencias de la Salud · Programa de Optometría
 Código del espacio académico: `01008430` · 2 créditos · Semestre **2026-2**
 
+### 🌐 [Sitio del curso — jboglop.github.io/Fisiologia_unisalle](https://jboglop.github.io/Fisiologia_unisalle/)
+
 Repositorio de publicación cronológica del material de clase. Cada sesión se publica en su propia carpeta con un README que describe contenidos, lecturas y trabajo independiente, junto con la clase interactiva en HTML.
 
 ---
@@ -27,22 +29,22 @@ Sesiones semanales los **jueves**. Estado actualizado al **22 de julio de 2026**
 
 | | Sesión | Fecha | Tema | Tipo | Material |
 |---|---|---|---|---|---|
-| 🔜 | **1** | 23 de julio | Inducción: definiciones y generalidades de fisiología y patología | Clase | [Clase](01-induccion/clase.html) · [README](01-induccion/) |
-| ⬜ | **2** | 30 de julio | Inducción: síndrome y mecanismos de lesión | Clase | [Clase](02-sindrome-y-lesion/clase.html) · [README](02-sindrome-y-lesion/) |
-| ⬜ | **3** | 6 de agosto | Primer parcial | Evaluación | _en preparación_ · [README](03-primer-parcial/) |
-| ⬜ | **4** | 13 de agosto | Socialización de notas | Retroalimentación | _en preparación_ · [README](04-socializacion-notas-1/) |
-| ⬜ | **5** | 20 de agosto | Fisiopatología de los síntomas: dolor | Clase | _en preparación_ · [README](05-dolor/) |
-| ⬜ | **6** | 27 de agosto | Fisiopatología de los síntomas y signos: disnea y vértigo | Clase | _en preparación_ · [README](06-disnea-y-vertigo/) |
-| ⬜ | **7** | 3 de septiembre | Fisiopatología de los signos: edema y síncope | Clase | _en preparación_ · [README](07-edema-y-sincope/) |
-| ⬜ | **8** | 10 de septiembre | Fisiopatología de los signos: fiebre y cianosis | Clase | _en preparación_ · [README](08-fiebre-y-cianosis/) |
-| ⬜ | **9** | 17 de septiembre | Segundo parcial | Evaluación | _en preparación_ · [README](09-segundo-parcial/) |
-| ⬜ | **10** | 24 de septiembre | Socialización de notas | Retroalimentación | _en preparación_ · [README](10-socializacion-notas-2/) |
-| ⬜ | **11** | 1 de octubre | Inmunidad y respuesta: inflamación y reparación | Clase | _en preparación_ · [README](11-inflamacion-y-reparacion/) |
+| 🔜 | **1** | 23 de julio | Inducción: definiciones y generalidades de fisiología y patología | Clase | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/01-induccion/clase.html)** · [detalle](01-induccion/) |
+| ⬜ | **2** | 30 de julio | Inducción: síndrome y mecanismos de lesión | Clase | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/02-sindrome-y-lesion/clase.html)** · [detalle](02-sindrome-y-lesion/) |
+| ⬜ | **3** | 6 de agosto | Primer parcial | Evaluación | _en preparación_ · [detalle](03-primer-parcial/) |
+| ⬜ | **4** | 13 de agosto | Socialización de notas | Retroalimentación | _en preparación_ · [detalle](04-socializacion-notas-1/) |
+| ⬜ | **5** | 20 de agosto | Fisiopatología de los síntomas: dolor | Clase | _en preparación_ · [detalle](05-dolor/) |
+| ⬜ | **6** | 27 de agosto | Fisiopatología de los síntomas y signos: disnea y vértigo | Clase | _en preparación_ · [detalle](06-disnea-y-vertigo/) |
+| ⬜ | **7** | 3 de septiembre | Fisiopatología de los signos: edema y síncope | Clase | _en preparación_ · [detalle](07-edema-y-sincope/) |
+| ⬜ | **8** | 10 de septiembre | Fisiopatología de los signos: fiebre y cianosis | Clase | _en preparación_ · [detalle](08-fiebre-y-cianosis/) |
+| ⬜ | **9** | 17 de septiembre | Segundo parcial | Evaluación | _en preparación_ · [detalle](09-segundo-parcial/) |
+| ⬜ | **10** | 24 de septiembre | Socialización de notas | Retroalimentación | _en preparación_ · [detalle](10-socializacion-notas-2/) |
+| ⬜ | **11** | 1 de octubre | Inmunidad y respuesta: inflamación y reparación | Clase | _en preparación_ · [detalle](11-inflamacion-y-reparacion/) |
 | ⏸️ | — | 8 de octubre | _Semana de receso institucional_ | — | — |
-| ⬜ | **12** | 15 de octubre | Inmunidad: respuesta del huésped a la infección | Clase | _en preparación_ · [README](12-respuesta-a-la-infeccion/) |
-| ⬜ | **13** | 22 de octubre | Trastornos ópticos: miopía, hipermetropía, astigmatismo y presbicia | Clase | _en preparación_ · [README](13-trastornos-opticos/) |
-| ⬜ | **14** | 29 de octubre | Parcial final | Evaluación | _en preparación_ · [README](14-parcial-final/) |
-| ⬜ | **15** | 5 de noviembre | Socialización de notas | Retroalimentación | _en preparación_ · [README](15-socializacion-notas-3/) |
+| ⬜ | **12** | 15 de octubre | Inmunidad: respuesta del huésped a la infección | Clase | _en preparación_ · [detalle](12-respuesta-a-la-infeccion/) |
+| ⬜ | **13** | 22 de octubre | Trastornos ópticos: miopía, hipermetropía, astigmatismo y presbicia | Clase | _en preparación_ · [detalle](13-trastornos-opticos/) |
+| ⬜ | **14** | 29 de octubre | Parcial final | Evaluación | _en preparación_ · [detalle](14-parcial-final/) |
+| ⬜ | **15** | 5 de noviembre | Socialización de notas | Retroalimentación | _en preparación_ · [detalle](15-socializacion-notas-3/) |
 
 **Convenciones:** ✅ sesión cumplida · 🔜 próxima sesión · ⬜ programada · ⏸️ receso institucional
 
@@ -66,12 +68,12 @@ Sesiones semanales los **jueves**. Estado actualizado al **22 de julio de 2026**
 
 ## Cómo ver las clases
 
-Cada clase es un archivo HTML autocontenido, sin dependencias externas. Se puede:
+Las clases están publicadas en línea y se abren directamente en el navegador, sin descargar nada:
 
-- **Descargar** el archivo `clase.html` de la carpeta correspondiente y abrirlo en cualquier navegador.
-- **Publicar el repositorio con GitHub Pages** (`Settings → Pages → Deploy from a branch → main / root`) para verlas en línea directamente.
+- **Sesión 1** — [Inducción: definiciones y generalidades de fisiología y patología](https://jboglop.github.io/Fisiologia_unisalle/01-induccion/clase.html)
+- **Sesión 2** — [Inducción: síndrome y mecanismos de lesión](https://jboglop.github.io/Fisiologia_unisalle/02-sindrome-y-lesion/clase.html)
 
-Las clases se adaptan al tema claro u oscuro del navegador e incluyen ejercicios interactivos y autoevaluación.
+Cada clase es un archivo HTML autocontenido, sin dependencias externas: se adapta al tema claro u oscuro del navegador, funciona en celular y en proyector, e incluye ejercicios interactivos y autoevaluación. También puede descargarse el archivo `clase.html` de la carpeta correspondiente para usarla sin conexión.
 
 ---
 

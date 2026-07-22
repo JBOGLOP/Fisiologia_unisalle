@@ -14,7 +14,9 @@ Primera sesión del semestre. Fija el vocabulario y el modo de razonamiento que 
 
 ## Material de clase
 
-📄 **[clase.html](clase.html)** — clase interactiva autocontenida. Descárgala y ábrela en el navegador, o actívala en línea habilitando GitHub Pages en el repositorio.
+### ▶ [Abrir la clase interactiva](https://jboglop.github.io/Fisiologia_unisalle/01-induccion/clase.html)
+
+Se abre directamente en el navegador. También puedes [descargar el archivo](clase.html) para usarla sin conexión.
 
 ## Contenidos
 
