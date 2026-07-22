@@ -1,0 +1,13 @@
+# Material protegido por derechos de autor — NO publicar
+Libros/
+*.pdf
+
+# Guías docentes con claves de respuesta — se mantienen fuera del repositorio público
+*Guia_docente*
+*guia_docente*
+
+# Sistema
+Thumbs.db
+desktop.ini
+.DS_Store
+~$*

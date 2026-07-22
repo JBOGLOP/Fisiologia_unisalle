@@ -1,0 +1,851 @@
+<title>Clase 2 — Síndrome, lesión y adaptación celular</title>
+
+<style>
+  :root{
+    --ink:#12212b;
+    --paper:#f4f7f7;
+    --surface:#ffffff;
+    --surface-2:#eaf0f0;
+    --line:#cbd8da;
+    --muted:#516268;
+    --fisio:#10505e;
+    --fisio-soft:#dceaec;
+    --pato:#a8412c;
+    --pato-soft:#f5e2dc;
+    --amber:#9a6b12;
+    --amber-soft:#f6ecd6;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 8px 24px -16px rgba(18,33,43,.35);
+
+    --display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+
+    --measure:66ch;
+    --pad:clamp(1rem,4vw,2.5rem);
+  }
+
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+      --line:#2c3d43; --muted:#9bafb4;
+      --fisio:#5cb6c6; --fisio-soft:#12313a;
+      --pato:#e08a70; --pato-soft:#3a2119;
+      --amber:#d5a446; --amber-soft:#33290f;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.9);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+    --line:#2c3d43; --muted:#9bafb4;
+    --fisio:#5cb6c6; --fisio-soft:#12313a;
+    --pato:#e08a70; --pato-soft:#3a2119;
+    --amber:#d5a446; --amber-soft:#33290f;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.9);
+  }
+  :root[data-theme="light"]{
+    --ink:#12212b; --paper:#f4f7f7; --surface:#ffffff; --surface-2:#eaf0f0;
+    --line:#cbd8da; --muted:#516268;
+    --fisio:#10505e; --fisio-soft:#dceaec;
+    --pato:#a8412c; --pato-soft:#f5e2dc;
+    --amber:#9a6b12; --amber-soft:#f6ecd6;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 8px 24px -16px rgba(18,33,43,.35);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--body); font-size:clamp(15px,.5vw + 14px,17px);
+    line-height:1.62; -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{font-family:var(--display); font-weight:600; line-height:1.15; text-wrap:balance; margin:0}
+  p{margin:0}
+  a{color:var(--fisio)}
+
+  .wrap{max-width:1040px; margin:0 auto; padding-inline:var(--pad)}
+  .prose{max-width:var(--measure)}
+  .stack{display:flex; flex-direction:column}
+  .stack>*+*{margin-top:1rem}
+
+  .eyebrow{
+    font-family:var(--mono); font-size:.68rem; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--muted);
+  }
+
+  header.top{
+    position:sticky; top:0; z-index:50;
+    background:color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .top-in{display:flex; align-items:center; gap:1rem; height:54px}
+  .brand{font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); white-space:nowrap}
+  nav.jump{margin-left:auto; display:flex; gap:.15rem; overflow-x:auto; scrollbar-width:none}
+  nav.jump::-webkit-scrollbar{display:none}
+  nav.jump a{
+    font-size:.78rem; text-decoration:none; color:var(--muted);
+    padding:.3rem .55rem; border-radius:99px; white-space:nowrap;
+  }
+  nav.jump a:hover{color:var(--ink); background:var(--surface-2)}
+  .theme-btn{
+    border:1px solid var(--line); background:var(--surface); color:var(--muted);
+    border-radius:99px; width:32px; height:32px; cursor:pointer; flex:none; font-size:.85rem;
+  }
+  .theme-btn:hover{color:var(--ink)}
+
+  .hero{padding:clamp(2.5rem,7vw,5rem) 0 clamp(2rem,5vw,3.5rem)}
+  .hero h1{font-size:clamp(2.1rem,5.5vw,3.6rem); letter-spacing:-.01em; margin-top:.6rem}
+  .hero .sub{max-width:58ch; color:var(--muted); font-size:1.05rem; margin-top:1.1rem}
+  .hero-meta{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.6rem}
+  .chip{
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.06em;
+    border:1px solid var(--line); border-radius:99px; padding:.3rem .7rem;
+    background:var(--surface); color:var(--muted);
+  }
+  .chip strong{color:var(--ink); font-weight:600}
+
+  section{padding:clamp(2.2rem,5vw,3.6rem) 0; border-top:1px solid var(--line)}
+  .sec-head{display:flex; align-items:baseline; gap:.9rem; margin-bottom:1.4rem; flex-wrap:wrap}
+  .sec-num{
+    font-family:var(--mono); font-size:.72rem; color:var(--fisio);
+    border:1px solid var(--fisio); border-radius:4px; padding:.1rem .4rem; flex:none;
+  }
+  .sec-head h2{font-size:clamp(1.4rem,3vw,2rem)}
+
+  .grid{display:grid; gap:1rem}
+  @media(min-width:720px){
+    .g2{grid-template-columns:repeat(2,1fr)}
+    .g3{grid-template-columns:repeat(3,1fr)}
+    .g4{grid-template-columns:repeat(4,1fr)}
+  }
+  .card{
+    background:var(--surface); border:1px solid var(--line); border-radius:10px;
+    padding:1.1rem 1.2rem; box-shadow:var(--shadow);
+  }
+  .card h3{font-size:1.02rem; margin-bottom:.45rem}
+  .card p, .card li{font-size:.92rem; color:var(--muted)}
+  .card.fisio{border-left:3px solid var(--fisio)}
+  .card.pato{border-left:3px solid var(--pato)}
+  .card.amber{border-left:3px solid var(--amber)}
+  .card ul{margin:.4rem 0 0; padding-left:1.1rem}
+  .card li+li{margin-top:.25rem}
+  .card .ocular{
+    margin-top:.7rem; padding-top:.6rem; border-top:1px dashed var(--line);
+    font-size:.82rem; color:var(--fisio);
+  }
+
+  .callout{
+    background:var(--fisio-soft); border:1px solid color-mix(in srgb,var(--fisio) 30%, transparent);
+    border-radius:10px; padding:1rem 1.2rem;
+  }
+  .callout .eyebrow{color:var(--fisio)}
+  .callout.warn{background:var(--pato-soft); border-color:color-mix(in srgb,var(--pato) 30%, transparent)}
+  .callout.warn .eyebrow{color:var(--pato)}
+  .callout.note{background:var(--amber-soft); border-color:color-mix(in srgb,var(--amber) 35%, transparent)}
+  .callout.note .eyebrow{color:var(--amber)}
+
+  /* cascade */
+  .cascade{list-style:none; margin:1rem 0 0; padding:0; counter-reset:step}
+  .cascade li{
+    position:relative; padding:.55rem 0 .55rem 2.4rem;
+    border-bottom:1px solid var(--line); font-size:.93rem;
+  }
+  .cascade li:last-child{border-bottom:none}
+  .cascade li::before{
+    counter-increment:step; content:counter(step);
+    position:absolute; left:0; top:.55rem;
+    font-family:var(--mono); font-size:.7rem;
+    width:1.5rem; height:1.5rem; border-radius:99px;
+    display:grid; place-items:center;
+    background:var(--pato-soft); color:var(--pato);
+    border:1px solid color-mix(in srgb,var(--pato) 35%, transparent);
+  }
+  .cascade li strong{color:var(--ink)}
+
+  /* fork diagram */
+  .fork{display:grid; gap:.8rem; margin-top:1rem}
+  @media(min-width:720px){.fork{grid-template-columns:1fr 1fr}}
+  .fork .lane{border:1px solid var(--line); border-radius:10px; padding:1rem; background:var(--surface)}
+  .fork .lane.rev{border-top:3px solid var(--fisio)}
+  .fork .lane.irr{border-top:3px solid var(--pato)}
+  .fork .lane h3{font-size:1rem; margin-bottom:.4rem}
+  .fork .lane p{font-size:.9rem; color:var(--muted)}
+
+  blockquote{
+    margin:0; padding-left:1.1rem; border-left:3px solid var(--amber);
+    font-family:var(--display); font-size:1.12rem; font-style:italic;
+  }
+  blockquote cite{display:block; font-family:var(--body); font-style:normal; font-size:.8rem; color:var(--muted); margin-top:.5rem}
+
+  .table-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface)}
+  table{border-collapse:collapse; width:100%; font-size:.88rem; min-width:560px}
+  th,td{text-align:left; padding:.6rem .8rem; border-bottom:1px solid var(--line); vertical-align:top}
+  th{font-family:var(--mono); font-size:.68rem; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); font-weight:500}
+  tbody tr:last-child td{border-bottom:none}
+  td.k{font-weight:600; white-space:nowrap}
+
+  /* drills */
+  .drill-row{
+    display:flex; align-items:center; gap:.5rem; flex-wrap:wrap;
+    padding:.65rem 0; border-bottom:1px solid var(--line);
+  }
+  .drill-row:last-child{border-bottom:none}
+  .drill-q{flex:1 1 240px; font-size:.94rem}
+  .btn{
+    font-family:var(--body); font-size:.78rem; cursor:pointer;
+    border:1px solid var(--line); background:var(--surface); color:var(--ink);
+    border-radius:99px; padding:.3rem .75rem;
+  }
+  .btn:hover{border-color:var(--fisio)}
+  .btn:focus-visible, a:focus-visible, .q-head:focus-visible{outline:2px solid var(--fisio); outline-offset:2px}
+  .btn.ok{background:var(--fisio); border-color:var(--fisio); color:#fff}
+  .btn.no{background:var(--pato); border-color:var(--pato); color:#fff}
+  .verdict{font-size:.82rem; flex-basis:100%; color:var(--muted)}
+  .verdict b{color:var(--ink)}
+  .score{font-family:var(--mono); font-size:.78rem; color:var(--muted); margin-top:.8rem}
+
+  .q{border:1px solid var(--line); border-radius:10px; background:var(--surface); overflow:hidden}
+  .q+.q{margin-top:.6rem}
+  .q-head{
+    width:100%; text-align:left; background:none; border:0; color:inherit;
+    font:inherit; padding:.85rem 1rem; cursor:pointer; display:flex; gap:.7rem; align-items:baseline;
+  }
+  .q-head:hover{background:var(--surface-2)}
+  .q-n{font-family:var(--mono); font-size:.72rem; color:var(--fisio); flex:none}
+  .q-body{padding:0 1rem 1rem 2.4rem; font-size:.9rem; color:var(--muted); display:none}
+  .q.open .q-body{display:block}
+  .q.open .q-head{background:var(--surface-2)}
+
+  footer{border-top:1px solid var(--line); padding:2rem 0 3rem; color:var(--muted); font-size:.83rem}
+
+  @media (prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
+</style>
+
+<header class="top">
+  <div class="wrap top-in">
+    <span class="brand">Fisiopatología General · Clase 2</span>
+    <nav class="jump">
+      <a href="#repaso">Repaso</a>
+      <a href="#sindrome">Síndrome</a>
+      <a href="#adaptacion">Adaptación</a>
+      <a href="#agentes">Agentes</a>
+      <a href="#mecanismos">Mecanismos</a>
+      <a href="#punto">No retorno</a>
+      <a href="#ocular">Ojo</a>
+      <a href="#ejercicios">Ejercicios</a>
+      <a href="#parcial">Parcial</a>
+      <a href="#autoeval">Autoevaluación</a>
+    </nav>
+    <button class="theme-btn" id="themeBtn" aria-label="Cambiar tema">◐</button>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <p class="eyebrow">Clase 2 · Inducción · Semana 2</p>
+    <h1>Síndrome, agentes lesivos y respuesta de la célula</h1>
+    <p class="sub">La sesión anterior definimos las palabras. Esta baja al nivel donde toda enfermedad empieza: la célula. Qué la agrede, cómo se adapta mientras puede, por qué mecanismos se lesiona y en qué punto exacto el daño deja de ser reversible.</p>
+    <div class="hero-meta">
+      <span class="chip">Sesión <strong>2 de 15</strong></span>
+      <span class="chip">Fecha <strong>30 jul 2026</strong></span>
+      <span class="chip">Duración <strong>2 horas</strong></span>
+      <span class="chip">Texto guía <strong>caps. 4 · 5 · 6</strong></span>
+      <span class="chip">Siguiente sesión <strong>Primer parcial</strong></span>
+    </div>
+  </div>
+
+  <!-- 01 -->
+  <section id="repaso">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">01</span><h2>De dónde venimos</h2></div>
+      <div class="prose stack">
+        <p>La clase pasada quedó establecida una cadena: <strong>etiología → patogénesis → fisiopatología → signos y síntomas → diagnóstico</strong>. También quedó establecido que los mecanismos que nos mantienen sanos son los mismos que, desajustados, nos enferman.</p>
+        <p>Hoy vamos a poner esa cadena bajo el microscopio. Toda forma de enfermedad empieza con alteraciones moleculares o estructurales —el concepto que introdujo Virchow en el siglo XIX—. Si eso es cierto, entonces <em>todo</em> lo que veremos el resto del semestre (dolor, disnea, edema, fiebre, inflamación, ametropías) tiene por debajo una célula respondiendo a algo.</p>
+      </div>
+      <div class="callout" style="margin-top:1.2rem">
+        <p class="eyebrow">Pregunta que ordena la sesión</p>
+        <p style="margin-top:.4rem">Una córnea bajo un lente de contacto de baja permeabilidad recibe menos oxígeno del que necesita. ¿En qué momento exacto deja de estar <em>adaptándose</em> y empieza a estar <em>lesionada</em>? Al final de la clase debe poder responderlo con nombres de moléculas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section id="sindrome">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">02</span><h2>Síndrome: el concepto que faltaba</h2></div>
+      <div class="prose stack">
+        <p>Del griego <em>syndromé</em>, «concurso», «acción de correr juntos». Un síndrome es un conjunto significativo de signos y síntomas —datos semiológicos— que <strong>concurren en tiempo y forma</strong>, con identidad propia y con causas variadas.</p>
+      </div>
+
+      <div class="grid g3" style="margin-top:1.3rem">
+        <div class="card amber">
+          <p class="eyebrow">Lo que lo define</p>
+          <h3>Concurrencia</h3>
+          <p>No es cualquier suma de hallazgos: es un grupo que aparece junto, con cierta regularidad, y que por sus características posee identidad reconocible.</p>
+        </div>
+        <div class="card amber">
+          <p class="eyebrow">Su rasgo distintivo</p>
+          <h3>Plurietiológico</h3>
+          <p>Un mismo síndrome puede ser producido por causas muy diversas. La enfermedad, en cambio, tiene a lo sumo una causa identificada como punto de partida.</p>
+        </div>
+        <div class="card amber">
+          <p class="eyebrow">Cómo se estudia</p>
+          <h3>«Paleontológico»</h3>
+          <p>Hay que ir a su origen: cuáles son sus cambios en el tiempo, sus relaciones con el entorno y su distribución. La misma imagen clínica puede venir de rutas distintas.</p>
+        </div>
+      </div>
+
+      <div class="grid g2" style="margin-top:1rem">
+        <div class="card">
+          <h3>Ejemplos del texto guía</h3>
+          <ul>
+            <li>Insuficiencia cardíaca</li>
+            <li>Síndrome nefrítico</li>
+            <li>Insuficiencia renal crónica</li>
+          </ul>
+          <p style="margin-top:.5rem">Ninguno nombra una causa: los tres nombran una <em>situación funcional</em> a la que se llega por varios caminos.</p>
+        </div>
+        <div class="card fisio">
+          <h3>Traducción a la consulta optométrica</h3>
+          <p>El <strong>síndrome de ojo seco</strong> es el ejemplo perfecto: ardor, sensación de cuerpo extraño, fluctuación visual y tiempo de ruptura lagrimal corto concurren de forma característica, pero la causa puede ser evaporativa, autoinmune (Sjögren), farmacológica, ambiental o postquirúrgica.</p>
+          <p class="ocular">Tratar «el ojo seco» sin identificar la ruta etiológica es tratar el síndrome y no al enfermo.</p>
+        </div>
+      </div>
+
+      <div class="callout warn" style="margin-top:1rem">
+        <p class="eyebrow">Zona gris</p>
+        <p style="margin-top:.4rem">Síndrome y enfermedad son entidades con marco conceptual distinto, pero existen situaciones intermedias que dificultan clasificar un proceso morboso en una u otra categoría. Cuando hay síntomas pero se desconoce a qué afección responden, todavía no se puede hablar de enfermedad: se habla de síndrome.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section id="adaptacion">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">03</span><h2>Primero la célula se adapta</h2></div>
+      <div class="prose stack">
+        <p>La célula está la mayor parte del tiempo en <strong>alostasis</strong>: estado estructural óptimo y en equilibrio dinámico, sostenido por ajustes bioquímicos y estructurales continuos. Cuando aparece una sobrecarga fisiológica o un estímulo patológico, la primera respuesta <em>no</em> es la lesión: es la adaptación.</p>
+        <p>La adaptación es una respuesta <strong>reversible</strong>, estructural y funcional, en la que se alcanzan estados nuevos pero estables, con un fin único: preservar la supervivencia y la función. Si el estímulo cesa, la célula vuelve a su estado habitual sin consecuencias. Si el estímulo persiste, la célula se lesiona.</p>
+      </div>
+
+      <h3 style="margin:1.6rem 0 .8rem; font-size:1.12rem">Cómo se entera la célula: señalización</h3>
+      <div class="prose stack">
+        <p>Una <strong>célula emisora</strong> secreta señales químicas —<em>ligandos</em>: iones, aminoácidos, azúcares, nucleótidos, péptidos, hormonas—. Esos ligandos viajan hasta la <strong>célula diana</strong> y se unen a un <strong>receptor</strong> específico de membrana. De esa unión nace la <strong>transducción de señales</strong>: aparecen segundos mensajeros intracelulares que modifican la actividad, la localización y las interacciones de las proteínas celulares, y regulan la expresión génica.</p>
+        <p>Con ese mecanismo, cualquier célula dispone de cuatro respuestas posibles: <strong>proliferación, diferenciación, supervivencia y apoptosis</strong>. Las tres primeras están mediadas por factores de crecimiento (citocinas); y conviene retener algo contraintuitivo: <em>cuando la célula deja de recibir esas señales, muere</em>. La supervivencia no es el estado por defecto: hay que sostenerla activamente.</p>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Los cuatro mecanismos de adaptación</h3>
+      <div class="grid g2">
+        <div class="card fisio">
+          <p class="eyebrow">Aumenta el tamaño</p>
+          <h3>Hipertrofia</h3>
+          <p>Aumento del tamaño celular por crecimiento de los organelos; el órgano crece con ella. Puede ser fisiológica o patológica.</p>
+          <ul>
+            <li><strong>Fisiológica:</strong> hipertrofia muscular por ejercicio. La sobrecarga mecánica activa el transporte de aminoácidos e incrementa la síntesis de actina y miosina.</li>
+            <li><strong>Patológica:</strong> hipertrofia del miocardio por aumento de la carga hemodinámica, con formación de nuevos sarcómeros.</li>
+          </ul>
+        </div>
+        <div class="card fisio">
+          <p class="eyebrow">Aumenta el número</p>
+          <h3>Hiperplasia</h3>
+          <p>Mayor proliferación celular; el tejido crece porque hay más células. Suele originarse por señales hormonales y por factores de crecimiento que aceleran la entrada en mitosis.</p>
+          <p style="margin-top:.5rem">Solo ocurre en tejidos cuya estirpe celular es mitóticamente activa. Una neurona no hace hiperplasia.</p>
+        </div>
+        <div class="card pato">
+          <p class="eyebrow">Disminuye el tamaño</p>
+          <h3>Atrofia</h3>
+          <p>Ante falta de actividad, la célula reduce su metabolismo, sus requerimientos y su tamaño; el órgano se encoge.</p>
+          <ul>
+            <li>Atrofia vaginal posmenopáusica, por caída de estrógenos</li>
+            <li>Atrofia muscular por inmovilización, asociada a estrés oxidativo</li>
+          </ul>
+        </div>
+        <div class="card pato">
+          <p class="eyebrow">Cambia de tipo</p>
+          <h3>Metaplasia</h3>
+          <p>Conversión, durante la vida posnatal, de un tipo de célula diferenciada en otro más resistente al estrés al que está expuesta.</p>
+          <ul>
+            <li>Metaplasia escamosa en vías respiratorias (tabaco), vejiga (cálculos) y cuello uterino</li>
+            <li>Metaplasia intestinal en esófago (reflujo ácido) y estómago (<em>H. pylori</em>)</li>
+          </ul>
+          <p class="ocular">Casi siempre se asocia a daño tisular y muchos casos predisponen al cáncer: es adaptación, pero no es inocua.</p>
+        </div>
+      </div>
+
+      <div class="callout note" style="margin-top:1.2rem">
+        <p class="eyebrow">Idea que se evalúa</p>
+        <p style="margin-top:.4rem">Hipertrofia, hiperplasia, atrofia y metaplasia <strong>no son enfermedades</strong>: son respuestas adaptativas reversibles. Lo que las vuelve patológicas es la naturaleza del estímulo que las provoca y su persistencia en el tiempo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section id="agentes">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">04</span><h2>Qué agrede a la célula</h2></div>
+      <p class="prose" style="margin-bottom:1.3rem">Las causas de lesión celular se agrupan en categorías. No memorice la lista: entienda que cada categoría lesiona por un <em>mecanismo</em> distinto, y que ese mecanismo es lo que explica el cuadro clínico.</p>
+
+      <h3 style="margin-bottom:.8rem; font-size:1.12rem">Agentes físicos</h3>
+      <div class="grid g4">
+        <div class="card">
+          <h3>Fuerza mecánica</h3>
+          <p>Impacto de un cuerpo contra un objeto. Provoca fracturas, daño vascular y restricción del flujo.</p>
+          <p style="margin-top:.4rem"><strong>Contusión</strong> (hemorragia focal), <strong>abrasión</strong> (defecto por roce), <strong>laceración</strong> (desgarro), <strong>herida</strong> (ruptura de la integridad hística).</p>
+          <p class="ocular">Los cuatro términos son exactamente los que usará para describir un trauma ocular.</p>
+        </div>
+        <div class="card">
+          <h3>Disfunción térmica</h3>
+          <p><strong>Hipotermia:</strong> por debajo de 35 °C; el enfriamiento de la sangre que perfunde el cerebro produce confusión mental, tetania y arritmias.</p>
+          <p style="margin-top:.4rem"><strong>Hipertermia:</strong> por encima de 41–42 °C es incompatible con la vida. Daño endotelial, alteración de la permeabilidad, edema, ampollas; las proteínas se desnaturalizan y se pierde la bicapa lipídica.</p>
+        </div>
+        <div class="card">
+          <h3>Altitud</h3>
+          <p>Causa rara: hay poblaciones adaptadas a 4.000–4.300 m mediante aumento del hematocrito y tórax en tonel. Por encima de 5.500–6.000 m no se sobrevive largo tiempo.</p>
+          <p class="ocular">Entre sus manifestaciones aparece la <strong>hemorragia retiniana de altitud</strong>: el ojo como órgano centinela.</p>
+        </div>
+        <div class="card">
+          <h3>Radiación</h3>
+          <p><strong>Ionizante:</strong> efectos no estocásticos (con umbral, gravedad dosis-dependiente, aparición inmediata) y estocásticos (sin umbral, probabilidad dosis-dependiente, aparición tardía, p. ej. cáncer radioinducido).</p>
+          <p style="margin-top:.4rem"><strong>Ultravioleta:</strong> la UVA es el 95 % de la UV que llega, pero la UVB aporta el 80 % del daño biológico. Genera modificaciones del ADN que se reparan por escisión de nucleótidos y de bases; el efecto acumulado de lo no reparado produce mutaciones en genes diana como <em>p53</em>.</p>
+        </div>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Agentes químicos</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Agente</th><th>Mecanismo de lesión</th><th>Expresión</th></tr></thead>
+          <tbody>
+            <tr><td class="k">Insecticidas organofosforados</td><td>Inhiben la acetilcolinesterasa; se absorben con facilidad por la piel</td><td>Alteraciones visuales, disnea, hipersecreción mucosa, broncoconstricción; muerte por insuficiencia respiratoria</td></tr>
+            <tr><td class="k">Herbicidas (paraquat)</td><td>Compuesto corrosivo transportado al pulmón; daña el epitelio</td><td>Quemaduras, edema, insuficiencia respiratoria; a largo plazo fibrosis</td></tr>
+            <tr><td class="k">Monóxido de carbono</td><td>Se une a la hemoglobina (hipoxia anóxica) y a los citocromos mitocondriales (bloqueo de la respiración celular)</td><td>Cefalea, mareo, náuseas, inestabilidad de la marcha, taquicardia, pérdida de conciencia</td></tr>
+            <tr><td class="k">Plomo</td><td>Suplanta cationes polivalentes, sobre todo calcio, en transportadores, canales, enzimas y proteínas de unión al ADN</td><td>Déficits cognitivos, motores y conductuales; el sistema nervioso en maduración es el más vulnerable</td></tr>
+            <tr><td class="k">Arsénico</td><td>Altera expresión de factores de crecimiento, ciclo celular, reparación y metilación del ADN; aumenta el estrés oxidativo</td><td>Neuropatía sensitivomotora a las 2–8 semanas; carcinogénesis pulmonar y cutánea</td></tr>
+            <tr><td class="k">Mercurio</td><td>Liposoluble: se acumula en cerebro y riñón; el glutatión intracelular es el protector</td><td>Temblor, gingivitis, conducta anormal, proteinuria, daño tubular y glomerular</td></tr>
+            <tr><td class="k">Cadmio</td><td>Lesión directa del ADN por generación de especies reactivas de oxígeno</td><td>EPOC y cáncer de pulmón, daño renal, daño óseo (enfermedad itai-itai), ateroesclerosis</td></tr>
+            <tr><td class="k">Asbesto</td><td>Aumenta la permeabilidad de membrana y rompe lisosomas de los macrófagos, liberando enzimas que lesionan el parénquima</td><td>Asbestosis, placas pleurales, mesotelioma, cáncer de pulmón</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Agentes biológicos y del huésped</h3>
+      <div class="grid g3">
+        <div class="card pato">
+          <h3>Privación de oxígeno</h3>
+          <p><strong>Hipoxia:</strong> disminución del aporte de oxígeno; reduce la respiración aeróbica. Causas: isquemia, fracaso cardiorrespiratorio, reducción de la capacidad de oxigenación, hemorragia importante.</p>
+          <p style="margin-top:.4rem"><strong>Isquemia:</strong> además del oxígeno se reducen los nutrientes, por obstrucción mecánica del flujo.</p>
+          <p class="ocular">Paradoja de reperfusión: recuperar el flujo en un tejido isquémico <em>exacerba</em> la lesión y precipita la muerte celular.</p>
+        </div>
+        <div class="card pato">
+          <h3>Reacciones inmunitarias</h3>
+          <p>El mismo sistema que defiende frente a patógenos puede lesionar. La autoinmunidad combina herencia genética, susceptibilidad y desencadenantes ambientales (infecciones, lesión tisular) que activan linfocitos autorreactivos.</p>
+          <p style="margin-top:.4rem">Dos grupos: enfermedades específicas de órgano y enfermedades sistémicas.</p>
+        </div>
+        <div class="card pato">
+          <h3>Agentes infecciosos</h3>
+          <p>Desde virus submicroscópicos hasta gusanos de gran tamaño. Cada uno lesiona por una vía distinta; se estudian con cada enfermedad.</p>
+        </div>
+        <div class="card pato">
+          <h3>Alteraciones genéticas</h3>
+          <p>Deficiencia de proteínas estructurales, defectos enzimáticos de los errores congénitos del metabolismo, acumulación de ADN lesionado o de proteínas mal plegadas. También modulan la susceptibilidad frente a agentes químicos y ambientales.</p>
+        </div>
+        <div class="card pato">
+          <h3>Alteraciones nutricionales</h3>
+          <ul>
+            <li>Malnutrición proteico-calórica: pérdida de grasa y músculo, letargo, debilidad</li>
+            <li>Deficiencias vitamínicas, primarias o por trastornos de absorción, transporte, almacenamiento o conversión</li>
+            <li>Anorexia nerviosa y bulimia, con sus complicaciones endocrinas e hidroelectrolíticas</li>
+            <li>Obesidad e hipercolesterolemia, asociadas a diabetes tipo 2, dislipidemias, enfermedad cardiovascular y cáncer</li>
+          </ul>
+        </div>
+        <div class="card pato">
+          <h3>Estrés oxidativo</h3>
+          <p>Tan central que no es solo una causa: es un <em>mecanismo</em> compartido por casi todas las anteriores. Se desarrolla en la sección siguiente.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section id="mecanismos">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">05</span><h2>Cómo se lesiona: seis mecanismos</h2></div>
+      <p class="prose" style="margin-bottom:1rem">Distintos estímulos nocivos activan vías bioquímicas que terminan dañando componentes celulares esenciales. Estas seis vías se solapan y se alimentan entre sí: casi ningún daño real usa una sola.</p>
+
+      <div class="card" style="margin-top:1.2rem">
+        <p class="eyebrow">Mecanismo 1</p>
+        <h3>Depleción de ATP</h3>
+        <p>Causas principales: reducción de oxígeno y nutrientes, daño mitocondrial y toxinas como el cianuro. La cascada de consecuencias es el esqueleto de media asignatura:</p>
+        <ol class="cascade">
+          <li>Cae la actividad de la <strong>bomba Na⁺/K⁺-ATPasa</strong> → entra y se acumula sodio, sale potasio → <strong>edema celular</strong> con dilatación del retículo endoplásmico.</li>
+          <li>Se detiene la <strong>fosforilación oxidativa</strong> → menos ATP, más AMP → se acelera la <strong>glucólisis anaerobia</strong> → se agota el glucógeno y se acumula <strong>ácido láctico</strong>.</li>
+          <li>Se <strong>reduce la síntesis de proteínas</strong>; los ribosomas se separan del retículo endoplásmico rugoso.</li>
+          <li>Aparece <strong>mal plegamiento de proteínas</strong>, que desencadena una respuesta dañina para el tejido.</li>
+          <li>Falla la <strong>bomba de calcio</strong> → entra Ca²⁺ y lesiona numerosos componentes.</li>
+          <li>Daño mitocondrial y lisosómico → <strong>lesión irreversible y muerte celular</strong>.</li>
+        </ol>
+        <p class="ocular">Retenga el paso 1: es literalmente el mecanismo del edema corneal por hipoxia bajo lente de contacto.</p>
+      </div>
+
+      <div class="grid g2" style="margin-top:1rem">
+        <div class="card pato">
+          <p class="eyebrow">Mecanismo 2</p>
+          <h3>Daño mitocondrial</h3>
+          <p>Tres causas: aumento del Ca²⁺ citosólico, formación de especies reactivas de oxígeno (ERO) e hipoxia/isquemia.</p>
+          <p style="margin-top:.5rem">Dos consecuencias:</p>
+          <ul>
+            <li><strong>Poro de transición de la permeabilidad mitocondrial</strong>: su apertura hace fracasar la fosforilación oxidativa, agota el ATP y lleva a la muerte celular</li>
+            <li><strong>Liberación de citocromo c</strong> y de proteínas que activan las caspasas, ejecutoras de la apoptosis</li>
+          </ul>
+        </div>
+        <div class="card pato">
+          <p class="eyebrow">Mecanismo 3</p>
+          <h3>Alteración del calcio</h3>
+          <p>El Ca²⁺ libre citosólico se mantiene cerca de 0,1 µmol frente a 1,3 mmol en el extracelular: un gradiente de más de diez mil veces que la célula sostiene a costa de energía.</p>
+          <p style="margin-top:.5rem">Cuando un agente lesivo lo rompe, el calcio inunda el citosol y:</p>
+          <ul>
+            <li>Abre el poro de transición mitocondrial</li>
+            <li>Activa <strong>fosfolipasas</strong> (lesionan membrana), <strong>proteasas</strong> (degradan proteínas de membrana), <strong>endonucleasas</strong> (fragmentan ADN) y <strong>ATPasas</strong> (aceleran el agotamiento de ATP)</li>
+            <li>Dispara la apoptosis vía caspasas</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:1rem">
+        <p class="eyebrow">Mecanismo 4</p>
+        <h3>Especies reactivas de oxígeno y estrés oxidativo</h3>
+        <div class="prose stack" style="max-width:none">
+          <p>Un <strong>radical libre</strong> es una sustancia química con un electrón impar en la órbita externa. Esa configuración inestable libera energía reaccionando con las moléculas vecinas —proteínas, lípidos, carbohidratos— y, lo decisivo, inicia <strong>reacciones autocatalíticas</strong>: las moléculas con las que reacciona se convierten a su vez en radicales. El daño se perpetúa solo.</p>
+          <p>Las ERO se forman normalmente durante la respiración mitocondrial y son degradadas por los sistemas de defensa celular. Cuando su producción excede esa capacidad, hablamos de <strong>estrés oxidativo</strong>.</p>
+        </div>
+        <div class="grid g2" style="margin-top:1rem">
+          <div>
+            <p class="eyebrow" style="margin-bottom:.4rem">Dónde aparecen</p>
+            <ul style="padding-left:1.1rem; font-size:.9rem; color:var(--muted)">
+              <li>Señalización celular, sobre todo la vía de la apoptosis</li>
+              <li>Mutaciones de la carcinogénesis química</li>
+              <li>Radiólisis del agua en la lesión por radiación ionizante</li>
+              <li>Óxido nítrico, que puede convertirse en peroxinitrito</li>
+              <li>Envejecimiento biológico: daño progresivo y acumulable</li>
+            </ul>
+          </div>
+          <div>
+            <p class="eyebrow" style="margin-bottom:.4rem">Cómo se contienen</p>
+            <ul style="padding-left:1.1rem; font-size:.9rem; color:var(--muted)">
+              <li>Vitaminas liposolubles E y A, vitamina C, glutatión citosólico</li>
+              <li>Enzimas: catalasa, superóxido dismutasas, glutatión peroxidasa</li>
+            </ul>
+            <p class="eyebrow" style="margin:.8rem 0 .4rem">Qué dañan</p>
+            <ul style="padding-left:1.1rem; font-size:.9rem; color:var(--muted)">
+              <li><strong>Lipoperoxidación</strong> de la membrana, con malondialdehído como producto final, altamente reactivo con proteínas y ADN</li>
+              <li>Lesiones del ADN</li>
+              <li>Modificación oxidativa de proteínas</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid g2" style="margin-top:1rem">
+        <div class="card pato">
+          <p class="eyebrow">Mecanismo 5</p>
+          <h3>Defectos de permeabilidad de la membrana</h3>
+          <p>Presente en casi toda lesión celular, salvo en la apoptosis. Cuatro vías:</p>
+          <ol class="cascade" style="margin-top:.6rem">
+            <li><strong>ERO</strong> → peroxidación lipídica</li>
+            <li><strong>Menor síntesis de fosfolípidos</strong>, secundaria al fallo mitocondrial o la hipoxia que reducen el ATP</li>
+            <li><strong>Mayor degradación de fosfolípidos</strong> por fosfolipasas activadas por el calcio: los productos de degradación actúan como detergentes</li>
+            <li><strong>Alteración del citoesqueleto</strong> por proteasas: se separa de la membrana y, con edema celular, la fibra se estira y la pared se rompe</li>
+          </ol>
+          <p style="margin-top:.6rem">Cuando se rompe la <strong>membrana lisosómica</strong>, las hidrolasas ácidas —ARNasas, ADNasas, fosfatasas, proteasas, glucosidasas, catepsinas— se activan con el pH ácido de la célula dañada y digieren su contenido: <strong>necrosis</strong>.</p>
+        </div>
+        <div class="card pato">
+          <p class="eyebrow">Mecanismo 6</p>
+          <h3>Daño al ADN y a las proteínas</h3>
+          <p>Toda célula dispone de mecanismos de reparación. Cuando la lesión es demasiado grave para corregirla, la célula inicia un <strong>programa de suicidio apoptósico</strong>.</p>
+          <p style="margin-top:.5rem">No es un fallo: es una decisión. Una célula con ADN irreparable que sobrevive es peor noticia que una célula que muere ordenadamente.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section id="punto">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">06</span><h2>El punto de no retorno</h2></div>
+      <div class="prose">
+        <p>Es la fase en que las lesiones reversibles se hacen irreversibles y la célula está destinada a morir. Dos situaciones lo definen: <strong>la incapacidad de revertir la disfunción mitocondrial</strong> y <strong>las alteraciones profundas de la membrana</strong>. Todo lo anterior en esta clase converge aquí.</p>
+      </div>
+
+      <div class="fork">
+        <div class="lane rev">
+          <p class="eyebrow">Mientras el estímulo sea tolerable</p>
+          <h3>Reversible</h3>
+          <p>Adaptación: hipertrofia, hiperplasia, atrofia, metaplasia. Edema celular, dilatación del retículo, acumulación de lactato. Si el estímulo cesa, la célula regresa a su estado habitual sin consecuencias.</p>
+        </div>
+        <div class="lane irr">
+          <p class="eyebrow">Superada la capacidad adaptativa</p>
+          <h3>Irreversible</h3>
+          <p>Muerte celular por dos rutas: <strong>apoptosis</strong>, ordenada, con restos de membrana que recubren el contenido e impiden activar la respuesta inflamatoria; o <strong>necrosis</strong>, con ruptura de membranas, digestión enzimática e inflamación.</p>
+        </div>
+      </div>
+
+      <div class="callout note" style="margin-top:1.2rem">
+        <p class="eyebrow">Por qué esto se traduce en un examen de laboratorio</p>
+        <p style="margin-top:.4rem">Una vez ocurridos la lesión y la muerte celular, es posible <strong>medir en suero algunas isoformas y enzimas</strong> liberadas por el tejido lesionado. Ese es el puente entre lo que acabamos de describir a nivel molecular y el reporte de laboratorio que usted leerá en una historia clínica.</p>
+      </div>
+
+      <blockquote style="margin-top:1.4rem">
+        La adaptación conserva la función; la lesión la degrada; la muerte celular la termina. Todo el curso ocurre entre esos tres verbos.
+        <cite>Síntesis de la sesión, a partir de los capítulos 5 y 6 del texto guía</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section id="ocular">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">07</span><h2>Los mismos mecanismos, vistos en el ojo</h2></div>
+      <p class="prose" style="margin-bottom:1.3rem">Ninguno de los cuadros siguientes se estudia en profundidad este semestre. Están aquí para que reconozca que el mecanismo general ya lo aprendió hoy.</p>
+
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Mecanismo de esta clase</th><th>Expresión ocular</th><th>Encadenamiento</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="k">Hipoxia → depleción de ATP → falla Na⁺/K⁺-ATPasa</td>
+              <td>Edema corneal por lente de contacto de baja permeabilidad</td>
+              <td>La córnea es avascular y toma el oxígeno del aire; sin ATP la bomba endotelial no deshidrata el estroma y aparece el edema</td>
+            </tr>
+            <tr>
+              <td class="k">Radiación UV → daño del ADN y estrés oxidativo</td>
+              <td>Fotoqueratitis aguda; pterigión y catarata por exposición acumulada</td>
+              <td>El efecto acumulativo de las modificaciones no reparadas produce mutaciones en genes diana como <em>p53</em></td>
+            </tr>
+            <tr>
+              <td class="k">Estrés oxidativo crónico</td>
+              <td>Catarata senil; degeneración macular asociada a la edad</td>
+              <td>Daño progresivo y acumulable sobre lípidos y proteínas: el mismo proceso descrito para el envejecimiento biológico</td>
+            </tr>
+            <tr>
+              <td class="k">Isquemia y daño por reperfusión</td>
+              <td>Oclusión de arteria central de la retina</td>
+              <td>La retina es tejido nervioso con muy poca tolerancia a la hipoxia; restaurar el flujo no restaura sin más la función</td>
+            </tr>
+            <tr>
+              <td class="k">Deficiencia nutricional (vitamina A)</td>
+              <td>Ceguera nocturna; xeroftalmía; metaplasia escamosa de la conjuntiva</td>
+              <td>Deficiencia vitamínica primaria o por trastorno de absorción, transporte o almacenamiento</td>
+            </tr>
+            <tr>
+              <td class="k">Agentes químicos y metales</td>
+              <td>Neuropatía óptica tóxica</td>
+              <td>Sustancias que lesionan preferentemente tejido nervioso, como se describió para plomo, arsénico y mercurio</td>
+            </tr>
+            <tr>
+              <td class="k">Reacción inmunitaria frente a antígenos propios</td>
+              <td>Queratoconjuntivitis seca del síndrome de Sjögren</td>
+              <td>Autoinmunidad de órgano específico que se expresa como uno de los caminos etiológicos del síndrome de ojo seco</td>
+            </tr>
+            <tr>
+              <td class="k">Fuerza mecánica</td>
+              <td>Abrasión corneal, laceración palpebral, contusión orbitaria</td>
+              <td>Los cuatro tipos de lesión macroscópica descritos, aplicados al globo y sus anexos</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout" style="margin-top:1.2rem">
+        <p class="eyebrow">Respuesta a la pregunta de apertura</p>
+        <p style="margin-top:.4rem">La córnea deja de adaptarse y empieza a lesionarse cuando la hipoxia sostiene la caída de ATP el tiempo suficiente para que <strong>falle la bomba Na⁺/K⁺-ATPasa endotelial</strong>: entra sodio, entra agua, aparece edema estromal. Mientras el edema sea reversible al retirar el lente, sigue siendo adaptación. Cuando el daño mitocondrial y de membrana ya no revierte, se cruzó el punto de no retorno.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 -->
+  <section id="ejercicios">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">08</span><h2>Ejercicios</h2></div>
+
+      <h3 style="margin-bottom:.4rem; font-size:1.05rem">A · ¿Qué mecanismo de adaptación es?</h3>
+      <p style="color:var(--muted); font-size:.9rem; margin-bottom:.6rem">Hipertrofia, hiperplasia, atrofia o metaplasia.</p>
+      <div class="card" id="drillA"></div>
+
+      <h3 style="margin:2rem 0 .4rem; font-size:1.05rem">B · ¿Reversible o irreversible?</h3>
+      <p style="color:var(--muted); font-size:.9rem; margin-bottom:.6rem">Decida si la célula todavía puede volver a su estado habitual.</p>
+      <div class="card" id="drillB"></div>
+    </div>
+  </section>
+
+  <!-- 09 -->
+  <section id="parcial">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">09</span><h2>Primer parcial — 6 de agosto</h2></div>
+      <div class="grid g2">
+        <div class="card">
+          <h3>Qué entra</h3>
+          <ul>
+            <li>Capítulos 1 a 6 del texto guía</li>
+            <li>Fisiología, patología y fisiopatología: definición y diferencias</li>
+            <li>Sistemas de retroalimentación; homeostasis y alostasis; adaptación frente a compensación</li>
+            <li>Salud y enfermedad: definiciones, continuo, determinantes</li>
+            <li>Etiología, patogénesis, etiopatogenia; tríada ecológica</li>
+            <li>Síntoma, signo, síndrome; semiología, diagnóstico, clínica</li>
+            <li>Clasificaciones de la enfermedad: etiopatogenia, duración, distribución</li>
+            <li>Agentes lesivos, mecanismos de lesión y mecanismos de adaptación celular</li>
+          </ul>
+        </div>
+        <div class="card fisio">
+          <h3>Cómo estudiarlo</h3>
+          <p>El examen no pide listas: pide encadenamientos. Prepárese para responder preguntas de la forma «dado este agente, explique el mecanismo y prediga la manifestación».</p>
+          <ul>
+            <li>Rehaga de memoria la cascada de depleción de ATP</li>
+            <li>Explique con sus palabras por qué el calcio citosólico es tan destructivo</li>
+            <li>Contraste apoptosis y necrosis en tres diferencias</li>
+            <li>Para cada uno de los cuatro mecanismos de adaptación, dé un ejemplo fisiológico y uno patológico</li>
+            <li>Repase el glosario personal de la sesión 1</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="autoeval">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">10</span><h2>Autoevaluación</h2></div>
+      <p class="prose" style="margin-bottom:1.2rem">Responda antes de abrir la tarjeta. Diez preguntas del nivel del primer parcial.</p>
+      <div id="quiz"></div>
+
+      <div class="grid g2" style="margin-top:1.6rem">
+        <div class="card">
+          <h3>Trabajo independiente</h3>
+          <ul>
+            <li>Repaso integral de los capítulos 1 a 6 para el parcial del 6 de agosto</li>
+            <li>Cuadro comparativo apoptosis / necrosis, mínimo cinco criterios</li>
+            <li>Esquema propio de la cascada de depleción de ATP, dibujado a mano</li>
+            <li>Caso corto en inglés sobre lesión celular, con las tres preguntas guía: agente, mecanismo, manifestación</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Fuentes de la sesión</h3>
+          <ul>
+            <li>Uribe Olivares, R. A. <em>Fisiopatología. La ciencia del porqué y el cómo</em>. Elsevier, 2018. Cap. 4 (síndrome), cap. 5 (Gladis Razo Jiménez, agentes lesivos y mecanismos de lesión) y cap. 6 (Ana Beatriz Palomar Llamas, mecanismos celulares de adaptación)</li>
+            <li>Kumar V, Abbas AK. <em>Patología estructural y funcional</em>. Elsevier, 2015</li>
+            <li>Robbins &amp; Cotran, compendio disponible en la hemeroteca institucional</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Fisiopatología General (01008430) · Programa de Optometría · Facultad de Ciencias de la Salud · Universidad de La Salle · Semestre 2026-2</p>
+    <p style="margin-top:.4rem">Clase 2 de 15. Los ejemplos oculares son aplicaciones ilustrativas del mecanismo general; su estudio detallado corresponde a espacios académicos posteriores.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  document.getElementById('themeBtn').addEventListener('click', function(){
+    var dark = root.getAttribute('data-theme') === 'dark'
+      || (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+    root.setAttribute('data-theme', dark ? 'light' : 'dark');
+  });
+
+  function buildDrill(host, opts, items, explain){
+    var el = document.getElementById(host);
+    var right = 0, answered = 0;
+    var score = document.createElement('p');
+    score.className = 'score';
+    items.forEach(function(it){
+      var row = document.createElement('div'); row.className = 'drill-row';
+      var q = document.createElement('span'); q.className = 'drill-q'; q.textContent = it.t;
+      var v = document.createElement('span'); v.className = 'verdict';
+      row.appendChild(q);
+      var done = false;
+      opts.forEach(function(o){
+        var b = document.createElement('button');
+        b.className = 'btn'; b.type = 'button'; b.textContent = o.label;
+        b.addEventListener('click', function(){
+          row.querySelectorAll('.btn').forEach(function(x){ x.classList.remove('ok','no'); });
+          var ok = o.key === it.a;
+          b.classList.add(ok ? 'ok' : 'no');
+          v.innerHTML = (ok ? '<b>Correcto.</b> ' : '<b>Revise.</b> ') + explain(it);
+          if(!done){ done = true; answered++; if(ok) right++; }
+          else { /* recuento solo del primer intento */ }
+          score.textContent = 'Primer intento: ' + right + ' de ' + answered + ' respondidas (' + items.length + ' en total)';
+        });
+        row.appendChild(b);
+      });
+      row.appendChild(v);
+      el.appendChild(row);
+    });
+    el.appendChild(score);
+  }
+
+  buildDrill('drillA',
+    [{key:'hipertrofia',label:'Hipertrofia'},{key:'hiperplasia',label:'Hiperplasia'},{key:'atrofia',label:'Atrofia'},{key:'metaplasia',label:'Metaplasia'}],
+    [
+      {t:'Aumento del tamaño de los miocitos por sobrecarga hemodinámica', a:'hipertrofia', e:'Crecen los organelos y se forman nuevos sarcómeros: aumenta el tamaño celular, no el número.'},
+      {t:'Epitelio ciliado de la vía aérea sustituido por epitelio escamoso en un fumador', a:'metaplasia', e:'Una célula diferenciada se convierte en otro tipo más resistente al estrés al que está expuesta.'},
+      {t:'Reducción de la masa muscular tras seis semanas de inmovilización', a:'atrofia', e:'Sin actividad, la célula baja su metabolismo y su tamaño; se asocia a estrés oxidativo.'},
+      {t:'Aumento del número de células de un tejido por señal hormonal', a:'hiperplasia', e:'Proliferación: el tejido crece porque hay más células, no porque sean más grandes.'},
+      {t:'Paredes vaginales delgadas y secas tras la menopausia', a:'atrofia', e:'La caída de estrógenos reduce los requerimientos y el tamaño celular.'},
+      {t:'Aumento de actina y miosina en el músculo esquelético por entrenamiento', a:'hipertrofia', e:'Hipertrofia fisiológica: la tensión mecánica inicia la cascada de señalización.'},
+      {t:'Epitelio intestinal en la porción inferior del esófago por reflujo ácido crónico', a:'metaplasia', e:'Metaplasia intestinal; muchos casos de metaplasia predisponen al cáncer.'}
+    ],
+    function(it){ return it.e; }
+  );
+
+  buildDrill('drillB',
+    [{key:'rev',label:'Reversible'},{key:'irr',label:'Irreversible'}],
+    [
+      {t:'Edema celular por caída inicial de ATP, con el estímulo ya retirado', a:'rev', e:'Mientras el estímulo cese, la célula regresa a su estado habitual sin consecuencias.'},
+      {t:'Apertura sostenida del poro de transición de la permeabilidad mitocondrial', a:'irr', e:'Fracasa la fosforilación oxidativa, se agota el ATP y sobreviene la muerte celular.'},
+      {t:'Metaplasia escamosa mientras persiste el estímulo irritante', a:'rev', e:'Es un mecanismo de adaptación: reversible si el estímulo desaparece, aunque no sea inocuo.'},
+      {t:'Ruptura de la membrana lisosómica con liberación de hidrolasas ácidas', a:'irr', e:'Las enzimas digieren proteínas, ARN, ADN y glucógeno: necrosis.'},
+      {t:'Hipertrofia del músculo esquelético durante un plan de entrenamiento', a:'rev', e:'Adaptación fisiológica; al cesar la sobrecarga, el músculo revierte.'},
+      {t:'Daño del ADN demasiado grave para ser reparado', a:'irr', e:'La célula inicia un programa de suicidio apoptósico.'}
+    ],
+    function(it){ return it.e; }
+  );
+
+  var qs = [
+    ['¿Cuál es la diferencia esencial entre adaptación celular y lesión celular?',
+     'La adaptación es una respuesta reversible, estructural y funcional, que alcanza estados nuevos pero estables para preservar la función y la supervivencia; si el estímulo cesa, la célula vuelve a su estado habitual. La lesión aparece cuando el estímulo persiste y se producen anomalías funcionales y bioquímicas en componentes celulares esenciales.'],
+    ['Enumere los cuatro mecanismos de adaptación celular con un ejemplo de cada uno.',
+     'Hipertrofia (aumento del tamaño celular; muscular por ejercicio o miocárdica por sobrecarga). Hiperplasia (aumento del número de células por señales hormonales y factores de crecimiento). Atrofia (reducción del tamaño por falta de actividad; muscular por inmovilización, vaginal posmenopáusica). Metaplasia (conversión de un tipo celular en otro; escamosa en vía aérea del fumador, intestinal en esófago por reflujo).'],
+    ['Describa la cascada de la depleción de ATP.',
+     'Falla la bomba Na+/K+-ATPasa, entra sodio y sale potasio, con edema celular y dilatación del retículo. Se detiene la fosforilación oxidativa, aumenta la glucólisis anaerobia, se agota el glucógeno y se acumula ácido láctico. Disminuye la síntesis de proteínas y se separan los ribosomas del retículo rugoso. Aparece mal plegamiento proteico. Falla la bomba de calcio. Finalmente hay daño mitocondrial y lisosómico con muerte celular.'],
+    ['¿Por qué el aumento del calcio citosólico es tan destructivo?',
+     'Porque el gradiente normal es enorme (0,1 µmol citosólico frente a 1,3 mmol extracelular). Al romperse, el calcio abre el poro de transición mitocondrial y activa fosfolipasas (lesionan membrana), proteasas (degradan proteínas de membrana), endonucleasas (fragmentan ADN y cromatina) y ATPasas (aceleran el agotamiento de ATP), además de disparar la apoptosis.'],
+    ['¿Qué es un radical libre y por qué su daño se perpetúa?',
+     'Es una sustancia química con un solo electrón impar en la órbita externa; esa configuración inestable libera energía al reaccionar con moléculas vecinas. El daño se perpetúa porque inicia reacciones autocatalíticas: las moléculas con las que reacciona se convierten a su vez en radicales libres.'],
+    ['Mencione tres sistemas de defensa antioxidante.',
+     'Antioxidantes: vitaminas liposolubles E y A, vitamina C y glutatión citosólico. Enzimas: catalasa, superóxido dismutasas y glutatión peroxidasa.'],
+    ['¿Qué define el punto de no retorno celular?',
+     'La incapacidad de revertir la disfunción mitocondrial y las alteraciones de la membrana. A partir de ahí la lesión reversible se hace irreversible y la célula está destinada a morir.'],
+    ['Diferencie apoptosis de necrosis en cuanto a la membrana y la inflamación.',
+     'En la apoptosis el contenido intracelular queda recubierto por restos de membrana, lo que impide activar la respuesta inflamatoria: es muerte celular organizada. En la necrosis se pierde la permeabilidad de la membrana, se rompen los lisosomas, las hidrolasas ácidas digieren el contenido y se desencadena inflamación.'],
+    ['¿Por qué la reperfusión de un tejido isquémico puede empeorar la lesión?',
+     'Porque paradójicamente la recuperación del flujo sanguíneo en un sitio que ha sufrido isquemia exacerba la lesión e induce la muerte de células y tejidos, en buena parte por generación de especies reactivas de oxígeno.'],
+    ['¿Qué es un síndrome y por qué suele ser plurietiológico?',
+     'Conjunto significativo de signos y síntomas que concurren en tiempo y forma con identidad propia. Es plurietiológico porque las mismas manifestaciones semiológicas pueden ser producidas por causas muy diversas; la enfermedad, en cambio, tiene a lo sumo una causa identificada.']
+  ];
+  var quiz = document.getElementById('quiz');
+  qs.forEach(function(pair, i){
+    var d = document.createElement('div'); d.className = 'q';
+    var h = document.createElement('button');
+    h.className = 'q-head'; h.type = 'button'; h.setAttribute('aria-expanded','false');
+    h.innerHTML = '<span class="q-n">' + String(i+1).padStart(2,'0') + '</span><span>' + pair[0] + '</span>';
+    var b = document.createElement('div'); b.className = 'q-body'; b.textContent = pair[1];
+    h.addEventListener('click', function(){
+      var open = d.classList.toggle('open');
+      h.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    d.appendChild(h); d.appendChild(b); quiz.appendChild(d);
+  });
+})();
+</script>

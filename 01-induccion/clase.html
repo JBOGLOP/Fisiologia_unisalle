@@ -1,0 +1,968 @@
+<title>Clase 1 — Fisiopatología General | Inducción</title>
+
+<style>
+  :root{
+    --ink:#12212b;
+    --paper:#f4f7f7;
+    --surface:#ffffff;
+    --surface-2:#eaf0f0;
+    --line:#cbd8da;
+    --muted:#516268;
+    --fisio:#10505e;
+    --fisio-soft:#dceaec;
+    --pato:#a8412c;
+    --pato-soft:#f5e2dc;
+    --amber:#9a6b12;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 8px 24px -16px rgba(18,33,43,.35);
+
+    --display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+
+    --measure:66ch;
+    --pad:clamp(1rem,4vw,2.5rem);
+  }
+
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+      --line:#2c3d43; --muted:#9bafb4;
+      --fisio:#5cb6c6; --fisio-soft:#12313a;
+      --pato:#e08a70; --pato-soft:#3a2119;
+      --amber:#d5a446;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.9);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+    --line:#2c3d43; --muted:#9bafb4;
+    --fisio:#5cb6c6; --fisio-soft:#12313a;
+    --pato:#e08a70; --pato-soft:#3a2119;
+    --amber:#d5a446;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.9);
+  }
+  :root[data-theme="light"]{
+    --ink:#12212b; --paper:#f4f7f7; --surface:#ffffff; --surface-2:#eaf0f0;
+    --line:#cbd8da; --muted:#516268;
+    --fisio:#10505e; --fisio-soft:#dceaec;
+    --pato:#a8412c; --pato-soft:#f5e2dc;
+    --amber:#9a6b12;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 8px 24px -16px rgba(18,33,43,.35);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--body); font-size:clamp(15px,.5vw + 14px,17px);
+    line-height:1.62; -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{font-family:var(--display); font-weight:600; line-height:1.15; text-wrap:balance; margin:0}
+  p{margin:0}
+  a{color:var(--fisio)}
+
+  .wrap{max-width:1040px; margin:0 auto; padding-inline:var(--pad)}
+  .prose{max-width:var(--measure)}
+  .stack{display:flex; flex-direction:column}
+  .stack>*+*{margin-top:1rem}
+
+  .eyebrow{
+    font-family:var(--mono); font-size:.68rem; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--muted);
+  }
+
+  /* ---------- topbar ---------- */
+  header.top{
+    position:sticky; top:0; z-index:50;
+    background:color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .top-in{display:flex; align-items:center; gap:1rem; height:54px}
+  .brand{font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); white-space:nowrap}
+  nav.jump{margin-left:auto; display:flex; gap:.15rem; overflow-x:auto; scrollbar-width:none}
+  nav.jump::-webkit-scrollbar{display:none}
+  nav.jump a{
+    font-size:.78rem; text-decoration:none; color:var(--muted);
+    padding:.3rem .55rem; border-radius:99px; white-space:nowrap;
+  }
+  nav.jump a:hover{color:var(--ink); background:var(--surface-2)}
+  .theme-btn{
+    border:1px solid var(--line); background:var(--surface); color:var(--muted);
+    border-radius:99px; width:32px; height:32px; cursor:pointer; flex:none; font-size:.85rem;
+  }
+  .theme-btn:hover{color:var(--ink)}
+
+  /* ---------- hero ---------- */
+  .hero{padding:clamp(2.5rem,7vw,5rem) 0 clamp(2rem,5vw,3.5rem)}
+  .hero h1{font-size:clamp(2.1rem,5.5vw,3.6rem); letter-spacing:-.01em; margin-top:.6rem}
+  .hero .sub{max-width:58ch; color:var(--muted); font-size:1.05rem; margin-top:1.1rem}
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.6rem;
+  }
+  .chip{
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.06em;
+    border:1px solid var(--line); border-radius:99px; padding:.3rem .7rem;
+    background:var(--surface); color:var(--muted);
+  }
+  .chip strong{color:var(--ink); font-weight:600}
+
+  .split-word{display:inline-flex; flex-wrap:wrap}
+  .split-word .a{color:var(--fisio)}
+  .split-word .b{color:var(--pato)}
+
+  /* ---------- sections ---------- */
+  section{padding:clamp(2.2rem,5vw,3.6rem) 0; border-top:1px solid var(--line)}
+  .sec-head{display:flex; align-items:baseline; gap:.9rem; margin-bottom:1.4rem; flex-wrap:wrap}
+  .sec-num{
+    font-family:var(--mono); font-size:.72rem; color:var(--fisio);
+    border:1px solid var(--fisio); border-radius:4px; padding:.1rem .4rem; flex:none;
+  }
+  .sec-head h2{font-size:clamp(1.4rem,3vw,2rem)}
+
+  /* ---------- cards ---------- */
+  .grid{display:grid; gap:1rem}
+  @media(min-width:720px){
+    .g2{grid-template-columns:repeat(2,1fr)}
+    .g3{grid-template-columns:repeat(3,1fr)}
+    .g4{grid-template-columns:repeat(4,1fr)}
+  }
+  .card{
+    background:var(--surface); border:1px solid var(--line); border-radius:10px;
+    padding:1.1rem 1.2rem; box-shadow:var(--shadow);
+  }
+  .card h3{font-size:1.02rem; margin-bottom:.45rem}
+  .card p, .card li{font-size:.92rem; color:var(--muted)}
+  .card.fisio{border-left:3px solid var(--fisio)}
+  .card.pato{border-left:3px solid var(--pato)}
+  .card ul{margin:.4rem 0 0; padding-left:1.1rem}
+  .card li+li{margin-top:.25rem}
+
+  .callout{
+    background:var(--fisio-soft); border:1px solid color-mix(in srgb,var(--fisio) 30%, transparent);
+    border-radius:10px; padding:1rem 1.2rem;
+  }
+  .callout .eyebrow{color:var(--fisio)}
+  .callout.warn{background:var(--pato-soft); border-color:color-mix(in srgb,var(--pato) 30%, transparent)}
+  .callout.warn .eyebrow{color:var(--pato)}
+
+  blockquote{
+    margin:0; padding-left:1.1rem; border-left:3px solid var(--amber);
+    font-family:var(--display); font-size:1.15rem; font-style:italic;
+  }
+  blockquote cite{display:block; font-family:var(--body); font-style:normal; font-size:.8rem; color:var(--muted); margin-top:.5rem}
+
+  /* ---------- timeline ---------- */
+  .tl{
+    display:flex; gap:1rem; overflow-x:auto; padding-bottom:1rem;
+    scroll-snap-type:x mandatory;
+  }
+  .tl-item{
+    scroll-snap-align:start; flex:0 0 min(300px,80vw);
+    background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:1rem;
+    position:relative;
+  }
+  .tl-item::before{
+    content:""; position:absolute; left:1rem; right:1rem; top:0; height:3px;
+    background:linear-gradient(90deg,var(--fisio),var(--pato)); border-radius:0 0 3px 3px;
+  }
+  .tl-era{font-family:var(--mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--pato)}
+  .tl-item h4{font-size:1rem; margin:.35rem 0 .45rem}
+  .tl-item p{font-size:.88rem; color:var(--muted)}
+  .tl-eye{
+    margin-top:.7rem; padding-top:.6rem; border-top:1px dashed var(--line);
+    font-size:.8rem; color:var(--fisio);
+  }
+  .scroll-hint{font-size:.78rem; color:var(--muted); font-family:var(--mono)}
+
+  /* ---------- chain diagram ---------- */
+  .chain{display:flex; flex-wrap:wrap; align-items:stretch; gap:.5rem; margin-top:1rem}
+  .node{
+    flex:1 1 130px; background:var(--surface); border:1px solid var(--line);
+    border-radius:8px; padding:.75rem .8rem; min-width:0;
+  }
+  .node .lbl{font-family:var(--mono); font-size:.63rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+  .node .val{font-family:var(--display); font-size:1rem; margin-top:.2rem}
+  .node .ex{font-size:.78rem; color:var(--muted); margin-top:.3rem}
+  .arrow{align-self:center; color:var(--muted); font-size:1.1rem; flex:none}
+  @media(max-width:719px){.arrow{transform:rotate(90deg); margin:.1rem auto}}
+
+  /* ---------- loop diagram ---------- */
+  .loop{
+    display:grid; gap:.6rem; grid-template-columns:1fr; margin-top:.8rem;
+    font-size:.9rem;
+  }
+  @media(min-width:720px){.loop{grid-template-columns:repeat(4,1fr); align-items:center}}
+  .loop .box{
+    background:var(--surface-2); border:1px dashed var(--line); border-radius:8px;
+    padding:.6rem .7rem; text-align:center;
+  }
+  .loop .box strong{display:block; font-family:var(--mono); font-size:.66rem; letter-spacing:.09em; text-transform:uppercase; color:var(--muted)}
+
+  /* ---------- table ---------- */
+  .table-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface)}
+  table{border-collapse:collapse; width:100%; font-size:.88rem; min-width:520px}
+  th,td{text-align:left; padding:.6rem .8rem; border-bottom:1px solid var(--line); vertical-align:top}
+  th{font-family:var(--mono); font-size:.68rem; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); font-weight:500}
+  tbody tr:last-child td{border-bottom:none}
+  td.num{font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--muted)}
+  tr.exam td{background:var(--pato-soft)}
+  tr.today td{background:var(--fisio-soft); font-weight:600}
+
+  /* ---------- drill ---------- */
+  .drill-row{
+    display:flex; align-items:center; gap:.7rem; flex-wrap:wrap;
+    padding:.65rem 0; border-bottom:1px solid var(--line);
+  }
+  .drill-row:last-child{border-bottom:none}
+  .drill-q{flex:1 1 200px; font-size:.94rem}
+  .btn{
+    font-family:var(--body); font-size:.8rem; cursor:pointer;
+    border:1px solid var(--line); background:var(--surface); color:var(--ink);
+    border-radius:99px; padding:.3rem .8rem;
+  }
+  .btn:hover{border-color:var(--fisio)}
+  .btn:focus-visible, a:focus-visible, .q-head:focus-visible{outline:2px solid var(--fisio); outline-offset:2px}
+  .btn.ok{background:var(--fisio); border-color:var(--fisio); color:#fff}
+  .btn.no{background:var(--pato); border-color:var(--pato); color:#fff}
+  .verdict{font-size:.82rem; flex-basis:100%; color:var(--muted)}
+  .verdict b{color:var(--ink)}
+
+  /* ---------- quiz ---------- */
+  .q{border:1px solid var(--line); border-radius:10px; background:var(--surface); overflow:hidden}
+  .q+.q{margin-top:.6rem}
+  .q-head{
+    width:100%; text-align:left; background:none; border:0; color:inherit;
+    font:inherit; padding:.85rem 1rem; cursor:pointer; display:flex; gap:.7rem; align-items:baseline;
+  }
+  .q-head:hover{background:var(--surface-2)}
+  .q-n{font-family:var(--mono); font-size:.72rem; color:var(--fisio); flex:none}
+  .q-body{padding:0 1rem 1rem 2.4rem; font-size:.9rem; color:var(--muted); display:none}
+  .q.open .q-body{display:block}
+  .q.open .q-head{background:var(--surface-2)}
+
+  footer{border-top:1px solid var(--line); padding:2rem 0 3rem; color:var(--muted); font-size:.83rem}
+
+  @media (prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
+</style>
+
+<header class="top">
+  <div class="wrap top-in">
+    <span class="brand">Fisiopatología General · Optometría</span>
+    <nav class="jump">
+      <a href="#encuadre">Encuadre</a>
+      <a href="#historia">Historia</a>
+      <a href="#concepto">Concepto</a>
+      <a href="#sistemas">Sistemas</a>
+      <a href="#salud">Salud</a>
+      <a href="#enfermedad">Enfermedad</a>
+      <a href="#cadena">Etiología</a>
+      <a href="#semiologia">Semiología</a>
+      <a href="#mbe">MBE</a>
+      <a href="#ocular">Ojo</a>
+      <a href="#cronograma">Cronograma</a>
+      <a href="#autoeval">Autoevaluación</a>
+    </nav>
+    <button class="theme-btn" id="themeBtn" aria-label="Cambiar tema">◐</button>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <p class="eyebrow">Clase 1 · Inducción · Semana 1</p>
+    <h1>Definiciones y generalidades de <span class="split-word"><span class="a">fisiología</span>&nbsp;y&nbsp;<span class="b">patología</span></span></h1>
+    <p class="sub">Antes de estudiar cómo se enferma un ojo hay que acordar qué significa estar sano, qué significa enfermar y con qué palabras vamos a nombrarlo. Esta primera sesión fija ese vocabulario y el modo de pensar que usaremos el resto del semestre.</p>
+    <div class="hero-meta">
+      <span class="chip">Código <strong>01008430</strong></span>
+      <span class="chip">Créditos <strong>2</strong></span>
+      <span class="chip">Sesión <strong>23 jul 2026</strong></span>
+      <span class="chip">Duración <strong>2 horas</strong></span>
+      <span class="chip">Facultad de Ciencias de la Salud · <strong>Universidad de La Salle</strong></span>
+    </div>
+  </div>
+
+  <!-- 1 -->
+  <section id="encuadre">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">01</span><h2>Encuadre del espacio académico</h2></div>
+      <div class="prose stack">
+        <p>Fisiopatología General le permite al futuro optómetra reconocer los problemas de salud sistémicos capaces de alterar la salud visual, para ofrecer una atención integral y trabajar con otros profesionales sanitarios. Es un espacio teórico, de fundamentación, que se apoya en la fisiología y la morfología normales ya cursadas.</p>
+      </div>
+
+      <div class="grid g3" style="margin-top:1.4rem">
+        <div class="card fisio">
+          <p class="eyebrow">Conocimientos · RA17</p>
+          <h3>Explicar</h3>
+          <p>La función de los sistemas del cuerpo humano, la patogénesis de las enfermedades sistémicas y sus efectos sobre la salud visual y ocular.</p>
+        </div>
+        <div class="card fisio">
+          <p class="eyebrow">Habilidades · RA18</p>
+          <h3>Analizar</h3>
+          <p>Los cambios del funcionamiento normal de un tejido, órgano o sistema para diferenciar lo normal de lo patológico y sus implicaciones en el paciente.</p>
+        </div>
+        <div class="card fisio">
+          <p class="eyebrow">Actitudes · RA16</p>
+          <h3>Responder</h3>
+          <p>Al cumplimiento individual y grupal de las actividades y tareas programadas dentro del espacio académico.</p>
+        </div>
+      </div>
+
+      <div class="grid g2" style="margin-top:1rem">
+        <div class="card">
+          <h3>Cómo trabajaremos</h3>
+          <ul>
+            <li>Clase magistral participativa</li>
+            <li>Exposiciones y talleres</li>
+            <li>ABP: análisis de casos clínicos</li>
+            <li>Quices y pedagogía de la pregunta</li>
+            <li>Infografía de la lectura selecta</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Trabajo independiente (64 h)</h3>
+          <ul>
+            <li>Lectura previa de los temas anunciados</li>
+            <li>Escritos y lectura complementaria de artículos</li>
+            <li>Cuestionarios y casos clínicos cortos en inglés</li>
+            <li>Plan Institucional de Lecturas Selectas: <em>El hombre elefante</em> (1980) — analizar los cambios morfológicos, su fisiología y su etiología</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top:1rem">
+        <p class="eyebrow">Acuerdo de clase</p>
+        <p style="margin-top:.4rem">Hoy socializamos el syllabus y pactamos metodología, toma de notas y formas de participación: preguntas, mesas redondas, talleres y valoración de las participaciones efectivas. Lo que acordemos hoy rige el semestre.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="historia">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">02</span><h2>De dónde viene lo que vamos a estudiar</h2></div>
+      <div class="prose stack">
+        <p>Ninguna ciencia se entiende bien mirando solo su estado actual. La medicina progresó más en los últimos 75 años que en los 2.000 anteriores, pero se construyó sobre siglos de razonamiento y controversia. Recorrer esa historia sirve para algo muy concreto: muestra que <strong>cada concepto que hoy usamos (humor, lesión, célula, causa, función) fue en su momento una respuesta a una pregunta</strong>.</p>
+        <p>Y explica también la dualidad de la profesión: la medicina es ciencia —desde el siglo XVI, con Vesalio y Copérnico— y es arte, en el sentido del oficio que exige dominio teórico y destreza práctica. Pero además es algo más: saber escuchar al enfermo, ganar su confianza y darle consuelo.</p>
+      </div>
+
+      <p class="scroll-hint" style="margin:1.4rem 0 .6rem">→ desliza la línea de tiempo</p>
+      <div class="tl">
+        <div class="tl-item">
+          <p class="tl-era">Prehistoria</p>
+          <h4>Enfermedad como castigo</h4>
+          <p>Pensamiento mágico-religioso: la enfermedad es castigo divino, violación de un tabú u obra de brujos. Diagnóstico y tratamiento son ritos. El sanador es sacerdote, brujo y chamán a la vez.</p>
+        </div>
+        <div class="tl-item">
+          <p class="tl-era">Egipto y Mesopotamia · 3000 a.C.</p>
+          <h4>Se separa lo mágico de lo empírico</h4>
+          <p>Los papiros clasifican las enfermedades en tres grupos: por espíritus malignos, por traumatismos y de causa desconocida. El médico es el <em>swnw</em>, formado en las «casas de la vida».</p>
+          <p class="tl-eye">Higía (higiene) y Panacea, hijas de Esculapio, nombran hasta hoy dos ramas del quehacer sanitario.</p>
+        </div>
+        <div class="tl-item">
+          <p class="tl-era">India y China</p>
+          <h4>Equilibrio y exploración</h4>
+          <p>Salud como equilibrio de <em>prana</em>, <em>kapha</em> y <em>pitta</em>; el médico hindú inspecciona, palpa, ausculta, huele y prueba la orina. En China, yin y yang, cinco elementos, acupuntura y moxibustión.</p>
+          <p class="tl-eye">Sushruta, padre de la cirugía plástica, describe la rinoplastia siglos antes de nuestra era.</p>
+        </div>
+        <div class="tl-item">
+          <p class="tl-era">Grecia · s. VI–IV a.C.</p>
+          <h4>Nace la <em>physis</em></h4>
+          <p>Los presocráticos buscan explicaciones dentro de la naturaleza, no fuera de ella: el <em>logos</em> sobre el <em>mithos</em>. Alcmeón de Crotona inicia la patología científica; Hipócrates funda la observación como base de la práctica.</p>
+          <p class="tl-eye">Anatomía y fisiología aún no se separan: forma y función son dos momentos de la misma <em>physis</em>.</p>
+        </div>
+        <div class="tl-item">
+          <p class="tl-era">Roma · Galeno</p>
+          <h4>Quince siglos de vigencia</h4>
+          <p>Culmina el saber antiguo: cuatro elementos, cuatro humores, cuatro pares de cualidades opuestas, más lógica aristotélica. Su obra domina la medicina hasta el Renacimiento.</p>
+        </div>
+        <div class="tl-item">
+          <p class="tl-era">Edad Media islámica</p>
+          <h4>Rhazes, Avicena, Ibn an-Nafis</h4>
+          <p>Se clasifican las enfermedades con dos criterios —uno fisiopatológico y otro clínico— y se sistematizan los signos para diagnóstico y pronóstico. El <em>Canon</em> de Avicena es el tratado de mayor autoridad del periodo.</p>
+          <p class="tl-eye">Ibn an-Nafis describe la circulación menor por puro razonamiento, sin disección.</p>
+        </div>
+        <div class="tl-item">
+          <p class="tl-era">Renacimiento · s. XV–XVI</p>
+          <h4>Crisis de autoridad</h4>
+          <p>Vesalio concibe el cuerpo como una fábrica y estudia solo la forma; paradójicamente, al separar forma de función favorece el nacimiento de la fisiología. Paracelso rompe con el galenismo.</p>
+        </div>
+        <div class="tl-item">
+          <p class="tl-era">s. XVII–XVIII</p>
+          <h4>El instrumento cambia la pregunta</h4>
+          <p>El microscopio (Malpighi, Leeuwenhoek) abre la investigación de texturas. Harvey describe la circulación mayor. Morgagni sitúa la enfermedad en los órganos; Bichat la lleva a los tejidos; Sydenham funda la nosología.</p>
+          <p class="tl-eye">Haller separa definitivamente la fisiología de la anatomía.</p>
+        </div>
+        <div class="tl-item">
+          <p class="tl-era">s. XIX</p>
+          <h4>Tres mentalidades sucesivas</h4>
+          <p>Anatomoclínica (correlacionar clínica y autopsia) → fisiopatológica (la disfunción como proceso físico o químico) → etiológica (el agente causal). Virchow funda la patología celular; los postulados de Koch-Henle guían la infectología.</p>
+          <p class="tl-eye">Wunderlich mide la fiebre con termómetro: el primer signo objetivo de un trastorno funcional.</p>
+        </div>
+        <div class="tl-item">
+          <p class="tl-era">s. XX–XXI</p>
+          <h4>La medicina de laboratorio</h4>
+          <p>Rayos X (Röntgen), electrocardiografía (Einthoven), electroencefalografía (Berger), pruebas funcionales hepáticas y renales, endocrinología, epidemiología, genoma humano.</p>
+          <p class="tl-eye">Helmholtz —de esa misma generación alemana— pone el fondo de ojo al alcance del examinador.</p>
+        </div>
+      </div>
+
+      <div class="prose" style="margin-top:1.4rem">
+        <blockquote>
+          «La anatomía sin función solo estudia cadáveres»
+          <cite>Horacio A. Argente, citado en Uribe Olivares, <em>Fisiopatología. La ciencia del porqué y el cómo</em>, cap. 1</cite>
+        </blockquote>
+        <p style="margin-top:1rem">Para el estudio del ser humano sano la clave es la unión anatomía-fisiología. Para el estudio del ser humano <em>enfermo</em>, la clave es la fisiopatología. Ahí empieza este curso.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section id="concepto">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">03</span><h2>Fisiología, patología, fisiopatología</h2></div>
+
+      <div class="grid g3">
+        <div class="card fisio">
+          <p class="eyebrow">Lo normal</p>
+          <h3>Fisiología</h3>
+          <p>Del griego <em>physis</em> (naturaleza) + <em>logos</em>. Explica la lógica funcional de los organismos vivos. La <strong>fisiología humana</strong> es el estudio de los mecanismos biológicos que permiten al ser humano sano adaptarse a su medio, sobrevivir en él y multiplicarse.</p>
+        </div>
+        <div class="card pato">
+          <p class="eyebrow">Lo alterado</p>
+          <h3>Patología</h3>
+          <p>De <em>pathos</em> (enfermedad) + <em>logos</em>. Estudia los cambios <strong>estructurales, bioquímicos y funcionales</strong> que subyacen a la enfermedad en células, tejidos y órganos. Como sinónimo se usa «anatomía patológica» para los cambios macro y microscópicos.</p>
+        </div>
+        <div class="card" style="border-left:3px solid var(--amber)">
+          <p class="eyebrow">La unión de ambas</p>
+          <h3>Fisiopatología</h3>
+          <p>El estudio de los <strong>mecanismos de adaptación</strong> de los seres vivos no saludables y de cómo esos mecanismos se expresan en manifestaciones observables (signos) y no observables (síntomas), que constituyen la semiología que conduce al diagnóstico.</p>
+        </div>
+      </div>
+
+      <div class="prose stack" style="margin-top:1.4rem">
+        <p>De ahí el subtítulo del libro del curso: <strong>la ciencia del porqué y el cómo</strong>. Las dos preguntas que un niño preescolar hace ante el mundo son exactamente las dos que sostienen el método científico y las que le vamos a exigir a usted todo el semestre. No basta con saber que un paciente diabético desarrolla retinopatía: hay que poder decir por qué y cómo.</p>
+        <div class="callout warn">
+          <p class="eyebrow">La frase que ordena todo el curso</p>
+          <p style="margin-top:.4rem">Los mecanismos fisiológicos que nos mantienen sanos son <strong>los mismos</strong> mecanismos que, desajustados respecto del contexto, nos enferman. No hay dos juegos de reglas: hay una sola fisiología funcionando en condiciones distintas. <span style="color:var(--muted)">(idea de M. Dvorkin recogida en el cap. 2)</span></p>
+        </div>
+        <p>Por eso la fisiopatología ocupa un lugar preciso en el currículo: después de anatomía, histología, bioquímica y fisiología; <em>antes</em> de semiología, diagnóstico físico y clínica. Es la bisagra entre las ciencias básicas y las ciencias clínicas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section id="sistemas">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">04</span><h2>El cuerpo como sistema: homeostasis y alostasis</h2></div>
+      <div class="prose stack">
+        <p>La fisiopatología se apoya en tres ramas de la ciencia dura: <strong>biofísica, bioquímica y estadística</strong>. Y para razonar con ellas hay que mirar el cuerpo como un sistema: una señal de entrada, una función de procesamiento y una señal de salida.</p>
+      </div>
+
+      <div class="grid g2" style="margin-top:1.3rem">
+        <div class="card">
+          <p class="eyebrow">Sistema no regulado (abierto)</p>
+          <div class="loop">
+            <div class="box"><strong>Entrada</strong>estímulo</div>
+            <div class="box"><strong>Proceso</strong>transferencia</div>
+            <div class="box" style="grid-column:span 2"><strong>Salida</strong>no modifica la entrada</div>
+          </div>
+        </div>
+        <div class="card fisio">
+          <p class="eyebrow">Retroalimentación negativa</p>
+          <div class="loop">
+            <div class="box"><strong>Entrada</strong>estímulo</div>
+            <div class="box"><strong>Proceso</strong>efector</div>
+            <div class="box"><strong>Comparador</strong><em>set point</em></div>
+            <div class="box"><strong>Salida</strong>inhibe la entrada</div>
+          </div>
+          <p style="margin-top:.7rem">Si salida y <em>set point</em> difieren aparece la <strong>señal de error</strong> y se corrige la entrada. Ejemplo clásico: el termostato del refrigerador; en el cuerpo, el control de la temperatura corporal.</p>
+        </div>
+      </div>
+
+      <div class="grid g2" style="margin-top:1rem">
+        <div class="card pato">
+          <p class="eyebrow">Retroalimentación positiva</p>
+          <p>La salida <strong>amplifica</strong> la entrada: respuesta explosiva salvo que un factor externo la detenga. Ejemplo: la cascada de la coagulación.</p>
+        </div>
+        <div class="card">
+          <p class="eyebrow">Lineal vs. no lineal</p>
+          <p>En un sistema lineal el todo es la suma de las partes. En los seres vivos <strong>la mayoría de los sistemas son no lineales</strong>: la respuesta total es más que la suma de sus partes.</p>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top:1.2rem">
+        <p class="eyebrow">Consecuencia clínica directa</p>
+        <p style="margin-top:.4rem">Como los sistemas biológicos son no lineales, <strong>no existen enfermedades: existen enfermos</strong>. Cada persona responde de manera distinta ante una misma noxa. Dos pacientes con la misma glucemia no tienen el mismo ojo.</p>
+      </div>
+
+      <div class="grid g3" style="margin-top:1.2rem">
+        <div class="card">
+          <h3>Homeostasis</h3>
+          <p>Término de W. Cannon: mantenimiento de un estado estacionario que garantice las funciones celulares. <em>Homeo</em> = parecido, no <em>homo</em> = igual.</p>
+        </div>
+        <div class="card">
+          <h3>Alostasis</h3>
+          <p>Término de McEwen: <strong>estabilidad a través del cambio</strong>. Corrige la lectura estática que sugiere «-estasis»: el estado es dinámico y adaptativo a un medio cambiante.</p>
+        </div>
+        <div class="card pato">
+          <h3>Adaptación, no «compensación»</h3>
+          <p>«Compensar» supone un estado estable previo que se restaura. Como nunca hay tal estado, hablaremos de <strong>mecanismos adaptativos</strong> durante todo el curso.</p>
+        </div>
+      </div>
+
+      <div class="prose" style="margin-top:1.2rem">
+        <p>Un sistema sano es <strong>variable</strong>: su comportamiento es «caótico» en el sentido técnico —determinista, pero muy sensible a las condiciones iniciales—. Durante la enfermedad esa variabilidad <em>disminuye</em> y con ella la capacidad adaptativa. Cuando la capacidad adaptativa se supera, aparecen signos y síntomas. Ese es, literalmente, el objeto de estudio de este curso.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="salud">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">05</span><h2>¿Qué es estar sano?</h2></div>
+      <div class="prose stack">
+        <p>El concepto de salud es una construcción histórica, social, cultural y subjetiva; ha cambiado con las condiciones de vida, las estructuras socioeconómicas y los avances científicos. No es un dato de la naturaleza: es un acuerdo que cada época renegocia.</p>
+      </div>
+
+      <div class="grid g2" style="margin-top:1.3rem">
+        <div class="card">
+          <p class="eyebrow">RAE</p>
+          <p>El estado en el que un ser orgánico ejerce normalmente sus funciones. Salud como <em>ausencia</em> de enfermedad: una definición negativa.</p>
+        </div>
+        <div class="card fisio">
+          <p class="eyebrow">OMS, 1948</p>
+          <p>Estado de completo bienestar físico, mental y social, y no solamente la ausencia de enfermedad. <strong>Aporta:</strong> definición positiva, incorpora lo mental y lo social. <strong>Se le critica:</strong> equipara bienestar a salud, es estática, utópica y poco operativa.</p>
+        </div>
+        <div class="card">
+          <p class="eyebrow">Milton Terris</p>
+          <p>Añade <strong>capacidad de funcionamiento</strong> y, sobre todo, grados: nace el <em>continuo salud-enfermedad</em>. Nadie está totalmente sano ni totalmente enfermo.</p>
+        </div>
+        <div class="card">
+          <p class="eyebrow">OMS, revisión posterior</p>
+          <p>Se sustituye «completo bienestar» por <strong>nivel de salud suficiente</strong> para participar activamente en la comunidad. La salud pasa a verse como un <em>recurso para la vida</em>.</p>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top:1.2rem">
+        <p class="eyebrow">Idea a retener</p>
+        <p style="margin-top:.4rem">La salud y la enfermedad <strong>no son puntos extremos de una recta ni una variable dicotómica</strong>. Son grados de adaptación del individuo a su medio. Por eso hablamos de <em>proceso</em> salud-enfermedad: no hay un límite exacto entre ambos, y el paciente se desplaza sobre ese eje.</p>
+      </div>
+
+      <div class="grid g2" style="margin-top:1.2rem">
+        <div class="card">
+          <h3>Determinantes de la salud (Lalonde, 1974)</h3>
+          <ul>
+            <li><strong>Biología humana</strong> — información genética, que puede proteger o predisponer</li>
+            <li><strong>Ambiente</strong> — factores externos sobre los que no hay control (más el ambiente doméstico, sobre el que sí lo hay)</li>
+            <li><strong>Forma de vida</strong> — dieta, ejercicio, hábitos tóxicos</li>
+            <li><strong>Organización del cuidado de la salud</strong> — cantidad, calidad y disposición de los servicios</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Determinantes sociales (OMS)</h3>
+          <p>Circunstancias en que las personas nacen, crecen, viven, trabajan y envejecen. Explican la mayor parte de las <strong>inequidades sanitarias</strong>: diferencias injustas y evitables. Se les llama «las causas de las causas».</p>
+          <ul>
+            <li>Pobreza estructural y por ingresos</li>
+            <li>Nivel educativo, condición étnica, género</li>
+            <li>Migración, residencia urbana/rural</li>
+            <li>Exclusión, vulnerabilidad y marginación</li>
+          </ul>
+        </div>
+      </div>
+      <p class="prose" style="margin-top:1rem; color:var(--muted); font-size:.9rem">Conexión con el ODS 3 (Salud y bienestar) y con el núcleo problémico del programa: la ceguera evitable depende tanto de la retina como del ingreso, la distancia al servicio y la escolaridad del paciente.</p>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="enfermedad">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">06</span><h2>¿Qué es la enfermedad?</h2></div>
+      <div class="prose stack">
+        <p>Del latín <em>infirmitas</em>, «falto de firmeza». Proceso que acaece a un ser vivo y altera su estado normal de salud: anomalías físicas o psicológicas que <strong>no pueden ser enfrentadas por los mecanismos normales de regulación del organismo</strong> y que le producen malestar. Los factores, intrínsecos o extrínsecos, que la desencadenan se denominan <strong>noxas</strong> (del griego <em>nósos</em>).</p>
+      </div>
+
+      <div class="grid g4" style="margin-top:1.3rem">
+        <div class="card">
+          <p class="eyebrow">1 · Predisponentes</p>
+          <p>Edad, sexo, enfermedad previa: crean mayor sensibilidad.</p>
+        </div>
+        <div class="card">
+          <p class="eyebrow">2 · Facilitadores</p>
+          <p>Bajos ingresos, desnutrición, malas condiciones de vivienda.</p>
+        </div>
+        <div class="card">
+          <p class="eyebrow">3 · Desencadenantes</p>
+          <p>La exposición al agente patógeno precipita el desarrollo.</p>
+        </div>
+        <div class="card">
+          <p class="eyebrow">4 · Potenciadores</p>
+          <p>La exposición repetida agrava una enfermedad ya presente.</p>
+        </div>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.1rem">Tres formas de clasificar</h3>
+      <div class="grid g3">
+        <div class="card">
+          <p class="eyebrow">Por etiopatogenia</p>
+          <ul>
+            <li><strong>Endógenas</strong> (alteración del huésped): genéticas, congénitas, nutricionales, metabólicas, degenerativas, autoinmunes, inflamatorias, endocrinas, mentales</li>
+            <li><strong>Exógenas</strong> (acción directa del agente): infecciosas, parasitarias, tóxicas, traumáticas, alérgicas, iatrogénicas</li>
+            <li><strong>Ambientales</strong>: profesionales, mecanoposturales, por causa externa</li>
+            <li><strong>Multifactoriales</strong>: neoplasias, del desarrollo, idiopáticas, psicosomáticas</li>
+          </ul>
+        </div>
+        <div class="card">
+          <p class="eyebrow">Por duración</p>
+          <ul>
+            <li><strong>Agudas</strong> — menos de 3 meses</li>
+            <li><strong>Subagudas</strong> — de 3 a 6 meses</li>
+            <li><strong>Crónicas</strong> — más de 6 meses</li>
+          </ul>
+        </div>
+        <div class="card">
+          <p class="eyebrow">Por distribución</p>
+          <ul>
+            <li><strong>Esporádicas</strong> — pocas personas, ocasionales</li>
+            <li><strong>Endemias</strong> — región concreta, sostenidas en el tiempo</li>
+            <li><strong>Epidemias</strong> — exceso significativo de casos en un área delimitada</li>
+            <li><strong>Pandemias</strong> — epidemias de extensión geográfica amplia</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout warn" style="margin-top:1.2rem">
+        <p class="eyebrow">Transición epidemiológica</p>
+        <p style="margin-top:.4rem">A lo largo del siglo XX el patrón de causas de muerte cambió: las enfermedades infecciosas cedieron el primer lugar a las <strong>crónicas</strong>. Ese desplazamiento es la razón por la que un optómetra de hoy ve más retinopatía diabética e hipertensiva que tracoma.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section id="cadena">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">07</span><h2>Etiología, patogénesis y fisiopatología: no son sinónimos</h2></div>
+      <div class="prose">
+        <p>Es el error terminológico más frecuente del semestre y el que más daño hace al razonamiento clínico. Cada término responde a una pregunta distinta.</p>
+      </div>
+
+      <div class="chain">
+        <div class="node" style="border-left:3px solid var(--pato)">
+          <p class="lbl">¿Por qué? · Etiología</p>
+          <p class="val">La causa</p>
+          <p class="ex">Factor <em>sine qua non</em> del proceso patológico. Puede ser única, múltiple (policausal) o desconocida (idiopática).</p>
+        </div>
+        <span class="arrow">→</span>
+        <div class="node" style="border-left:3px solid var(--amber)">
+          <p class="lbl">¿Cómo? · Patogénesis</p>
+          <p class="val">El mecanismo</p>
+          <p class="ex">Secuencia de sucesos celulares y tisulares desde el contacto inicial con el agente etiológico hasta la expresión final de la enfermedad.</p>
+        </div>
+        <span class="arrow">→</span>
+        <div class="node" style="border-left:3px solid var(--fisio)">
+          <p class="lbl">¿Cómo funciona? · Fisiopatología</p>
+          <p class="val">La función alterada</p>
+          <p class="ex">El funcionamiento del organismo en condiciones de enfermedad y sus mecanismos adaptativos.</p>
+        </div>
+        <span class="arrow">→</span>
+        <div class="node">
+          <p class="lbl">Expresión</p>
+          <p class="val">Signos y síntomas</p>
+          <p class="ex">Base de la semiología y, con ella, del diagnóstico.</p>
+        </div>
+      </div>
+
+      <div class="grid g2" style="margin-top:1.3rem">
+        <div class="card">
+          <h3>El ejemplo de la gripe</h3>
+          <p><strong>Etiología:</strong> el virus.<br>
+          <strong>Patogénesis causal:</strong> la situación completa del individuo en contacto con el virus.<br>
+          <strong>Patogénesis formal:</strong> el proceso inflamatorio.</p>
+        </div>
+        <div class="card">
+          <h3>Tríada ecológica</h3>
+          <p>Ninguno de los tres elementos causa por sí solo el problema: es su <strong>concurrencia en tiempo y espacio</strong> lo que produce enfermedad.</p>
+          <ul>
+            <li><strong>Ambiente</strong> — factor extrínseco</li>
+            <li><strong>Agente</strong> — químico, físico o biológico</li>
+            <li><strong>Huésped</strong> — con su propia capacidad de adaptarse y responder</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="prose" style="margin-top:1rem; color:var(--muted); font-size:.92rem">Cuando etiología y patogénesis se describen juntas, como un proceso unificado, hablamos de <strong>etiopatogenia</strong>. Y ojo con la asimetría: los síndromes suelen ser plurietiológicos; las enfermedades, a lo sumo, tienen una única causa.</p>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section id="semiologia">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">08</span><h2>Síntoma, signo, síndrome</h2></div>
+
+      <div class="grid g3">
+        <div class="card pato">
+          <h3>Síntoma</h3>
+          <p><strong>Subjetivo.</strong> Manifestación referida por el paciente, percibida únicamente por quien la padece; el observador es incapaz de comprobarla.</p>
+          <p style="margin-top:.5rem"><em>Dolor, astenia, mareo, náuseas, somnolencia, visión borrosa.</em></p>
+        </div>
+        <div class="card fisio">
+          <h3>Signo</h3>
+          <p><strong>Objetivo y medible.</strong> Manifestación advertida por el examinador, espontánea o provocada por una maniobra exploratoria.</p>
+          <p style="margin-top:.5rem"><em>Edema, fiebre, enrojecimiento, presión arterial elevada, hemorragia retiniana.</em></p>
+        </div>
+        <div class="card" style="border-left:3px solid var(--amber)">
+          <h3>Síndrome</h3>
+          <p>Del griego <em>syndromé</em>, «concurso». Conjunto significativo de signos y síntomas que <strong>concurren en tiempo y forma</strong> con identidad propia, y con causas variadas.</p>
+          <p style="margin-top:.5rem"><em>Insuficiencia cardíaca, síndrome nefrítico, ojo seco.</em></p>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top:1rem">
+        <p class="eyebrow">El caso frontera</p>
+        <p style="margin-top:.4rem">La <strong>fiebre</strong> es síntoma cuando el paciente refiere sentirse caliente, y signo cuando el examinador la percibe al tacto y la cuantifica con termómetro. La categoría no está en el fenómeno: está en <em>quién lo constata y cómo</em>.</p>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .5rem; font-size:1.1rem">Ejercicio rápido — ¿síntoma o signo?</h3>
+      <p style="color:var(--muted); font-size:.9rem; margin-bottom:.5rem">Clasifique cada manifestación desde la perspectiva del examinador.</p>
+      <div class="card" id="drill"></div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.1rem">Cómo se encadena todo: hipertensión arterial</h3>
+      <div class="prose stack">
+        <p>Ingesta de sal por encima de lo requerido → aumenta el sodio plasmático → aumenta el agua intravascular y la <strong>volemia</strong> → respuesta adaptativa (péptido natriurético auricular: menos resorción tubular de Na, más eliminación de Na y agua).</p>
+        <p>Si el estímulo persiste años, <strong>se superan los mecanismos adaptativos</strong>: retención sostenida de Na y agua → mayor esfuerzo cardíaco → aumento del gasto cardíaco, amortiguado por la elasticidad arterial → cuando esa elasticidad se supera aparece el primer <strong>signo</strong>: presión arterial elevada, sin ninguna molestia.</p>
+        <p>Si el estímulo continúa: hipertensión arterial sistémica, cefalea occipital matutina pulsátil y, finalmente, ruptura de vasos cerebrales (evento vascular cerebral).</p>
+        <div class="callout warn">
+          <p class="eyebrow">Por qué esto importa en su consultorio</p>
+          <p style="margin-top:.4rem">Ese mismo lecho vascular sometido a la misma presión es el que usted va a ver por el oftalmoscopio. La retinopatía hipertensiva no es otra enfermedad: es el <em>mismo</em> proceso, visible.</p>
+        </div>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.1rem">Cuatro términos que conviene no confundir</h3>
+      <div class="grid g4">
+        <div class="card"><h3>Semiología</h3><p>Disciplina con que el médico indaga, mediante examen psicofísico, los signos que presenta el paciente. Se estudia <em>después</em> de la fisiopatología.</p></div>
+        <div class="card"><h3>Diagnóstico</h3><p>De <em>dia-</em> (a través de) + <em>gnosis</em> (conocimiento). Recabar datos, analizarlos e interpretarlos para evaluar una condición.</p></div>
+        <div class="card"><h3>Clínica</h3><p>De <em>kline</em>, «cama». Ejercicio práctico de la medicina ligado a la observación directa del paciente y su tratamiento.</p></div>
+        <div class="card"><h3>Enfermo</h3><p>El ser vivo afectado por la enfermedad, sea consciente o no de su estado; incluye el <em>rol</em> que asume al atravesarla.</p></div>
+      </div>
+
+      <div class="callout warn" style="margin-top:1rem">
+        <p class="eyebrow">Trampa clásica</p>
+        <p style="margin-top:.4rem">Un signo puede parecer de un sistema y provenir de otro. La <strong>tos</strong> lleva a buscar patología respiratoria cuando con frecuencia el origen es digestivo (reflujo gastroesofágico). Sin el porqué y el cómo, la intuición clínica se equivoca de órgano.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section id="mbe">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">09</span><h2>Medicina basada en la evidencia</h2></div>
+      <div class="prose stack">
+        <p>Uso juicioso, consciente y explícito de la mejor evidencia actual en la toma de decisiones sobre el cuidado de pacientes individuales (Sackett). Integra tres cosas: <strong>el conocimiento y los valores clínicos, las preferencias del paciente y la mejor evidencia disponible</strong>.</p>
+        <p>El problema práctico es de volumen: más de 1.000 revistas fiables, ~12 números al año, ~15 artículos por número ≈ <strong>180.000 artículos anuales</strong>, cerca de 493 diarios solo en inglés. Nadie puede leerlos. Se lee con estrategia, no con voluntad.</p>
+      </div>
+
+      <div class="table-scroll" style="margin-top:1.2rem">
+        <table>
+          <caption class="eyebrow" style="text-align:left; padding:.8rem 1rem 0">Búsqueda en PubMed: de 60.791 a 41 artículos</caption>
+          <thead>
+            <tr><th>Paso</th><th>Término o filtro</th><th>Artículos</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Búsqueda libre</td><td>COPD</td><td class="num">60.791</td></tr>
+            <tr><td>Segundo término</td><td>COPD AND pathophysiology</td><td class="num">29.164</td></tr>
+            <tr><td>Campo</td><td>Title / Abstract</td><td class="num">454</td></tr>
+            <tr><td>Fecha</td><td>Últimos 5 años</td><td class="num">212</td></tr>
+            <tr><td>Tipo</td><td>Review</td><td class="num">100</td></tr>
+            <tr><td>Acceso</td><td>Full free text</td><td class="num">41</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:.7rem; font-size:.85rem; color:var(--muted)">Tabla 4-1 del texto guía (búsqueda del 8 de agosto de 2015; las cifras hoy serán mayores, la estrategia es la misma). Otros recursos: SciELO, Cochrane, Artemisa, y los niveles de evidencia del Oxford CEBM.</p>
+
+      <div class="callout" style="margin-top:1.2rem">
+        <p class="eyebrow">Tarea para la próxima sesión</p>
+        <p style="margin-top:.4rem">Replique esta estrategia con un tema ocular. Sugerencias: <em>diabetic retinopathy AND pathophysiology</em>, <em>dry eye AND pathophysiology</em>, <em>glaucoma AND pathophysiology</em>. Traiga capturas de cada paso y el número de resultados, más un artículo de acceso libre seleccionado.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="ocular">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">10</span><h2>Por qué un optómetra estudia fisiopatología general</h2></div>
+      <div class="prose">
+        <p>El ojo no enferma aparte del cuerpo. Es, de hecho, el único sitio donde se observa <em>in vivo</em> y sin instrumentos invasivos un lecho vascular y una porción de sistema nervioso central. Lo que usted verá en el fondo de ojo es un informe del estado sistémico del paciente.</p>
+      </div>
+      <div class="grid g3" style="margin-top:1.2rem">
+        <div class="card fisio">
+          <p class="eyebrow">Enfermedad crónica</p>
+          <h3>Diabetes mellitus</h3>
+          <p>Etiología multifactorial → patogénesis microvascular → retinopatía. El signo aparece en la retina mucho antes de que el paciente refiera síntoma alguno.</p>
+        </div>
+        <div class="card fisio">
+          <p class="eyebrow">Enfermedad crónica</p>
+          <h3>Hipertensión arterial</h3>
+          <p>La cadena Na → volemia → presión → daño vascular, leída en los cruces arteriovenosos y las hemorragias en llama.</p>
+        </div>
+        <div class="card fisio">
+          <p class="eyebrow">Defectos refractivos</p>
+          <h3>Ametropías y presbicia</h3>
+          <p>Junto con las crónicas y las infecciones, son causa principal de discapacidad visual y de <strong>ceguera evitable</strong> en el mundo (tema de la sesión 13).</p>
+        </div>
+      </div>
+      <p class="prose" style="margin-top:1.1rem">Ese es el sentido del núcleo problémico del programa: enfoque interdisciplinario y manejo integral en salud visual. Usted no va a diagnosticar diabetes, pero puede ser el primer profesional que la sospeche.</p>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section id="cronograma">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">11</span><h2>Cronograma del semestre 2026-2</h2></div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Sesión</th><th>Fecha</th><th>Tema</th></tr></thead>
+          <tbody>
+            <tr class="today"><td class="num">1</td><td class="num">23 jul</td><td>Inducción: definiciones y generalidades de fisiología y patología</td></tr>
+            <tr><td class="num">2</td><td class="num">30 jul</td><td>Inducción: síndrome y mecanismos de lesión</td></tr>
+            <tr class="exam"><td class="num">3</td><td class="num">6 ago</td><td>Primer parcial</td></tr>
+            <tr><td class="num">4</td><td class="num">13 ago</td><td>Socialización de notas</td></tr>
+            <tr><td class="num">5</td><td class="num">20 ago</td><td>Fisiopatología de los síntomas: dolor</td></tr>
+            <tr><td class="num">6</td><td class="num">27 ago</td><td>Síntomas y signos: disnea y vértigo</td></tr>
+            <tr><td class="num">7</td><td class="num">3 sep</td><td>Signos: edema y síncope</td></tr>
+            <tr><td class="num">8</td><td class="num">10 sep</td><td>Signos: fiebre y cianosis</td></tr>
+            <tr class="exam"><td class="num">9</td><td class="num">17 sep</td><td>Segundo parcial</td></tr>
+            <tr><td class="num">10</td><td class="num">24 sep</td><td>Socialización de notas</td></tr>
+            <tr><td class="num">11</td><td class="num">1 oct</td><td>Inmunidad y respuesta: inflamación y reparación</td></tr>
+            <tr><td class="num">—</td><td class="num">8 oct</td><td>Semana de receso <span style="color:var(--muted)">(por confirmar en calendario institucional)</span></td></tr>
+            <tr><td class="num">12</td><td class="num">15 oct</td><td>Inmunidad: respuesta del huésped a la infección</td></tr>
+            <tr><td class="num">13</td><td class="num">22 oct</td><td>Trastornos ópticos: miopía, hipermetropía, astigmatismo y presbicia</td></tr>
+            <tr class="exam"><td class="num">14</td><td class="num">29 oct</td><td>Parcial final</td></tr>
+            <tr><td class="num">15</td><td class="num">5 nov</td><td>Socialización de notas</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:.7rem; font-size:.85rem; color:var(--muted)">Secuencia semanal calculada desde el 23 de julio de 2026. El syllabus vigente registra horario de viernes 07:00–09:00; verificar la franja definitiva antes de publicar a los estudiantes.</p>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section id="autoeval">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">12</span><h2>Autoevaluación</h2></div>
+      <p class="prose" style="margin-bottom:1.2rem">Responda mentalmente antes de abrir cada tarjeta. Estas diez preguntas son el nivel del quiz de la próxima sesión.</p>
+      <div id="quiz"></div>
+
+      <div class="grid g2" style="margin-top:1.6rem">
+        <div class="card">
+          <h3>Para la próxima sesión</h3>
+          <ul>
+            <li>Leer los capítulos 1 a 4 de Uribe Olivares, <em>Fisiopatología. La ciencia del porqué y el cómo</em> (Elsevier, 2018)</li>
+            <li>Leer por anticipado el capítulo 5: agentes lesivos y mecanismos de lesión</li>
+            <li>Ejercicio de búsqueda en PubMed con capturas</li>
+            <li>Glosario personal: 12 términos de esta clase con definición propia</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Fuentes del curso</h3>
+          <ul>
+            <li>Uribe Olivares, R. A. <em>Fisiopatología. La ciencia del porqué y el cómo</em>. Elsevier España, 2018. <span style="color:var(--muted)">(texto guía impreso)</span></li>
+            <li>Robbins &amp; Cotran. <em>Compendio de patología estructural y funcional</em>. Disponible en la hemeroteca institucional</li>
+            <li>Reid, R. <em>Pathology Illustrated</em></li>
+            <li>Oxford CEBM — niveles de evidencia</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Fisiopatología General (01008430) · Programa de Optometría · Facultad de Ciencias de la Salud · Universidad de La Salle · Semestre 2026-2</p>
+    <p style="margin-top:.4rem">Material de clase elaborado a partir del syllabus curricular vigente y de la Parte 1 (capítulos 1–5) del texto guía.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // ---- theme toggle ----
+  var root = document.documentElement;
+  document.getElementById('themeBtn').addEventListener('click', function(){
+    var dark = root.getAttribute('data-theme') === 'dark'
+      || (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+    root.setAttribute('data-theme', dark ? 'light' : 'dark');
+  });
+
+  // ---- síntoma / signo drill ----
+  var items = [
+    { t:'Dolor ocular referido por el paciente', a:'sintoma' },
+    { t:'Hiperemia conjuntival observada en lámpara de hendidura', a:'signo' },
+    { t:'Presión intraocular de 26 mmHg', a:'signo' },
+    { t:'Visión borrosa que el paciente describe al leer', a:'sintoma' },
+    { t:'Hemorragia retiniana en el fondo de ojo', a:'signo' },
+    { t:'Sensación de cuerpo extraño', a:'sintoma' },
+    { t:'Edema palpebral', a:'signo' },
+    { t:'Cefalea occipital matutina', a:'sintoma' }
+  ];
+  var drill = document.getElementById('drill');
+  items.forEach(function(it){
+    var row = document.createElement('div'); row.className = 'drill-row';
+    var q = document.createElement('span'); q.className = 'drill-q'; q.textContent = it.t;
+    var v = document.createElement('span'); v.className = 'verdict';
+    row.appendChild(q);
+    ['sintoma','signo'].forEach(function(key){
+      var b = document.createElement('button');
+      b.className = 'btn'; b.type = 'button';
+      b.textContent = key === 'sintoma' ? 'Síntoma' : 'Signo';
+      b.addEventListener('click', function(){
+        row.querySelectorAll('.btn').forEach(function(x){ x.classList.remove('ok','no'); });
+        var right = key === it.a;
+        b.classList.add(right ? 'ok' : 'no');
+        v.innerHTML = right
+          ? '<b>Correcto.</b> ' + (it.a === 'signo'
+              ? 'Es objetivable y medible por el examinador.'
+              : 'Solo lo percibe quien lo padece; usted no puede comprobarlo.')
+          : '<b>Revise.</b> Pregúntese quién lo constata: si lo constata usted, es signo; si solo lo refiere el paciente, es síntoma.';
+      });
+      row.appendChild(b);
+    });
+    row.appendChild(v);
+    drill.appendChild(row);
+  });
+
+  // ---- autoevaluación ----
+  var qs = [
+    ['¿Por qué decimos que la fisiopatología es «la ciencia del porqué y el cómo»?',
+     'Porque no se conforma con describir qué le pasa al paciente: exige identificar la causa (por qué) y el mecanismo por el que esa causa produce las manifestaciones (cómo). Son las dos preguntas que sostienen el método científico.'],
+    ['Diferencie etiología, patogénesis y fisiopatología.',
+     'Etiología = la causa, el factor sine qua non. Patogénesis = la secuencia de sucesos celulares y tisulares desde el contacto con el agente hasta la expresión final. Fisiopatología = el funcionamiento del organismo en condiciones de enfermedad y sus mecanismos adaptativos.'],
+    ['¿Por qué se prefiere «alostasis» sobre «homeostasis»?',
+     'Porque la terminación «-estasis» sugiere un estado estático, cuando el estado real es dinámico y en constante cambio. Alostasis (McEwen) significa estabilidad a través del cambio. Por la misma razón hablamos de mecanismos adaptativos y no de compensación.'],
+    ['¿Qué significa que los sistemas biológicos sean no lineales y qué consecuencia clínica tiene?',
+     'Que la respuesta total es más que la suma de las partes y no hay proporcionalidad entre entrada y salida. Consecuencia: no existen enfermedades, existen enfermos; cada persona responde distinto ante la misma noxa.'],
+    ['Enuncie la definición de salud de la OMS de 1948 y dos de sus críticas.',
+     'Estado de completo bienestar físico, mental y social, y no solamente la ausencia de enfermedad. Críticas: equipara bienestar a salud; es estática y utópica; no considera aspectos objetivos y resulta poco operativa.'],
+    ['¿Qué aporta Milton Terris al concepto de salud?',
+     'Añade la capacidad de funcionamiento y, sobre todo, la idea de grados: da origen al continuo salud-enfermedad. Nadie está totalmente sano ni totalmente enfermo.'],
+    ['¿Qué es una noxa y cuáles son los cuatro tipos de factores que influyen en las causas de enfermedad?',
+     'Noxa: el factor intrínseco o extrínseco que desencadena el estado o proceso de enfermedad. Los cuatro factores: predisponentes, facilitadores, desencadenantes y potenciadores.'],
+    ['Un paciente refiere ardor ocular y usted observa hiperemia. Clasifique cada hallazgo.',
+     'El ardor es síntoma: subjetivo, solo lo percibe quien lo padece. La hiperemia es signo: objetivable y medible por el examinador. Si concurren de forma característica con otros hallazgos, pueden configurar un síndrome.'],
+    ['¿Por qué un síndrome suele ser plurietiológico y una enfermedad no?',
+     'El síndrome es un conjunto de signos y síntomas que concurren en tiempo y forma y puede ser producido por causas muy diversas. La enfermedad, en cambio, tiene a lo sumo una causa identificada como punto de partida.'],
+    ['¿Qué integra la medicina basada en la evidencia?',
+     'El conocimiento y los valores clínicos del profesional, las preferencias del paciente y la mejor evidencia disponible en la literatura, aplicados al cuidado de pacientes individuales (Sackett).']
+  ];
+  var quiz = document.getElementById('quiz');
+  qs.forEach(function(pair, i){
+    var d = document.createElement('div'); d.className = 'q';
+    var h = document.createElement('button');
+    h.className = 'q-head'; h.type = 'button'; h.setAttribute('aria-expanded','false');
+    h.innerHTML = '<span class="q-n">' + String(i+1).padStart(2,'0') + '</span><span>' + pair[0] + '</span>';
+    var b = document.createElement('div'); b.className = 'q-body'; b.textContent = pair[1];
+    h.addEventListener('click', function(){
+      var open = d.classList.toggle('open');
+      h.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    d.appendChild(h); d.appendChild(b); quiz.appendChild(d);
+  });
+})();
+</script>
