@@ -77,6 +77,22 @@ Cada clase es un archivo HTML autocontenido, sin dependencias externas: se adapt
 
 ---
 
+## Actividades en línea
+
+### 📋 [Portal de actividades de la sesión 1](https://script.google.com/macros/s/AKfycbx1KG_UpabZwMQzvAa9a7UyRmZkeo4ck03bqB45mmvNOQkGSvhatayf5hVvUMCRYXZwzg/exec)
+
+Quiz de inicio, entregable y lectura previa se responden en un mismo lugar. Cada actividad pide nombre, código y correo institucional una sola vez: el navegador los recuerda para las siguientes.
+
+| Actividad | Cuándo | Enlace directo |
+|---|---|---|
+| Quiz de inicio · calificable sobre 5,0 | 23 jul, 6:30–9:30 | [Responder](https://script.google.com/macros/s/AKfycbx1KG_UpabZwMQzvAa9a7UyRmZkeo4ck03bqB45mmvNOQkGSvhatayf5hVvUMCRYXZwzg/exec?p=quiz) |
+| Entregable 1 · glosario y PubMed | hasta 29 jul, 23:59 | [Entregar](https://script.google.com/macros/s/AKfycbx1KG_UpabZwMQzvAa9a7UyRmZkeo4ck03bqB45mmvNOQkGSvhatayf5hVvUMCRYXZwzg/exec?p=tarea) |
+| Lectura previa de la sesión 2 | hasta 30 jul, 6:00 | [Responder](https://script.google.com/macros/s/AKfycbx1KG_UpabZwMQzvAa9a7UyRmZkeo4ck03bqB45mmvNOQkGSvhatayf5hVvUMCRYXZwzg/exec?p=lectura) |
+
+Fuera de plazo cada actividad queda bloqueada indicando el motivo.
+
+---
+
 ## Metodología y evaluación
 
 **Opciones metodológicas:** clases magistrales participativas, exposiciones, aprendizaje basado en problemas, quices e infografía.

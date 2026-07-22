@@ -18,6 +18,12 @@ Primera sesión del semestre. Fija el vocabulario y el modo de razonamiento que 
 
 Se abre directamente en el navegador. También puedes [descargar el archivo](clase.html) para usarla sin conexión.
 
+## Actividades en línea
+
+- **[Quiz de inicio](https://script.google.com/macros/s/AKfycbx1KG_UpabZwMQzvAa9a7UyRmZkeo4ck03bqB45mmvNOQkGSvhatayf5hVvUMCRYXZwzg/exec?p=quiz)** — Calificable sobre 5,0. Se responde al comenzar la clase, el 23 de julio entre las 6:30 y las 9:30.
+- **[Entregable 1 — Glosario y búsqueda en PubMed](https://script.google.com/macros/s/AKfycbx1KG_UpabZwMQzvAa9a7UyRmZkeo4ck03bqB45mmvNOQkGSvhatayf5hVvUMCRYXZwzg/exec?p=tarea)** — Doce términos con definición propia y la estrategia de filtrado aplicada a un tema ocular. Cierra el 29 de julio a las 23:59.
+- **[Lectura previa de la sesión 2](https://script.google.com/macros/s/AKfycbx1KG_UpabZwMQzvAa9a7UyRmZkeo4ck03bqB45mmvNOQkGSvhatayf5hVvUMCRYXZwzg/exec?p=lectura)** — Guía de lectura de los capítulos 5 y 6 y control de lectura. Cierra el 30 de julio a las 6:00, antes de clase.
+
 ## Contenidos
 
 - Encuadre del espacio académico: sentido, resultados de aprendizaje, metodología, evaluación y acuerdos de clase

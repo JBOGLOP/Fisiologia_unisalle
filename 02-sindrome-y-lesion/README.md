@@ -18,6 +18,10 @@ Desciende del vocabulario general al nivel donde toda enfermedad se origina: la 
 
 Se abre directamente en el navegador. También puedes [descargar el archivo](clase.html) para usarla sin conexión.
 
+## Actividades en línea
+
+- **[Lectura previa y control de lectura](https://script.google.com/macros/s/AKfycbx1KG_UpabZwMQzvAa9a7UyRmZkeo4ck03bqB45mmvNOQkGSvhatayf5hVvUMCRYXZwzg/exec?p=lectura)** — Se responde ANTES de esta sesión. Las preguntas abiertas definen con qué temas se abre la clase.
+
 ## Contenidos
 
 - Síndrome: concurrencia, carácter plurietiológico y su diferencia con enfermedad
