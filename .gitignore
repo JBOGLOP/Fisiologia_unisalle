@@ -10,6 +10,13 @@ guia-docente.docx
 # Contenido.gs incluye las respuestas correctas del quiz calificable.
 app/
 
+# DATOS PERSONALES DE ESTUDIANTES — nunca al repositorio público.
+# La lista de curso y la página de asistencia contienen nombres y códigos
+# de estudiantes identificables. El repositorio es público: no pueden entrar.
+00-asistencia/
+*.xlsx
+*.csv
+
 # Bibliografía y documentos institucionales
 *.pdf
 Libros/
