@@ -4,7 +4,7 @@
 
 | Estado | Material | Duración |
 |---|---|---|
-| ⬜ **Programada** | ✅ Publicado | 2 horas |
+| 🔜 **Próximo encuentro** | ✅ Publicado | 2 horas |
 
 ---
 
@@ -52,5 +52,7 @@ Se abre directamente en el navegador. También puedes [descargar el archivo](cla
 
 ---
 
-← [Sesión 1: Inducción: definiciones y generalidades de fisiología y patología](../01-induccion/) · [Índice del curso](../) · [Sesión 3: Primer parcial](../03-primer-parcial/) →
+← [Sesión 1: Inducción: definiciones y generalidades de fisiología y patología](../01-induccion/) · [Índice del curso](../)
+
+**Siguiente encuentro:** 6 de agosto — Inflamación y reparación de tejidos _(en preparación)_
 

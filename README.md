@@ -1,150 +1,184 @@
-# Fisiopatología General — Optometría
+# Fisiopatología General
 
-**Universidad de La Salle** · Facultad de Ciencias de la Salud · Programa de Optometría
-Código del espacio académico: `01008430` · 2 créditos · Semestre **2026-2**
+**Optometría** · Facultad de Ciencias de la Salud · **Universidad de La Salle**
+Código `01008430` · 2 créditos · Semestre **2026-2**
 
 ### 🌐 [Sitio del curso — jboglop.github.io/Fisiologia_unisalle](https://jboglop.github.io/Fisiologia_unisalle/)
 
-Repositorio de publicación cronológica del material de clase. Cada sesión se publica en su propia carpeta con un README que describe contenidos, lecturas y trabajo independiente, junto con la clase interactiva en HTML.
-
 ---
 
-## Sentido del espacio académico
+## Lo esencial
 
-La fisiopatología permite al futuro optómetra reconocer los problemas de salud sistémicos capaces de alterar la salud visual, para ofrecer una atención integral y trabajar con otros profesionales sanitarios. Es la bisagra entre las ciencias básicas y las ciencias clínicas: se cursa después de anatomía, histología, bioquímica y fisiología, y antes de semiología, diagnóstico físico y clínica.
-
-### Resultados de aprendizaje
-
-| | Resultado |
+| | |
 |---|---|
-| **RA17** · Conocimientos | Explica la función de los diferentes sistemas del cuerpo humano, la patogénesis de las enfermedades sistémicas y sus efectos sobre la salud visual y ocular |
-| **RA18** · Habilidades | Analiza los cambios del funcionamiento normal de un tejido, órgano o sistema para diferenciar lo normal de lo patológico, así como las implicaciones en el estado de salud del paciente |
-| **RA16** · Actitudes | Responde al cumplimiento individual y grupal de las actividades y tareas programadas dentro del espacio académico |
+| **Encuentros** | Jueves de 2:00 p. m. a 4:00 p. m. |
+| **Salón** | 404 — edificio de Optometría |
+| **Docente** | Jorge Wilhem Bogoya López |
+| **Correo** | jbogoya@unisalle.edu.co |
+| **Semestre** | 23 de julio – 12 de noviembre de 2026 · 16 encuentros |
+| **Texto guía** | Uribe Olivares, *Fisiopatología. La ciencia del porqué y el cómo* (Elsevier, 2018) |
+
+> ### ⚠️ Cambio de fecha del primer parcial
+> El **primer parcial pasó del 6 al 13 de agosto**. El 6 de agosto tendremos clase de
+> **inflamación y reparación**, que entra en el parcial.
 
 ---
 
-## Línea de tiempo del semestre
+## De qué se trata este espacio
 
-Sesiones semanales los **jueves**. Estado actualizado al **22 de julio de 2026**.
+La fisiopatología explica **por qué y cómo** el cuerpo se enferma. Para el optómetra eso no es un
+rodeo teórico: la retina, los vasos, el nervio óptico y la superficie ocular son estructuras donde
+las enfermedades del resto del cuerpo se manifiestan temprano, a veces antes de que alguien las haya
+diagnosticado.
 
-| | Sesión | Fecha | Tema | Tipo | Material |
-|---|---|---|---|---|---|
-| 🔜 | **1** | 23 de julio | Inducción: definiciones y generalidades de fisiología y patología | Clase | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/01-induccion/clase.html)** · [detalle](01-induccion/) |
-| ⬜ | **2** | 30 de julio | Inducción: síndrome y mecanismos de lesión | Clase | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/02-sindrome-y-lesion/clase.html)** · [detalle](02-sindrome-y-lesion/) |
-| ⬜ | **3** | 6 de agosto | Primer parcial | Evaluación | _en preparación_ · [detalle](03-primer-parcial/) |
-| ⬜ | **4** | 13 de agosto | Socialización de notas | Retroalimentación | _en preparación_ · [detalle](04-socializacion-notas-1/) |
-| ⬜ | **5** | 20 de agosto | Fisiopatología de los síntomas: dolor | Clase | _en preparación_ · [detalle](05-dolor/) |
-| ⬜ | **6** | 27 de agosto | Fisiopatología de los síntomas y signos: disnea y vértigo | Clase | _en preparación_ · [detalle](06-disnea-y-vertigo/) |
-| ⬜ | **7** | 3 de septiembre | Fisiopatología de los signos: edema y síncope | Clase | _en preparación_ · [detalle](07-edema-y-sincope/) |
-| ⬜ | **8** | 10 de septiembre | Fisiopatología de los signos: fiebre y cianosis | Clase | _en preparación_ · [detalle](08-fiebre-y-cianosis/) |
-| ⬜ | **9** | 17 de septiembre | Segundo parcial | Evaluación | _en preparación_ · [detalle](09-segundo-parcial/) |
-| ⬜ | **10** | 24 de septiembre | Socialización de notas | Retroalimentación | _en preparación_ · [detalle](10-socializacion-notas-2/) |
-| ⬜ | **11** | 1 de octubre | Inmunidad y respuesta: inflamación y reparación | Clase | _en preparación_ · [detalle](11-inflamacion-y-reparacion/) |
-| ⏸️ | — | 8 de octubre | _Semana de receso institucional_ | — | — |
-| ⬜ | **12** | 15 de octubre | Inmunidad: respuesta del huésped a la infección | Clase | _en preparación_ · [detalle](12-respuesta-a-la-infeccion/) |
-| ⬜ | **13** | 22 de octubre | Trastornos ópticos: miopía, hipermetropía, astigmatismo y presbicia | Clase | _en preparación_ · [detalle](13-trastornos-opticos/) |
-| ⬜ | **14** | 29 de octubre | Parcial final | Evaluación | _en preparación_ · [detalle](14-parcial-final/) |
-| ⬜ | **15** | 5 de noviembre | Socialización de notas | Retroalimentación | _en preparación_ · [detalle](15-socializacion-notas-3/) |
+Este espacio se cursa después de anatomía, histología, bioquímica y fisiología, y antes de
+semiología y clínica. Su tarea es convertir lo que ya sabes de la normalidad en capacidad de
+explicar la desviación, para que cuando veas un hallazgo en el fondo de ojo sepas qué lo produjo y
+qué hacer con él.
 
-**Convenciones:** ✅ sesión cumplida · 🔜 próxima sesión · ⬜ programada · ⏸️ receso institucional
+**Al terminar el semestre deberías poder:**
 
-### Estado de avance
-
-- **Sesiones cumplidas:** 0 de 15
-- **Próxima sesión:** 23 de julio de 2026 — Inducción
-- **Material publicado:** sesiones 1 y 2
+- **Explicar** la función de los sistemas del cuerpo, la patogénesis de las enfermedades sistémicas
+  y sus efectos sobre la salud visual y ocular. *(RA17)*
+- **Analizar** los cambios del funcionamiento normal de un tejido, órgano o sistema para diferenciar
+  lo normal de lo patológico y sus implicaciones para el paciente. *(RA18)*
+- **Responder** al cumplimiento individual y grupal de las actividades programadas. *(RA16)*
 
 ---
 
-## Bloques del semestre
+## Cronograma del semestre
 
-| Bloque | Sesiones | Contenido | Cierre |
+| | # | Fecha | Tema | Material |
+|---|---|---|---|---|
+| ✅ | **1** | 23 de julio | Inducción: definiciones y generalidades de fisiología y patología | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/01-induccion/clase.html)** · [detalle](01-induccion/) |
+| 🔜 | **2** | 30 de julio | Inducción: síndrome y mecanismos de lesión | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/02-sindrome-y-lesion/clase.html)** · [detalle](02-sindrome-y-lesion/) |
+| ⬜ | **3** | 6 de agosto | Inflamación y reparación de tejidos | _en preparación_ |
+| 📝 | **4** | **13 de agosto** | **Primer parcial** | — |
+| 💬 | **5** | 20 de agosto | Socialización de notas | — |
+| ⬜ | **6** | 27 de agosto | Inmunidad y respuesta del huésped a la infección | _en preparación_ |
+| ⬜ | **7** | 3 de septiembre | Fisiopatología de la fiebre y del dolor | _en preparación_ |
+| ⬜ | **8** | 10 de septiembre | Fisiopatología del edema y del síncope | _en preparación_ |
+| 📝 | **9** | 17 de septiembre | **Segundo parcial** | — |
+| 💬 | **10** | 24 de septiembre | Socialización de notas | — |
+| ⬜ | **11** | 1 de octubre | Fisiopatología de la disnea, la cianosis y el vértigo | _en preparación_ |
+| ⏸️ | — | 8 de octubre | _Semana de receso institucional_ | — |
+| ⬜ | **12** | 15 de octubre | Patología ambiental y nutricional: el ojo como órgano diana | _en preparación_ |
+| ⬜ | **13** | 22 de octubre | Diabetes e hipertensión: el ojo como ventana sistémica | _en preparación_ |
+| ⬜ | **14** | 29 de octubre | Trastornos ópticos desde la fisiopatología · cine-foro | _en preparación_ |
+| 📝 | **15** | 5 de noviembre | **Parcial final** | — |
+| 💬 | **16** | 12 de noviembre | Socialización de notas y cierre | — |
+
+**Convenciones:** ✅ cumplida · 🔜 próxima · ⬜ programada · 📝 evaluación · 💬 retroalimentación · ⏸️ receso
+
+Cada clase se publica aquí el día del encuentro o antes. Al hacer clic en **Ver clase** se abre en el
+navegador, sin descargar nada: funciona en celular y en computador, se adapta al tema claro u oscuro,
+e incluye ejercicios interactivos y autoevaluación. Si prefieres usarla sin conexión, puedes
+descargar el archivo desde la página de detalle de cada sesión.
+
+---
+
+## Cómo está organizado el semestre
+
+| Bloque | Encuentros | De qué trata | Cierra con |
 |---|---|---|---|
-| **1. Inducción** | 1–2 | Conceptos fundamentales, salud y enfermedad, semiología básica, lesión y adaptación celular | Primer parcial (6 ago) |
-| **2. Síntomas y signos** | 5–8 | Dolor, disnea, vértigo, edema, síncope, fiebre y cianosis | Segundo parcial (17 sep) |
-| **3. Inmunidad y aplicación disciplinar** | 11–13 | Inflamación y reparación, respuesta a la infección, trastornos ópticos | Parcial final (29 oct) |
+| **1. Fundamentos** | 1–3 | Qué es la fisiopatología, salud y enfermedad, semiología básica, y la respuesta del tejido a la agresión: lesión, adaptación, inflamación y reparación | Primer parcial · 13 ago |
+| **2. Inmunidad, síntomas y signos** | 6–8 | Respuesta inmunitaria e infección; fiebre, dolor, edema y síncope | Segundo parcial · 17 sep |
+| **3. Aplicación disciplinar** | 11–14 | Disnea, cianosis y vértigo; ambiente y nutrición; diabetes e hipertensión; trastornos ópticos | Parcial final · 5 nov |
+
+El orden no es casual: la inflamación se ve **antes** que la fiebre, el dolor y el edema, porque es
+el mecanismo que los explica.
 
 ---
 
-## Cómo ver las clases
+## Evaluación
 
-Las clases están publicadas en línea y se abren directamente en el navegador, sin descargar nada:
+Tres cortes. Dentro de cada uno, los porcentajes son sobre el total del corte.
 
-- **Sesión 1** — [Inducción: definiciones y generalidades de fisiología y patología](https://jboglop.github.io/Fisiologia_unisalle/01-induccion/clase.html)
-- **Sesión 2** — [Inducción: síndrome y mecanismos de lesión](https://jboglop.github.io/Fisiologia_unisalle/02-sindrome-y-lesion/clase.html)
-
-Cada clase es un archivo HTML autocontenido, sin dependencias externas: se adapta al tema claro u oscuro del navegador, funciona en celular y en proyector, e incluye ejercicios interactivos y autoevaluación. También puede descargarse el archivo `clase.html` de la carpeta correspondiente para usarla sin conexión.
-
----
-
-## Actividades en línea
-
-### 📋 [Portal de actividades de la sesión 1](https://script.google.com/macros/s/AKfycbx1KG_UpabZwMQzvAa9a7UyRmZkeo4ck03bqB45mmvNOQkGSvhatayf5hVvUMCRYXZwzg/exec)
-
-Quiz de inicio, entregable y lectura previa se responden en un mismo lugar. Cada actividad pide nombre, código y correo institucional una sola vez: el navegador los recuerda para las siguientes.
-
-| Actividad | Cuándo | Enlace directo |
+| Primer corte · 35 % | Segundo corte · 35 % | Tercer corte · 30 % |
 |---|---|---|
-| Quiz de inicio · calificable sobre 5,0 | 23 jul, 6:30–9:30 | [Responder](https://script.google.com/macros/s/AKfycbx1KG_UpabZwMQzvAa9a7UyRmZkeo4ck03bqB45mmvNOQkGSvhatayf5hVvUMCRYXZwzg/exec?p=quiz) |
-| Entregable 1 · glosario y PubMed | hasta 29 jul, 23:59 | [Entregar](https://script.google.com/macros/s/AKfycbx1KG_UpabZwMQzvAa9a7UyRmZkeo4ck03bqB45mmvNOQkGSvhatayf5hVvUMCRYXZwzg/exec?p=tarea) |
-| Lectura previa de la sesión 2 | hasta 30 jul, 6:00 | [Responder](https://script.google.com/macros/s/AKfycbx1KG_UpabZwMQzvAa9a7UyRmZkeo4ck03bqB45mmvNOQkGSvhatayf5hVvUMCRYXZwzg/exec?p=lectura) |
+| Parcial 1 — 55 % | Parcial 2 — 50 % | Parcial final — 45 % |
+| Quices — 20 % | Cadena fisiopatológica I — 25 % | Cadena fisiopatológica II — 30 % |
+| Glosario y búsqueda en PubMed — 15 % | Quices — 15 % | Lectura selecta — 15 % |
+| Participación — 10 % | Participación — 10 % | Participación — 10 % |
 
-Fuera de plazo cada actividad queda bloqueada indicando el motivo.
+**Los quices** son breves y se aplican en los primeros diez minutos de cada encuentro, sobre lo visto
+la semana anterior. No son para calificar asistencia: sirven para que el repaso ocurra cada semana y
+no la noche antes del parcial.
 
----
-
-## Cómo está organizado
-
-Una carpeta por sesión. Todo lo de esa sesión vive ahí: el guion, la clase y —solo en el equipo del docente— la guía docente.
+**La cadena fisiopatológica** es el producto central del curso: una infografía que conecta la causa
+con lo que el optómetra observa.
 
 ```
-Fisiologia_unisalle/
-├── README.md                  ← este índice
-├── 01-induccion/
-│   ├── README.md              ← contenidos, lecturas, trabajo independiente
-│   ├── clase.html             ← clase interactiva
-│   └── guia-docente.docx      ← NO se publica
-├── 02-sindrome-y-lesion/      ← igual
-├── 03-primer-parcial/ … 15-socializacion-notas-3/
-│   └── README.md
-└── app/                       ← NO se publica: código del portal de actividades
+CAUSA → MECANISMO 1 → MECANISMO 2 → SIGNO O SÍNTOMA → ¿QUÉ VE EL OPTÓMETRA?
 ```
 
-**Qué no se publica y por qué.** El repositorio es público, así que dos cosas quedan solo en el equipo del docente, excluidas por `.gitignore`:
+La última casilla es siempre obligatoria. Se evalúa con una rúbrica que se entrega y se explica antes
+de empezar, y que es la misma todo el semestre para que puedas ver tu progreso.
 
-| Ruta | Motivo |
-|---|---|
-| `*/guia-docente.docx` | Contiene el banco de preguntas con las respuestas y el alcance de los parciales |
-| `app/` | `Contenido.gs` incluye las respuestas correctas del quiz calificable |
-
-La bibliografía y el syllabus están fuera de esta carpeta, en `privado/`, y nunca entran al repositorio.
+**Lectura selecta:** *El hombre elefante* (David Lynch, 1980), del Plan Institucional de Lecturas
+Selectas. Se trabaja como un caso fisiopatológico narrado y se socializa en cine-foro.
 
 ---
 
-## Metodología y evaluación
+## Actividades en línea de la sesión 1
 
-**Opciones metodológicas:** clases magistrales participativas, exposiciones, aprendizaje basado en problemas, quices e infografía.
+### 📋 [Abrir el portal de actividades](https://script.google.com/macros/s/AKfycbx1KG_UpabZwMQzvAa9a7UyRmZkeo4ck03bqB45mmvNOQkGSvhatayf5hVvUMCRYXZwzg/exec)
 
-**Trabajo independiente (64 horas):** lectura previa de los temas, escritos, lectura complementaria de artículos, resolución de cuestionarios y casos clínicos cortos en inglés.
+Cada actividad pide nombre, código y correo institucional una sola vez; el navegador los recuerda
+para las siguientes.
 
-**Plan Institucional de Lecturas Selectas:** P13 — *El hombre elefante* (1980). Se analizan los cambios morfológicos expresados en la película para estudiar su fisiología y su etiología.
+| Actividad | Plazo | |
+|---|---|---|
+| Quiz de inicio · calificable sobre 5,0 | 23 de julio | 🔒 cerrado |
+| Entregable 1 · glosario y búsqueda en PubMed | hasta el **29 de julio, 23:59** | [Entregar](https://script.google.com/macros/s/AKfycbx1KG_UpabZwMQzvAa9a7UyRmZkeo4ck03bqB45mmvNOQkGSvhatayf5hVvUMCRYXZwzg/exec?p=tarea) |
+| Lectura previa de la sesión 2 | hasta el **30 de julio, 6:00** | [Responder](https://script.google.com/macros/s/AKfycbx1KG_UpabZwMQzvAa9a7UyRmZkeo4ck03bqB45mmvNOQkGSvhatayf5hVvUMCRYXZwzg/exec?p=lectura) |
+
+Fuera de plazo la actividad queda bloqueada indicando el motivo.
 
 ---
 
-## Fuentes principales
+## Qué leer
 
-- Uribe Olivares, R. A. (2018). *Fisiopatología. La ciencia del porqué y el cómo*. Barcelona: Elsevier España. **Texto guía.**
-- Robbins, S. L. et al. (2017). *Compendio de Robbins y Cotran. Patología estructural y funcional*. Recurso electrónico disponible en la hemeroteca de la Universidad de La Salle.
+**Texto guía.** Uribe Olivares, R. A. (2018). *Fisiopatología. La ciencia del porqué y el cómo*.
+Barcelona: Elsevier España. El curso recorre los **capítulos 1 a 22**; cada página de sesión indica
+cuáles corresponden.
+
+**Complementarias.**
+
+- Robbins, S. L. y cols. (2017). *Compendio de Robbins y Cotran. Patología estructural y funcional*.
+  Disponible en la [hemeroteca de la Universidad de La Salle](http://hemeroteca.lasalle.edu.co).
 - Reid, R. *Pathology Illustrated*.
 - Oxford Centre for Evidence-Based Medicine — niveles de evidencia.
+
+La bibliografía se consulta por los canales institucionales de la Universidad.
+
+---
+
+## Cómo se trabaja en clase
+
+Clases magistrales participativas con pedagogía de la pregunta, aprendizaje basado en problemas,
+análisis de casos clínicos cortos, talleres, exposiciones e infografía.
+
+**Trabajo independiente (64 horas):** lectura previa de cada sesión, escritos, lectura complementaria
+de artículos, resolución de cuestionarios y casos clínicos cortos en inglés.
+
+Se espera que llegues a clase con la lectura previa hecha. El quiz de los primeros diez minutos
+existe justamente para eso.
 
 ---
 
 ## Aviso sobre derechos de autor
 
-Este repositorio contiene **material docente de elaboración propia**: síntesis, esquemas, ejercicios y guiones de clase redactados a partir de las fuentes citadas.
+Este sitio contiene **material docente de elaboración propia**: síntesis, esquemas, ejercicios y
+guiones de clase redactados a partir de las fuentes citadas.
 
-**No se publica ni se redistribuye ningún fragmento de los textos protegidos por derechos de autor.** Los capítulos del texto guía y demás bibliografía deben consultarse a través de los canales institucionales de la Universidad de La Salle.
+No se publica ni se redistribuye ningún fragmento de los textos protegidos por derechos de autor.
+Los capítulos del texto guía y demás bibliografía deben consultarse a través de los canales
+institucionales de la Universidad de La Salle.
 
-Los ejemplos de aplicación ocular incluidos en las clases son ilustraciones del mecanismo fisiopatológico general; su estudio detallado corresponde a espacios académicos posteriores del programa.
+Los ejemplos de aplicación ocular incluidos en las clases ilustran el mecanismo fisiopatológico
+general; su estudio detallado corresponde a espacios académicos posteriores del programa.
 
+---
+
+*Última actualización: 26 de julio de 2026*
