@@ -10,6 +10,15 @@ guia-docente.docx
 # Contenido.gs incluye las respuestas correctas del quiz calificable.
 app/
 
+# BACKEND DE INSTRUMENTOS DE EVALUACIÓN — nunca al repositorio público.
+# Los .gs contienen la CLAVE DE RESPUESTAS y los tokens. Publicar uno obliga a
+# rehacer el banco completo: retirarlo de la rama no basta, queda en el historial.
+*.gs
+appsscript.json
+tablero*.html
+dashboard*.html
+taller-*-backend/
+
 # DATOS PERSONALES DE ESTUDIANTES — nunca al repositorio público.
 # La lista de curso y la página de asistencia contienen nombres y códigos
 # de estudiantes identificables. El repositorio es público: no pueden entrar.

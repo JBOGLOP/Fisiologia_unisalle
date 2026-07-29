@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Taller · Síndrome y mecanismos de lesión</title>
+<style>
+  :root{
+    --ink:#12212b; --paper:#f4f7f7; --surface:#ffffff; --surface-2:#eaf0f0;
+    --line:#cbd8da; --muted:#516268;
+    --fisio:#10505e; --fisio-soft:#dceaec;
+    --pato:#a8412c; --pato-soft:#f5e2dc;
+    --amber:#a06a12; --amber-soft:#f6e9cf;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 12px 30px -18px rgba(18,33,43,.4);
+    --display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+      --line:#2c3d43; --muted:#9bafb4;
+      --fisio:#5cb6c6; --fisio-soft:#12313a;
+      --pato:#e08a70; --pato-soft:#3a2119;
+      --amber:#e0b464; --amber-soft:#3a2f16;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.9);
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font-family:var(--body); line-height:1.55;
+    -webkit-font-smoothing:antialiased; min-height:100dvh; padding:clamp(.8rem,3vw,2rem);}
+  .wrap{max-width:720px; margin:0 auto}
+  .hide{display:none !important}
+
+  .eyebrow{font-family:var(--mono); font-size:.65rem; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--muted); margin:0}
+  h1{font-family:var(--display); font-weight:600; line-height:1.15;
+    font-size:clamp(1.5rem,6vw,2.1rem); margin:.3rem 0 .5rem; text-wrap:balance}
+  .sub{color:var(--muted); font-size:.95rem; margin:0 0 1.4rem}
+
+  .panel{background:var(--surface); border:1px solid var(--line); border-radius:14px;
+    box-shadow:var(--shadow); padding:clamp(1rem,4vw,1.6rem); margin-bottom:1rem}
+
+  label{display:block; font-size:.74rem; font-weight:600; color:var(--muted);
+    text-transform:uppercase; letter-spacing:.06em; margin:0 0 .35rem}
+  select,input{width:100%; font:inherit; font-size:1rem; color:var(--ink); background:var(--paper);
+    border:1px solid var(--line); border-radius:10px; padding:.7rem .8rem;
+    -webkit-appearance:none; appearance:none}
+  select:focus,input:focus{outline:2px solid var(--fisio); outline-offset:1px; border-color:var(--fisio)}
+  .field{margin-bottom:1rem}
+
+  .btn{width:100%; font:inherit; font-weight:600; font-size:1rem; cursor:pointer;
+    background:var(--fisio); color:#fff; border:0; border-radius:99px; padding:.85rem 1rem;
+    transition:filter .15s}
+  .btn:hover{filter:brightness(1.08)}
+  .btn:disabled{opacity:.5; cursor:progress}
+  .btn.ghost{background:none; color:var(--fisio); border:1px solid var(--line)}
+
+  .msg{margin-top:1rem; padding:.8rem 1rem; border-radius:10px; font-size:.9rem; display:none}
+  .msg.ok{display:block; background:var(--fisio-soft); color:var(--fisio);
+    border:1px solid color-mix(in srgb,var(--fisio) 35%,transparent)}
+  .msg.err{display:block; background:var(--pato-soft); color:var(--pato);
+    border:1px solid color-mix(in srgb,var(--pato) 35%,transparent)}
+  .msg.warn{display:block; background:var(--amber-soft); color:var(--amber);
+    border:1px solid color-mix(in srgb,var(--amber) 35%,transparent)}
+
+  /* barra de progreso fija */
+  .bar{position:sticky; top:0; z-index:5; background:color-mix(in srgb,var(--paper) 92%,transparent);
+    backdrop-filter:blur(8px); border-bottom:1px solid var(--line);
+    margin:-.8rem -.8rem 1rem; padding:.6rem clamp(.8rem,3vw,2rem)}
+  .bar-in{max-width:720px; margin:0 auto; display:flex; align-items:center; gap:.8rem;
+    font-size:.82rem; color:var(--muted)}
+  .track{flex:1; height:6px; background:var(--surface-2); border-radius:99px; overflow:hidden}
+  .fill{height:100%; width:0%; background:var(--fisio); transition:width .25s}
+  .rel{font-family:var(--mono); font-variant-numeric:tabular-nums}
+
+  .q{background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--line);
+    border-radius:12px; padding:1rem 1.1rem; margin-bottom:.8rem}
+  .q.done{border-left-color:var(--fisio)}
+  .q-n{font-family:var(--mono); font-size:.68rem; letter-spacing:.1em; color:var(--muted)}
+  .q-t{font-weight:600; margin:.35rem 0 .8rem; line-height:1.45}
+  .opt{display:flex; gap:.6rem; align-items:flex-start; padding:.6rem .7rem; border-radius:9px;
+    cursor:pointer; border:1px solid transparent; transition:background .12s}
+  .opt:hover{background:var(--surface-2)}
+  .opt input{width:auto; flex:none; margin:.25rem 0 0}
+  .opt span{font-size:.94rem; line-height:1.4}
+  .opt.sel{background:var(--fisio-soft); border-color:color-mix(in srgb,var(--fisio) 30%,transparent)}
+  .opt.good{background:var(--fisio-soft); border-color:var(--fisio)}
+  .opt.bad{background:var(--pato-soft); border-color:var(--pato)}
+  .fb{margin-top:.7rem; padding:.6rem .8rem; border-radius:9px; font-size:.88rem;
+    background:var(--surface-2); color:var(--muted)}
+
+  .score{text-align:center; padding:1.2rem 0 .4rem}
+  .score b{display:block; font-family:var(--display); font-size:3rem; line-height:1; color:var(--fisio)}
+  .score span{font-size:.8rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted)}
+
+  footer{margin-top:1.6rem; padding-top:.9rem; border-top:1px solid var(--line);
+    font-family:var(--mono); font-size:.66rem; letter-spacing:.04em; color:var(--muted)}
+</style>
+</head>
+<body>
+
+<!-- ══════════ 1 · INGRESO ══════════ -->
+<div class="wrap" id="vLogin">
+  <p class="eyebrow">Fisiopatología General · 01008430 · Encuentro 2</p>
+  <h1>Taller: síndrome y mecanismos de lesión</h1>
+  <p class="sub">Catorce preguntas sobre la sesión de hoy y los capítulos 4, 5 y 6 del texto guía.
+    Al terminar verás tu nota y la explicación de cada respuesta.</p>
+
+  <div class="panel">
+    <div class="field">
+      <label for="nombre">Tu nombre</label>
+      <select id="nombre"><option value="">Cargando la lista…</option></select>
+    </div>
+    <div class="field">
+      <label for="codigo">Código estudiantil</label>
+      <input id="codigo" type="text" inputmode="numeric" autocomplete="off" placeholder="Ej. 1012345678">
+    </div>
+    <button class="btn" id="entrar" type="button" disabled>Entrar al taller</button>
+    <div class="msg" id="msgLogin" role="status" aria-live="polite"></div>
+  </div>
+
+  <footer>Tus respuestas se guardan solas mientras trabajas. Si se cae la conexión o cierras
+    por error, al volver a entrar recuperas lo que llevabas.</footer>
+</div>
+
+<!-- ══════════ 2 · TALLER ══════════ -->
+<div id="vQuiz" class="hide">
+  <div class="bar">
+    <div class="bar-in">
+      <span id="progTxt">0 de 0</span>
+      <div class="track"><div class="fill" id="fill"></div></div>
+      <span class="rel" id="reloj">00:00</span>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="eyebrow" id="quien"></p>
+    <h1 style="font-size:clamp(1.2rem,5vw,1.6rem)">Síndrome y mecanismos de lesión</h1>
+    <div id="preguntas"></div>
+    <button class="btn" id="entregar" type="button">Entregar taller</button>
+    <div class="msg" id="msgQuiz" role="status" aria-live="polite"></div>
+    <footer id="guardado">Guardado automático activo.</footer>
+  </div>
+</div>
+
+<!-- ══════════ 3 · RESULTADO ══════════ -->
+<div class="wrap hide" id="vFin">
+  <p class="eyebrow">Taller entregado</p>
+  <h1>Resultado</h1>
+  <div class="panel">
+    <div class="score">
+      <b id="nota">—</b>
+      <span id="detalleNota"></span>
+    </div>
+  </div>
+  <div id="revision"></div>
+  <footer>Ya quedó registrado. Puedes cerrar esta página.</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // El token de ESCRITURA viaja aquí por diseño: solo permite enviar, nunca leer
+  // los datos del curso. El token de lectura del tablero es otro y no está aquí.
+  var API   = "https://script.google.com/macros/s/AKfycbwttho7Lw4eTuQAjO8tozbcP3fXHWso22UhEA-Iv4GNAoq122JAHeYRrgGzCMAjMp4-/exec";
+  var TOKEN = "EBoc8ljv6PDvDFxwjsA6a5F2yk1kGH18";
+  var CLAVE = "taller-s2-2026";          // STORAGE_KEY propio de este instrumento
+
+  var $ = function(id){ return document.getElementById(id); };
+  var estado = {
+    nombre:"", codigo:"", preguntas:[], respuestas:{}, inicio:0, entregado:false,
+    contadores:{ pestana:0, foco:0, devtools:0, copiar:0, pegar:0, menu:0, reinicios:0 }
+  };
+  var sucio = false, enviando = false;
+
+  // ---------- utilidades de red ----------
+  function get(params){
+    var qs = Object.keys(params).map(function(k){
+      return encodeURIComponent(k)+"="+encodeURIComponent(params[k]); }).join("&");
+    return fetch(API+"?"+qs).then(function(r){ return r.json(); });
+  }
+  function post(payload){
+    payload.token = TOKEN;
+    // text/plain evita el preflight CORS que Apps Script no responde
+    return fetch(API, { method:"POST", body: JSON.stringify(payload) })
+      .then(function(r){ return r.json(); });
+  }
+  function ver(el, cls, txt){ el.className = "msg "+cls; el.textContent = txt; }
+  function limpiar(el){ el.className = "msg"; el.textContent = ""; }
+
+  // ---------- persistencia local ----------
+  function guardarLocal(){
+    try{
+      localStorage.setItem(CLAVE, JSON.stringify({
+        nombre: estado.nombre, codigo: estado.codigo, respuestas: estado.respuestas,
+        inicio: estado.inicio, contadores: estado.contadores, entregado: estado.entregado
+      }));
+    }catch(e){}
+  }
+  function leerLocal(){
+    try{ return JSON.parse(localStorage.getItem(CLAVE) || "null"); }catch(e){ return null; }
+  }
+
+  // ---------- detección de reinicio ----------
+  try{
+    if (sessionStorage.getItem(CLAVE+":vivo")) {
+      var pre = leerLocal();
+      if (pre && pre.contadores) estado.contadores = pre.contadores;
+      estado.contadores.reinicios++;
+    }
+    sessionStorage.setItem(CLAVE+":vivo", "1");
+  }catch(e){}
+
+  // ---------- contadores de sesión ----------
+  // Ninguno prueba nada por sí solo. Son señales, no calificaciones.
+  document.addEventListener("visibilitychange", function(){
+    if (document.hidden && !estado.entregado){ estado.contadores.pestana++; marcar(); }
+  });
+  window.addEventListener("blur", function(){
+    if (!estado.entregado){ estado.contadores.foco++; marcar(); }
+  });
+  ["copy","cut"].forEach(function(ev){
+    document.addEventListener(ev, function(){ estado.contadores.copiar++; marcar(); });
+  });
+  document.addEventListener("paste", function(){ estado.contadores.pegar++; marcar(); });
+  document.addEventListener("contextmenu", function(){ estado.contadores.menu++; marcar(); });
+  document.addEventListener("keydown", function(e){
+    var k = (e.key||"").toLowerCase();
+    var dev = k === "f12"
+      || (e.ctrlKey && e.shiftKey && ["i","j","c"].indexOf(k) !== -1)
+      || (e.ctrlKey && k === "u");
+    if (dev){ estado.contadores.devtools++; marcar(); }
+  });
+  function marcar(){ sucio = true; guardarLocal(); }
+
+  // ---------- 1 · ingreso ----------
+  get({ action:"roster", token:TOKEN }).then(function(r){
+    var sel = $("nombre");
+    if (!r.ok){
+      sel.innerHTML = '<option value="">—</option>';
+      ver($("msgLogin"), "warn", r.error || "La actividad no está disponible.");
+      return;
+    }
+    sel.innerHTML = '<option value="">Selecciona tu nombre…</option>' +
+      r.alumnos.map(function(n){
+        return '<option value="'+n.replace(/"/g,"&quot;")+'">'+n+'</option>'; }).join("");
+    $("entrar").disabled = false;
+
+    var pre = leerLocal();
+    if (pre && pre.nombre){
+      sel.value = pre.nombre; $("codigo").value = pre.codigo || "";
+      ver($("msgLogin"), "ok", "Tenías un intento en curso. Entra de nuevo para continuar donde ibas.");
+    }
+  }).catch(function(){
+    ver($("msgLogin"), "err", "No se pudo contactar al servidor. Revisa tu conexión.");
+  });
+
+  $("entrar").addEventListener("click", function(){
+    var nombre = $("nombre").value, codigo = $("codigo").value.trim();
+    if (!nombre){ ver($("msgLogin"), "err", "Selecciona tu nombre."); return; }
+    if (!codigo){ ver($("msgLogin"), "err", "Escribe tu código estudiantil."); return; }
+
+    var b = $("entrar"); b.disabled = true; b.textContent = "Entrando…"; limpiar($("msgLogin"));
+
+    get({ action:"banco", token:TOKEN, nombre:nombre, codigo:codigo }).then(function(r){
+      b.disabled = false; b.textContent = "Entrar al taller";
+      if (!r.ok){ ver($("msgLogin"), "err", r.error); return; }
+
+      estado.nombre = nombre; estado.codigo = codigo; estado.preguntas = r.preguntas;
+
+      var pre = leerLocal();
+      if (pre && pre.nombre === nombre && pre.respuestas) estado.respuestas = pre.respuestas;
+      // Conserva el inicio si tiene menos de 3 h; si no, el reloj arrancaría en cero.
+      estado.inicio = (pre && pre.inicio && (Date.now() - pre.inicio) < 3*3600*1000)
+        ? pre.inicio : Date.now();
+
+      arrancar();
+    }).catch(function(){
+      b.disabled = false; b.textContent = "Entrar al taller";
+      ver($("msgLogin"), "err", "No se pudo contactar al servidor.");
+    });
+  });
+
+  // ---------- 2 · taller ----------
+  function arrancar(){
+    $("vLogin").classList.add("hide");
+    $("vQuiz").classList.remove("hide");
+    $("quien").textContent = estado.nombre;
+    pintar(); progreso(); guardarLocal();
+    setInterval(reloj, 1000); reloj();
+    setInterval(sincronizar, 75000);            // snapshot periódico si hay cambios
+  }
+
+  function pintar(){
+    var cont = $("preguntas"); cont.innerHTML = "";
+    estado.preguntas.forEach(function(q, i){
+      var d = document.createElement("div");
+      d.className = "q"; d.id = "q-"+q.id;
+      var h = '<p class="q-n">Pregunta '+(i+1)+' de '+estado.preguntas.length+'</p>'+
+              '<p class="q-t">'+esc(q.t)+'</p>';
+      q.o.forEach(function(op, j){
+        var sel = (estado.respuestas[q.id] === j) ? " sel" : "";
+        h += '<label class="opt'+sel+'" data-q="'+q.id+'" data-i="'+j+'">'+
+               '<input type="radio" name="'+q.id+'" value="'+j+'"'+
+               (estado.respuestas[q.id] === j ? " checked" : "")+'>'+
+               '<span>'+esc(op)+'</span></label>';
+      });
+      d.innerHTML = h;
+      if (estado.respuestas[q.id] !== undefined) d.classList.add("done");
+      cont.appendChild(d);
+    });
+
+    cont.addEventListener("change", function(e){
+      var lab = e.target.closest(".opt"); if (!lab) return;
+      var qid = lab.dataset.q, idx = Number(lab.dataset.i);
+      estado.respuestas[qid] = idx;
+      var caja = $("q-"+qid);
+      caja.querySelectorAll(".opt").forEach(function(o){ o.classList.remove("sel"); });
+      lab.classList.add("sel"); caja.classList.add("done");
+      sucio = true; guardarLocal(); progreso();
+    });
+  }
+
+  function progreso(){
+    var n = Object.keys(estado.respuestas).length, t = estado.preguntas.length;
+    $("progTxt").textContent = n+" de "+t;
+    $("fill").style.width = (t ? (n/t*100) : 0)+"%";
+  }
+
+  function reloj(){
+    var s = Math.floor((Date.now() - estado.inicio)/1000);
+    var m = Math.floor(s/60);
+    $("reloj").textContent = String(m).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+  }
+
+  function carga(accion){
+    return {
+      action: accion, nombre: estado.nombre, codigo: estado.codigo,
+      respuestas: estado.respuestas, contadores: estado.contadores,
+      duracionMin: Math.round((Date.now() - estado.inicio)/60000)
+    };
+  }
+
+  function sincronizar(){
+    if (!sucio || estado.entregado || enviando) return;
+    sucio = false;
+    post(carga("snapshot")).then(function(){
+      $("guardado").textContent = "Guardado a las "+new Date().toLocaleTimeString("es-CO",
+        {hour:"2-digit", minute:"2-digit"})+".";
+    }).catch(function(){ sucio = true; });
+  }
+
+  // Último snapshot al cerrar. sendBeacon sobrevive al cierre de la pestaña.
+  window.addEventListener("beforeunload", function(){
+    if (estado.entregado || !estado.nombre) return;
+    try{
+      var d = carga("snapshot"); d.token = TOKEN;
+      navigator.sendBeacon(API, new Blob([JSON.stringify(d)], {type:"text/plain"}));
+    }catch(e){}
+  });
+
+  // ---------- entrega ----------
+  $("entregar").addEventListener("click", function(){
+    if (enviando || estado.entregado) return;
+    var faltan = estado.preguntas.length - Object.keys(estado.respuestas).length;
+    if (faltan > 0 && !confirm("Te faltan "+faltan+" preguntas por responder.\n\n¿Entregar de todas formas?")) return;
+
+    enviando = true;
+    var b = $("entregar"); b.disabled = true; b.textContent = "Entregando…";
+    limpiar($("msgQuiz"));
+
+    post(carga("entregar")).then(function(r){
+      enviando = false; b.disabled = false; b.textContent = "Entregar taller";
+      if (!r.ok){ ver($("msgQuiz"), "err", r.error || "No se pudo entregar."); return; }
+      estado.entregado = true; guardarLocal();
+      mostrar(r);
+    }).catch(function(){
+      enviando = false; b.disabled = false; b.textContent = "Entregar taller";
+      ver($("msgQuiz"), "err", "No se pudo entregar. Revisa tu conexión y vuelve a intentarlo: "+
+        "tus respuestas siguen guardadas.");
+    });
+  });
+
+  // ---------- 3 · resultado con retroalimentación ----------
+  function mostrar(r){
+    $("vQuiz").classList.add("hide");
+    $("vFin").classList.remove("hide");
+    window.scrollTo(0,0);
+
+    $("nota").textContent = r.nota.toFixed(1);
+    $("detalleNota").textContent = r.correctas+" de "+r.total+" correctas";
+
+    var cont = $("revision"); cont.innerHTML = "";
+    estado.preguntas.forEach(function(q, i){
+      var det = null;
+      for (var k=0; k<r.detalle.length; k++){ if (r.detalle[k].id === q.id){ det = r.detalle[k]; break; } }
+      if (!det) return;
+
+      var d = document.createElement("div"); d.className = "q";
+      var h = '<p class="q-n">Pregunta '+(i+1)+(det.ok ? ' · correcta' : ' · revisar')+'</p>'+
+              '<p class="q-t">'+esc(q.t)+'</p>';
+      q.o.forEach(function(op, j){
+        var cls = "opt";
+        if (j === det.correcta) cls += " good";
+        else if (j === det.dada) cls += " bad";
+        h += '<div class="'+cls+'"><span>'+esc(op)+'</span></div>';
+      });
+      h += '<div class="fb">'+esc(det.e)+'</div>';
+      d.innerHTML = h;
+      cont.appendChild(d);
+    });
+  }
+
+  function esc(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+})();
+</script>
+</body>
+</html>
