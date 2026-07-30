@@ -81,8 +81,12 @@
   .q.done{border-left-color:var(--fisio)}
   .q-n{font-family:var(--mono); font-size:.68rem; letter-spacing:.1em; color:var(--muted)}
   .q-t{font-weight:600; margin:.35rem 0 .8rem; line-height:1.45}
+  /* .opt es un <label>, así que hereda la regla de arriba: sin este reset las
+     opciones de respuesta salen en MAYÚSCULAS, en negrita y espaciadas, y se
+     leen como títulos en vez de como texto. */
   .opt{display:flex; gap:.6rem; align-items:flex-start; padding:.6rem .7rem; border-radius:9px;
-    cursor:pointer; border:1px solid transparent; transition:background .12s}
+    cursor:pointer; border:1px solid transparent; transition:background .12s;
+    text-transform:none; font-weight:400; letter-spacing:normal; color:var(--ink); margin:0}
   .opt:hover{background:var(--surface-2)}
   .opt input{width:auto; flex:none; margin:.25rem 0 0}
   .opt span{font-size:.94rem; line-height:1.4}
@@ -165,9 +169,10 @@
 
   // El token de ESCRITURA viaja aquí por diseño: solo permite enviar, nunca leer
   // los datos del curso. El token de lectura del tablero es otro y no está aquí.
-  var API   = "https://script.google.com/macros/s/AKfycbwttho7Lw4eTuQAjO8tozbcP3fXHWso22UhEA-Iv4GNAoq122JAHeYRrgGzCMAjMp4-/exec";
+  var API   = "https://script.google.com/macros/s/AKfycbxBo5mbLVOBPTQjvcwd_VsJebkqdUJBDWLoMiyN7WEWEplez_DRrUFTGDsl3IE4SQmc/exec";
   var TOKEN = "EBoc8ljv6PDvDFxwjsA6a5F2yk1kGH18";
   var CLAVE = "taller-s2-2026";          // STORAGE_KEY propio de este instrumento
+  var ESPERA = 25000;                    // corta la petición si el servidor no contesta
 
   var $ = function(id){ return document.getElementById(id); };
   var estado = {
@@ -177,16 +182,25 @@
   var sucio = false, enviando = false;
 
   // ---------- utilidades de red ----------
+  // Sin tiempo de espera, una petición colgada deja el botón en "Entregando…"
+  // para siempre y el estudiante no sabe si entregó o no.
+  function conTiempo(promesa){
+    return new Promise(function(ok, mal){
+      var t = setTimeout(function(){ mal(new Error("timeout")); }, ESPERA);
+      promesa.then(function(v){ clearTimeout(t); ok(v); },
+                   function(e){ clearTimeout(t); mal(e); });
+    });
+  }
   function get(params){
     var qs = Object.keys(params).map(function(k){
       return encodeURIComponent(k)+"="+encodeURIComponent(params[k]); }).join("&");
-    return fetch(API+"?"+qs).then(function(r){ return r.json(); });
+    return conTiempo(fetch(API+"?"+qs).then(function(r){ return r.json(); }));
   }
   function post(payload){
     payload.token = TOKEN;
     // text/plain evita el preflight CORS que Apps Script no responde
-    return fetch(API, { method:"POST", body: JSON.stringify(payload) })
-      .then(function(r){ return r.json(); });
+    return conTiempo(fetch(API, { method:"POST", body: JSON.stringify(payload) })
+      .then(function(r){ return r.json(); }));
   }
   function ver(el, cls, txt){ el.className = "msg "+cls; el.textContent = txt; }
   function limpiar(el){ el.className = "msg"; el.textContent = ""; }
@@ -205,10 +219,18 @@
   }
 
   // ---------- detección de reinicio ----------
+  // Los contadores se restauran SIEMPRE que exista estado previo. Antes solo se
+  // restauraban si sobrevivía la marca de sessionStorage, de modo que cerrar la
+  // pestaña y volver a abrirla —justo la señal que más interesa— borraba el
+  // historial completo de contadores y los dejaba de nuevo en cero.
   try{
-    if (sessionStorage.getItem(CLAVE+":vivo")) {
-      var pre = leerLocal();
-      if (pre && pre.contadores) estado.contadores = pre.contadores;
+    var prev = leerLocal();
+    if (prev && prev.contadores){
+      Object.keys(estado.contadores).forEach(function(k){
+        if (typeof prev.contadores[k] === "number") estado.contadores[k] = prev.contadores[k];
+      });
+      // Había estado guardado y la página se está cargando otra vez: es un
+      // reinicio, sea recarga en la misma pestaña o reapertura tras cerrarla.
       estado.contadores.reinicios++;
     }
     sessionStorage.setItem(CLAVE+":vivo", "1");
@@ -218,9 +240,17 @@
   // Ninguno prueba nada por sí solo. Son señales, no calificaciones.
   document.addEventListener("visibilitychange", function(){
     if (document.hidden && !estado.entregado){ estado.contadores.pestana++; marcar(); }
+    if (document.hidden) beacon();
   });
+  // Un cambio de pestaña dispara blur Y visibilitychange, así que antes cada
+  // cambio sumaba dos contadores distintos y "foco" y "pestaña" medían lo mismo.
+  // Se espera un instante: si la página quedó oculta, ya lo contó "pestaña".
   window.addEventListener("blur", function(){
-    if (!estado.entregado){ estado.contadores.foco++; marcar(); }
+    if (estado.entregado) return;
+    setTimeout(function(){
+      if (document.hidden || estado.entregado) return;
+      estado.contadores.foco++; marcar();
+    }, 150);
   });
   ["copy","cut"].forEach(function(ev){
     document.addEventListener(ev, function(){ estado.contadores.copiar++; marcar(); });
@@ -246,13 +276,18 @@
     }
     sel.innerHTML = '<option value="">Selecciona tu nombre…</option>' +
       r.alumnos.map(function(n){
-        return '<option value="'+n.replace(/"/g,"&quot;")+'">'+n+'</option>'; }).join("");
+        return '<option value="'+esc(n)+'">'+esc(n)+'</option>'; }).join("");
     $("entrar").disabled = false;
 
     var pre = leerLocal();
     if (pre && pre.nombre){
       sel.value = pre.nombre; $("codigo").value = pre.codigo || "";
-      ver($("msgLogin"), "ok", "Tenías un intento en curso. Entra de nuevo para continuar donde ibas.");
+      if (pre.entregado){
+        ver($("msgLogin"), "warn", "Este taller ya fue entregado desde este dispositivo. "+
+          "Si necesitas volver a presentarlo, habla con el docente.");
+      } else {
+        ver($("msgLogin"), "ok", "Tenías un intento en curso. Entra de nuevo para continuar donde ibas.");
+      }
     }
   }).catch(function(){
     ver($("msgLogin"), "err", "No se pudo contactar al servidor. Revisa tu conexión.");
@@ -303,8 +338,8 @@
               '<p class="q-t">'+esc(q.t)+'</p>';
       q.o.forEach(function(op, j){
         var sel = (estado.respuestas[q.id] === j) ? " sel" : "";
-        h += '<label class="opt'+sel+'" data-q="'+q.id+'" data-i="'+j+'">'+
-               '<input type="radio" name="'+q.id+'" value="'+j+'"'+
+        h += '<label class="opt'+sel+'" data-q="'+esc(q.id)+'" data-i="'+j+'">'+
+               '<input type="radio" name="'+esc(q.id)+'" value="'+j+'"'+
                (estado.respuestas[q.id] === j ? " checked" : "")+'>'+
                '<span>'+esc(op)+'</span></label>';
       });
@@ -353,14 +388,20 @@
     }).catch(function(){ sucio = true; });
   }
 
-  // Último snapshot al cerrar. sendBeacon sobrevive al cierre de la pestaña.
-  window.addEventListener("beforeunload", function(){
-    if (estado.entregado || !estado.nombre) return;
+  // Último snapshot al salir. En iOS y en Android, beforeunload no se dispara de
+  // forma fiable al cerrar o al cambiar de app: pagehide y visibilitychange sí.
+  // Como muchos estudiantes responden desde el teléfono, se enganchan los tres.
+  function beacon(){
+    if (estado.entregado || !estado.nombre || !sucio) return;
     try{
       var d = carga("snapshot"); d.token = TOKEN;
-      navigator.sendBeacon(API, new Blob([JSON.stringify(d)], {type:"text/plain"}));
+      var ok = navigator.sendBeacon &&
+        navigator.sendBeacon(API, new Blob([JSON.stringify(d)], {type:"text/plain"}));
+      if (ok) sucio = false;
     }catch(e){}
-  });
+  }
+  window.addEventListener("pagehide", beacon);
+  window.addEventListener("beforeunload", beacon);
 
   // ---------- entrega ----------
   $("entregar").addEventListener("click", function(){
