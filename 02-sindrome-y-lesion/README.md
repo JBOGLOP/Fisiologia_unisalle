@@ -22,6 +22,8 @@ Se abre directamente en el navegador. También puedes [descargar el archivo](cla
 
 - **[Lectura previa y control de lectura](https://script.google.com/macros/s/AKfycbx1KG_UpabZwMQzvAa9a7UyRmZkeo4ck03bqB45mmvNOQkGSvhatayf5hVvUMCRYXZwzg/exec?p=lectura)** — Se responde ANTES de esta sesión. Las preguntas abiertas definen con qué temas se abre la clase.
 
+- **[Taller: síndrome y mecanismos de lesión](https://jboglop.github.io/Fisiologia_unisalle/02-sindrome-y-lesion/taller.html)** — Se responde DESPUÉS de la sesión. Catorce preguntas sobre la clase y los capítulos 4, 5 y 6. Necesitas tu código estudiantil. Se guarda solo mientras trabajas, de modo que puedes cerrar la página y volver donde ibas; pero se entrega **una sola vez**. Al entregarlo ves de inmediato tu nota y la explicación de cada respuesta.
+
 ## Contenidos
 
 - Síndrome: concurrencia, carácter plurietiológico y su diferencia con enfermedad
@@ -55,4 +57,3 @@ Se abre directamente en el navegador. También puedes [descargar el archivo](cla
 ← [Sesión 1: Inducción: definiciones y generalidades de fisiología y patología](../01-induccion/) · [Índice del curso](../)
 
 **Siguiente encuentro:** 6 de agosto — Inflamación y reparación de tejidos _(en preparación)_
-
