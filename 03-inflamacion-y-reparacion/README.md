@@ -4,7 +4,7 @@
 
 | Estado | Material | Duración |
 |---|---|---|
-| ⬜ **Programada** | 🕓 En preparación | 2 horas |
+| 🔜 **Próximo encuentro** | ✅ Publicado | 2 horas |
 
 ---
 
@@ -14,7 +14,9 @@ Cierra el bloque de fundamentos. La lesión celular explicó qué le pasa a la c
 
 ## Material de clase
 
-_En preparación._ La clase interactiva se publica aquí el día del encuentro o antes.
+### ▶ [Abrir la clase interactiva](https://jboglop.github.io/Fisiologia_unisalle/03-inflamacion-y-reparacion/clase.html)
+
+Se abre directamente en el navegador. También puedes [descargar el archivo](clase.html) para usarla sin conexión.
 
 ## Contenidos
 

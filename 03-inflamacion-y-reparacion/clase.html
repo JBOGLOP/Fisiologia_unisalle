@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clase 3 — Inflamación y reparación de tejidos</title>
+<style>
+  :root{
+    --ink:#12212b;
+    --paper:#f4f7f7;
+    --surface:#ffffff;
+    --surface-2:#eaf0f0;
+    --line:#cbd8da;
+    --muted:#516268;
+    --fisio:#10505e;
+    --fisio-soft:#dceaec;
+    --pato:#a8412c;
+    --pato-soft:#f5e2dc;
+    --amber:#9a6b12;
+    --amber-soft:#f6ecd6;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 8px 24px -16px rgba(18,33,43,.35);
+
+    --display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+
+    --measure:66ch;
+    --pad:clamp(1rem,4vw,2.5rem);
+  }
+
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+      --line:#2c3d43; --muted:#9bafb4;
+      --fisio:#5cb6c6; --fisio-soft:#12313a;
+      --pato:#e08a70; --pato-soft:#3a2119;
+      --amber:#d5a446; --amber-soft:#33290f;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.9);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+    --line:#2c3d43; --muted:#9bafb4;
+    --fisio:#5cb6c6; --fisio-soft:#12313a;
+    --pato:#e08a70; --pato-soft:#3a2119;
+    --amber:#d5a446; --amber-soft:#33290f;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.9);
+  }
+  :root[data-theme="light"]{
+    --ink:#12212b; --paper:#f4f7f7; --surface:#ffffff; --surface-2:#eaf0f0;
+    --line:#cbd8da; --muted:#516268;
+    --fisio:#10505e; --fisio-soft:#dceaec;
+    --pato:#a8412c; --pato-soft:#f5e2dc;
+    --amber:#9a6b12; --amber-soft:#f6ecd6;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 8px 24px -16px rgba(18,33,43,.35);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--body); font-size:clamp(15px,.5vw + 14px,17px);
+    line-height:1.62; -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{font-family:var(--display); font-weight:600; line-height:1.15; text-wrap:balance; margin:0}
+  p{margin:0}
+  a{color:var(--fisio)}
+
+  .wrap{max-width:1040px; margin:0 auto; padding-inline:var(--pad)}
+  .prose{max-width:var(--measure)}
+  .stack{display:flex; flex-direction:column}
+  .stack>*+*{margin-top:1rem}
+
+  .eyebrow{
+    font-family:var(--mono); font-size:.68rem; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--muted);
+  }
+
+  header.top{
+    position:sticky; top:0; z-index:50;
+    background:color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .top-in{display:flex; align-items:center; gap:1rem; height:54px}
+  .brand{font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); white-space:nowrap}
+  nav.jump{margin-left:auto; display:flex; gap:.15rem; overflow-x:auto; scrollbar-width:none}
+  nav.jump::-webkit-scrollbar{display:none}
+  nav.jump a{
+    font-size:.78rem; text-decoration:none; color:var(--muted);
+    padding:.3rem .55rem; border-radius:99px; white-space:nowrap;
+  }
+  nav.jump a:hover{color:var(--ink); background:var(--surface-2)}
+  .theme-btn{
+    border:1px solid var(--line); background:var(--surface); color:var(--muted);
+    border-radius:99px; width:32px; height:32px; cursor:pointer; flex:none; font-size:.85rem;
+  }
+  .theme-btn:hover{color:var(--ink)}
+
+  .hero{padding:clamp(2.5rem,7vw,5rem) 0 clamp(2rem,5vw,3.5rem)}
+  .hero h1{font-size:clamp(2.1rem,5.5vw,3.6rem); letter-spacing:-.01em; margin-top:.6rem}
+  .hero .sub{max-width:58ch; color:var(--muted); font-size:1.05rem; margin-top:1.1rem}
+  .hero-meta{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.6rem}
+  .chip{
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.06em;
+    border:1px solid var(--line); border-radius:99px; padding:.3rem .7rem;
+    background:var(--surface); color:var(--muted);
+  }
+  .chip strong{color:var(--ink); font-weight:600}
+
+  section{padding:clamp(2.2rem,5vw,3.6rem) 0; border-top:1px solid var(--line)}
+  .sec-head{display:flex; align-items:baseline; gap:.9rem; margin-bottom:1.4rem; flex-wrap:wrap}
+  .sec-num{
+    font-family:var(--mono); font-size:.72rem; color:var(--fisio);
+    border:1px solid var(--fisio); border-radius:4px; padding:.1rem .4rem; flex:none;
+  }
+  .sec-head h2{font-size:clamp(1.4rem,3vw,2rem)}
+
+  .grid{display:grid; gap:1rem}
+  @media(min-width:720px){
+    .g2{grid-template-columns:repeat(2,1fr)}
+    .g3{grid-template-columns:repeat(3,1fr)}
+    .g4{grid-template-columns:repeat(4,1fr)}
+  }
+  .card{
+    background:var(--surface); border:1px solid var(--line); border-radius:10px;
+    padding:1.1rem 1.2rem; box-shadow:var(--shadow);
+  }
+  .card h3{font-size:1.02rem; margin-bottom:.45rem}
+  .card p, .card li{font-size:.92rem; color:var(--muted)}
+  .card.fisio{border-left:3px solid var(--fisio)}
+  .card.pato{border-left:3px solid var(--pato)}
+  .card.amber{border-left:3px solid var(--amber)}
+  .card ul{margin:.4rem 0 0; padding-left:1.1rem}
+  .card li+li{margin-top:.25rem}
+  .card .ocular{
+    margin-top:.7rem; padding-top:.6rem; border-top:1px dashed var(--line);
+    font-size:.82rem; color:var(--fisio);
+  }
+
+  .callout{
+    background:var(--fisio-soft); border:1px solid color-mix(in srgb,var(--fisio) 30%, transparent);
+    border-radius:10px; padding:1rem 1.2rem;
+  }
+  .callout .eyebrow{color:var(--fisio)}
+  .callout.warn{background:var(--pato-soft); border-color:color-mix(in srgb,var(--pato) 30%, transparent)}
+  .callout.warn .eyebrow{color:var(--pato)}
+  .callout.note{background:var(--amber-soft); border-color:color-mix(in srgb,var(--amber) 35%, transparent)}
+  .callout.note .eyebrow{color:var(--amber)}
+
+  /* cascade */
+  .cascade{list-style:none; margin:1rem 0 0; padding:0; counter-reset:step}
+  .cascade li{
+    position:relative; padding:.55rem 0 .55rem 2.4rem;
+    border-bottom:1px solid var(--line); font-size:.93rem;
+  }
+  .cascade li:last-child{border-bottom:none}
+  .cascade li::before{
+    counter-increment:step; content:counter(step);
+    position:absolute; left:0; top:.55rem;
+    font-family:var(--mono); font-size:.7rem;
+    width:1.5rem; height:1.5rem; border-radius:99px;
+    display:grid; place-items:center;
+    background:var(--pato-soft); color:var(--pato);
+    border:1px solid color-mix(in srgb,var(--pato) 35%, transparent);
+  }
+  .cascade li strong{color:var(--ink)}
+
+  /* fork diagram */
+  .fork{display:grid; gap:.8rem; margin-top:1rem}
+  @media(min-width:720px){.fork{grid-template-columns:1fr 1fr}}
+  .fork .lane{border:1px solid var(--line); border-radius:10px; padding:1rem; background:var(--surface)}
+  .fork .lane.rev{border-top:3px solid var(--fisio)}
+  .fork .lane.irr{border-top:3px solid var(--pato)}
+  .fork .lane h3{font-size:1rem; margin-bottom:.4rem}
+  .fork .lane p{font-size:.9rem; color:var(--muted)}
+
+  blockquote{
+    margin:0; padding-left:1.1rem; border-left:3px solid var(--amber);
+    font-family:var(--display); font-size:1.12rem; font-style:italic;
+  }
+  blockquote cite{display:block; font-family:var(--body); font-style:normal; font-size:.8rem; color:var(--muted); margin-top:.5rem}
+
+  .table-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface)}
+  table{border-collapse:collapse; width:100%; font-size:.88rem; min-width:560px}
+  th,td{text-align:left; padding:.6rem .8rem; border-bottom:1px solid var(--line); vertical-align:top}
+  th{font-family:var(--mono); font-size:.68rem; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); font-weight:500}
+  tbody tr:last-child td{border-bottom:none}
+  td.k{font-weight:600; white-space:nowrap}
+
+  /* drills */
+  .drill-row{
+    display:flex; align-items:center; gap:.5rem; flex-wrap:wrap;
+    padding:.65rem 0; border-bottom:1px solid var(--line);
+  }
+  .drill-row:last-child{border-bottom:none}
+  .drill-q{flex:1 1 240px; font-size:.94rem}
+  .btn{
+    font-family:var(--body); font-size:.78rem; cursor:pointer;
+    border:1px solid var(--line); background:var(--surface); color:var(--ink);
+    border-radius:99px; padding:.3rem .75rem;
+  }
+  .btn:hover{border-color:var(--fisio)}
+  .btn:focus-visible, a:focus-visible, .q-head:focus-visible{outline:2px solid var(--fisio); outline-offset:2px}
+  .btn.ok{background:var(--fisio); border-color:var(--fisio); color:#fff}
+  .btn.no{background:var(--pato); border-color:var(--pato); color:#fff}
+  .verdict{font-size:.82rem; flex-basis:100%; color:var(--muted)}
+  .verdict b{color:var(--ink)}
+  .score{font-family:var(--mono); font-size:.78rem; color:var(--muted); margin-top:.8rem}
+
+  .q{border:1px solid var(--line); border-radius:10px; background:var(--surface); overflow:hidden}
+  .q+.q{margin-top:.6rem}
+  .q-head{
+    width:100%; text-align:left; background:none; border:0; color:inherit;
+    font:inherit; padding:.85rem 1rem; cursor:pointer; display:flex; gap:.7rem; align-items:baseline;
+  }
+  .q-head:hover{background:var(--surface-2)}
+  .q-n{font-family:var(--mono); font-size:.72rem; color:var(--fisio); flex:none}
+  .q-body{padding:0 1rem 1rem 2.4rem; font-size:.9rem; color:var(--muted); display:none}
+  .q.open .q-body{display:block}
+  .q.open .q-head{background:var(--surface-2)}
+
+  footer{border-top:1px solid var(--line); padding:2rem 0 3rem; color:var(--muted); font-size:.83rem}
+
+  /* ── iconos de sección ───────────────────────────────── */
+  .sec-ico{width:22px; height:22px; flex:none; color:var(--fisio); align-self:center; overflow:visible}
+  .sec-ico path,.sec-ico rect,.sec-ico circle,.sec-ico line,.sec-ico polyline{
+    fill:none; stroke:currentColor; stroke-width:1.6;
+    stroke-linecap:round; stroke-linejoin:round;
+  }
+  .sec-ico .solid{fill:currentColor; stroke:none}
+
+  /* ── figuras y diagramas ─────────────────────────────── */
+  figure.fig{margin:1.5rem 0 0; padding:0}
+  .fig-frame{
+    border:1px solid var(--line); border-radius:12px; background:var(--surface);
+    box-shadow:var(--shadow); overflow-x:auto; overflow-y:hidden;
+    padding:1rem .9rem .85rem; -webkit-overflow-scrolling:touch;
+  }
+  .fig-frame::-webkit-scrollbar{height:8px}
+  .fig-frame::-webkit-scrollbar-thumb{background:var(--line); border-radius:99px}
+  .fig-label{
+    font-family:var(--mono); font-size:.64rem; letter-spacing:.15em;
+    color:var(--muted); display:block; margin-bottom:.7rem;
+  }
+  figure.fig figcaption{
+    margin-top:.7rem; font-size:.84rem; color:var(--muted); max-width:74ch; line-height:1.55;
+  }
+  figure.fig figcaption b, figure.fig figcaption strong{color:var(--ink); font-weight:600}
+  .fig-hint{
+    display:block; margin-top:.35rem; font-family:var(--mono);
+    font-size:.62rem; letter-spacing:.09em; color:var(--muted); opacity:.8;
+  }
+  @media(min-width:760px){.fig-hint{display:none}}
+
+  /* SVG: colores atados al tema, no quemados */
+  svg.diagram{display:block; width:100%; height:auto; min-width:660px; font-family:var(--body)}
+  svg.diagram text{fill:var(--ink); dominant-baseline:auto}
+  svg.diagram .t-h{font-size:13px; font-weight:600}
+  svg.diagram .t-m{font-size:11.5px; font-weight:600}
+  svg.diagram .t-s{font-size:10.5px; fill:var(--muted); font-weight:400}
+  svg.diagram .t-xs{font-size:9.5px; fill:var(--muted); font-weight:400}
+  svg.diagram .t-k{font-family:var(--mono); font-size:9px; letter-spacing:.11em; fill:var(--muted)}
+  svg.diagram .c-fis{fill:var(--fisio)}
+  svg.diagram .c-pat{fill:var(--pato)}
+  svg.diagram .c-amb{fill:var(--amber)}
+  svg.diagram .c-ink{fill:var(--ink)}
+  svg.diagram .bg-sur{fill:var(--surface)}
+  svg.diagram .bg-s2{fill:var(--surface-2)}
+  svg.diagram .bg-fis{fill:var(--fisio-soft)}
+  svg.diagram .bg-pat{fill:var(--pato-soft)}
+  svg.diagram .bg-amb{fill:var(--amber-soft)}
+  svg.diagram .bg-non{fill:none}
+  svg.diagram .k-lin{stroke:var(--line); stroke-width:1.4}
+  svg.diagram .k-fis{stroke:var(--fisio); stroke-width:1.6}
+  svg.diagram .k-pat{stroke:var(--pato); stroke-width:1.6}
+  svg.diagram .k-amb{stroke:var(--amber); stroke-width:1.6}
+  svg.diagram .k-mut{stroke:var(--muted); stroke-width:1.4}
+  svg.diagram .k-pap{stroke:var(--paper); stroke-width:2.2}
+  svg.diagram .halo{paint-order:stroke fill; stroke:var(--surface); stroke-width:4px; stroke-linejoin:round}
+  svg.diagram .k-thin{stroke-width:1.1}
+  svg.diagram .dash{stroke-dasharray:4 4}
+  svg.diagram .cap{stroke-linecap:round; stroke-linejoin:round}
+  svg.diagram .faint{opacity:.45}
+  svg.diagram .m-lin{fill:var(--line)}
+  svg.diagram .m-fis{fill:var(--fisio)}
+  svg.diagram .m-pat{fill:var(--pato)}
+  svg.diagram .gs-fis{stop-color:var(--fisio)}
+  svg.diagram .gs-amb{stop-color:var(--amber)}
+  svg.diagram .gs-pat{stop-color:var(--pato)}
+
+  @media (prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
+
+  @media print{
+    header.top, .theme-btn, nav.jump{display:none}
+    body{background:#fff; color:#000; font-size:11pt}
+    section{page-break-inside:auto; border-top:1px solid #ccc}
+    .card, .callout, figure.fig, .q, .lane{page-break-inside:avoid}
+    .fig-frame{overflow:visible; box-shadow:none}
+    svg.diagram{min-width:0}
+    .q-body{display:block !important}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-in">
+    <span class="brand">Fisiopatología General · Clase 3</span>
+    <nav class="jump">
+      <a href="#repaso">Repaso</a>
+      <a href="#concepto">Concepto</a>
+      <a href="#fases">Fases</a>
+      <a href="#vascular">Fase vascular</a>
+      <a href="#celular">Fase celular</a>
+      <a href="#mediadores">Mediadores</a>
+      <a href="#cascadas">Cascadas</a>
+      <a href="#desenlace">Desenlaces</a>
+      <a href="#sistemico">Efectos sistémicos</a>
+      <a href="#ocular">Ojo</a>
+      <a href="#ejercicios">Ejercicios</a>
+      <a href="#parcial">Parcial</a>
+    </nav>
+    <button class="theme-btn" id="themeBtn" aria-label="Cambiar tema">◐</button>
+  </div>
+</header>
+
+<main>
+
+  <div class="wrap hero">
+    <p class="eyebrow">Clase 3 · Fundamentos · Semana 3</p>
+    <h1>Inflamación y reparación de tejidos</h1>
+    <p class="sub">La sesión anterior terminó en la célula que muere. Esta empieza justo ahí:
+      qué hace el tejido entero cuando una de sus células es agredida. Es el mecanismo que sostiene
+      el resto del semestre.</p>
+    <div class="hero-meta">
+      <span class="chip">Encuentro <strong>3 de 16</strong></span>
+      <span class="chip">Fecha <strong>6 ago 2026</strong></span>
+      <span class="chip">Duración <strong>2 horas</strong></span>
+      <span class="chip">Texto guía <strong>cap. 19</strong></span>
+      <span class="chip">Siguiente <strong>Primer parcial</strong></span>
+    </div>
+  </div>
+
+  <!-- 01 -->
+  <section id="repaso">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">01</span><h2>De dónde venimos</h2></div>
+      <div class="prose">
+        <p>En la clase 2 seguimos a una célula agredida hasta el punto de no retorno. Vimos que puede
+          adaptarse, lesionarse de forma reversible o morir, y que la necrosis —a diferencia de la
+          apoptosis— <strong>derrama su contenido</strong> y desencadena inflamación.</p>
+        <p>Ahí quedó la pregunta abierta: <em>¿qué es exactamente esa inflamación que la necrosis
+          desencadena?</em> Hoy la respondemos. Y al hacerlo se explican de golpe tres de los síntomas
+          que veremos más adelante: la fiebre, el dolor y buena parte del edema.</p>
+      </div>
+      <div class="callout" style="margin-top:1.2rem">
+        <p class="eyebrow">Pregunta que abre la sesión</p>
+        <p style="margin-top:.4rem">Un paciente se raspa la córnea con una uña. A las dos horas tiene
+          el ojo rojo, le arde, lagrimea y no tolera la luz. <strong>¿Qué está pasando exactamente en
+          ese tejido, y por qué esos cuatro signos y no otros?</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section id="concepto">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">02</span><h2>Qué es la inflamación</h2></div>
+      <div class="prose">
+        <p>Es la <strong>reacción local y sistémica de los tejidos y la microcirculación frente a una
+          noxa</strong>, caracterizada por alteración, exudación y proliferación. El texto guía la
+          llama también <em>síndrome local de adaptación</em>, y el nombre es revelador: la
+          inflamación es adaptación, no enfermedad.</p>
+      </div>
+
+      <div class="callout warn" style="margin-top:1.2rem">
+        <p class="eyebrow">El error más común</p>
+        <p style="margin-top:.4rem">La inflamación <strong>no es la enfermedad</strong>. Lo entendió
+          John Hunter en el siglo XVIII: es una respuesta inespecífica con efectos saludables. Lo
+          patológico no es que ocurra, sino que no se resuelva.</p>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Los cinco signos, y quién los describió</h3>
+      <div class="grid g4">
+        <div class="card fisio"><h3>Rubor</h3><p>Vasodilatación: llega más sangre.</p></div>
+        <div class="card fisio"><h3>Calor</h3><p>El mismo aumento de flujo eleva la temperatura local.</p></div>
+        <div class="card fisio"><h3>Tumor</h3><p>Edema por salida de líquido al intersticio.</p></div>
+        <div class="card fisio"><h3>Dolor</h3><p>Bradicinina y prostaglandinas sobre el nociceptor.</p></div>
+      </div>
+      <div class="card pato" style="margin-top:.8rem">
+        <h3><em>Functio laesa</em> — pérdida de la función</h3>
+        <p>Celso describió los cuatro primeros en el siglo I. <strong>Rudolf Virchow</strong> añadió el
+          quinto, y fue el primero en describir la inflamación como reacción a una lesión previa.
+          <strong>Metchnikoff</strong> descubrió la fagocitosis y la incorporó al proceso;
+          <strong>Thomas Lewis</strong> describió la importancia de los mediadores químicos.</p>
+      </div>
+
+      <div class="callout note" style="margin-top:1.2rem">
+        <p class="eyebrow">Para qué sirve</p>
+        <p style="margin-top:.4rem">Tres finalidades: <strong>destruir, atenuar o mantener localizado</strong>
+          el agente patógeno; <strong>iniciar las reacciones que curan</strong> y reconstruyen el tejido;
+          e <strong>impedir que la lesión se extienda</strong>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section id="fases">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">03</span><h2>Cuatro fases, en orden</h2></div>
+      <ol class="cascade">
+        <li><strong>Iniciación.</strong> Se activan mediadores solubles y se recluta a las primeras
+          células. El tejido se inunda de líquido, factores de coagulación, citocinas, quimiocinas,
+          plaquetas y neutrófilos. Esto es la <em>inflamación aguda</em>.</li>
+        <li><strong>Amplificación.</strong> Depende de la extensión de la lesión. Entran cininas y
+          complemento, y se reclutan más leucocitos y macrófagos.</li>
+        <li><strong>Destrucción.</strong> La digestión enzimática y la fagocitosis eliminan la noxa y
+          los restos del tejido dañado. Empieza la reparación.</li>
+        <li><strong>Finalización.</strong> Mecanismos antiinflamatorios intrínsecos limitan el daño y
+          devuelven la función.</li>
+      </ol>
+      <div class="callout warn" style="margin-top:1.2rem">
+        <p class="eyebrow">Cuando la cuarta fase falla</p>
+        <p style="margin-top:.4rem">Si la respuesta no logra eliminar la noxa, se sostiene en el tiempo:
+          es la <strong>inflamación crónica</strong>. No es una inflamación aguda «más fuerte», es una que
+          no supo terminar.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section id="vascular">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">04</span><h2>Fase vascular: de la membrana rota al edema</h2></div>
+      <div class="prose">
+        <p>Todo empieza con una membrana celular rota. Sus <strong>fosfolípidos</strong> quedan expuestos
+          y se convierten en sustrato de las fosfolipasas. De ahí nace el <strong>ácido
+          araquidónico</strong>, y con él las dos rutas que hay que saber:</p>
+      </div>
+
+      <div class="grid g2" style="margin-top:1rem">
+        <div class="card fisio">
+          <p class="eyebrow">Ruta 1</p>
+          <h3>Ciclooxigenasa (COX)</h3>
+          <p>Produce <strong>prostaglandinas</strong> y <strong>tromboxanos</strong>.</p>
+          <p class="ocular">Es la vía que bloquean los antiinflamatorios no esteroideos. Por eso quitan
+            el dolor y la fiebre: cortan la producción de PG.</p>
+        </div>
+        <div class="card fisio">
+          <p class="eyebrow">Ruta 2</p>
+          <h3>Lipooxigenasa (LOX)</h3>
+          <p>Produce <strong>leucotrienos</strong> y <strong>lipoxinas</strong>.</p>
+          <p class="ocular">Las lipoxinas son antiinflamatorias: la misma vía que amplifica también
+            fabrica la señal de frenado.</p>
+        </div>
+      </div>
+      <p class="prose" style="margin-top:1rem">La fosfolipasa A₂ genera además el <strong>factor activador
+        plaquetario (PAF)</strong>, que será clave en un momento.</p>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">La secuencia hemodinámica</h3>
+      <ol class="cascade">
+        <li><strong>Vasodilatación de las arteriolas precapilares</strong> y
+          <strong>vasoconstricción de las vénulas poscapilares</strong>. Ocurre en milésimas de segundo.</li>
+        <li>El flujo laminar se enlentece y aparece <strong>turbulencia</strong>. Sube la
+          <strong>presión hidrostática capilar</strong>.</li>
+        <li>Sale líquido al intersticio: empieza el <strong>edema</strong>. Si no hay amplificadores,
+          el drenaje linfático lo resuelve en segundos.</li>
+        <li>Pero las PG, los Tx y los LT <strong>activan los macrófagos residentes</strong>, que producen
+          IL-1, IL-6, TNF-α y quimiocinas. Ahora sí hay amplificadores.</li>
+        <li>El PAF y la turbulencia <strong>activan las plaquetas</strong>, que se degranulan liberando
+          histamina, serotonina y tromboxanos.</li>
+        <li>Esos mediadores <strong>contraen el citoesqueleto endotelial</strong>: las células
+          endoteliales se separan y escapan proteínas al intersticio.</li>
+        <li>Al subir la <strong>presión coloidosmótica tisular</strong>, sale todavía más líquido. El
+          edema ya no es transitorio.</li>
+      </ol>
+
+      <div class="callout note" style="margin-top:1.2rem">
+        <p class="eyebrow">Idea que se evalúa</p>
+        <p style="margin-top:.4rem">El edema inflamatorio tiene <strong>dos motores sumados</strong>: sube
+          la presión hidrostática <em>y</em> baja el gradiente oncótico porque las proteínas se fugan.
+          Por eso el exudado inflamatorio es rico en proteínas, y por eso se distingue del trasudado.</p>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Exudado, trasudado y pus</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Líquido</th><th>Proteínas</th><th>Qué significa</th></tr></thead>
+          <tbody>
+            <tr><td class="k">Exudado</td><td>Alta concentración, alta densidad</td>
+                <td>Refleja <strong>aumento de la permeabilidad vascular</strong>: hay inflamación</td></tr>
+            <tr><td class="k">Trasudado</td><td>Bajo contenido, baja densidad</td>
+                <td>Ultrafiltrado de plasma por presión elevada o menor presión oncótica. <strong>No</strong> implica inflamación</td></tr>
+            <tr><td class="k">Pus</td><td>Exudado purulento</td>
+                <td>Rico en neutrófilos y restos celulares</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section id="celular">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">05</span><h2>Fase celular: cómo sale el neutrófilo del vaso</h2></div>
+      <div class="prose">
+        <p>La turbulencia y la estasis hacen que los eritrocitos se apelotonen en el centro y los
+          leucocitos queden desplazados hacia la pared. A partir de ahí, cuatro pasos con nombre propio.</p>
+      </div>
+      <ol class="cascade" style="margin-top:1rem">
+        <li><strong>Marginación.</strong> Con la estasis, los leucocitos se acumulan a lo largo del endotelio.</li>
+        <li><strong>Rodamiento.</strong> Uniones débiles y transitorias mediadas por <strong>selectinas</strong>:
+          el leucocito rueda sobre la pared en vez de seguir de largo.</li>
+        <li><strong>Adhesión firme.</strong> Las quimiocinas activan las <strong>integrinas</strong> del
+          leucocito, que se anclan al endotelio.</li>
+        <li><strong>Transmigración o diapédesis.</strong> El leucocito atraviesa la pared por la unión
+          entre células endoteliales y sigue el gradiente quimiotáctico hasta la noxa.</li>
+      </ol>
+      <div class="callout" style="margin-top:1.2rem">
+        <p class="eyebrow">Por qué importa el orden</p>
+        <p style="margin-top:.4rem">Sin estasis no hay marginación; sin selectinas no hay rodamiento; sin
+          quimiocinas las integrinas no se activan y el leucocito se despega. <strong>Cada paso depende
+          del anterior</strong>, y por eso una falla en cualquiera de ellos produce infecciones
+          recurrentes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section id="mediadores">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">06</span><h2>Los mediadores</h2></div>
+      <p class="prose" style="margin-bottom:1.2rem">Todos comparten una propiedad decisiva: <strong>vida
+        media corta</strong>. Se inactivan solos, por proteólisis o por unión a otros componentes. Esa
+        fugacidad es justamente el mecanismo de control: si el estímulo cesa, la respuesta se apaga sola.</p>
+
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Mediador</th><th>De dónde sale</th><th>Qué hace</th></tr></thead>
+          <tbody>
+            <tr><td class="k">Histamina</td><td>Mastocitos, basófilos, plaquetas</td>
+                <td>Vasodilatación, aumento de permeabilidad, activación endotelial</td></tr>
+            <tr><td class="k">Serotonina</td><td>Plaquetas</td>
+                <td>Vasodilatación y aumento de permeabilidad</td></tr>
+            <tr><td class="k">Prostaglandinas</td><td>Mastocitos, leucocitos</td>
+                <td><strong>Vasodilatación, dolor y fiebre</strong></td></tr>
+            <tr><td class="k">Leucotrienos</td><td>Mastocitos, leucocitos</td>
+                <td>Permeabilidad, quimiotaxis, adhesión y activación leucocitaria</td></tr>
+            <tr><td class="k">PAF</td><td>Leucocitos, mastocitos</td>
+                <td>Vasodilatación, permeabilidad, adhesión, quimiotaxis, estallido oxidativo</td></tr>
+            <tr><td class="k">IL-1 · IL-6 · TNF-α</td><td>Macrófagos, endotelio, mastocitos</td>
+                <td>Amplifican y modulan; responsables de los <strong>efectos sistémicos</strong></td></tr>
+            <tr><td class="k">Quimiocinas</td><td>Leucocitos y macrófagos activados</td>
+                <td>Quimiotaxis y activación leucocitaria</td></tr>
+            <tr><td class="k">ERO y óxido nítrico</td><td>Leucocitos, endotelio</td>
+                <td>Bactericidas dentro del fagosoma; tóxicos para la célula si se escapan</td></tr>
+            <tr><td class="k">C3a y C5a</td><td>Plasma (hígado)</td>
+                <td><strong>Anafilotoxinas</strong>: potentes quimiotácticos de polimorfonucleares</td></tr>
+            <tr><td class="k">Bradicinina</td><td>Plasma (hígado)</td>
+                <td>Permeabilidad, quimiotaxis y <strong>dolor inflamatorio</strong> por estímulo directo del nociceptor</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout note" style="margin-top:1.2rem">
+        <p class="eyebrow">Atajo para estudiar</p>
+        <p style="margin-top:.4rem">No memorice la tabla entera. Fíjese en qué mediador produce
+          <strong>cada uno de los cinco signos</strong>: rubor y calor por vasodilatación (histamina, PG);
+          tumor por permeabilidad (histamina, LT, bradicinina); dolor por PG y bradicinina. Los signos
+          son la salida visible de esta tabla.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section id="cascadas">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">07</span><h2>Las tres cascadas del plasma</h2></div>
+      <div class="prose">
+        <p>El plasma trae tres sistemas de proteasas que se activan en secuencia y están
+          <strong>íntimamente interrelacionados</strong>. El punto de encuentro tiene nombre: el
+          <strong>factor Hageman</strong>.</p>
+      </div>
+
+      <div class="card" style="margin-top:1rem">
+        <h3>Factor Hageman: el interruptor común</h3>
+        <p>Se activa al exponerse a superficies con carga negativa —membranas basales, colágeno,
+          elastina, cristales de urato— y dispara cuatro cosas a la vez:</p>
+        <ol class="cascade" style="margin-top:.6rem">
+          <li>Convierte <strong>plasminógeno en plasmina</strong> → fibrinólisis; sus productos aumentan
+            la permeabilidad y activan complemento</li>
+          <li>Convierte <strong>precalicreína en calicreína</strong> → cininas</li>
+          <li>Activa la <strong>vía alterna del complemento</strong></li>
+          <li>Activa la <strong>cascada de coagulación</strong></li>
+        </ol>
+      </div>
+
+      <div class="grid g2" style="margin-top:1rem">
+        <div class="card pato">
+          <p class="eyebrow">Cascada 1</p>
+          <h3>Coagulación</h3>
+          <p>Forma una <strong>malla de fibrina con eritrocitos</strong> en la vénula. No es un accidente:
+            es una barrera deliberada que <strong>impide que la noxa se disemine</strong> por el torrente
+            circulatorio.</p>
+          <p style="margin-top:.5rem">Efecto secundario: más estasis, más presión hidrostática, más edema.</p>
+        </div>
+        <div class="card pato">
+          <p class="eyebrow">Cascada 2</p>
+          <h3>Cininas</h3>
+          <p>La <strong>bradicinina</strong> eleva la presión arterial, contrae y relaja músculo liso,
+            aumenta la permeabilidad, promueve quimiotaxis y <strong>produce el dolor inflamatorio</strong>
+            estimulando directamente las terminaciones nerviosas libres.</p>
+          <p style="margin-top:.5rem">Las cininasas la degradan rápido: vida media corta.</p>
+        </div>
+      </div>
+
+      <div class="card pato" style="margin-top:1rem">
+        <p class="eyebrow">Cascada 3</p>
+        <h3>Complemento</h3>
+        <p>Proteínas plasmáticas sintetizadas en el hígado que se activan por <strong>tres vías</strong>
+          —clásica, alterna y de unión a la manosa— y convergen en el <strong>complejo de ataque a la
+          membrana</strong>, que lisa la célula diana.</p>
+        <div class="grid g3" style="margin-top:.8rem">
+          <div><p class="eyebrow" style="margin-bottom:.3rem">Defensa</p>
+            <p style="font-size:.9rem; color:var(--muted)">Opsonización, quimiotaxis, activación de PMN y lisis</p></div>
+          <div><p class="eyebrow" style="margin-bottom:.3rem">Puente</p>
+            <p style="font-size:.9rem; color:var(--muted)">Conecta la inmunidad innata con la adaptativa</p></div>
+          <div><p class="eyebrow" style="margin-bottom:.3rem">Limpieza</p>
+            <p style="font-size:.9rem; color:var(--muted)">Elimina células apoptósicas y detritus</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 -->
+  <section id="desenlace">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">08</span><h2>Cómo termina: resolución o cicatriz</h2></div>
+      <div class="prose">
+        <p>La respuesta inflamatoria es <strong>autolimitada</strong>, por dos razones: los mediadores
+          tienen vida corta y los neutrófilos también. Cuando las señales declinan, los PMN entran en
+          apoptosis y empieza la resolución.</p>
+      </div>
+
+      <h3 style="margin:1.6rem 0 .8rem; font-size:1.12rem">Quién apaga el proceso</h3>
+      <div class="grid g3">
+        <div class="card"><h3>Silenciamiento génico</h3><p>Se reprime la transcripción de TNF-α e IL-1 y
+          sube la de factores antiinflamatorios.</p></div>
+        <div class="card"><h3>Citocinas frenadoras</h3><p>IL-6, IL-10, IL-11, IL-12 e IL-13 reducen la
+          producción de TNF-α.</p></div>
+        <div class="card"><h3>Lipoxinas</h3><p>Inhiben la síntesis de leucotrienos.</p></div>
+        <div class="card"><h3>Glucocorticoides</h3><p>El eje hipotálamo-hipófisis-suprarrenal los libera:
+          deprimen la expresión de los genes inflamatorios.</p></div>
+        <div class="card"><h3>Cininasas</h3><p>Degradan la bradicinina.</p></div>
+        <div class="card"><h3>TGF-β</h3><p>Las células apoptósicas lo inducen; inhibe citocinas y
+          quimiocinas proinflamatorias.</p></div>
+      </div>
+
+      <div class="fork" style="margin-top:1.4rem">
+        <div class="lane rev">
+          <p class="eyebrow">Si el daño fue reversible</p>
+          <h3>Resolución</h3>
+          <p>Se elimina la fuente, cede la inflamación y <strong>se restaura la arquitectura normal</strong>
+            del tejido y su función. Es el desenlace ideal.</p>
+        </div>
+        <div class="lane irr">
+          <p class="eyebrow">Si el daño fue irreversible</p>
+          <h3>Cicatriz</h3>
+          <p>La cicatriz <strong>reemplaza a la arquitectura normal</strong>. Hay función, pero no la
+            misma. Otros desenlaces: absceso y linfoadenitis.</p>
+        </div>
+      </div>
+
+      <div class="callout warn" style="margin-top:1.2rem">
+        <p class="eyebrow">Lo que decide el desenlace</p>
+        <p style="margin-top:.4rem">No solo la noxa. <strong>La genética, el sexo y la edad</strong> del
+          paciente determinan la respuesta a la lesión, la extensión de la cicatrización y la progresión
+          hacia enfermedad inflamatoria crónica. La misma agresión no produce la misma cicatriz en dos
+          personas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 -->
+  <section id="sistemico">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">09</span><h2>Cuando se sale de lo local</h2></div>
+      <div class="prose">
+        <p>La inflamación es una defensa <strong>local</strong>, pero puede generalizarse hasta matar al
+          individuo si altera órganos vitales. Ocurre por dos caminos: el microorganismo pasa a la
+          circulación, o la respuesta local no lo controla y se amplifica.</p>
+      </div>
+
+      <ol class="cascade" style="margin-top:1rem">
+        <li>IL-1 y TNF-α circulan y activan el <strong>eje hipotálamo-hipófisis-suprarrenal</strong></li>
+        <li>Aparecen <strong>fiebre, mialgia, artralgia, anorexia</strong> y leucocitosis</li>
+        <li>La médula ósea acelera la producción y libera <strong>PMN inmaduros en banda</strong></li>
+        <li>El hígado fabrica las <strong>proteínas de fase aguda</strong>: proteína C reactiva,
+          fibrinógeno, ceruloplasmina</li>
+        <li>En el laboratorio: <strong>PCR elevada y velocidad de sedimentación alta</strong></li>
+      </ol>
+
+      <div class="callout note" style="margin-top:1.2rem">
+        <p class="eyebrow">Del mecanismo al reporte de laboratorio</p>
+        <p style="margin-top:.4rem">Cuando usted lea «PCR elevada, VSG alta» en una historia clínica, está
+          leyendo el rastro de esta cascada. Y si el cuadro persiste, la médula ósea se agota y la
+          leucocitosis se vuelve <strong>leucopenia</strong>: el mismo proceso, más avanzado. Eso es el
+          <strong>síndrome de respuesta inflamatoria sistémica</strong>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="ocular">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">10</span><h2>La inflamación en el ojo</h2></div>
+      <p class="prose" style="margin-bottom:1.3rem">Ninguno de estos cuadros se estudia en profundidad
+        este semestre. Están aquí para que reconozca que el mecanismo general ya lo aprendió hoy.</p>
+
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Mecanismo de esta clase</th><th>Expresión ocular</th><th>Encadenamiento</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="k">Vasodilatación y aumento de permeabilidad</td>
+              <td>Ojo rojo de cualquier causa</td>
+              <td>El rubor conjuntival es la vasodilatación de esta clase, vista a simple vista</td>
+            </tr>
+            <tr>
+              <td class="k">Bradicinina y PG sobre el nociceptor</td>
+              <td>Dolor y fotofobia de la queratitis</td>
+              <td>La córnea es el tejido con mayor densidad de terminaciones libres del cuerpo: la misma
+                cantidad de mediador duele mucho más</td>
+            </tr>
+            <tr>
+              <td class="k">Exudado rico en proteínas</td>
+              <td>Efecto Tyndall en la cámara anterior</td>
+              <td>Las proteínas fugadas dispersan la luz de la lámpara de hendidura: se ve el exudado</td>
+            </tr>
+            <tr>
+              <td class="k">Migración de PMN al foco</td>
+              <td>Hipopión</td>
+              <td>Los neutrófilos que transmigraron sedimentan por gravedad en la cámara anterior</td>
+            </tr>
+            <tr>
+              <td class="k">Cicatriz en lugar de resolución</td>
+              <td>Leucoma corneal</td>
+              <td>En la córnea la cicatriz <strong>cuesta la transparencia</strong>: el tejido recupera
+                función mecánica pero pierde la óptica</td>
+            </tr>
+            <tr>
+              <td class="k">Inflamación crónica</td>
+              <td>Uveítis crónica, ojo seco inflamatorio</td>
+              <td>La respuesta que no supo terminar, sostenida sobre la superficie o la úvea</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout" style="margin-top:1.2rem">
+        <p class="eyebrow">Respuesta a la pregunta de apertura</p>
+        <p style="margin-top:.4rem">La uña rompió membranas del epitelio corneal. Los fosfolípidos
+          expuestos generaron ácido araquidónico y, por COX y LOX, prostaglandinas y leucotrienos. Esos
+          mediadores dilataron los vasos conjuntivales (<strong>ojo rojo</strong>), aumentaron la
+          permeabilidad (<strong>edema y lagrimeo</strong>) y sensibilizaron los nociceptores junto con la
+          bradicinina (<strong>ardor y fotofobia</strong>). Los cuatro signos de Celso, en un tejido donde
+          el dolor se amplifica por la densidad de terminaciones libres.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section id="ejercicios">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">11</span><h2>Ejercicios</h2></div>
+
+      <h3 style="margin-bottom:.4rem; font-size:1.05rem">A · ¿Qué fase de la inflamación es?</h3>
+      <p style="color:var(--muted); font-size:.9rem; margin-bottom:.6rem">Iniciación, amplificación,
+        destrucción o finalización.</p>
+      <div class="card" id="drillA"></div>
+
+      <h3 style="margin:2rem 0 .4rem; font-size:1.05rem">B · ¿Exudado o trasudado?</h3>
+      <p style="color:var(--muted); font-size:.9rem; margin-bottom:.6rem">Decida si el líquido refleja
+        aumento de permeabilidad o solo un desequilibrio de presiones.</p>
+      <div class="card" id="drillB"></div>
+
+      <h3 style="margin:2rem 0 .4rem; font-size:1.05rem">C · ¿Qué mediador lo explica?</h3>
+      <p style="color:var(--muted); font-size:.9rem; margin-bottom:.6rem">Elija el mediador principal
+        responsable del hallazgo.</p>
+      <div class="card" id="drillC"></div>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section id="parcial">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">12</span><h2>Primer parcial — 13 de agosto</h2></div>
+      <div class="grid g2">
+        <div class="card">
+          <h3>Qué entra</h3>
+          <ul>
+            <li>Capítulos 1 a 6 y 19 del texto guía; encuentros 1 a 3</li>
+            <li>Fisiología, patología y fisiopatología: definiciones y diferencias</li>
+            <li>Retroalimentación, homeostasis y alostasis; adaptación frente a compensación</li>
+            <li>Salud y enfermedad: definiciones, continuo, determinantes</li>
+            <li>Etiología, patogénesis y etiopatogenia; tríada ecológica</li>
+            <li>Síntoma, signo y síndrome; semiología, diagnóstico y clínica</li>
+            <li>Agentes lesivos, mecanismos de lesión y mecanismos de adaptación celular</li>
+            <li>Inflamación: fases, fase vascular y celular, mediadores, cascadas y desenlaces</li>
+          </ul>
+        </div>
+        <div class="card fisio">
+          <h3>Cómo estudiarlo</h3>
+          <p>El examen no pide listas: pide encadenamientos. Prepárese para responder preguntas de la
+            forma «dado este agente, explique el mecanismo y prediga la manifestación».</p>
+          <ul>
+            <li>Rehaga de memoria la secuencia vascular, desde la membrana rota hasta el edema</li>
+            <li>Explique cada uno de los cinco signos por su mediador</li>
+            <li>Reconstruya los cuatro pasos de la salida del neutrófilo y diga qué falla si se omite uno</li>
+            <li>Sepa qué dispara el factor Hageman y adónde llega cada cascada</li>
+            <li>Distinga exudado de trasudado por lo que cada uno implica</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 -->
+  <section id="autoeval">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">13</span><h2>Autoevaluación</h2></div>
+      <p class="prose" style="margin-bottom:1rem">Responda antes de abrir la tarjeta. Doce preguntas del
+        nivel del primer parcial.</p>
+      <div id="quiz"></div>
+
+      <div class="grid g2" style="margin-top:1.6rem">
+        <div class="card">
+          <h3>Trabajo independiente</h3>
+          <ul>
+            <li>Lectura del capítulo 19 del texto guía</li>
+            <li>Esquema propio de la secuencia vascular, desde la membrana rota hasta el edema, dibujado a mano</li>
+            <li>Cuadro que asocie cada uno de los cinco signos con su mediador principal</li>
+            <li>Repaso integral de los capítulos 1 a 6 y 19 para el parcial del 13 de agosto</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Fuentes de la sesión</h3>
+          <ul>
+            <li>Uribe Olivares, R. A. <em>Fisiopatología. La ciencia del porqué y el cómo</em>. Elsevier,
+              2018. Cap. 19 (Raul A. Uribe Olivares y Verónica Isabel Enríquez Romo, inflamación y
+              reparación de tejidos)</li>
+            <li>Robbins y Cotran, <em>Compendio de patología estructural y funcional</em>. Cap. 3,
+              «Inflamación y reparación». De ahí provienen la distinción entre exudado, trasudado y pus,
+              y la secuencia de reclutamiento leucocitario. Disponible en la hemeroteca institucional</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Fisiopatología General (01008430) · Programa de Optometría · Facultad de Ciencias de la Salud ·
+      Universidad de La Salle · Semestre 2026-2</p>
+    <p style="margin-top:.4rem">Encuentro 3 de 16. Los ejemplos oculares son aplicaciones ilustrativas
+      del mecanismo general; su estudio detallado corresponde a espacios académicos posteriores.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  document.getElementById('themeBtn').addEventListener('click', function(){
+    var dark = root.getAttribute('data-theme') === 'dark'
+      || (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+    root.setAttribute('data-theme', dark ? 'light' : 'dark');
+  });
+
+function buildDrill(host, opts, items, explain){
+    var el = document.getElementById(host);
+    var right = 0, answered = 0;
+    var score = document.createElement('p');
+    score.className = 'score';
+    items.forEach(function(it){
+      var row = document.createElement('div'); row.className = 'drill-row';
+      var q = document.createElement('span'); q.className = 'drill-q'; q.textContent = it.t;
+      var v = document.createElement('span'); v.className = 'verdict';
+      row.appendChild(q);
+      var done = false;
+      opts.forEach(function(o){
+        var b = document.createElement('button');
+        b.className = 'btn'; b.type = 'button'; b.textContent = o.label;
+        b.addEventListener('click', function(){
+          row.querySelectorAll('.btn').forEach(function(x){ x.classList.remove('ok','no'); });
+          var ok = o.key === it.a;
+          b.classList.add(ok ? 'ok' : 'no');
+          v.innerHTML = (ok ? '<b>Correcto.</b> ' : '<b>Revise.</b> ') + explain(it);
+          if(!done){ done = true; answered++; if(ok) right++; }
+          else { /* recuento solo del primer intento */ }
+          score.textContent = 'Primer intento: ' + right + ' de ' + answered + ' respondidas (' + items.length + ' en total)';
+        });
+        row.appendChild(b);
+      });
+      row.appendChild(v);
+      el.appendChild(row);
+    });
+    el.appendChild(score);
+  }
+
+  buildDrill('drillA',
+    [{key:'ini',label:'Iniciación'},{key:'amp',label:'Amplificación'},{key:'des',label:'Destrucción'},{key:'fin',label:'Finalización'}],
+    [
+      {t:'Los macrófagos residentes liberan IL-1 y TNF-α tras ser activados por las prostaglandinas', a:'ini', e:'Los primeros mediadores activan las células residentes: todavía es la puesta en marcha.'},
+      {t:'Entran cininas y componentes del complemento, y se reclutan más leucocitos', a:'amp', e:'La amplificación depende de la extensión de la lesión y suma nuevas cascadas.'},
+      {t:'La digestión enzimática y la fagocitosis eliminan la noxa y los restos celulares', a:'des', e:'Aquí el proceso queda bajo control y empieza la reparación.'},
+      {t:'Las lipoxinas inhiben la síntesis de leucotrienos y el TGF-β frena las citocinas', a:'fin', e:'Mecanismos antiinflamatorios intrínsecos que limitan el daño y permiten reparar.'},
+      {t:'La membrana rota libera fosfolípidos que generan ácido araquidónico', a:'ini', e:'Es el primer paso de todos: sin sustrato no hay mediadores.'},
+      {t:'Los neutrófilos entran en apoptosis y declinan las señales', a:'fin', e:'La vida corta del PMN es parte del mecanismo de apagado.'}
+    ],
+    function(it){ return it.e; }
+  );
+
+  buildDrill('drillB',
+    [{key:'ex',label:'Exudado'},{key:'tr',label:'Trasudado'}],
+    [
+      {t:'Líquido con alta concentración de proteínas y alta densidad', a:'ex', e:'Refleja aumento de la permeabilidad vascular: hay inflamación.'},
+      {t:'Ultrafiltrado de plasma por presión hidrostática elevada, con pocas proteínas', a:'tr', e:'No implica inflamación: es un desequilibrio de fuerzas de Starling.'},
+      {t:'Líquido de la cámara anterior que dispersa la luz en la lámpara de hendidura', a:'ex', e:'El efecto Tyndall se debe justamente a las proteínas fugadas.'},
+      {t:'Edema por descenso de la presión oncótica en un paciente con hipoalbuminemia', a:'tr', e:'El endotelio está íntegro; lo que cambió fue el gradiente oncótico.'},
+      {t:'Colección purulenta rica en neutrófilos y restos celulares', a:'ex', e:'El pus es un exudado purulento.'}
+    ],
+    function(it){ return it.e; }
+  );
+
+  buildDrill('drillC',
+    [{key:'pg',label:'Prostaglandinas'},{key:'bk',label:'Bradicinina'},{key:'c5a',label:'C5a'},{key:'his',label:'Histamina'}],
+    [
+      {t:'Fiebre acompañando a una inflamación extensa', a:'pg', e:'Las PG son las responsables de vasodilatación, dolor y fiebre.'},
+      {t:'Quimiotaxis potente de polimorfonucleares hacia el foco', a:'c5a', e:'C3a y C5a son las anafilotoxinas del complemento.'},
+      {t:'Dolor por estímulo directo de las terminaciones nerviosas libres', a:'bk', e:'La bradicinina produce el dolor de origen inflamatorio.'},
+      {t:'Vasodilatación y aumento de permeabilidad inmediatos tras la degranulación del mastocito', a:'his', e:'La histamina es el mediador preformado de acción más rápida.'}
+    ],
+    function(it){ return it.e; }
+  );
+
+  var qs = [
+    ['¿Por qué se dice que la inflamación es adaptación y no enfermedad?',
+     'Porque es la reacción defensiva local de los tejidos y la microcirculación frente a una noxa, con la finalidad de destruir o localizar el agente, iniciar la curación e impedir que la lesión se extienda. El texto guía la llama «síndrome local de adaptación». Lo entendió John Hunter en el siglo XVIII: es una respuesta inespecífica con efectos saludables. Lo patológico no es que ocurra, sino que no se resuelva.'],
+    ['Enumere los cinco signos cardinales y diga quién añadió el quinto.',
+     'Rubor, calor, tumor y dolor los describió Celso en el siglo I. Rudolf Virchow añadió functio laesa, la pérdida de la función, y fue además el primero en describir la inflamación como reacción a una lesión hística previa.'],
+    ['Describa las cuatro fases de la respuesta inflamatoria.',
+     'Iniciación: se activan mediadores solubles y se recluta a las primeras células, con inundación del tejido por líquido, factores de coagulación, citocinas, quimiocinas, plaquetas y neutrófilos. Amplificación: entran cininas y complemento y se reclutan más leucocitos y macrófagos. Destrucción: la digestión enzimática y la fagocitosis eliminan la noxa y los restos. Finalización: mecanismos antiinflamatorios intrínsecos limitan el daño y devuelven la función.'],
+    ['A partir de una membrana celular rota, ¿cómo se generan los primeros mediadores?',
+     'Los fosfolípidos de la membrana quedan expuestos y son sustrato de las fosfolipasas. De ahí sale el ácido araquidónico, que por la vía de la ciclooxigenasa produce prostaglandinas y tromboxanos, y por la vía de la lipooxigenasa produce leucotrienos y lipoxinas. La fosfolipasa A₂ genera además el factor activador plaquetario.'],
+    ['Explique la secuencia hemodinámica inicial de la inflamación.',
+     'Vasodilatación de las arteriolas precapilares y vasoconstricción de las vénulas poscapilares, en milésimas de segundo. El flujo laminar se enlentece, aparece turbulencia y sube la presión hidrostática capilar, con salida de líquido al intersticio. Los mediadores activan los macrófagos residentes, que producen IL-1, IL-6 y TNF-α. El PAF y la turbulencia activan las plaquetas, que liberan histamina, serotonina y tromboxanos; estos contraen el citoesqueleto endotelial y permiten la fuga de proteínas, que eleva la presión coloidosmótica tisular y saca todavía más líquido.'],
+    ['¿Por qué el edema inflamatorio tiene dos motores y no uno?',
+     'Porque suben la presión hidrostática capilar por la vasodilatación y la estasis, y al mismo tiempo baja el gradiente oncótico porque las proteínas se fugan al intersticio a través de las uniones endoteliales abiertas. Esa segunda vía es la que distingue el exudado del trasudado.'],
+    ['Distinga exudado, trasudado y pus.',
+     'El exudado es un líquido inflamatorio extravascular con restos celulares y alta concentración de proteínas; su presencia refleja aumento de la permeabilidad vascular. El trasudado tiene bajo contenido proteico y es esencialmente un ultrafiltrado de plasma por presiones elevadas o descenso de las fuerzas osmóticas, sin inflamación. El pus es un exudado purulento rico en neutrófilos y restos celulares.'],
+    ['Describa los cuatro pasos por los que un neutrófilo sale del vaso.',
+     'Marginación: con la estasis los leucocitos se acumulan a lo largo del endotelio. Rodamiento: uniones débiles y transitorias mediadas por selectinas. Adhesión firme: las quimiocinas activan las integrinas del leucocito, que se ancla al endotelio. Transmigración o diapédesis: atraviesa la pared por la unión entre células endoteliales y sigue el gradiente quimiotáctico. Cada paso depende del anterior.'],
+    ['¿Qué activa el factor Hageman y qué cuatro cosas desencadena?',
+     'Se activa al exponerse a superficies con carga negativa como membranas basales, colágeno, elastina o cristales de urato, y también por enzimas proteolíticas y lipopolisacáridos. Desencadena: conversión de plasminógeno en plasmina con fibrinólisis, conversión de precalicreína en calicreína con formación de cininas, activación de la vía alterna del complemento y activación de la cascada de coagulación.'],
+    ['¿Para qué sirve que la coagulación forme una malla de fibrina en la vénula?',
+     'Para impedir que la noxa se disemine por el torrente circulatorio. Es una barrera deliberada. Su efecto secundario es aumentar la estasis y la presión hidrostática capilar, y con ello la salida de líquido al intersticio.'],
+    ['Mencione cuatro mecanismos que apagan la inflamación.',
+     'Reprogramación y silenciamiento génicos, con represión de TNF-α e IL-1 y elevación de factores antiinflamatorios. Citocinas frenadoras: IL-6, IL-10, IL-11, IL-12 e IL-13 reducen la producción de TNF-α. Lipoxinas, que inhiben la síntesis de leucotrienos. Glucocorticoides liberados por el eje hipotálamo-hipófisis-suprarrenal. También inhibidores de proteasas, cininasas que degradan la bradicinina, y TGF-β inducido por las células apoptósicas.'],
+    ['¿Cómo se traduce una inflamación sistémica en el reporte de laboratorio?',
+     'IL-1 y TNF-α circulantes activan el eje hipotálamo-hipófisis-suprarrenal y producen fiebre, mialgia, artralgia, anorexia y leucocitosis. La médula ósea acelera la producción y libera PMN inmaduros en banda. El hígado fabrica proteínas de fase aguda: proteína C reactiva, fibrinógeno y ceruloplasmina. En el laboratorio se ve elevación de la PCR y de la velocidad de sedimentación. Si el cuadro persiste, la médula se agota y la leucocitosis se vuelve leucopenia.']
+  ];
+
+  var quiz = document.getElementById('quiz');
+  qs.forEach(function(pair, i){
+    var d = document.createElement('div'); d.className = 'q';
+    var h = document.createElement('button');
+    h.className = 'q-head'; h.type = 'button'; h.setAttribute('aria-expanded','false');
+    h.innerHTML = '<span class="q-n">' + String(i+1).padStart(2,'0') + '</span><span>' + pair[0] + '</span>';
+    var b = document.createElement('div'); b.className = 'q-body'; b.textContent = pair[1];
+    h.addEventListener('click', function(){
+      var open = d.classList.toggle('open');
+      h.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    d.appendChild(h); d.appendChild(b); quiz.appendChild(d);
+  });
+})();
+</script>
+</body>
+</html>
