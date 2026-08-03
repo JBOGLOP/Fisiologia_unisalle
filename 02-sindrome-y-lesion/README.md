@@ -1,4 +1,4 @@
-# Sesión 2 — Inducción: síndrome y mecanismos de lesión
+# Encuentro 2 — Inducción: síndrome y mecanismos de lesión
 
 **30 de julio de 2026** · Clase · Fisiopatología General (`01008430`) · Optometría · Universidad de La Salle
 
@@ -52,7 +52,5 @@ Se abre directamente en el navegador. También puedes [descargar el archivo](cla
 
 ---
 
-← [Sesión 1: Inducción: definiciones y generalidades de fisiología y patología](../01-induccion/) · [Índice del curso](../)
-
-**Siguiente encuentro:** 6 de agosto — Inflamación y reparación de tejidos _(en preparación)_
+← [Encuentro 1: Inducción: definiciones y generalidades de fisiología y patología](../01-induccion/) · [Índice del curso](../) · [Encuentro 3: Inflamación y reparación de tejidos](../03-inflamacion-y-reparacion/) →
 

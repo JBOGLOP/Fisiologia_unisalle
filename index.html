@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fisiopatología General · Optometría · Universidad de La Salle · 2026-2</title>
+<meta name="description" content="Material del curso Fisiopatología General (01008430), programa de Optometría, Universidad de La Salle. Semestre 2026-2. Cronograma, clases interactivas y evaluación.">
+<style>
+/* ── tokens del proyecto ─────────────────────────────────────────────── */
+:root{
+  --fisio:#10505e; --fisio-dark:#0b3b45; --fisio-soft:#dceaec;
+  --pato:#a8412c;  --pato-dark:#82301f;  --pato-soft:#f5e2dc;
+  --amber:#a06a12; --amber-soft:#f6e9cf;
+  --ink:#12212b; --muted:#516268; --line:#cbd8da;
+  --paper:#f4f7f7; --surface:#fff; --surface-2:#eaf0f0;
+  --shadow:0 1px 2px rgba(18,33,43,.06), 0 12px 30px -18px rgba(18,33,43,.4);
+  --display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  --radius:14px;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --fisio:#5cb6c6; --fisio-dark:#8fd4e0; --fisio-soft:#12313a;
+    --pato:#e08a70;  --pato-dark:#f0a98f;  --pato-soft:#3a2119;
+    --amber:#e0b464; --amber-soft:#3a2f16;
+    --ink:#e2ebea; --muted:#9bafb4; --line:#2c3d43;
+    --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.9);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--body);
+  line-height:1.6; -webkit-font-smoothing:antialiased}
+.wrap{max-width:820px; margin:0 auto; padding:0 clamp(1rem,4vw,2rem)}
+a{color:var(--fisio); text-decoration-thickness:1px; text-underline-offset:2px}
+a:hover{color:var(--fisio-dark)}
+
+/* ── portada ─────────────────────────────────────────────────────────── */
+.hero{background:var(--fisio); color:#fff; padding:clamp(2rem,7vw,3.6rem) 0 clamp(1.6rem,5vw,2.6rem)}
+@media (prefers-color-scheme:dark){ .hero{background:var(--fisio-soft)} }
+.hero .eyebrow{font-family:var(--mono); font-size:.68rem; letter-spacing:.18em;
+  text-transform:uppercase; opacity:.85; margin:0}
+.hero h1{font-family:var(--display); font-weight:600; line-height:1.08;
+  font-size:clamp(2rem,7.5vw,3.1rem); margin:.5rem 0 .6rem; text-wrap:balance}
+.hero p{margin:0; font-size:clamp(1rem,2.6vw,1.12rem); opacity:.94; max-width:56ch}
+@media (prefers-color-scheme:dark){ .hero .eyebrow,.hero h1,.hero p{color:var(--ink)} }
+
+/* ── bloques ─────────────────────────────────────────────────────────── */
+section{padding:clamp(1.8rem,5vw,2.8rem) 0}
+h2{font-family:var(--display); font-weight:600; font-size:clamp(1.35rem,4vw,1.75rem);
+  margin:0 0 1rem; color:var(--fisio)}
+h3{font-size:1rem; margin:0 0 .3rem}
+p{margin:0 0 .9rem}
+.lead{font-size:1.04rem}
+
+.datos{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:.7rem;
+  margin-top:-1.4rem; position:relative; z-index:2}
+.dato{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+  box-shadow:var(--shadow); padding:.85rem 1rem}
+.dato .k{font-family:var(--mono); font-size:.63rem; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--muted); display:block; margin-bottom:.15rem}
+.dato .v{font-weight:600; font-size:.97rem; overflow-wrap:anywhere}
+
+.aviso{background:var(--amber-soft); border:1px solid var(--amber);
+  border-radius:var(--radius); padding:.9rem 1.1rem; margin-top:1.2rem}
+.aviso strong{color:var(--amber)}
+
+/* ── cronograma ──────────────────────────────────────────────────────── */
+ol.crono{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.5rem}
+ol.crono li{display:flex; gap:.85rem; align-items:flex-start; background:var(--surface);
+  border:1px solid var(--line); border-left:4px solid var(--line);
+  border-radius:12px; padding:.8rem .95rem}
+li.hecho{border-left-color:var(--fisio)}
+li.proximo{border-left-color:var(--fisio); background:var(--fisio-soft)}
+li.eval{border-left-color:var(--pato); background:var(--pato-soft)}
+li.receso{border-left-style:dashed; opacity:.75}
+.num{flex:none; width:2rem; font-family:var(--mono); font-size:.82rem; font-weight:700;
+  color:var(--muted); padding-top:.1rem}
+.cuerpo{flex:1; min-width:0}
+.tema{font-weight:600; line-height:1.35; display:block}
+.meta{font-size:.8rem; color:var(--muted); margin-top:.15rem; display:block}
+.enlaces{margin-top:.4rem; display:flex; gap:.7rem; flex-wrap:wrap; font-size:.85rem}
+.pill{display:inline-block; font-family:var(--mono); font-size:.62rem; letter-spacing:.08em;
+  text-transform:uppercase; padding:.12rem .5rem; border-radius:99px; white-space:nowrap}
+.pill.ok{background:var(--fisio); color:#fff}
+.pill.ev{background:var(--pato); color:#fff}
+.pill.pr{background:var(--fisio-soft); color:var(--fisio); border:1px solid var(--fisio)}
+@media (prefers-color-scheme:dark){ .pill.ok,.pill.ev{color:var(--paper)} }
+
+/* ── evaluación ──────────────────────────────────────────────────────── */
+.cortes{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:.8rem}
+.corte{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+  padding:1rem 1.1rem}
+.corte h3{color:var(--fisio); font-family:var(--display); font-size:1.08rem}
+.corte ul{margin:.6rem 0 0; padding-left:1.05rem; font-size:.9rem}
+.corte li{margin-bottom:.3rem}
+.corte .pc{font-family:var(--mono); font-weight:700; color:var(--fisio)}
+
+.cadena{background:var(--surface-2); border-radius:12px; padding:.9rem 1rem; margin-top:1rem;
+  font-family:var(--mono); font-size:.76rem; text-align:center; letter-spacing:.03em;
+  color:var(--fisio); font-weight:700; overflow-x:auto; white-space:nowrap}
+
+.fuente{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+  padding:1rem 1.1rem; margin-bottom:.7rem}
+.fuente .tit{font-style:italic}
+
+footer{border-top:1px solid var(--line); padding:1.6rem 0 2.4rem; margin-top:1.5rem;
+  font-size:.84rem; color:var(--muted)}
+footer p{margin:0 0 .6rem}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Universidad de La Salle · Facultad de Ciencias de la Salud</p>
+    <h1>Fisiopatología General</h1>
+    <p>Programa de Optometría · Código <strong>01008430</strong> · 2 créditos · Semestre 2026-2</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="datos">
+    <div class="dato"><span class="k">Encuentros</span><span class="v">Jueves, 2:00–4:00 p. m.</span></div>
+    <div class="dato"><span class="k">Salón</span><span class="v">404 · edificio de Optometría</span></div>
+    <div class="dato"><span class="k">Docente</span><span class="v">Jorge Wilhem Bogoya López</span></div>
+    <div class="dato"><span class="k">Correo</span><span class="v"><a href="mailto:jbogoya@unisalle.edu.co">jbogoya@unisalle.edu.co</a></span></div>
+  </div>
+
+  <div class="aviso">
+    <strong>Cambio de fecha del primer parcial.</strong> Pasó del 6 al <strong>13 de agosto</strong>.
+    El 6 de agosto hay clase de inflamación y reparación, y ese tema también entra en el examen.
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2>Por qué existe este espacio</h2>
+    <p class="lead">La fisiopatología explica <strong>por qué y cómo</strong> el cuerpo se enferma.</p>
+    <p>Para el optómetra eso no es un rodeo teórico. La retina, los vasos, el nervio óptico y la
+      superficie ocular son estructuras donde las enfermedades del resto del cuerpo se manifiestan
+      temprano, a veces antes de que alguien las haya diagnosticado. Cuando en el fondo de ojo aparece
+      un cruce arteriovenoso patológico o un exudado, lo que usted tiene delante no es una imagen: es
+      una pista sobre un proceso sistémico que quizá nadie ha visto todavía.</p>
+    <p>Este espacio se cursa después de anatomía, histología, bioquímica y fisiología, y antes de
+      semiología y clínica. Su tarea es convertir lo que usted ya sabe de la normalidad en capacidad
+      de explicar la desviación.</p>
+  </div>
+</section>
+
+<section id="cronograma">
+  <div class="wrap">
+    <h2>Los 16 encuentros</h2>
+    <p>Del 23 de julio al 12 de noviembre de 2026. Cada clase se publica el día del encuentro o antes.</p>
+
+    <ol class="crono">
+      <li class="hecho">
+        <span class="num">01</span>
+        <span class="cuerpo">
+          <span class="tema">Inducción: definiciones y generalidades <span class="pill ok">cumplido</span></span>
+          <span class="meta">23 de julio · Clase</span>
+          <span class="enlaces">
+            <a href="01-induccion/clase.html"><strong>▶ Ver la clase</strong></a>
+            <a href="01-induccion/">Detalle</a>
+          </span>
+        </span>
+      </li>
+      <li class="hecho">
+        <span class="num">02</span>
+        <span class="cuerpo">
+          <span class="tema">Inducción: síndrome y mecanismos de lesión <span class="pill ok">cumplido</span></span>
+          <span class="meta">30 de julio · Clase</span>
+          <span class="enlaces">
+            <a href="02-sindrome-y-lesion/clase.html"><strong>▶ Ver la clase</strong></a>
+            <a href="02-sindrome-y-lesion/">Detalle</a>
+          </span>
+        </span>
+      </li>
+      <li class="proximo">
+        <span class="num">03</span>
+        <span class="cuerpo">
+          <span class="tema">Inflamación y reparación de tejidos <span class="pill pr">próximo</span></span>
+          <span class="meta">6 de agosto · Clase</span>
+          <span class="enlaces"><a href="03-inflamacion-y-reparacion/">Detalle</a></span>
+        </span>
+      </li>
+      <li class="eval">
+        <span class="num">04</span>
+        <span class="cuerpo">
+          <span class="tema">Primer parcial <span class="pill ev">evaluación</span></span>
+          <span class="meta">13 de agosto · Capítulos 1 a 6 y 19</span>
+          <span class="enlaces"><a href="04-primer-parcial/">Detalle</a></span>
+        </span>
+      </li>
+      <li>
+        <span class="num">05</span>
+        <span class="cuerpo">
+          <span class="tema">Socialización de notas</span>
+          <span class="meta">20 de agosto · Retroalimentación</span>
+          <span class="enlaces"><a href="05-socializacion-notas-1/">Detalle</a></span>
+        </span>
+      </li>
+      <li>
+        <span class="num">06</span>
+        <span class="cuerpo">
+          <span class="tema">Inmunidad y respuesta del huésped a la infección</span>
+          <span class="meta">27 de agosto · Clase</span>
+          <span class="enlaces"><a href="06-inmunidad-e-infeccion/">Detalle</a></span>
+        </span>
+      </li>
+      <li>
+        <span class="num">07</span>
+        <span class="cuerpo">
+          <span class="tema">Fisiopatología de la fiebre y del dolor</span>
+          <span class="meta">3 de septiembre · Clase</span>
+          <span class="enlaces"><a href="07-fiebre-y-dolor/">Detalle</a></span>
+        </span>
+      </li>
+      <li>
+        <span class="num">08</span>
+        <span class="cuerpo">
+          <span class="tema">Fisiopatología del edema y del síncope</span>
+          <span class="meta">10 de septiembre · Clase</span>
+          <span class="enlaces"><a href="08-edema-y-sincope/">Detalle</a></span>
+        </span>
+      </li>
+      <li class="eval">
+        <span class="num">09</span>
+        <span class="cuerpo">
+          <span class="tema">Segundo parcial <span class="pill ev">evaluación</span></span>
+          <span class="meta">17 de septiembre</span>
+          <span class="enlaces"><a href="09-segundo-parcial/">Detalle</a></span>
+        </span>
+      </li>
+      <li>
+        <span class="num">10</span>
+        <span class="cuerpo">
+          <span class="tema">Socialización de notas</span>
+          <span class="meta">24 de septiembre · Retroalimentación</span>
+          <span class="enlaces"><a href="10-socializacion-notas-2/">Detalle</a></span>
+        </span>
+      </li>
+      <li>
+        <span class="num">11</span>
+        <span class="cuerpo">
+          <span class="tema">Fisiopatología de la disnea, la cianosis y el vértigo</span>
+          <span class="meta">1 de octubre · Clase</span>
+          <span class="enlaces"><a href="11-disnea-cianosis-y-vertigo/">Detalle</a></span>
+        </span>
+      </li>
+      <li class="receso">
+        <span class="num">—</span>
+        <span class="cuerpo">
+          <span class="tema">Semana de receso institucional</span>
+          <span class="meta">8 de octubre</span>
+        </span>
+      </li>
+      <li>
+        <span class="num">12</span>
+        <span class="cuerpo">
+          <span class="tema">Patología ambiental y nutricional: el ojo como órgano diana</span>
+          <span class="meta">15 de octubre · Clase</span>
+          <span class="enlaces"><a href="12-ambiental-y-nutricional/">Detalle</a></span>
+        </span>
+      </li>
+      <li>
+        <span class="num">13</span>
+        <span class="cuerpo">
+          <span class="tema">Diabetes e hipertensión: el ojo como ventana sistémica</span>
+          <span class="meta">22 de octubre · Clase</span>
+          <span class="enlaces"><a href="13-diabetes-e-hipertension/">Detalle</a></span>
+        </span>
+      </li>
+      <li>
+        <span class="num">14</span>
+        <span class="cuerpo">
+          <span class="tema">Trastornos ópticos desde la fisiopatología · cine-foro</span>
+          <span class="meta">29 de octubre · Clase</span>
+          <span class="enlaces"><a href="14-trastornos-opticos/">Detalle</a></span>
+        </span>
+      </li>
+      <li class="eval">
+        <span class="num">15</span>
+        <span class="cuerpo">
+          <span class="tema">Parcial final <span class="pill ev">evaluación</span></span>
+          <span class="meta">5 de noviembre</span>
+          <span class="enlaces"><a href="15-parcial-final/">Detalle</a></span>
+        </span>
+      </li>
+      <li>
+        <span class="num">16</span>
+        <span class="cuerpo">
+          <span class="tema">Socialización de notas y cierre</span>
+          <span class="meta">12 de noviembre · Retroalimentación</span>
+          <span class="enlaces"><a href="16-socializacion-notas-3/">Detalle</a></span>
+        </span>
+      </li>
+    </ol>
+
+    <p style="margin-top:1.1rem; font-size:.9rem; color:var(--muted)">
+      El orden no es casual: la inflamación se ve en el encuentro 3, <strong>antes</strong> que la
+      fiebre, el dolor y el edema, porque es el mecanismo que los explica.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Cómo se evalúa</h2>
+    <div class="cortes">
+      <div class="corte">
+        <h3>Primer corte · 35 %</h3>
+        <ul>
+          <li>Parcial 1 — <span class="pc">55 %</span></li>
+          <li>Quices — <span class="pc">20 %</span></li>
+          <li>Glosario y PubMed — <span class="pc">15 %</span></li>
+          <li>Participación — <span class="pc">10 %</span></li>
+        </ul>
+      </div>
+      <div class="corte">
+        <h3>Segundo corte · 35 %</h3>
+        <ul>
+          <li>Parcial 2 — <span class="pc">50 %</span></li>
+          <li>Cadena fisiopatológica I — <span class="pc">25 %</span></li>
+          <li>Quices — <span class="pc">15 %</span></li>
+          <li>Participación — <span class="pc">10 %</span></li>
+        </ul>
+      </div>
+      <div class="corte">
+        <h3>Tercer corte · 30 %</h3>
+        <ul>
+          <li>Parcial final — <span class="pc">45 %</span></li>
+          <li>Cadena fisiopatológica II — <span class="pc">30 %</span></li>
+          <li>Lectura selecta — <span class="pc">15 %</span></li>
+          <li>Participación — <span class="pc">10 %</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <p style="margin-top:1.2rem"><strong>Los quices</strong> son breves y se aplican en los primeros
+      diez minutos de cada encuentro, sobre lo visto la semana anterior. No son para calificar
+      asistencia: existen para que el repaso ocurra cada semana y no la noche antes del parcial.</p>
+
+    <p><strong>La cadena fisiopatológica</strong> es el producto central del curso: una infografía que
+      conecta la causa con lo que el optómetra observa.</p>
+    <div class="cadena">CAUSA → MECANISMO 1 → MECANISMO 2 → SIGNO O SÍNTOMA → ¿QUÉ VE EL OPTÓMETRA?</div>
+    <p style="margin-top:.9rem">La última casilla es siempre obligatoria. Se evalúa con una rúbrica que
+      se entrega y se explica antes de empezar, y que es la misma todo el semestre para que usted pueda
+      ver su propio progreso.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Qué leer</h2>
+    <div class="fuente">
+      <h3>Texto guía</h3>
+      <p style="margin:0">Uribe Olivares, R. A. (2018). <span class="tit">Fisiopatología. La ciencia del
+        porqué y el cómo</span>. Barcelona: Elsevier España. El curso recorre los
+        <strong>capítulos 1 a 22</strong>; cada encuentro indica cuáles.</p>
+    </div>
+    <div class="fuente">
+      <h3>Complementarias</h3>
+      <p style="margin:0">Robbins y Cotran, <span class="tit">Compendio de patología estructural y
+        funcional</span>, disponible en la hemeroteca de la Universidad · Reid, R.,
+        <span class="tit">Pathology Illustrated</span> · Oxford Centre for Evidence-Based Medicine,
+        niveles de evidencia.</p>
+    </div>
+    <p style="font-size:.9rem; color:var(--muted)">La bibliografía se consulta por los canales
+      institucionales de la Universidad de La Salle.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Las clases son archivos que se abren en el navegador, sin descargar nada: funcionan en celular
+      y en computador, se adaptan al tema claro u oscuro e incluyen ejercicios interactivos y
+      autoevaluación.</p>
+    <p>Este sitio contiene <strong>material docente de elaboración propia</strong>. No se publica ni se
+      redistribuye ningún fragmento de los textos protegidos por derechos de autor. Los ejemplos
+      oculares ilustran el mecanismo fisiopatológico general; su estudio detallado corresponde a
+      espacios académicos posteriores del programa.</p>
+    <p style="font-family:var(--mono); font-size:.72rem">Fisiopatología General · 01008430 ·
+      Optometría · Universidad de La Salle · 2026-2</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-# Sesión 1 — Inducción: definiciones y generalidades de fisiología y patología
+# Encuentro 1 — Inducción: definiciones y generalidades de fisiología y patología
 
 **23 de julio de 2026** · Clase · Fisiopatología General (`01008430`) · Optometría · Universidad de La Salle
 
@@ -55,5 +55,5 @@ Se abre directamente en el navegador. También puedes [descargar el archivo](cla
 
 ---
 
-[Índice del curso](../) · [Sesión 2: Inducción: síndrome y mecanismos de lesión](../02-sindrome-y-lesion/) →
+[Índice del curso](../) · [Encuentro 2: Inducción: síndrome y mecanismos de lesión](../02-sindrome-y-lesion/) →
 

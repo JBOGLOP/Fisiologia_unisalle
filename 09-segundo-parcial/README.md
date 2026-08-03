@@ -1,24 +1,30 @@
-# Sesión 9 — Segundo parcial
+# Encuentro 9 — Segundo parcial
 
 **17 de septiembre de 2026** · Evaluación · Fisiopatología General (`01008430`) · Optometría · Universidad de La Salle
 
 | Estado | Material | Duración |
 |---|---|---|
-| ⬜ **Programada** | 🕓 En preparación | 2 horas |
+| ⬜ **Programada** | — | 2 horas |
 
 ---
 
 ## De qué trata
 
-Evaluación escrita del bloque de fisiopatología de síntomas y signos.
+Evaluación escrita del bloque de inmunidad, síntomas y signos.
 
 ## Contenidos
 
-- Alcance: sesiones 5 a 8 — dolor, disnea, vértigo, edema, síncope, fiebre y cianosis
+- Alcance: capítulos 7, 10, 11, 18, 19 y 20 a 22; encuentros 6 a 8
+- Inmunidad innata y adaptativa; autoinmunidad
+- Respuesta del huésped a la infección
+- Fiebre: pirógenos, mediadores y termostato hipotalámico
+- Dolor: nocicepción y sensibilización
+- Edema: fuerzas de Starling y sus cuatro mecanismos
+- Síncope y perfusión cerebral
 
 ## Lectura previa
 
-- Repaso de las sesiones 5 a 8
+- Uribe Olivares, caps. 7, 10, 11, 18, 19 y 20 a 22
 
 ## Trabajo independiente
 
@@ -31,5 +37,4 @@ Evaluación escrita del bloque de fisiopatología de síntomas y signos.
 
 ---
 
-← [Sesión 8: Fisiopatología de los signos: fiebre y cianosis](../08-fiebre-y-cianosis/) · [Índice del curso](../) · [Sesión 10: Socialización de notas](../10-socializacion-notas-2/) →
-
+← [Encuentro 8: Fisiopatología del edema y del síncope](../08-edema-y-sincope/) · [Índice del curso](../) · [Encuentro 10: Socialización de notas](../10-socializacion-notas-2/) →

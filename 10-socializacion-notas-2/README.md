@@ -1,35 +1,36 @@
-# Sesión 10 — Socialización de notas
+# Encuentro 10 — Socialización de notas
 
 **24 de septiembre de 2026** · Retroalimentación · Fisiopatología General (`01008430`) · Optometría · Universidad de La Salle
 
 | Estado | Material | Duración |
 |---|---|---|
-| ⬜ **Programada** | 🕓 En preparación | 2 horas |
+| ⬜ **Programada** | — | 2 horas |
 
 ---
 
 ## De qué trata
 
-Devolución del segundo parcial y retroalimentación.
+Revisión colectiva del segundo parcial y retroalimentación grupal de la cadena fisiopatológica I, con los errores de mecanismo más frecuentes.
 
 ## Contenidos
 
-- Revisión de resultados
-- Refuerzo de los temas con mayor dificultad
+- Revisión del parcial pregunta por pregunta
+- Retroalimentación grupal de la cadena fisiopatológica I
+- Errores de mecanismo más frecuentes y cómo corregirlos
 
 ## Lectura previa
 
-- Lectura previa sobre inflamación y reparación
+- Sin lectura previa
 
 ## Trabajo independiente
 
-- Preparar la sesión sobre inflamación
+- Revisión personal del parcial y de la rúbrica devuelta
 
 ## Resultados de aprendizaje que se movilizan
 
 - **RA16** — Responde al cumplimiento individual y grupal de las actividades y tareas programadas
+- **RA18** — Analiza los cambios del funcionamiento normal de un tejido, órgano o sistema para diferenciar lo normal de lo patológico
 
 ---
 
-← [Sesión 9: Segundo parcial](../09-segundo-parcial/) · [Índice del curso](../) · [Sesión 11: Inmunidad y respuesta: inflamación y reparación](../11-inflamacion-y-reparacion/) →
-
+← [Encuentro 9: Segundo parcial](../09-segundo-parcial/) · [Índice del curso](../) · [Encuentro 11: Fisiopatología de la disnea, la cianosis y el vértigo](../11-disnea-cianosis-y-vertigo/) →
