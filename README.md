@@ -22,6 +22,10 @@ Código `01008430` · 2 créditos · Semestre **2026-2**
 > El **primer parcial pasó del 6 al 13 de agosto**. El 6 de agosto tendremos clase de
 > **inflamación y reparación**, que entra en el parcial.
 
+<iframe src="https://jboglop.github.io/Fisiologia_unisalle/"
+        style="width:100%;height:600px;border:0"></iframe>
+<p style="color:#10505e"><strong>Prueba de estilo en línea.</strong></p>
+
 ---
 
 ## De qué se trata este espacio
