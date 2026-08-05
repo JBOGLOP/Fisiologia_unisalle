@@ -18,6 +18,10 @@ Cierra el bloque de fundamentos. La lesión celular explicó qué le pasa a la c
 
 Se abre directamente en el navegador. También puedes [descargar el archivo](clase.html) para usarla sin conexión.
 
+### 👥 [Taller en grupos de la sesión](https://jboglop.github.io/Fisiologia_unisalle/03-inflamacion-y-reparacion/actividad.html)
+
+La segunda hora de la clase. Tres grupos, tres casos clínicos oculares y una cadena fisiopatológica que construir. Las cinco preguntas de cada caso son del nivel del primer parcial.
+
 ## Contenidos
 
 - Inflamación aguda: concepto, propósito y desenlaces posibles

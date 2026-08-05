@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Taller en grupos · Inflamación y reparación</title>
+<style>
+  :root{
+    --ink:#12212b; --paper:#f4f7f7; --surface:#ffffff; --surface-2:#eaf0f0;
+    --line:#cbd8da; --muted:#516268;
+    --fisio:#10505e; --fisio-soft:#dceaec;
+    --pato:#a8412c; --pato-soft:#f5e2dc;
+    --amber:#a06a12; --amber-soft:#f6e9cf;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 12px 30px -18px rgba(18,33,43,.4);
+    --display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+      --line:#2c3d43; --muted:#9bafb4;
+      --fisio:#5cb6c6; --fisio-soft:#12313a;
+      --pato:#e08a70; --pato-soft:#3a2119;
+      --amber:#e0b464; --amber-soft:#3a2f16;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.9);
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font-family:var(--body); line-height:1.6;
+    -webkit-font-smoothing:antialiased; padding:clamp(.9rem,3vw,2rem)}
+  .wrap{max-width:880px; margin:0 auto}
+
+  .eyebrow{font-family:var(--mono); font-size:.66rem; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--muted); margin:0}
+  h1{font-family:var(--display); font-weight:600; line-height:1.1;
+    font-size:clamp(1.7rem,6vw,2.4rem); margin:.35rem 0 .5rem; text-wrap:balance}
+  h2{font-family:var(--display); font-weight:600; font-size:clamp(1.25rem,3.6vw,1.55rem);
+    color:var(--fisio); margin:2.2rem 0 .9rem}
+  h3{font-size:1.02rem; margin:0 0 .35rem}
+  .sub{color:var(--muted); font-size:1rem; margin:0 0 1.6rem; max-width:64ch}
+  p{margin:0 0 .85rem}
+
+  /* ── cronómetro ─────────────────────────────────────────────────── */
+  .crono{background:var(--surface); border:1px solid var(--line); border-radius:16px;
+    box-shadow:var(--shadow); padding:clamp(1rem,4vw,1.6rem); margin-bottom:1.4rem}
+  .crono-fase{font-family:var(--mono); font-size:.7rem; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--muted); margin:0}
+  .crono-tit{font-family:var(--display); font-size:clamp(1.2rem,4vw,1.6rem);
+    font-weight:600; margin:.15rem 0 .5rem; color:var(--fisio)}
+  .reloj{font-family:var(--mono); font-weight:700; font-variant-numeric:tabular-nums;
+    font-size:clamp(3.2rem,14vw,5.6rem); line-height:.95; letter-spacing:-.02em; margin:.2rem 0}
+  .reloj.poco{color:var(--amber)}
+  .reloj.fin{color:var(--pato)}
+  .barra{height:8px; background:var(--surface-2); border-radius:99px; overflow:hidden; margin:.7rem 0 1rem}
+  .barra i{display:block; height:100%; width:0%; background:var(--fisio); transition:width 1s linear}
+  .ctrl{display:flex; gap:.5rem; flex-wrap:wrap}
+  .btn{font:inherit; font-size:.85rem; font-weight:600; cursor:pointer; border-radius:99px;
+    border:1px solid var(--line); background:var(--surface); color:var(--ink); padding:.5rem 1.1rem}
+  .btn.pri{background:var(--fisio); color:#fff; border-color:var(--fisio)}
+  .btn:hover{filter:brightness(1.07)}
+  .plan{display:flex; gap:.25rem; margin-top:1rem; flex-wrap:wrap}
+  .plan span{font-family:var(--mono); font-size:.6rem; letter-spacing:.05em; padding:.2rem .5rem;
+    border-radius:99px; background:var(--surface-2); color:var(--muted); white-space:nowrap}
+  .plan span.act{background:var(--fisio); color:#fff}
+  .plan span.hecho{opacity:.5}
+
+  /* ── grupos ─────────────────────────────────────────────────────── */
+  .grupo{background:var(--surface); border:1px solid var(--line); border-left:5px solid var(--fisio);
+    border-radius:14px; padding:1.1rem 1.25rem; margin-bottom:1rem}
+  .grupo.g2{border-left-color:var(--amber)} .grupo.g3{border-left-color:var(--pato)}
+  .grupo .n{font-family:var(--mono); font-size:.66rem; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--muted)}
+  .grupo h3{font-family:var(--display); font-size:1.3rem; margin:.2rem 0 .7rem}
+  .caso{padding:.85rem 1rem; border-radius:11px; background:var(--fisio-soft); margin-bottom:.9rem;
+    font-size:.95rem}
+  .grupo.g2 .caso{background:var(--amber-soft)} .grupo.g3 .caso{background:var(--pato-soft)}
+  .caso b{display:block; font-family:var(--mono); font-size:.62rem; letter-spacing:.1em;
+    text-transform:uppercase; margin-bottom:.3rem}
+  ol.preg{margin:0; padding-left:1.3rem; font-size:.95rem}
+  ol.preg li{margin-bottom:.55rem}
+  ol.preg li::marker{font-weight:700; color:var(--fisio)}
+  .grupo.g2 ol.preg li::marker{color:var(--amber)}
+  .grupo.g3 ol.preg li::marker{color:var(--pato)}
+  .cierre{margin-top:.9rem; padding-top:.8rem; border-top:1px dashed var(--line); font-size:.93rem}
+  .cierre b{color:var(--pato)}
+
+  .cadena{background:var(--surface-2); border-radius:12px; padding:.9rem 1rem; margin:.8rem 0;
+    font-family:var(--mono); font-size:.72rem; text-align:center; letter-spacing:.02em;
+    color:var(--fisio); font-weight:700; overflow-x:auto; white-space:nowrap}
+
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:14px;
+    padding:1rem 1.2rem; margin-bottom:.8rem}
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:.8rem}
+  .aviso{background:var(--amber-soft); border:1px solid var(--amber); border-radius:12px;
+    padding:.85rem 1.05rem; margin:1rem 0}
+  ol.pasos{padding-left:1.2rem} ol.pasos li{margin-bottom:.4rem}
+  footer{margin-top:2.4rem; padding-top:1rem; border-top:1px solid var(--line);
+    font-family:var(--mono); font-size:.66rem; letter-spacing:.04em; color:var(--muted)}
+
+  .docente{display:none !important}
+  body.docente-on .docente{display:block !important}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Fisiopatología General · 01008430 · Encuentro 3 · 6 de agosto</p>
+  <h1>Taller en grupos</h1>
+  <p class="sub">La primera hora es de clase. La segunda es de ustedes: tres grupos, tres casos, y una
+    cadena que construir. Las preguntas son del nivel del parcial del 13 de agosto, así que resolverlas
+    hoy es empezar a estudiarlo.</p>
+
+  <!-- ══════════ CRONÓMETRO ══════════ -->
+  <section class="crono">
+    <p class="crono-fase" id="fase">Listo para empezar</p>
+    <p class="crono-tit" id="tit">Clase — inflamación y reparación</p>
+    <div class="reloj" id="reloj">60:00</div>
+    <div class="barra"><i id="fill"></i></div>
+    <div class="ctrl">
+      <button class="btn pri" id="btnGo" type="button">Iniciar</button>
+      <button class="btn" id="btnNext" type="button">Siguiente fase ▶</button>
+      <button class="btn" id="btnReset" type="button">Reiniciar</button>
+    </div>
+    <div class="plan" id="plan"></div>
+  </section>
+
+  <!-- ══════════ CÓMO FUNCIONA ══════════ -->
+  <h2>Cómo funciona</h2>
+  <ol class="pasos">
+    <li><strong>Tres grupos.</strong> A cada uno le toca un caso. No se elige: se asigna.</li>
+    <li><strong>30 minutos de trabajo.</strong> La fuente es la clase que acaban de recibir, que está
+      publicada y completa, y el capítulo 19 del texto guía.</li>
+    <li><strong>Entregan una hoja</strong> con las respuestas y la cadena dibujada. Una por grupo, con
+      los nombres de todos.</li>
+    <li><strong>Siete minutos para socializar</strong> cada grupo. No se lee la hoja: se explica la
+      cadena en el tablero.</li>
+  </ol>
+
+  <div class="aviso">
+    <strong>La regla que no se negocia:</strong> la cadena no está terminada hasta que responda
+    <em>«¿y esto qué tiene que ver con el ojo?»</em>. Es la última casilla, y aquí también es
+    obligatoria.
+  </div>
+
+  <div class="cadena">CAUSA → MECANISMO 1 → MECANISMO 2 → SIGNO O SÍNTOMA → ¿QUÉ VE EL OPTÓMETRA?</div>
+
+  <!-- ══════════ LOS TRES CASOS ══════════ -->
+  <h2>Los tres casos</h2>
+
+  <div class="grupo">
+    <span class="n">Grupo 1 · del daño al edema</span>
+    <h3>La córnea que se raspó</h3>
+    <div class="caso">
+      <b>Caso</b>
+      Una paciente de 22 años se raspa el ojo con la uña al ponerse un lente de contacto. Dos horas
+      después consulta: tiene el ojo rojo, le arde, lagrimea sin parar y no tolera la luz. A la
+      lámpara de hendidura hay un defecto epitelial y la conjuntiva está inyectada.
+    </div>
+    <ol class="preg">
+      <li>La uña rompió membranas celulares. <strong>¿Qué se libera de esa membrana rota</strong> y en
+        qué dos mediadores termina, por cada una de las dos rutas enzimáticas?</li>
+      <li>Reconstruyan la <strong>secuencia hemodinámica</strong> desde ese momento hasta que aparece
+        el edema. ¿Qué pasa con las arteriolas y qué con las vénulas, y por qué eso sube la presión?</li>
+      <li>Expliquen <strong>cada uno de los cuatro signos</strong> de la paciente por el mediador que
+        lo produce. Rojo, calor, hinchazón y dolor: uno por uno.</li>
+      <li>El líquido que sale, ¿es exudado o trasudado? <strong>¿Cómo lo saben?</strong></li>
+      <li>De las tres vías de aumento de permeabilidad, ¿cuál opera aquí? Si en vez de una uña hubiera
+        sido una <strong>quemadura química</strong>, ¿cuál sería, y en qué cambiaría la duración?</li>
+    </ol>
+    <p class="cierre"><b>Para cerrar:</b> el edema inflamatorio tiene dos motores y no uno.
+      Expliquen cuáles son, y por qué eso es justamente lo que distingue un exudado de un trasudado.</p>
+  </div>
+
+  <div class="grupo g2">
+    <span class="n">Grupo 2 · quién ejecuta</span>
+    <h3>El ojo con pus</h3>
+    <div class="caso">
+      <b>Caso</b>
+      Un paciente de 40 años, usuario de lentes de contacto de uso prolongado, llega con dolor intenso
+      y visión borrosa. Tiene un infiltrado corneal blanquecino y un nivel de material blanco en la
+      parte baja de la cámara anterior. Está afebril, pero se le pide hemograma y proteína C reactiva.
+    </div>
+    <ol class="preg">
+      <li>Ese material blanco es un <strong>hipopión</strong>. ¿De qué está hecho, y qué tipo de
+        leucocito predomina? ¿Por qué <em>ese</em> y no otro?</li>
+      <li>Describan los <strong>cuatro pasos</strong> por los que ese leucocito salió del vaso. Digan
+        qué molécula media cada paso.</li>
+      <li>¿Qué le indicó el camino hasta el foco? Nombren al menos <strong>dos mediadores
+        quimiotácticos</strong> y digan de dónde sale cada uno.</li>
+      <li>El <strong>factor Hageman</strong> se activó en este paciente. ¿Qué cuatro cosas desencadena,
+        y para qué sirve que la coagulación forme una malla de fibrina?</li>
+      <li>Si el cuadro progresa y el paciente hace fiebre, <strong>¿qué se esperaría encontrar</strong>
+        en el hemograma y en la PCR, y qué mediadores lo explican?</li>
+    </ol>
+    <p class="cierre"><b>Para cerrar:</b> cada paso de la salida del neutrófilo depende del anterior.
+      Expliquen qué le pasaría a un paciente que no pudiera fabricar integrinas.</p>
+  </div>
+
+  <div class="grupo g3">
+    <span class="n">Grupo 3 · cómo termina</span>
+    <h3>Dos córneas, dos finales</h3>
+    <div class="caso">
+      <b>Caso</b>
+      Dos pacientes con lesión corneal. El primero tuvo una <strong>erosión superficial</strong>: a los
+      tres días ve perfecto y no queda rastro. El segundo tuvo una <strong>úlcera profunda</strong> que
+      comprometió el estroma: cicatrizó, pero quedó con una opacidad blanca y ve borroso por ese ojo.
+      El segundo, además, es diabético.
+    </div>
+    <ol class="preg">
+      <li>¿Por qué el primero curó <strong>sin dejar huella</strong> y el segundo no? Usen los conceptos
+        de tejido lábil, estable y permanente, y digan qué papel juega la membrana basal.</li>
+      <li>En el segundo paciente se formó una cicatriz. Describan <strong>cómo se fabricó</strong>:
+        qué pasa a las 24 horas, qué a los 3-5 días, y qué hace que al final quede pálida.</li>
+      <li>Durante la curación el ojo del segundo estuvo hinchado varios días.
+        <strong>¿Por qué se hincha una herida que está curando bien?</strong> No fue infección.</li>
+      <li>El macrófago participó en los dos. Expliquen <strong>los dos programas</strong> —M1 y M2— y
+        cuál predominó en cada momento.</li>
+      <li>¿En qué le complica la <strong>diabetes</strong> la reparación al segundo paciente? Mencionen
+        además otros dos factores que la retrasarían.</li>
+    </ol>
+    <p class="cierre"><b>Para cerrar:</b> si el M2 repara, ¿por qué la fibrosis es una enfermedad?
+      Y si en esa córnea crecieran vasos nuevos, ¿sería buena noticia?</p>
+  </div>
+
+  <!-- ══════════ QUÉ SE ENTREGA ══════════ -->
+  <h2>Qué se entrega y cómo se valora</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Una hoja por grupo</h3>
+      <p>Con las respuestas y <strong>la cadena dibujada</strong>. Los nombres de todos los
+        integrantes.</p>
+    </div>
+    <div class="card">
+      <h3>Un mecanismo, no una lista</h3>
+      <p>Se valora si la respuesta <strong>encadena causas</strong>. «Sale líquido» no explica nada;
+        «sube la presión hidrostática porque entra más sangre de la que sale» sí.</p>
+    </div>
+    <div class="card">
+      <h3>El cierre ocular</h3>
+      <p>Obligatorio en la cadena. Sin esa casilla, la cadena está incompleta.</p>
+    </div>
+    <div class="card">
+      <h3>Participación de todos</h3>
+      <p>Cuenta dentro de <strong>participación y cumplimiento</strong> del primer corte.</p>
+    </div>
+  </div>
+
+  <!-- ══════════ SOLO DOCENTE ══════════ -->
+  <div class="docente" style="margin-top:2rem">
+    <h2 style="color:var(--amber)">Modo docente</h2>
+    <div class="aviso">
+      <strong>Solo se ve al abrir el archivo desde el disco.</strong> Quien entra por el sitio
+      publicado no ve este bloque.
+    </div>
+
+    <div class="card">
+      <h3>Lo que debe quedar dicho en la socialización</h3>
+      <ul>
+        <li><strong>Grupo 1</strong> — fosfolípidos → ácido araquidónico → COX da prostaglandinas y
+          tromboxanos, LOX da leucotrienos. Dilatan las <em>arteriolas</em> y contraen las
+          <em>vénulas</em>: por eso entra más de lo que sale y sube la hidrostática. Exudado, porque
+          hay proteínas. Aquí opera la <em>retracción endotelial</em> por histamina, de minutos; con
+          quemadura sería <em>lesión endotelial directa</em>, de horas o días.<br>
+          <em>Error frecuente:</em> confundir vasodilatación con aumento de permeabilidad, o invertir
+          qué vaso se dilata y cuál se contrae.</li>
+        <li><strong>Grupo 2</strong> — neutrófilos, porque el estímulo es bacteriano. Marginación,
+          rodamiento por <em>selectinas</em>, adhesión firme por <em>integrinas</em> activadas por
+          quimiocinas, y transmigración. Quimiotácticos: C5a del complemento y leucotrieno B4.
+          El Hageman dispara plasmina, cininas, vía alterna del complemento y coagulación; la malla de
+          fibrina <em>impide que la noxa se disemine</em>. Con fiebre: leucocitosis con formas en banda
+          y PCR elevada, por IL-1 y TNF-α.<br>
+          <em>Error frecuente:</em> invertir selectinas e integrinas.</li>
+        <li><strong>Grupo 3</strong> — el epitelio corneal es <em>lábil</em> y regenera si la membrana
+          basal quedó intacta; el estroma no, y por eso deja leucoma. La cicatriz empieza a las 24 h,
+          el tejido de granulación a los 3-5 días, y queda pálida por la regresión vascular. Se hincha
+          porque <em>los vasos nuevos tienen fugas</em>. M1 destruye al principio, M2 repara después.
+          La diabetes retrasa la curación; también isquemia, infección, corticoides, cuerpos extraños.<br>
+          <em>Error frecuente:</em> presentar M1 y M2 como células distintas y no como dos programas
+          de la misma.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Si un grupo se atasca</h3>
+      <ul>
+        <li>«Si les quito la histamina de esta historia, ¿qué deja de pasar?»</li>
+        <li>«¿Por qué la apoptosis no inflama y la necrosis sí?»</li>
+        <li>«¿Qué pasaría si la inflamación no supiera apagarse?»</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Cierre de la sesión</h3>
+      <p>Recordar que el parcial del <strong>13 de agosto</strong> cubre capítulos 1 a 6 y 19, y que
+        las cinco preguntas de cada caso son del nivel del examen. Anunciar que el 6 de agosto quedó
+        cerrado el bloque de fundamentos.</p>
+    </div>
+  </div>
+
+  <footer>
+    Fisiopatología General · Optometría · Universidad de La Salle · 2026-2 ·
+    <a href="clase.html">Volver a la clase</a>
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  // Dos horas: la clase ocupa la primera, el taller la segunda.
+  var FASES = [
+    {t:'Clase — inflamación y reparación', s:'Exposición del docente', m:60},
+    {t:'Encuadre del taller',              s:'Se forman los grupos y se asignan los casos', m:5},
+    {t:'Trabajo en grupos',                s:'30 minutos · la clase publicada es la fuente', m:30},
+    {t:'Grupo 1 · la córnea que se raspó', s:'Socialización de la cadena', m:7},
+    {t:'Grupo 2 · el ojo con pus',         s:'Socialización de la cadena', m:7},
+    {t:'Grupo 3 · dos córneas, dos finales', s:'Socialización de la cadena', m:7},
+    {t:'Cierre y enlace con el parcial',   s:'Se recogen las hojas', m:4}
+  ];
+
+  var i = 0, resta = FASES[0].m * 60, corriendo = false, tick = null;
+  var $ = function(id){ return document.getElementById(id); };
+
+  var plan = $('plan');
+  FASES.forEach(function(f){
+    var s = document.createElement('span');
+    s.textContent = f.m + '′ ' + f.t.split('·')[0].trim();
+    plan.appendChild(s);
+  });
+
+  function pinta(){
+    var f = FASES[i];
+    $('fase').textContent = 'Fase ' + (i+1) + ' de ' + FASES.length + ' · ' + f.s;
+    $('tit').textContent = f.t;
+    var m = Math.floor(resta/60), s = resta % 60;
+    $('reloj').textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+    $('reloj').className = 'reloj' + (resta === 0 ? ' fin' : (resta <= 60 ? ' poco' : ''));
+    $('fill').style.width = (100 - resta/(f.m*60)*100) + '%';
+    [].forEach.call(plan.children, function(el, k){
+      el.className = k === i ? 'act' : (k < i ? 'hecho' : '');
+    });
+    $('btnGo').textContent = corriendo ? 'Pausar' : 'Iniciar';
+  }
+  function correr(){
+    if (resta > 0) { resta--; pinta(); return; }
+    // al llegar a cero se detiene y avisa; no salta solo, para no atropellar
+    corriendo = false; clearInterval(tick); tick = null; pinta();
+  }
+  $('btnGo').addEventListener('click', function(){
+    corriendo = !corriendo;
+    if (corriendo && !tick) tick = setInterval(correr, 1000);
+    else { clearInterval(tick); tick = null; }
+    pinta();
+  });
+  $('btnNext').addEventListener('click', function(){
+    if (i < FASES.length - 1) i++;
+    resta = FASES[i].m * 60; pinta();
+  });
+  $('btnReset').addEventListener('click', function(){
+    corriendo = false; clearInterval(tick); tick = null;
+    i = 0; resta = FASES[0].m * 60; pinta();
+  });
+
+  if (location.protocol === 'file:' || /[?&]docente=1/.test(location.search)) {
+    document.body.classList.add('docente-on');
+  }
+  pinta();
+})();
+</script>
+</body>
+</html>
