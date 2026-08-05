@@ -323,6 +323,29 @@
   .vaso-pistas i{flex:1; height:3px; border-radius:99px; background:var(--line);
     transition:background .3s}
   .vaso-pistas i.on{background:var(--fisio)}
+
+  /* ── enlaces a las figuras del libro · SOLO en la copia local ─────────
+     Las figuras son material protegido de la editorial: no se publican.
+     Este bloque se revela únicamente si la clase se abre desde el disco
+     (protocolo file:) o con ?docente=1, de modo que el estudiante que
+     entra por el sitio publicado nunca ve estos enlaces.               */
+  .docente{display:none !important}
+  body.docente-on .docente{display:inline-flex !important}
+  body.docente-on .panel-doc{display:block !important}
+
+  .figlink{align-items:center; gap:.4rem; margin:.7rem .4rem 0 0;
+    font-family:var(--mono); font-size:.66rem; letter-spacing:.06em;
+    text-decoration:none; color:var(--fisio); background:var(--fisio-soft);
+    border:1px solid color-mix(in srgb,var(--fisio) 30%,transparent);
+    border-radius:99px; padding:.25rem .7rem; transition:filter .15s}
+  .figlink:hover{filter:brightness(1.08)}
+
+  .panel-doc{margin:1rem 0 0; padding:.9rem 1.1rem; border-radius:12px;
+    background:var(--amber-soft); border:1px solid var(--amber)}
+  .panel-doc .t{font-family:var(--mono); font-size:.66rem; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--amber); font-weight:700; margin:0 0 .2rem}
+  .panel-doc .s{font-size:.82rem; color:var(--muted); margin:0 0 .6rem}
+  .panel-doc .figs{display:flex; flex-wrap:wrap}
 </style>
 </head>
 <body>
@@ -339,6 +362,7 @@
       <a href="#mediadores">Mediadores</a>
       <a href="#cascadas">Cascadas</a>
       <a href="#desenlace">Desenlaces</a>
+      <a href="#reparacion">Reparación</a>
       <a href="#sistemico">Efectos sistémicos</a>
       <a href="#ocular">Ojo</a>
       <a href="#ejercicios">Ejercicios</a>
@@ -363,6 +387,25 @@
       <span class="chip">Texto guía <strong>cap. 19</strong></span>
       <span class="chip">Siguiente <strong>Primer parcial</strong></span>
     </div>
+      <div class="panel-doc docente" style="display:none">
+        <p class="t">Modo docente · figuras para proyectar</p>
+        <p class="s">Figuras del compendio de Robbins, en la carpeta <code>img/</code> de este equipo. <strong>No se publican</strong>: son material protegido de la editorial y estos enlaces solo aparecen al abrir la clase desde el disco.</p>
+        <div class="figs">
+          <a class="figlink docente" target="_blank" rel="noopener" href="img/Figura%203-1%20Activaci%C3%B3n%20de%20leucocltos.png">▣ Figura 3-1 · Activación de leucocitos</a>
+          <a class="figlink docente" target="_blank" rel="noopener" href="img/Figura%203-2%20Principales%20mecanismos%20de%20aumento%20de%20la%20permeabilidad%20vascular.png">▣ Figura 3-2 · Mecanismos de permeabilidad vascular</a>
+          <a class="figlink docente" target="_blank" rel="noopener" href="img/Figura%203-3%20Proceso%20en%20varios%20pasos%20de%20la%20migraci%C3%B3n%20de%20leucocitos%20a%20trav%C3%A9s%20de%20los%20vasos%20sangu%C3%ADneos%2C%20mostrado%20aqu%C3%AD%20para%20neutr%C3%B3filos.png">▣ Figura 3-3 · Migración de leucocitos</a>
+          <a class="figlink docente" target="_blank" rel="noopener" href="img/Figura%203-4%20Fagocitosis%20y%20destrucci%C3%B3n%20Intracelular%20de%20microbios.png">▣ Figura 3-4 · Fagocitosis y destrucción de microbios</a>
+          <a class="figlink docente" target="_blank" rel="noopener" href="img/Figura%203-5%20Producci%C3%B3n%20de%20metabolitos%20de%20AA%20y%20funciones%20de%20estos%20en%20la%20inflamaci%C3%B3n.png">▣ Figura 3-5 · Metabolitos del ácido araquidónico</a>
+          <a class="figlink docente" target="_blank" rel="noopener" href="img/Figura%203-6%20Principales%20funciones%20de%20las%20citocinas%20en%20la%20inflamaci%C3%B3n%20aguda.png">▣ Figura 3-6 · Citocinas en la inflamación aguda</a>
+          <a class="figlink docente" target="_blank" rel="noopener" href="img/Figura%203-7%20Activaci%C3%B3n%20y%20funciones%20del%20sistema%20del%20complemento.png">▣ Figura 3-7 · Cascada del complemento</a>
+          <a class="figlink docente" target="_blank" rel="noopener" href="img/Figura%203-8%20Activaci%C3%B3n%20de%20macr%C3%B3fagos%20cl%C3%A1sica%20y%20alternativa.png">▣ Figura 3-8 · Macrófagos M1 y M2</a>
+          <a class="figlink docente" target="_blank" rel="noopener" href="img/Figura%203-9%20Interacciones%20macr%C3%B3fago-linfocito%20en%20la%20inflamaci%C3%B3n%20cr%C3%B3nica.png">▣ Figura 3-9 · Interacción macrófago-linfocito</a>
+          <a class="figlink docente" target="_blank" rel="noopener" href="img/Figura%203-10%20Regeneraci%C3%B3n%20hep%C3%A1tica%20por%20proliferaci%C3%B3n%20de%20hepatocitos.png">▣ Figura 3-10 · Regeneración hepática</a>
+          <a class="figlink docente" target="_blank" rel="noopener" href="img/Figura%203-11%20Etapas%20en%20la%20reparaci%C3%B3n%20mediante%20formaci%C3%B3n%20de%20cicatriz.png">▣ Figura 3-11 · Etapas de la cicatriz</a>
+          <a class="figlink docente" target="_blank" rel="noopener" href="img/Figura%203-12%20Angiogenia.png">▣ Figura 3-12 · Angiogenia</a>
+        </div>
+      </div>
+
   </div>
 
   <!-- 01 -->
@@ -419,6 +462,40 @@
           <strong>Thomas Lewis</strong> describió la importancia de los mediadores químicos.</p>
       </div>
 
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Cómo se entera el tejido de que hay daño</h3>
+      <a class="figlink docente" target="_blank" rel="noopener" href="img/Figura%203-1%20Activaci%C3%B3n%20de%20leucocltos.png">▣ Figura 3-1 · Activación de leucocitos</a>
+      <div class="prose">
+        <p>Aquí se cierra el círculo con la clase anterior. Dijimos que la necrosis
+          <strong>derrama el contenido celular</strong> y que la apoptosis no. Ese derrame es
+          precisamente la señal.</p>
+      </div>
+      <div class="grid g2" style="margin-top:1rem">
+        <div class="card fisio">
+          <p class="eyebrow">Si la amenaza viene de fuera</p>
+          <h3>Receptores de microbios</h3>
+          <p>Los <strong>receptores de tipo señuelo (TLR)</strong> están en la membrana —para
+            patógenos extracelulares—, en endosomas y en el citosol. Reconocen componentes
+            microbianos como el lipopolisacárido y disparan la expresión de citocinas y de moléculas
+            de adhesión endotelial.</p>
+        </div>
+        <div class="card fisio">
+          <p class="eyebrow">Si la amenaza viene de dentro</p>
+          <h3>Sensores de lesión celular</h3>
+          <p>En el citosol de <em>todas</em> las células. Reconocen lo que solo aparece cuando algo se
+            rompió: <strong>ácido úrico</strong> (degradación del ADN), <strong>ATP</strong> liberado
+            por mitocondrias dañadas, <strong>potasio intracelular bajo</strong> —señal de fuga de
+            membrana— e incluso ADN fuera del núcleo.</p>
+          <p style="margin-top:.5rem">Activan el <strong>inflamasoma</strong>, que genera IL-1.</p>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:1rem">
+        <p class="eyebrow">Por qué esto importa</p>
+        <p style="margin-top:.4rem">La célula que muere por necrosis no solo deja de funcionar:
+          <strong>su contenido es el aviso</strong>. Eso explica por qué la necrosis inflama y la
+          apoptosis no, y por qué los cristales de urato de la gota desencadenan una inflamación tan
+          intensa: activan el inflamasoma directamente.</p>
+      </div>
+
       <div class="callout note" style="margin-top:1.2rem">
         <p class="eyebrow">Para qué sirve</p>
         <p style="margin-top:.4rem">Tres finalidades: <strong>destruir, atenuar o mantener localizado</strong>
@@ -467,8 +544,13 @@
           <p class="eyebrow">Ruta 1</p>
           <h3>Ciclooxigenasa (COX)</h3>
           <p>Produce <strong>prostaglandinas</strong> y <strong>tromboxanos</strong>.</p>
-          <p class="ocular">Es la vía que bloquean los antiinflamatorios no esteroideos. Por eso quitan
-            el dolor y la fiebre: cortan la producción de PG.</p>
+          <p style="margin-top:.5rem">Hay <strong>dos formas</strong>. La <strong>COX-1</strong> se
+            expresa siempre y cumple funciones de mantenimiento: equilibrio de líquidos en el riñón y
+            <strong>citoprotección del tubo digestivo</strong>. La <strong>COX-2</strong> solo se
+            induce ante el estímulo inflamatorio.</p>
+          <p class="ocular">Es la vía que bloquean los antiinflamatorios no esteroideos: por eso quitan
+            el dolor y la fiebre. Y como los inhibidores no selectivos frenan también la COX-1, ahí está
+            la explicación de la gastritis y del daño renal que producen.</p>
         </div>
         <div class="card fisio">
           <p class="eyebrow">Ruta 2</p>
@@ -482,6 +564,7 @@
         plaquetario (PAF)</strong>, que será clave en un momento.</p>
 
       <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">La secuencia hemodinámica</h3>
+      <a class="figlink docente" target="_blank" rel="noopener" href="img/Figura%203-5%20Producci%C3%B3n%20de%20metabolitos%20de%20AA%20y%20funciones%20de%20estos%20en%20la%20inflamaci%C3%B3n.png">▣ Figura 3-5 · Metabolitos del ácido araquidónico</a>
       <ol class="cascade">
         <li><strong>Vasodilatación de las arteriolas precapilares</strong> y
           <strong>vasoconstricción de las vénulas poscapilares</strong>. Ocurre en milésimas de segundo.</li>
@@ -623,6 +706,37 @@
         </div>
       </div>
 
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Tres formas de abrir el vaso, no una</h3>
+      <a class="figlink docente" target="_blank" rel="noopener" href="img/Figura%203-2%20Principales%20mecanismos%20de%20aumento%20de%20la%20permeabilidad%20vascular.png">▣ Figura 3-2 · Mecanismos de permeabilidad vascular</a>
+      <p class="prose" style="margin-bottom:1rem">La clase describió la retracción endotelial, pero el
+        aumento de permeabilidad ocurre por tres vías distintas, y <strong>cada una dura algo
+        diferente</strong>. Esa duración es lo que se ve en la clínica.</p>
+      <div class="grid g3">
+        <div class="card">
+          <p class="eyebrow">Vía 1 · minutos</p>
+          <h3>Retracción endotelial</h3>
+          <p>Inducida por la <strong>histamina</strong> y otros mediadores. Las células se contraen y
+            se separan. Es <strong>rápida y de corta duración</strong>.</p>
+          <p class="ocular">Es la roncha de la urticaria: aparece en minutos y desaparece igual de rápido.</p>
+        </div>
+        <div class="card">
+          <p class="eyebrow">Vía 2 · horas o días</p>
+          <h3>Lesión endotelial directa</h3>
+          <p>Por <strong>quemaduras</strong> o toxinas microbianas. La célula endotelial no se retrae:
+            se muere. Es rápida, pero puede durar <strong>horas o días</strong>.</p>
+          <p class="ocular">Por eso el edema de una quemadura no cede en minutos: el vaso quedó roto,
+            no abierto.</p>
+        </div>
+        <div class="card">
+          <p class="eyebrow">Vía 3</p>
+          <h3>Aumento de transcitosis</h3>
+          <p>Se forman <strong>canales transendoteliales</strong> por interconexión de vesículas. El
+            <strong>VEGF</strong> y otros factores los multiplican.</p>
+          <p class="ocular">El VEGF reaparecerá en el encuentro 13: es el mediador central del edema
+            macular diabético.</p>
+        </div>
+      </div>
+
       <div class="callout note" style="margin-top:1.2rem">
         <p class="eyebrow">Idea que se evalúa</p>
         <p style="margin-top:.4rem">El edema inflamatorio tiene <strong>dos motores sumados</strong>: sube
@@ -664,6 +778,24 @@
         <li><strong>Transmigración o diapédesis.</strong> El leucocito atraviesa la pared por la unión
           entre células endoteliales y sigue el gradiente quimiotáctico hasta la noxa.</li>
       </ol>
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Quién llega depende de qué pasó</h3>
+      <a class="figlink docente" target="_blank" rel="noopener" href="img/Figura%203-3%20Proceso%20en%20varios%20pasos%20de%20la%20migraci%C3%B3n%20de%20leucocitos%20a%20trav%C3%A9s%20de%20los%20vasos%20sangu%C3%ADneos%2C%20mostrado%20aqu%C3%AD%20para%20neutr%C3%B3filos.png">▣ Figura 3-3 · Migración de leucocitos</a> <a class="figlink docente" target="_blank" rel="noopener" href="img/Figura%203-4%20Fagocitosis%20y%20destrucci%C3%B3n%20Intracelular%20de%20microbios.png">▣ Figura 3-4 · Fagocitosis y destrucción de microbios</a>
+      <p class="prose" style="margin-bottom:1rem">El tipo de leucocito que migra no es aleatorio:
+        depende del estímulo original y del tiempo transcurrido. Leer el infiltrado es, en la práctica,
+        leer la causa.</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Estímulo</th><th>Quién llega primero</th></tr></thead>
+          <tbody>
+            <tr><td class="k">Infección bacteriana</td><td><strong>Neutrófilos</strong></td></tr>
+            <tr><td class="k">Infección vírica</td><td><strong>Linfocitos</strong></td></tr>
+            <tr><td class="k">Reacción alérgica</td><td><strong>Eosinófilos</strong></td></tr>
+            <tr><td class="k">Reacción de hipersensibilidad</td><td>Infiltrado <strong>mixto</strong></td></tr>
+            <tr><td class="k">Necrosis</td><td>Neutrófilos al principio</td></tr>
+          </tbody>
+        </table>
+      </div>
+
       <div class="callout" style="margin-top:1.2rem">
         <p class="eyebrow">Por qué importa el orden</p>
         <p style="margin-top:.4rem">Sin estasis no hay marginación; sin selectinas no hay rodamiento; sin
@@ -678,6 +810,7 @@
   <section id="mediadores">
     <div class="wrap">
       <div class="sec-head"><span class="sec-num">06</span><h2>Los mediadores</h2></div>
+      <a class="figlink docente" target="_blank" rel="noopener" href="img/Figura%203-6%20Principales%20funciones%20de%20las%20citocinas%20en%20la%20inflamaci%C3%B3n%20aguda.png">▣ Figura 3-6 · Citocinas en la inflamación aguda</a>
       <p class="prose" style="margin-bottom:1.2rem">Todos comparten una propiedad decisiva: <strong>vida
         media corta</strong>. Se inactivan solos, por proteólisis o por unión a otros componentes. Esa
         fugacidad es justamente el mecanismo de control: si el estímulo cesa, la respuesta se apaga sola.</p>
@@ -724,6 +857,7 @@
   <section id="cascadas">
     <div class="wrap">
       <div class="sec-head"><span class="sec-num">07</span><h2>Las tres cascadas del plasma</h2></div>
+      <a class="figlink docente" target="_blank" rel="noopener" href="img/Figura%203-7%20Activaci%C3%B3n%20y%20funciones%20del%20sistema%20del%20complemento.png">▣ Figura 3-7 · Cascada del complemento</a>
       <div class="prose">
         <p>El plasma trae tres sistemas de proteasas que se activan en secuencia y están
           <strong>íntimamente interrelacionados</strong>. El punto de encuentro tiene nombre: el
@@ -783,7 +917,7 @@
   <!-- 08 -->
   <section id="desenlace">
     <div class="wrap">
-      <div class="sec-head"><span class="sec-num">08</span><h2>Cómo termina: resolución o cicatriz</h2></div>
+      <div class="sec-head"><span class="sec-num">08</span><h2>Cómo se apaga, y qué formas toma</h2></div>
       <div class="prose">
         <p>La respuesta inflamatoria es <strong>autolimitada</strong>, por dos razones: los mediadores
           tienen vida corta y los neutrófilos también. Cuando las señales declinan, los PMN entran en
@@ -804,6 +938,17 @@
           quimiocinas proinflamatorias.</p></div>
       </div>
 
+      <div class="callout warn" style="margin-top:1.2rem">
+        <p class="eyebrow">El precio de la defensa</p>
+        <p style="margin-top:.4rem">Los mecanismos con los que el leucocito destruye microbios son los
+          mismos con los que <strong>daña el tejido propio</strong>. Ocurre sobre todo en la
+          <strong>fagocitosis frustrada</strong>: cuando el material es demasiado grande o indigerible,
+          el leucocito <em>regurgita</em> sus enzimas lisosómicas al exterior. A eso se suman las
+          especies reactivas de oxígeno y nitrógeno.</p>
+        <p style="margin-top:.4rem">Por eso una inflamación que no se resuelve termina destruyendo lo
+          que vino a proteger.</p>
+      </div>
+
       <div class="fork" style="margin-top:1.4rem">
         <div class="lane rev">
           <p class="eyebrow">Si el daño fue reversible</p>
@@ -819,6 +964,77 @@
         </div>
       </div>
 
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Aguda frente a crónica</h3>
+      <a class="figlink docente" target="_blank" rel="noopener" href="img/Figura%203-9%20Interacciones%20macr%C3%B3fago-linfocito%20en%20la%20inflamaci%C3%B3n%20cr%C3%B3nica.png">▣ Figura 3-9 · Interacción macrófago-linfocito</a>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Característica</th><th>Aguda</th><th>Crónica</th></tr></thead>
+          <tbody>
+            <tr><td class="k">Inicio</td><td>Rápido: minutos u horas</td><td>Lento: días</td></tr>
+            <tr><td class="k">Infiltrado celular</td><td>Sobre todo <strong>neutrófilos</strong></td>
+                <td>Monocitos, macrófagos y <strong>linfocitos</strong></td></tr>
+            <tr><td class="k">Lesión tisular y fibrosis</td><td>Leve y autolimitada</td>
+                <td>A menudo <strong>grave y progresiva</strong></td></tr>
+            <tr><td class="k">Signos locales y sistémicos</td><td>Notables</td><td>Menores</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="prose" style="margin-top:1rem"><strong>Por qué se cronifica.</strong> Por infección
+        persistente de microorganismos intracelulares de baja toxicidad pero que activan la respuesta
+        inmunitaria —el bacilo de la tuberculosis, los virus—; por enfermedades de hipersensibilidad,
+        sea contra uno mismo o contra sustancias ambientales benignas; o por exposición prolongada a
+        agentes tóxicos, como la sílice en la silicosis o los lípidos en la ateroesclerosis.</p>
+      <p class="prose">Y hay un cuarto grupo que sorprende: <strong>enfermedades que no
+        considerábamos inflamatorias</strong> —trastornos neurodegenerativos como el alzhéimer, el
+        síndrome metabólico y varios cánceres— en las que hoy se reconoce a la inflamación crónica
+        como motor.</p>
+
+      <div class="callout warn" style="margin-top:1rem">
+        <p class="eyebrow">La paradoja que hay que entender</p>
+        <p style="margin-top:.4rem">La inflamación crónica <strong>se nota menos y daña más</strong>.
+          La aguda duele, enrojece y se ve; la crónica avanza en silencio y deja fibrosis. Por eso
+          enfermedades como la artritis reumatoide o la ateroesclerosis destruyen durante años sin que
+          el paciente perciba un cuadro inflamatorio.</p>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Cómo se ve según dónde ocurra</h3>
+      <p class="prose" style="margin-bottom:1rem">El mismo proceso adopta formas distintas según el
+        tejido y la intensidad. Reconocer el patrón orienta la causa.</p>
+      <div class="grid g2">
+        <div class="card">
+          <h3>Serosa</h3>
+          <p>Derrame de líquido pobre en células. Ampollas de una quemadura, derrame pleural.</p>
+        </div>
+        <div class="card">
+          <h3>Fibrinosa</h3>
+          <p>Sale <strong>fibrinógeno</strong>, que se convierte en fibrina. Sobre serosas da la
+            pericarditis o la pleuritis fibrinosa. Si el exudado no se elimina, crecen vasos y
+            fibroblastos hacia dentro y se <strong>organiza</strong> en cicatriz.</p>
+        </div>
+        <div class="card">
+          <h3>Purulenta o supurativa</h3>
+          <p>Pus: neutrófilos, células necróticas y edema. El <strong>absceso</strong> es una
+            acumulación localizada con necrosis por licuefacción, que puede rodearse de una pared y
+            terminar en cicatriz fibrosa.</p>
+        </div>
+        <div class="card">
+          <h3>Úlcera</h3>
+          <p>Erosión local de una superficie epitelial por desprendimiento del tejido inflamado
+            necrótico.</p>
+          <p class="ocular">La úlcera corneal es exactamente esto sobre el epitelio y el estroma.</p>
+        </div>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Los tres finales posibles</h3>
+      <ol class="cascade">
+        <li><strong>Resolución completa.</strong> Se regeneran las células nativas y el tejido vuelve
+          a la normalidad.</li>
+        <li><strong>Curación por reposición de tejido conjuntivo.</strong> Cuando la destrucción fue
+          importante, o el tejido no puede regenerar, o hubo mucha fibrina. Es la
+          <strong>fibrosis</strong>, también llamada organización.</li>
+        <li><strong>Progresión a inflamación crónica.</strong></li>
+      </ol>
+
       <div class="callout warn" style="margin-top:1.2rem">
         <p class="eyebrow">Lo que decide el desenlace</p>
         <p style="margin-top:.4rem">No solo la noxa. <strong>La genética, el sexo y la edad</strong> del
@@ -829,10 +1045,173 @@
     </div>
   </section>
 
+
   <!-- 09 -->
+  <section id="reparacion">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">09</span><h2>Reparación: regenerar o parchear</h2></div>
+      <div class="prose">
+        <p>Hasta aquí, cómo responde el tejido a la agresión. Falta la segunda mitad del título de la
+          clase: <strong>qué queda después</strong>.</p>
+        <p>Hay dos caminos. La <strong>regeneración</strong> devuelve el tejido original. La
+          <strong>cicatrización</strong> no restaura: <em>parchea</em> con colágeno. Cuál de los dos
+          ocurra depende de tres cosas: la capacidad de proliferación del tejido dañado, la integridad
+          de la matriz extracelular y si la inflamación se cronificó.</p>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">No todos los tejidos pueden regenerar</h3>
+      <a class="figlink docente" target="_blank" rel="noopener" href="img/Figura%203-10%20Regeneraci%C3%B3n%20hep%C3%A1tica%20por%20proliferaci%C3%B3n%20de%20hepatocitos.png">▣ Figura 3-10 · Regeneración hepática</a>
+      <div class="grid g3">
+        <div class="card fisio">
+          <p class="eyebrow">Regeneran bien</p>
+          <h3>Lábiles</h3>
+          <p>En división continua. Epitelios y células hematopoyéticas. Se reemplazan por
+            proliferación de las células maduras o desde células madre tisulares,
+            <strong>siempre que la membrana basal esté intacta</strong>.</p>
+        </div>
+        <div class="card">
+          <p class="eyebrow">Regeneran poco</p>
+          <h3>Estables</h3>
+          <p>Capacidad limitada: páncreas, suprarrenales, tiroides, pulmón, riñón. La excepción
+            notable es el <strong>hígado</strong>, capaz de reponerse tras resecciones de hasta el
+            90 %.</p>
+        </div>
+        <div class="card pato">
+          <p class="eyebrow">No regeneran</p>
+          <h3>Permanentes</h3>
+          <p>Solo forman cicatriz. Neuronas y músculo cardíaco.</p>
+        </div>
+      </div>
+
+      <div class="callout note" style="margin-top:1.2rem">
+        <p class="eyebrow">Idea que se evalúa</p>
+        <p style="margin-top:.4rem">La capacidad regenerativa <strong>no basta</strong>. Un daño
+          extenso conduce a regeneración incompleta con cicatriz aunque el tejido supiera regenerar:
+          un absceso hepático deja cicatriz pese a que los hepatocitos remanentes pueden proliferar.
+          Lo que decide no es solo <em>quién</em> es el tejido, sino <strong>cuánto</strong> se
+          destruyó y si la membrana basal sobrevivió.</p>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">El mismo macrófago, dos programas</h3>
+      <a class="figlink docente" target="_blank" rel="noopener" href="img/Figura%203-8%20Activaci%C3%B3n%20de%20macr%C3%B3fagos%20cl%C3%A1sica%20y%20alternativa.png">▣ Figura 3-8 · Macrófagos M1 y M2</a>
+      <div class="grid g2">
+        <div class="card pato">
+          <p class="eyebrow">Vía clásica</p>
+          <h3>Macrófago M1 — destruye</h3>
+          <p>Lo inducen productos microbianos y el <strong>IFN-γ</strong>. Produce ERO, óxido nítrico,
+            enzimas lisosómicas, IL-1, IL-12 y quimiocinas.</p>
+          <p style="margin-top:.5rem">Fagocita, destruye microbios y <strong>amplifica la
+            inflamación</strong>.</p>
+        </div>
+        <div class="card fisio">
+          <p class="eyebrow">Vía alternativa</p>
+          <h3>Macrófago M2 — repara</h3>
+          <p>Lo inducen otras citocinas, como la <strong>IL-4</strong>. Produce factores de
+            crecimiento, <strong>TGF-β</strong> e IL-10.</p>
+          <p style="margin-top:.5rem">Repara el tejido, promueve <strong>fibrosis</strong> y frena la
+            inflamación.</p>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:1rem">
+        <p class="eyebrow">Por qué esto ordena todo el capítulo</p>
+        <p style="margin-top:.4rem">La misma célula tiene el programa de destruir y el de reparar, y
+          el que se encienda depende de las señales que reciba. Cuando la inflamación no cede, el
+          equilibrio se corre hacia el M2 de forma sostenida: eso es la <strong>fibrosis</strong>.
+          Reparar demasiado también es enfermedad.</p>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Cómo se fabrica una cicatriz</h3>
+      <a class="figlink docente" target="_blank" rel="noopener" href="img/Figura%203-11%20Etapas%20en%20la%20reparaci%C3%B3n%20mediante%20formaci%C3%B3n%20de%20cicatriz.png">▣ Figura 3-11 · Etapas de la cicatriz</a> <a class="figlink docente" target="_blank" rel="noopener" href="img/Figura%203-12%20Angiogenia.png">▣ Figura 3-12 · Angiogenia</a>
+      <p class="prose" style="margin-bottom:1rem">Empieza <strong>a las 24 horas</strong> de la lesión.
+        A los <strong>3 a 5 días</strong> el tejido de granulación ya es evidente.</p>
+      <ol class="cascade">
+        <li><strong>Angiogenia.</strong> Brotan vasos nuevos desde los existentes: vasodilatación por
+          óxido nítrico, aumento de permeabilidad por <strong>VEGF</strong>, separación de los
+          pericitos, rotura de la membrana basal, migración y proliferación endotelial, y remodelación
+          a tubos capilares.</li>
+        <li><strong>Tejido de granulación.</strong> Migran y proliferan fibroblastos, se deposita
+          tejido conjuntivo laxo y se intercalan los vasos nuevos y los leucocitos.</li>
+        <li><strong>Depósito de matriz.</strong> Los fibroblastos se vuelven menos proliferativos y
+          más sintetizadores: aumenta el colágeno, que es lo que da resistencia.</li>
+        <li><strong>Remodelación.</strong> Los vasos regresan y la cicatriz queda
+          <strong>pálida y avascular</strong>. Algunos fibroblastos se vuelven
+          <strong>miofibroblastos</strong> y contraen la cicatriz.</li>
+      </ol>
+      <div class="callout note" style="margin-top:1rem">
+        <p class="eyebrow">Un detalle que explica una molestia frecuente</p>
+        <p style="margin-top:.4rem">Los vasos nuevos <strong>tienen fugas</strong>: sus uniones
+          interendoteliales están incompletas y el VEGF aumenta su permeabilidad. Por eso una herida
+          en curación se hincha. No es infección: es angiogenia.</p>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Primera y segunda intención</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th></th><th>Primera intención</th><th>Segunda intención</th></tr></thead>
+          <tbody>
+            <tr><td class="k">Cuándo</td><td>Incisión limpia, bordes aproximados con sutura</td>
+                <td>Pérdida extensa: heridas grandes, abscesos, úlceras, infarto</td></tr>
+            <tr><td class="k">Cómo repara</td><td>Sobre todo <strong>regeneración epitelial</strong></td>
+                <td>Combinación de regeneración y cicatrización</td></tr>
+            <tr><td class="k">Inflamación</td><td>Leve</td><td>Más intensa: hay más restos que eliminar</td></tr>
+            <tr><td class="k">Tejido de granulación</td><td>Escaso</td><td><strong>Abundante</strong></td></tr>
+            <tr><td class="k">Contracción</td><td>Mínima</td>
+                <td>Marcada, por miofibroblastos: en 6 semanas un defecto puede quedar en el
+                    <strong>5-10 %</strong> de su tamaño</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn" style="margin-top:1rem">
+        <p class="eyebrow">Lo que no vuelve</p>
+        <p style="margin-top:.4rem">En ambos casos la epidermis recupera grosor y arquitectura, pero
+          <strong>los anejos dérmicos destruidos se pierden definitivamente</strong>. La piel vuelve a
+          cubrir; no vuelve a ser la misma.</p>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Cuánta fuerza recupera una herida</h3>
+      <div class="grid g3">
+        <div class="card"><h3>1 semana</h3><p>Al retirar los puntos: cerca del <strong>10 %</strong>
+          de la resistencia de la piel normal.</p></div>
+        <div class="card"><h3>2 meses</h3><p>Sube por síntesis de colágeno y luego por
+          entrecruzamiento de las fibras.</p></div>
+        <div class="card fisio"><h3>3 meses</h3><p><strong>70-80 %</strong>, y a partir de ahí
+          <strong>ya no mejora sustancialmente</strong>.</p></div>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Qué retrasa la reparación</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Factor</th><th>Por qué</th></tr></thead>
+          <tbody>
+            <tr><td class="k">Diabetes mellitus</td>
+                <td><strong>Retrasa la curación.</strong> Es el factor metabólico más importante y
+                    reaparece en el encuentro 13</td></tr>
+            <tr><td class="k">Isquemia y estado circulatorio</td>
+                <td>Los tejidos bien vascularizados curan más rápido</td></tr>
+            <tr><td class="k">Infección</td><td>Prolonga la inflamación y aumenta el daño</td></tr>
+            <tr><td class="k">Glucocorticoides</td>
+                <td>Frenan la inflamación, pero con ella también la reparación</td></tr>
+            <tr><td class="k">Fuerzas mecánicas</td><td>Movimiento o tensión sobre la herida</td></tr>
+            <tr><td class="k">Cuerpos extraños</td><td>Sostienen la fagocitosis frustrada</td></tr>
+            <tr><td class="k">Estado nutricional</td>
+                <td>Sin sustrato no hay síntesis de colágeno</td></tr>
+            <tr><td class="k">Tipo de tejido</td>
+                <td>Lábiles y estables regeneran; los permanentes solo cicatrizan</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <blockquote style="margin-top:1.4rem">
+        La inflamación limita el daño; la reparación decide con qué tejido se queda el paciente.
+        <cite>Síntesis de la sesión, a partir del capítulo 19 del texto guía y del capítulo 3 de Robbins</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- 10 -->
   <section id="sistemico">
     <div class="wrap">
-      <div class="sec-head"><span class="sec-num">09</span><h2>Cuando se sale de lo local</h2></div>
+      <div class="sec-head"><span class="sec-num">10</span><h2>Cuando se sale de lo local</h2></div>
       <div class="prose">
         <p>La inflamación es una defensa <strong>local</strong>, pero puede generalizarse hasta matar al
           individuo si altera órganos vitales. Ocurre por dos caminos: el microorganismo pasa a la
@@ -848,6 +1227,19 @@
         <li>En el laboratorio: <strong>PCR elevada y velocidad de sedimentación alta</strong></li>
       </ol>
 
+      <div class="card" style="margin-top:1.2rem">
+        <h3>Antes de lo sistémico están los linfáticos</h3>
+        <p>Los vasos y ganglios linfáticos son la <strong>segunda línea de defensa</strong> cuando la
+          respuesta local no contiene la infección. En la inflamación el flujo linfático aumenta para
+          drenar el edema, los leucocitos y los restos celulares.</p>
+        <p style="margin-top:.5rem">Si la lesión es grave, la linfa también transporta al agente. Los
+          vasos linfáticos se inflaman —<strong>linfangitis</strong>, que se ve como
+          <strong>líneas rojas</strong> bajo la piel— y los ganglios regionales también
+          —<strong>linfadenitis</strong>, ganglios dolorosos y aumentados de tamaño—.</p>
+        <p class="ocular">Esas líneas rojas ascendentes son un signo clínico de alarma: indican que la
+          barrera local ya no está conteniendo el proceso.</p>
+      </div>
+
       <div class="callout note" style="margin-top:1.2rem">
         <p class="eyebrow">Del mecanismo al reporte de laboratorio</p>
         <p style="margin-top:.4rem">Cuando usted lea «PCR elevada, VSG alta» en una historia clínica, está
@@ -858,10 +1250,10 @@
     </div>
   </section>
 
-  <!-- 10 -->
+  <!-- 11 -->
   <section id="ocular">
     <div class="wrap">
-      <div class="sec-head"><span class="sec-num">10</span><h2>La inflamación en el ojo</h2></div>
+      <div class="sec-head"><span class="sec-num">11</span><h2>La inflamación en el ojo</h2></div>
       <p class="prose" style="margin-bottom:1.3rem">Ninguno de estos cuadros se estudia en profundidad
         este semestre. Están aquí para que reconozca que el mecanismo general ya lo aprendió hoy.</p>
 
@@ -893,8 +1285,22 @@
             <tr>
               <td class="k">Cicatriz en lugar de resolución</td>
               <td>Leucoma corneal</td>
-              <td>En la córnea la cicatriz <strong>cuesta la transparencia</strong>: el tejido recupera
-                función mecánica pero pierde la óptica</td>
+              <td>El epitelio corneal es <strong>lábil</strong> y regenera; el estroma, no. Por eso una
+                erosión superficial cura sin huella y una que atraviesa la membrana de Bowman deja
+                opacidad: la cicatriz <strong>cuesta la transparencia</strong></td>
+            </tr>
+            <tr>
+              <td class="k">Angiogenia · VEGF</td>
+              <td>Neovascularización corneal</td>
+              <td>La córnea es avascular por diseño. Cuando la inflamación sostenida dispara la
+                angiogenia, los vasos que crecen restan transparencia: reparar de más también cuesta
+                visión</td>
+            </tr>
+            <tr>
+              <td class="k">Tejidos permanentes</td>
+              <td>Daño de retina y nervio óptico</td>
+              <td>Son tejido nervioso: <strong>no regeneran</strong>. Lo que se pierde ahí no vuelve, y
+                por eso el tiempo hasta la remisión importa tanto</td>
             </tr>
             <tr>
               <td class="k">Inflamación crónica</td>
@@ -917,10 +1323,10 @@
     </div>
   </section>
 
-  <!-- 11 -->
+  <!-- 12 -->
   <section id="ejercicios">
     <div class="wrap">
-      <div class="sec-head"><span class="sec-num">11</span><h2>Ejercicios</h2></div>
+      <div class="sec-head"><span class="sec-num">12</span><h2>Ejercicios</h2></div>
 
       <h3 style="margin-bottom:.4rem; font-size:1.05rem">A · ¿Qué fase de la inflamación es?</h3>
       <p style="color:var(--muted); font-size:.9rem; margin-bottom:.6rem">Iniciación, amplificación,
@@ -939,10 +1345,10 @@
     </div>
   </section>
 
-  <!-- 12 -->
+  <!-- 13 -->
   <section id="parcial">
     <div class="wrap">
-      <div class="sec-head"><span class="sec-num">12</span><h2>Primer parcial — 13 de agosto</h2></div>
+      <div class="sec-head"><span class="sec-num">13</span><h2>Primer parcial — 13 de agosto</h2></div>
       <div class="grid g2">
         <div class="card">
           <h3>Qué entra</h3>
@@ -955,6 +1361,8 @@
             <li>Síntoma, signo y síndrome; semiología, diagnóstico y clínica</li>
             <li>Agentes lesivos, mecanismos de lesión y mecanismos de adaptación celular</li>
             <li>Inflamación: fases, fase vascular y celular, mediadores, cascadas y desenlaces</li>
+            <li>Reparación: regeneración frente a cicatrización, tipos de tejido, tejido de granulación
+              y factores que la retrasan</li>
           </ul>
         </div>
         <div class="card fisio">
@@ -973,10 +1381,10 @@
     </div>
   </section>
 
-  <!-- 13 -->
+  <!-- 14 -->
   <section id="autoeval">
     <div class="wrap">
-      <div class="sec-head"><span class="sec-num">13</span><h2>Autoevaluación</h2></div>
+      <div class="sec-head"><span class="sec-num">14</span><h2>Autoevaluación</h2></div>
       <p class="prose" style="margin-bottom:1rem">Responda antes de abrir la tarjeta. Doce preguntas del
         nivel del primer parcial.</p>
       <div id="quiz"></div>
@@ -998,8 +1406,12 @@
               2018. Cap. 19 (Raul A. Uribe Olivares y Verónica Isabel Enríquez Romo, inflamación y
               reparación de tejidos)</li>
             <li>Robbins y Cotran, <em>Compendio de patología estructural y funcional</em>. Cap. 3,
-              «Inflamación y reparación». De ahí provienen la distinción entre exudado, trasudado y pus,
-              y la secuencia de reclutamiento leucocitario. Disponible en la hemeroteca institucional</li>
+              «Inflamación y reparación». De ahí provienen: el reconocimiento del daño por receptores de
+              tipo señuelo y sensores citosólicos con el inflamasoma; la distinción entre COX-1 y COX-2;
+              las tres vías de aumento de permeabilidad; la distinción entre exudado, trasudado y pus;
+              la secuencia de reclutamiento leucocitario y qué leucocito predomina según el estímulo; la
+              comparación entre inflamación aguda y crónica; la linfangitis y la linfadenitis; y el daño
+              tisular por fagocitosis frustrada. Disponible en la hemeroteca institucional</li>
           </ul>
         </div>
       </div>
@@ -1115,6 +1527,16 @@ function buildDrill(host, opts, items, explain){
     pinta();
   })();
 
+  // ── modo docente ─────────────────────────────────────────────────────
+  // Las figuras del libro no se publican. Los enlaces solo se revelan si la
+  // clase se abre desde el disco (file:) o si se fuerza con ?docente=1, de
+  // modo que quien entra por el sitio publicado no los ve nunca.
+  (function(){
+    var local = location.protocol === 'file:';
+    var forzado = /[?&]docente=1/.test(location.search);
+    if (local || forzado) document.body.classList.add('docente-on');
+  })();
+
   buildDrill('drillA',
     [{key:'ini',label:'Iniciación'},{key:'amp',label:'Amplificación'},{key:'des',label:'Destrucción'},{key:'fin',label:'Finalización'}],
     [
@@ -1174,6 +1596,34 @@ function buildDrill(host, opts, items, explain){
      'Para impedir que la noxa se disemine por el torrente circulatorio. Es una barrera deliberada. Su efecto secundario es aumentar la estasis y la presión hidrostática capilar, y con ello la salida de líquido al intersticio.'],
     ['Mencione cuatro mecanismos que apagan la inflamación.',
      'Reprogramación y silenciamiento génicos, con represión de TNF-α e IL-1 y elevación de factores antiinflamatorios. Citocinas frenadoras: IL-6, IL-10, IL-11, IL-12 e IL-13 reducen la producción de TNF-α. Lipoxinas, que inhiben la síntesis de leucotrienos. Glucocorticoides liberados por el eje hipotálamo-hipófisis-suprarrenal. También inhibidores de proteasas, cininasas que degradan la bradicinina, y TGF-β inducido por las células apoptósicas.'],
+    ['¿Cómo sabe el tejido que hay daño, si nadie le avisa?',
+     'Por dos familias de receptores. Los receptores de tipo señuelo o TLR reconocen componentes microbianos como el lipopolisacárido, y están en la membrana, en endosomas y en el citosol. Los sensores de lesión celular, presentes en el citosol de todas las células, reconocen moléculas que solo aparecen cuando algo se rompió: ácido úrico procedente de la degradación del ADN, ATP liberado por mitocondrias dañadas, potasio intracelular bajo como señal de fuga de membrana, e incluso ADN fuera del núcleo. Estos activan el inflamasoma, que genera IL-1. Por eso la necrosis inflama y la apoptosis no: el contenido derramado es el aviso.'],
+    ['Describa las tres vías por las que aumenta la permeabilidad vascular y cuánto dura cada una.',
+     'Retracción de las células endoteliales, inducida por histamina y otros mediadores: rápida y de corta duración, minutos. Lesión endotelial directa, por quemaduras o toxinas microbianas: rápida pero prolongada, horas o días, porque la célula no se retrae sino que muere. Y aumento de la transcitosis, por formación de canales transendoteliales que el VEGF y otros factores multiplican.'],
+    ['¿Por qué los antiinflamatorios no esteroideos producen gastritis?',
+     'Porque existen dos formas de ciclooxigenasa. La COX-2 se induce ante el estímulo inflamatorio y es la que interesa bloquear. La COX-1, en cambio, se expresa de forma constitutiva y cumple funciones de mantenimiento, entre ellas la citoprotección del tubo digestivo y el equilibrio de líquidos en el riñón. Los inhibidores no selectivos frenan también la COX-1 y con ella esa protección.'],
+    ['Compare la inflamación aguda y la crónica en inicio, infiltrado y daño.',
+     'La aguda inicia rápido, en minutos u horas, su infiltrado es sobre todo de neutrófilos, la lesión tisular es leve y autolimitada, y los signos locales y sistémicos son notables. La crónica inicia lento, en días, su infiltrado es de monocitos, macrófagos y linfocitos, la lesión y la fibrosis son a menudo graves y progresivas, y los signos son menores. La paradoja es que se nota menos y daña más.'],
+    ['¿Qué leucocito predomina según el estímulo?',
+     'Las infecciones bacterianas atraen inicialmente neutrófilos; las víricas reclutan linfocitos; las reacciones alérgicas cursan con eosinófilos; las reacciones de hipersensibilidad producen un infiltrado mixto; y la necrosis atrae al principio neutrófilos. Leer el infiltrado es, en la práctica, leer la causa.'],
+    ['¿Cómo puede la propia respuesta inflamatoria dañar el tejido?',
+     'Porque los mecanismos con que el leucocito destruye microbios son los mismos con que daña el tejido propio. Ocurre sobre todo en la fagocitosis frustrada: cuando el material es demasiado grande o indigerible, el leucocito regurgita sus enzimas lisosómicas al exterior. A eso se suman las especies reactivas de oxígeno y nitrógeno.'],
+    ['¿De qué depende que un tejido regenere o quede con cicatriz?',
+     'De tres cosas: la capacidad de proliferación del tejido dañado, la integridad de la matriz extracelular y la cronicidad de la inflamación asociada. Los tejidos lábiles, en división continua como los epitelios, regeneran si la membrana basal está intacta. Los estables, como el hígado o el riñón, tienen capacidad limitada. Los permanentes, como las neuronas y el músculo cardíaco, solo forman cicatriz. Pero la capacidad no basta: un daño extenso deja cicatriz aunque el tejido supiera regenerar, como ocurre en un absceso hepático.'],
+    ['¿Qué distingue al macrófago M1 del M2?',
+     'Son dos programas de activación de la misma célula. El M1, o clásico, lo inducen productos microbianos y el IFN-γ: produce especies reactivas de oxígeno, óxido nítrico, enzimas lisosómicas, IL-1 e IL-12, y amplifica la inflamación. El M2, o alternativo, lo inducen otras citocinas como la IL-4: produce factores de crecimiento, TGF-β e IL-10, repara el tejido y frena la inflamación. Cuando la inflamación no cede, el equilibrio se corre de forma sostenida hacia el M2, y eso es la fibrosis.'],
+    ['Describa los pasos de la formación de una cicatriz.',
+     'Comienza a las 24 horas de la lesión y a los 3 a 5 días el tejido de granulación ya es evidente. Primero la angiogenia: vasodilatación por óxido nítrico, aumento de permeabilidad por VEGF, separación de pericitos, rotura de la membrana basal, migración y proliferación endotelial y remodelación a tubos capilares. Luego el tejido de granulación, con fibroblastos, tejido conjuntivo laxo y los vasos nuevos. Después el depósito de matriz, con los fibroblastos volviéndose más sintetizadores y aumentando el colágeno. Y por último la remodelación, con regresión vascular hasta una cicatriz pálida y avascular que los miofibroblastos contraen.'],
+    ['¿Por qué se hincha una herida que está curando bien?',
+     'Porque los vasos nuevos de la angiogenia tienen fugas: sus uniones interendoteliales están incompletas y el VEGF aumenta su permeabilidad. No es signo de infección, es parte normal del proceso de reparación.'],
+    ['Distinga la cicatrización por primera y por segunda intención.',
+     'La primera intención ocurre en una incisión limpia con bordes aproximados por sutura: la reparación es sobre todo por regeneración epitelial, la inflamación es leve y el tejido de granulación escaso. La segunda intención ocurre cuando la pérdida de tejido es extensa —heridas grandes, abscesos, úlceras, infarto—: combina regeneración y cicatrización, la inflamación es más intensa porque hay más restos que eliminar, se forma mucho más tejido de granulación y hay contracción marcada por miofibroblastos, hasta dejar el defecto en un 5 a 10 % de su tamaño en seis semanas. En ambos casos los anejos dérmicos destruidos se pierden definitivamente.'],
+    ['¿Cuánta resistencia recupera una herida y en cuánto tiempo?',
+     'Al retirar los puntos, hacia la primera semana, cerca del 10 % de la resistencia de la piel normal. Aumenta durante los dos primeros meses por síntesis de colágeno y después por entrecruzamiento y engrosamiento de las fibras. A los tres meses alcanza el 70 a 80 %, y a partir de ahí no mejora sustancialmente.'],
+    ['Mencione factores que retrasan la reparación tisular.',
+     'La diabetes mellitus, que es el factor metabólico más importante. La isquemia y un estado circulatorio deficiente, ya que los tejidos bien vascularizados curan más rápido. La infección. Los glucocorticoides, que al frenar la inflamación frenan también la reparación. Las fuerzas mecánicas sobre la herida, los cuerpos extraños y el estado nutricional. Y el tipo de tejido: los permanentes solo cicatrizan.'],
+    ['¿Qué patrones morfológicos puede adoptar la inflamación aguda?',
+     'Serosa, con derrame de líquido pobre en células, como las ampollas de una quemadura. Fibrinosa, cuando sale fibrinógeno que se convierte en fibrina, típica de serosas como el pericardio o la pleura; si el exudado no se elimina, se organiza en cicatriz. Purulenta o supurativa, con pus de neutrófilos, células necróticas y edema, cuya forma localizada es el absceso. Y la úlcera, erosión local de una superficie epitelial por desprendimiento del tejido necrótico.'],
     ['¿Cómo se traduce una inflamación sistémica en el reporte de laboratorio?',
      'IL-1 y TNF-α circulantes activan el eje hipotálamo-hipófisis-suprarrenal y producen fiebre, mialgia, artralgia, anorexia y leucocitosis. La médula ósea acelera la producción y libera PMN inmaduros en banda. El hígado fabrica proteínas de fase aguda: proteína C reactiva, fibrinógeno y ceruloplasmina. En el laboratorio se ve elevación de la PCR y de la velocidad de sedimentación. Si el cuadro persiste, la médula se agota y la leucocitosis se vuelve leucopenia.']
   ];

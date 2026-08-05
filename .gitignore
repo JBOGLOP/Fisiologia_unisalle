@@ -26,6 +26,12 @@ taller-*-backend/
 *.xlsx
 *.csv
 
+# Figuras escaneadas de los textos. Son material protegido de las editoriales:
+# publicarlas contradice el propio aviso legal del sitio, que declara que no se
+# redistribuye ningún fragmento de los textos con derechos de autor.
+# Sirven para proyectar en clase; no para el repositorio público.
+*/img/
+
 # Bibliografía y documentos institucionales
 *.pdf
 Libros/
