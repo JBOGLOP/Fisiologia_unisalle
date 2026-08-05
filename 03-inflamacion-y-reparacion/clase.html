@@ -299,6 +299,30 @@
     svg.diagram{min-width:0}
     .q-body{display:block !important}
   }
+
+  /* ── diagrama interactivo de la secuencia vascular ───────────────── */
+  .vaso{position:relative}
+  .vaso svg{width:100%; height:auto; display:block; min-width:520px}
+  .vaso .paso{opacity:0; transition:opacity .5s ease}
+  .vaso .paso.on{opacity:1}
+  .vaso .lumen-n{transition:opacity .6s ease}
+  .vaso text{font-family:var(--mono); font-size:11px; fill:var(--muted)}
+  .vaso text.rot{fill:var(--pato); font-weight:700}
+  .vaso text.fis{fill:var(--fisio); font-weight:700}
+  .vaso text.big{font-size:12.5px}
+
+  .vaso-ctrl{display:flex; gap:.5rem; align-items:center; flex-wrap:wrap;
+    margin-top:.9rem; padding-top:.8rem; border-top:1px solid var(--line)}
+  .vaso-ctrl .cnt{font-family:var(--mono); font-size:.68rem; letter-spacing:.08em;
+    color:var(--muted); min-width:6.5rem}
+  .vaso-ctrl .sp{flex:1}
+  .vaso-txt{margin:.8rem 0 0; padding:.75rem .9rem; border-radius:10px;
+    background:var(--surface-2); font-size:.92rem; line-height:1.5; min-height:3.6rem}
+  .vaso-txt b{color:var(--fisio)}
+  .vaso-pistas{display:flex; gap:.3rem; margin-top:.7rem}
+  .vaso-pistas i{flex:1; height:3px; border-radius:99px; background:var(--line);
+    transition:background .3s}
+  .vaso-pistas i.on{background:var(--fisio)}
 </style>
 </head>
 <body>
@@ -474,6 +498,130 @@
         <li>Al subir la <strong>presión coloidosmótica tisular</strong>, sale todavía más líquido. El
           edema ya no es transitorio.</li>
       </ol>
+
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Recorra la secuencia paso a paso</h3>
+      <div class="fig-frame">
+        <span class="fig-label">Figura · del vaso en reposo al edema sostenido</span>
+        <div class="vaso" id="vaso" data-paso="0">
+          <svg viewBox="0 0 660 300" role="img"
+               aria-label="Corte longitudinal de un lecho capilar durante la fase vascular de la inflamación">
+
+            <!-- tejido -->
+            <rect x="0" y="0" width="660" height="300" fill="var(--surface)"/>
+            <rect class="paso" data-s="3" id="edemaLeve" x="0" y="196" width="660" height="104"
+                  fill="var(--fisio)" opacity="0"/>
+            <rect class="paso" data-s="7" id="edemaFuerte" x="0" y="196" width="660" height="104"
+                  fill="var(--fisio)"/>
+            <text x="12" y="292" class="big">INTERSTICIO</text>
+            <text x="12" y="22" class="big">TEJIDO</text>
+
+            <!-- rótulos de segmento -->
+            <text x="70" y="46">arteriola precapilar</text>
+            <text x="300" y="46">capilar</text>
+            <text x="500" y="46">vénula poscapilar</text>
+
+            <!-- lumen -->
+            <polygon class="lumen-n" id="lumenN" points="40,116 620,116 620,176 40,176"
+                     fill="var(--pato-soft)" stroke="var(--pato)" stroke-width="2.5"/>
+            <polygon class="paso" data-s="1" id="lumenI" points="40,98 240,104 440,118 620,130 620,162 440,174 240,188 40,194"
+                     fill="var(--pato-soft)" stroke="var(--pato)" stroke-width="2.5"/>
+
+            <!-- paso 1 · calibre -->
+            <g class="paso" data-s="1">
+              <text x="60" y="76" class="fis">dilatación ▲</text>
+              <text x="500" y="76" class="rot">constricción ▼</text>
+            </g>
+
+            <!-- paso 2 · estasis y turbulencia -->
+            <g class="paso" data-s="2">
+              <path d="M470 140 q14 -12 28 0 q14 12 28 0 q14 -12 28 0" fill="none"
+                    stroke="var(--pato)" stroke-width="2" opacity=".8"/>
+              <circle cx="470" cy="150" r="7" fill="var(--pato)" opacity=".55"/>
+              <circle cx="492" cy="134" r="7" fill="var(--pato)" opacity=".55"/>
+              <circle cx="514" cy="152" r="7" fill="var(--pato)" opacity=".55"/>
+              <circle cx="536" cy="136" r="7" fill="var(--pato)" opacity=".55"/>
+              <circle cx="558" cy="150" r="7" fill="var(--pato)" opacity=".55"/>
+              <text x="452" y="106" class="rot">estasis · turbulencia</text>
+              <text x="452" y="212" class="rot">↑ presión hidrostática</text>
+            </g>
+
+            <!-- flujo laminar, visible solo al inicio -->
+            <g class="lumen-n" id="flujo">
+              <path d="M90 146 h70" stroke="var(--pato)" stroke-width="2" marker-end="url(#fl)"/>
+              <path d="M250 146 h70" stroke="var(--pato)" stroke-width="2" marker-end="url(#fl)"/>
+              <path d="M410 146 h70" stroke="var(--pato)" stroke-width="2" marker-end="url(#fl)"/>
+              <text x="90" y="132">flujo laminar</text>
+            </g>
+
+            <!-- paso 3 · salida de líquido -->
+            <g class="paso" data-s="3">
+              <path d="M300 180 v26" stroke="var(--fisio)" stroke-width="2" marker-end="url(#fv)"/>
+              <path d="M350 180 v26" stroke="var(--fisio)" stroke-width="2" marker-end="url(#fv)"/>
+              <path d="M400 180 v26" stroke="var(--fisio)" stroke-width="2" marker-end="url(#fv)"/>
+              <text x="286" y="238" class="fis">sale líquido → edema</text>
+            </g>
+
+            <!-- paso 4 · macrófagos residentes -->
+            <g class="paso" data-s="4">
+              <circle cx="120" cy="240" r="16" fill="none" stroke="var(--fisio)" stroke-width="2.5"/>
+              <circle cx="120" cy="240" r="6" fill="var(--fisio)"/>
+              <text x="146" y="234" class="fis">macrófago residente</text>
+              <text x="146" y="250">IL-1 · IL-6 · TNF-α · quimiocinas</text>
+            </g>
+
+            <!-- paso 5 · plaquetas -->
+            <g class="paso" data-s="5">
+              <path d="M250 138 l9 5 -9 5 -9 -5 z" fill="var(--pato)"/>
+              <path d="M276 152 l9 5 -9 5 -9 -5 z" fill="var(--pato)"/>
+              <path d="M302 138 l9 5 -9 5 -9 -5 z" fill="var(--pato)"/>
+              <text x="228" y="106" class="rot">plaquetas activadas</text>
+              <text x="228" y="92">histamina · serotonina · Tx</text>
+            </g>
+
+            <!-- paso 6 · separación endotelial y fuga de proteínas -->
+            <g class="paso" data-s="6">
+              <rect x="330" y="170" width="26" height="9" fill="var(--surface)"/>
+              <rect x="386" y="171" width="26" height="9" fill="var(--surface)"/>
+              <path d="M330 176 h26 M386 177 h26" stroke="var(--pato)" stroke-width="2.5"
+                    stroke-dasharray="5 6"/>
+              <rect x="336" y="196" width="7" height="7" rx="1.5" fill="var(--fisio)"/>
+              <rect x="352" y="212" width="7" height="7" rx="1.5" fill="var(--fisio)"/>
+              <rect x="392" y="200" width="7" height="7" rx="1.5" fill="var(--fisio)"/>
+              <rect x="406" y="218" width="7" height="7" rx="1.5" fill="var(--fisio)"/>
+              <text x="326" y="262" class="rot">se separan las células endoteliales</text>
+              <text x="326" y="276">escapan proteínas</text>
+            </g>
+
+            <!-- paso 7 -->
+            <g class="paso" data-s="7">
+              <text x="12" y="256" class="fis">↑ presión coloidosmótica tisular</text>
+              <text x="12" y="272" class="fis">el edema deja de ser transitorio</text>
+            </g>
+
+            <defs>
+              <marker id="fl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5"
+                      orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--pato)"/></marker>
+              <marker id="fv" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5"
+                      orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--fisio)"/></marker>
+            </defs>
+          </svg>
+
+          <div class="vaso-pistas" id="vasoPistas"></div>
+
+          <div class="vaso-ctrl">
+            <button class="btn" id="vasoPrev" type="button">◀ Anterior</button>
+            <button class="btn" id="vasoNext" type="button">Siguiente ▶</button>
+            <span class="cnt" id="vasoCnt">Reposo</span>
+            <span class="sp"></span>
+            <button class="btn" id="vasoReset" type="button">Reiniciar</button>
+          </div>
+
+          <p class="vaso-txt" id="vasoTxt">El vaso en reposo: flujo laminar, endotelio continuo y
+            ningún intercambio anómalo. Pulse <b>Siguiente</b> para empezar.</p>
+          <span class="fig-hint">También puede usar las flechas ← → del teclado</span>
+        </div>
+      </div>
 
       <div class="callout note" style="margin-top:1.2rem">
         <p class="eyebrow">Idea que se evalúa</p>
@@ -908,6 +1056,64 @@ function buildDrill(host, opts, items, explain){
     });
     el.appendChild(score);
   }
+
+  // ── diagrama de la secuencia vascular ────────────────────────────
+  (function(){
+    var wrap = document.getElementById('vaso');
+    if (!wrap) return;
+    var TXT = [
+      'El vaso en reposo: flujo laminar, endotelio continuo y ningún intercambio anómalo. Pulse <b>Siguiente</b> para empezar.',
+      '<b>1 · Cambio de calibre.</b> Se dilatan las arteriolas precapilares y se contraen las vénulas poscapilares. Ocurre en milésimas de segundo. Entra más sangre de la que puede salir.',
+      '<b>2 · Estasis y turbulencia.</b> El flujo laminar se rompe. Al enlentecerse la salida sube la <b>presión hidrostática capilar</b>: es el primero de los dos motores del edema.',
+      '<b>3 · Sale líquido.</b> La presión empuja líquido al intersticio. Todavía es reversible: si no aparecen amplificadores, el drenaje linfático lo resuelve en segundos.',
+      '<b>4 · Llegan los amplificadores.</b> Las prostaglandinas y los leucotrienos activan los macrófagos residentes, que liberan IL-1, IL-6, TNF-α y quimiocinas. Ahora la respuesta ya no se apaga sola.',
+      '<b>5 · Se activan las plaquetas.</b> El PAF y la propia turbulencia las degranulan: histamina, serotonina y tromboxanos.',
+      '<b>6 · Se abre el endotelio.</b> Esos mediadores contraen el citoesqueleto endotelial. Las células se separan y <b>escapan proteínas</b> al intersticio.',
+      '<b>7 · El edema se sostiene.</b> Las proteínas fugadas elevan la presión coloidosmótica tisular: cae el gradiente que retenía el líquido. Ese es el <b>segundo motor</b>, y es lo que distingue al exudado del trasudado.'
+    ];
+    var MAX = 7, n = 0;
+    var pasos = wrap.querySelectorAll('.paso');
+    var lumenN = wrap.querySelector('#lumenN');
+    var flujo  = wrap.querySelector('#flujo');
+    var leve   = wrap.querySelector('#edemaLeve');
+    var fuerte = wrap.querySelector('#edemaFuerte');
+    var txt = document.getElementById('vasoTxt');
+    var cnt = document.getElementById('vasoCnt');
+
+    var pistas = document.getElementById('vasoPistas');
+    for (var i = 0; i < MAX; i++) pistas.appendChild(document.createElement('i'));
+
+    function pinta(){
+      pasos.forEach(function(el){
+        el.classList.toggle('on', Number(el.dataset.s) <= n);
+      });
+      // el vaso en reposo y el flujo laminar desaparecen al cambiar el calibre
+      lumenN.style.opacity = n >= 1 ? 0 : 1;
+      flujo.style.opacity  = n >= 2 ? 0 : 1;
+      // el edema se intensifica al final
+      if (leve)   leve.style.opacity   = n >= 3 ? (n >= 7 ? 0 : .12) : 0;
+      if (fuerte) fuerte.style.opacity = n >= 7 ? .26 : 0;
+
+      txt.innerHTML = TXT[n];
+      cnt.textContent = n === 0 ? 'Reposo' : ('Paso ' + n + ' de ' + MAX);
+      [].forEach.call(pistas.children, function(el, i){ el.classList.toggle('on', i < n); });
+      document.getElementById('vasoPrev').disabled = (n === 0);
+      document.getElementById('vasoNext').disabled = (n === MAX);
+    }
+    function ir(d){ n = Math.max(0, Math.min(MAX, n + d)); pinta(); }
+
+    document.getElementById('vasoNext').addEventListener('click', function(){ ir(1); });
+    document.getElementById('vasoPrev').addEventListener('click', function(){ ir(-1); });
+    document.getElementById('vasoReset').addEventListener('click', function(){ n = 0; pinta(); });
+    document.addEventListener('keydown', function(e){
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      var r = wrap.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;   // solo si está a la vista
+      if (e.key === 'ArrowRight'){ ir(1); e.preventDefault(); }
+      if (e.key === 'ArrowLeft'){ ir(-1); e.preventDefault(); }
+    });
+    pinta();
+  })();
 
   buildDrill('drillA',
     [{key:'ini',label:'Iniciación'},{key:'amp',label:'Amplificación'},{key:'des',label:'Destrucción'},{key:'fin',label:'Finalización'}],
