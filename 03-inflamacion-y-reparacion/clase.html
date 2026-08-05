@@ -346,6 +346,33 @@
     text-transform:uppercase; color:var(--amber); font-weight:700; margin:0 0 .2rem}
   .panel-doc .s{font-size:.82rem; color:var(--muted); margin:0 0 .6rem}
   .panel-doc .figs{display:flex; flex-wrap:wrap}
+
+  /* ── acordeones de ampliación · elemento details nativo, sin JS ────── */
+  details.amp{border:1px solid var(--line); border-left:4px solid var(--fisio);
+    border-radius:11px; background:var(--surface); margin:1rem 0; overflow:hidden}
+  details.amp[open]{box-shadow:var(--shadow)}
+  details.amp > summary{cursor:pointer; list-style:none; padding:.75rem 1rem;
+    font-weight:600; font-size:.94rem; display:flex; align-items:center; gap:.6rem;
+    background:var(--surface-2); transition:background .15s}
+  details.amp > summary::-webkit-details-marker{display:none}
+  details.amp > summary::before{content:'+'; font-family:var(--mono); font-weight:700;
+    font-size:1.05rem; color:var(--fisio); width:1.1rem; flex:none; text-align:center}
+  details.amp[open] > summary::before{content:'–'}
+  details.amp > summary:hover{background:var(--fisio-soft)}
+  details.amp .cuerpo{padding:1rem 1.1rem .3rem; font-size:.94rem}
+  details.amp .cuerpo > p:last-child{margin-bottom:.9rem}
+  details.amp .eti{font-family:var(--mono); font-size:.6rem; letter-spacing:.11em;
+    text-transform:uppercase; color:var(--muted); margin-left:auto; flex:none}
+  details.amp.op{border-left-color:var(--pato)}
+  details.amp.op > summary::before{color:var(--pato)}
+  details.amp.op > summary:hover{background:var(--pato-soft)}
+
+  /* ── diagrama de las cuatro fases ─────────────────────────────────── */
+  .fases svg{width:100%; height:auto; display:block; min-width:540px}
+  .fases text{font-family:var(--mono); font-size:11px; fill:var(--muted)}
+  .fases text.tit{font-family:var(--body); font-size:13px; font-weight:700; fill:var(--ink)}
+  .fases text.mal{fill:var(--pato); font-weight:700}
+  .fases text.bien{fill:var(--fisio); font-weight:700}
 </style>
 </head>
 <body>
@@ -509,6 +536,98 @@
   <section id="fases">
     <div class="wrap">
       <div class="sec-head"><span class="sec-num">03</span><h2>Cuatro fases, en orden</h2></div>
+      <div class="prose">
+        <p>La inflamación es un <strong>proceso fisiológico</strong>: erradica el agente y repara el
+          tejido. Se controla y se termina mediante <strong>retroalimentación negativa</strong>, que
+          devuelve al organismo a la homeostasis. Cuando esa retroalimentación falla y el proceso
+          persiste, deja de ser defensa y se vuelve deletéreo.</p>
+      </div>
+
+      <div class="fig-frame fases" style="margin-top:1.2rem">
+        <span class="fig-label">Figura · las cuatro fases y sus dos finales posibles</span>
+        <svg viewBox="0 0 660 250" role="img"
+             aria-label="Diagrama de las cuatro fases de la inflamación con el circuito de retroalimentación negativa y la salida hacia inflamación crónica">
+          <defs>
+            <marker id="fa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6"
+                    orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--fisio)"/></marker>
+            <marker id="fp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6"
+                    orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--pato)"/></marker>
+          </defs>
+
+          <text x="6" y="18" class="tit">Noxa</text>
+          <path d="M8 26 v22" stroke="var(--fisio)" stroke-width="2" marker-end="url(#fa)"/>
+
+          <!-- las cuatro fases -->
+          <rect x="6"   y="56" width="150" height="52" rx="10" fill="var(--fisio-soft)"
+                stroke="var(--fisio)" stroke-width="2"/>
+          <text x="20" y="78" class="tit">1 · Iniciación</text>
+          <text x="20" y="95">mediadores y PMN</text>
+
+          <rect x="172" y="56" width="150" height="52" rx="10" fill="var(--fisio-soft)"
+                stroke="var(--fisio)" stroke-width="2"/>
+          <text x="186" y="78" class="tit">2 · Amplificación</text>
+          <text x="186" y="95">cininas y complemento</text>
+
+          <rect x="338" y="56" width="150" height="52" rx="10" fill="var(--fisio-soft)"
+                stroke="var(--fisio)" stroke-width="2"/>
+          <text x="352" y="78" class="tit">3 · Destrucción</text>
+          <text x="352" y="95">fagocitosis de la noxa</text>
+
+          <rect x="504" y="56" width="150" height="52" rx="10" fill="var(--fisio-soft)"
+                stroke="var(--fisio)" stroke-width="2"/>
+          <text x="518" y="78" class="tit">4 · Finalización</text>
+          <text x="518" y="95">frenos intrínsecos</text>
+
+          <path d="M158 82 h10" stroke="var(--fisio)" stroke-width="2" marker-end="url(#fa)"/>
+          <path d="M324 82 h10" stroke="var(--fisio)" stroke-width="2" marker-end="url(#fa)"/>
+          <path d="M490 82 h10" stroke="var(--fisio)" stroke-width="2" marker-end="url(#fa)"/>
+
+          <!-- retroalimentación negativa -->
+          <path d="M579 110 v22 H 81 v-22" fill="none" stroke="var(--fisio)" stroke-width="2"
+                stroke-dasharray="6 5" marker-end="url(#fa)"/>
+          <text x="250" y="148" class="bien">retroalimentación negativa → homeostasis</text>
+
+          <!-- salida deletérea -->
+          <path d="M654 82 h30 v0" fill="none" stroke="var(--pato)" stroke-width="0"/>
+          <path d="M579 110 v58" stroke="var(--pato)" stroke-width="2" stroke-dasharray="4 4"
+                marker-end="url(#fp)" opacity=".55"/>
+          <rect x="430" y="176" width="224" height="60" rx="10" fill="var(--pato-soft)"
+                stroke="var(--pato)" stroke-width="2"/>
+          <text x="444" y="198" class="tit">Si persiste</text>
+          <text x="444" y="215" class="mal">inflamación crónica</text>
+          <text x="444" y="230">autoinmunidad · obesidad · cáncer</text>
+
+          <!-- qué es resolver -->
+          <rect x="6" y="176" width="404" height="60" rx="10" fill="var(--surface-2)"
+                stroke="var(--line)" stroke-width="1.5"/>
+          <text x="20" y="198" class="tit">Resolver es un proceso activo</text>
+          <text x="20" y="215">menos proliferación y maduración de células inmunitarias ·</text>
+          <text x="20" y="230">apoptosis y fagocitosis de leucocitos · se depuran los mediadores</text>
+        </svg>
+      </div>
+
+      <details class="amp">
+        <summary>Bases anatomofisiológicas <span class="eti">ampliar</span></summary>
+        <div class="cuerpo">
+          <p>La inflamación es un <strong>proceso fisiológico</strong> que permite erradicar un agente
+            patógeno y reparar el tejido lesionado. Está <strong>controlada y culminada mediante
+            mecanismos de retroalimentación negativa</strong> que restablecen la homeostasis del
+            organismo.</p>
+          <p>Pero si persiste, genera un proceso <strong>deletéreo</strong>: interviene en las
+            enfermedades autoinmunitarias y contribuye a la obesidad y al cáncer. La misma respuesta
+            que defiende, sostenida en el tiempo, enferma.</p>
+          <p><strong>Resolver no es simplemente que deje de haber estímulo.</strong> La resolución es
+            un conjunto de fenómenos fisiológicos activos: disminuye la proliferación y la maduración
+            de células inmunitarias, se induce la <strong>apoptosis y la fagocitosis de los leucocitos
+            activos</strong>, se inhibe la secreción de mediadores inflamatorios y se depuran los que
+            ya circulan.</p>
+          <p>En síntesis: es una reacción tisular compleja que consiste en <strong>respuestas
+            vasculares y celulares</strong>, mediadas por una miríada de moléculas encargadas de su
+            iniciación, su regulación y su resolución. Esas tres palabras ordenan toda la clase.</p>
+        </div>
+      </details>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Las cuatro fases, en detalle</h3>
       <ol class="cascade">
         <li><strong>Iniciación.</strong> Se activan mediadores solubles y se recluta a las primeras
           células. El tejido se inunda de líquido, factores de coagulación, citocinas, quimiocinas,
@@ -520,6 +639,45 @@
         <li><strong>Finalización.</strong> Mecanismos antiinflamatorios intrínsecos limitan el daño y
           devuelven la función.</li>
       </ol>
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Con qué cuenta el tejido para responder</h3>
+      <p class="prose" style="margin-bottom:1rem">Tres componentes participan a la vez. Cuando en la
+        fase vascular hablemos de «el vaso» y en la celular de «el neutrófilo», estaremos tomando
+        piezas de esta lista.</p>
+      <div class="grid g3">
+        <div class="card fisio">
+          <p class="eyebrow">Componente 1</p>
+          <h3>Vascular</h3>
+          <ul>
+            <li>Vasos sanguíneos</li>
+            <li>Plasma</li>
+          </ul>
+        </div>
+        <div class="card fisio">
+          <p class="eyebrow">Componente 2</p>
+          <h3>Celular</h3>
+          <ul>
+            <li>Neutrófilos, monocitos, eosinófilos, basófilos</li>
+            <li>Linfocitos y plaquetas</li>
+            <li>Del tejido conjuntivo: mastocitos, fibroblastos y macrófagos</li>
+          </ul>
+        </div>
+        <div class="card fisio">
+          <p class="eyebrow">Componente 3</p>
+          <h3>Matriz extracelular</h3>
+          <ul>
+            <li>Proteínas fibrilares y estructurales</li>
+            <li>Glucoproteínas de adhesión y proteoglucanos</li>
+            <li>Membrana basal</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout note" style="margin-top:1rem">
+        <p class="eyebrow">Por qué importa el tercero</p>
+        <p style="margin-top:.4rem">La matriz no es relleno inerte. Es el terreno por el que migran las
+          células inflamatorias siguiendo el gradiente quimiotáctico, y <strong>su integridad decide
+          si el tejido regenera o cicatriza</strong>, como veremos al final.</p>
+      </div>
+
       <div class="callout warn" style="margin-top:1.2rem">
         <p class="eyebrow">Cuando la cuarta fase falla</p>
         <p style="margin-top:.4rem">Si la respuesta no logra eliminar la noxa, se sostiene en el tiempo:
@@ -737,6 +895,51 @@
         </div>
       </div>
 
+      <details class="amp">
+        <summary>¿Qué es exactamente la transcitosis? <span class="eti">ampliar</span></summary>
+        <div class="cuerpo">
+          <p>Es el transporte de material <strong>a través</strong> de la célula endotelial, no entre
+            células. La célula capta líquido y proteínas de un lado por endocitosis, los lleva en
+            vesículas a través del citoplasma y los libera del otro por exocitosis. El líquido cruza
+            <em>por dentro</em> de la célula, en lugar de colarse por los espacios intercelulares.</p>
+          <p><strong>El canal transendotelial.</strong> El endotelio tiene grupos de vesículas y
+            vacuolas interconectadas: el <strong>organelo vesiculovacuolar (VVO)</strong>. En reposo
+            están agrupadas cerca de las uniones intercelulares pero desconectadas entre sí. Cuando
+            llega el <strong>VEGF</strong>, esas vesículas se fusionan y forman un <strong>túnel
+            continuo</strong> que atraviesa la célula de la luz al intersticio. Ya no hace falta el
+            ciclo endocitosis → transporte → exocitosis: el líquido y las proteínas simplemente
+            fluyen. De ahí el nombre «aumento de transcitosis».</p>
+          <div class="table-scroll" style="margin:.9rem 0">
+            <table>
+              <thead><tr><th>Mecanismo</th><th>Por dónde pasa el líquido</th><th>Ejemplo</th></tr></thead>
+              <tbody>
+                <tr><td class="k">Contracción endotelial</td>
+                    <td>Entre células, por uniones que se abren</td>
+                    <td>Histamina, bradicinina · inmediato y transitorio</td></tr>
+                <tr><td class="k">Transcitosis aumentada</td>
+                    <td>A través de la célula, por canales VVO</td>
+                    <td>VEGF</td></tr>
+                <tr><td class="k">Daño endotelial directo</td>
+                    <td>La célula se necrosa y se pierde la barrera</td>
+                    <td>Quemaduras, sepsis</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>En los tres el resultado es el mismo —sale exudado rico en proteínas y aparece edema—.
+            Lo que cambia es <strong>la ruta y el tiempo de instauración</strong>.</p>
+          <p class="ocular"><strong>La conexión con el edema macular diabético.</strong> En la retina
+            diabética la hipoxia crónica estimula la producción de VEGF, que rompe la barrera
+            hematorretiniana justamente por este mecanismo, además de abrir las uniones estrechas al
+            fosforilar la ocludina y la VE-cadherina. El líquido se acumula en la mácula y se pierde
+            visión central. Por eso el tratamiento de primera línea son los <strong>anti-VEGF
+            intravítreos</strong> —ranibizumab, aflibercept, bevacizumab—: bloquean el mediador y la
+            permeabilidad se normaliza.</p>
+          <p style="font-size:.9rem; color:var(--muted)">Un dato para amarrarlo: el VEGF se llamó
+            originalmente <strong>VPF</strong>, factor de permeabilidad vascular, porque se descubrió
+            por esta acción sobre el endotelio antes de conocerse su papel en la angiogénesis.</p>
+        </div>
+      </details>
+
       <div class="callout note" style="margin-top:1.2rem">
         <p class="eyebrow">Idea que se evalúa</p>
         <p style="margin-top:.4rem">El edema inflamatorio tiene <strong>dos motores sumados</strong>: sube
@@ -758,6 +961,57 @@
           </tbody>
         </table>
       </div>
+
+      <details class="amp op">
+        <summary>Exudado y trasudado, a fondo · criterios de Light <span class="eti">ampliar</span></summary>
+        <div class="cuerpo">
+          <p>La diferencia de fondo es <strong>por qué salió el líquido</strong>: si la barrera
+            vascular está intacta o si está rota.</p>
+          <p><strong>Trasudado — barrera intacta, problema mecánico.</strong> El endotelio sigue siendo
+            impermeable a las proteínas. Lo que falla es el equilibrio de Starling: sube la presión
+            hidrostática —insuficiencia cardíaca, obstrucción venosa— o baja la presión oncótica del
+            plasma —síndrome nefrótico, cirrosis, desnutrición—. El agua es empujada fuera del vaso,
+            pero las proteínas se quedan adentro porque nadie abrió la puerta. Resultado: líquido
+            claro, amarillo pálido, poco denso, pobre en proteínas y en células. Un ultrafiltrado.</p>
+          <p><strong>Exudado — barrera rota, problema inflamatorio.</strong> Los mediadores —histamina,
+            bradicinina, VEGF, leucotrienos— abren el endotelio por contracción, transcitosis o daño
+            directo. Salen las proteínas plasmáticas, incluidos fibrinógeno e inmunoglobulinas,
+            arrastrando agua consigo, y además migran leucocitos. Resultado: líquido turbio, denso,
+            rico en proteínas y células, <strong>que puede coagular</strong>.</p>
+          <div class="table-scroll" style="margin:.9rem 0">
+            <table>
+              <thead><tr><th></th><th>Trasudado</th><th>Exudado</th></tr></thead>
+              <tbody>
+                <tr><td class="k">Permeabilidad vascular</td><td>Normal</td><td>Aumentada</td></tr>
+                <tr><td class="k">Mecanismo</td><td>Desequilibrio de Starling</td>
+                    <td>Inflamación o lesión endotelial</td></tr>
+                <tr><td class="k">Proteínas</td><td>&lt; 3 g/dL</td><td>&gt; 3 g/dL</td></tr>
+                <tr><td class="k">Densidad específica</td><td>&lt; 1,012</td><td>&gt; 1,020</td></tr>
+                <tr><td class="k">Celularidad</td><td>Escasa</td>
+                    <td>Abundante: PMN y mononucleares</td></tr>
+                <tr><td class="k">LDH</td><td>Baja</td><td>Alta</td></tr>
+                <tr><td class="k">Aspecto</td><td>Claro, seroso</td>
+                    <td>Turbio, purulento o hemorrágico</td></tr>
+                <tr><td class="k">¿Coagula?</td><td>No</td><td>Sí, contiene fibrinógeno</td></tr>
+                <tr><td class="k">Causas típicas</td><td>Insuficiencia cardíaca, cirrosis, síndrome nefrótico</td>
+                    <td>Infección, neoplasia, tromboembolia, autoinmunidad</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Criterios de Light</strong>, para el derrame pleural. Es exudado si cumple al
+            menos uno: proteínas del líquido sobre proteínas del suero &gt; 0,5; LDH del líquido sobre
+            LDH del suero &gt; 0,6; o LDH del líquido &gt; dos tercios del límite superior normal de la
+            LDH sérica. Si no cumple ninguno, es trasudado.</p>
+          <p>Son muy sensibles para exudado —alrededor del 98 %—, aunque clasifican mal algunos
+            trasudados en pacientes bajo diuréticos; ahí ayuda el gradiente de albúmina entre suero y
+            líquido: por encima de 1,2 g/dL sugiere trasudado.</p>
+          <div class="callout" style="margin:.9rem 0">
+            <p class="eyebrow">Para memorizar</p>
+            <p style="margin-top:.4rem">El trasudado es <strong>agua exprimida</strong>; el exudado es
+              <strong>plasma derramado</strong>.</p>
+          </div>
+        </div>
+      </details>
     </div>
   </section>
 
@@ -842,6 +1096,79 @@
           </tbody>
         </table>
       </div>
+
+      <details class="amp op">
+        <summary>ERO y óxido nítrico, a fondo · el estallido respiratorio <span class="eti">ampliar</span></summary>
+        <div class="cuerpo">
+          <p><strong>Las ERO</strong> son moléculas derivadas del oxígeno con un electrón desapareado
+            o con alto poder oxidante. Muy inestables: atacan cualquier molécula cercana.</p>
+          <p><strong>Cómo se producen: el estallido respiratorio.</strong> Cuando el neutrófilo o el
+            macrófago fagocita, se ensambla en la membrana del fagosoma el complejo
+            <strong>NADPH oxidasa</strong>, que transfiere electrones del NADPH al oxígeno:</p>
+          <ol class="cascade" style="margin:.6rem 0">
+            <li>O₂ → <strong>O₂•⁻</strong> anión superóxido, por la NADPH oxidasa</li>
+            <li>O₂•⁻ → <strong>H₂O₂</strong> peróxido de hidrógeno, por la superóxido dismutasa</li>
+            <li>H₂O₂ + Cl⁻ → <strong>HOCl</strong> hipoclorito, por la mieloperoxidasa de los gránulos
+              azurófilos. Es el sistema bactericida más potente del neutrófilo</li>
+            <li>H₂O₂ + Fe²⁺ → <strong>OH•</strong> radical hidroxilo, reacción de Fenton: el más
+              destructivo de todos</li>
+          </ol>
+          <p><strong>Función dual.</strong> A dosis bajas y dentro del fagolisosoma, matan microbios:
+            son defensa. A dosis altas o liberadas al extracelular, dañan al huésped: peroxidan lípidos
+            de membrana, oxidan proteínas y rompen el ADN. Producen lesión endotelial, aumentan la
+            permeabilidad e inactivan antiproteasas. De ahí el daño tisular de la inflamación crónica.</p>
+          <p>Las defensas antioxidantes que limitan ese daño: superóxido dismutasa, catalasa, glutatión
+            peroxidasa, ceruloplasmina, transferrina, y las vitaminas E y C.</p>
+          <div class="callout" style="margin:.9rem 0">
+            <p class="eyebrow">Correlato clínico</p>
+            <p style="margin-top:.4rem">La <strong>enfermedad granulomatosa crónica</strong> es un
+              defecto genético de la NADPH oxidasa. Sin estallido respiratorio, los neutrófilos
+              fagocitan pero <em>no matan</em>: infecciones recurrentes por catalasa-positivos como
+              <em>S. aureus</em> y <em>Aspergillus</em>, y formación de granulomas.</p>
+          </div>
+
+          <p style="margin-top:1rem"><strong>El óxido nítrico</strong> es un gas soluble, radical libre
+            de vida ultracorta —segundos—, producido por la óxido nítrico sintasa a partir de
+            L-arginina y oxígeno.</p>
+          <div class="table-scroll" style="margin:.9rem 0">
+            <table>
+              <thead><tr><th>Isoforma</th><th>Dónde</th><th>Cuándo</th><th>Función</th></tr></thead>
+              <tbody>
+                <tr><td class="k">eNOS</td><td>Endotelio</td><td>Constitutiva, dependiente de Ca²⁺</td>
+                    <td>Tono vascular, antiagregante</td></tr>
+                <tr><td class="k">nNOS</td><td>Neuronas</td><td>Constitutiva</td>
+                    <td>Neurotransmisor</td></tr>
+                <tr><td class="k">iNOS</td><td>Macrófagos, neutrófilos</td>
+                    <td>Inducida por TNF, IL-1, IFN-γ, LPS</td><td>Microbicida</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Sus tres acciones en la inflamación.</strong> Vasodilatación: difunde al músculo
+            liso, activa la guanilato ciclasa, sube el GMPc y relaja. Es el mediador principal de la
+            vasodilatación <em>sostenida</em>, mientras la histamina domina la fase inicial; en la
+            sepsis, la iNOS masiva causa la vasodilatación refractaria del choque séptico.
+            Antiagregante y antiadhesivo: reduce la agregación plaquetaria y la adhesión de leucocitos,
+            es decir, <strong>frena parte de la respuesta</strong> como contrarregulación endógena.
+            Y microbicida: se combina con el superóxido y forma <strong>peroxinitrito</strong>, un
+            oxidante brutal que mata microbios y también daña tejido propio.</p>
+          <p style="font-size:.9rem; color:var(--muted)">Dato histórico: el NO se conoció primero como
+            <strong>EDRF</strong>, factor relajante derivado del endotelio, antes de identificarse
+            químicamente. Es la base de la acción de la nitroglicerina, que dona NO, y del sildenafilo,
+            que inhibe la fosfodiesterasa-5 y prolonga el efecto del GMPc.</p>
+
+          <div class="callout note" style="margin:.9rem 0">
+            <p class="eyebrow">Dónde se cruzan los dos</p>
+            <p style="margin-top:.4rem">No son sistemas separados: <strong>O₂•⁻ + NO → ONOO⁻</strong>.
+              Eso tiene dos consecuencias. Se <strong>potencian</strong> como citotóxicos, porque el
+              peroxinitrito es peor que cualquiera de los dos por separado. Y se
+              <strong>consumen mutuamente</strong>: en el estrés oxidativo crónico —diabetes,
+              ateroesclerosis, hipertensión— el exceso de superóxido secuestra al NO endotelial, baja
+              su biodisponibilidad y se pierden la vasodilatación y el efecto antiadhesivo. Eso es la
+              <strong>disfunción endotelial</strong>, primer paso de la placa de ateroma. Reaparecerá
+              en el encuentro 13, en la misma línea del VEGF y el edema macular.</p>
+          </div>
+        </div>
+      </details>
 
       <div class="callout note" style="margin-top:1.2rem">
         <p class="eyebrow">Atajo para estudiar</p>
