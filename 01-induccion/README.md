@@ -16,7 +16,7 @@ Primera sesión del semestre. Fija el vocabulario y el modo de razonamiento que 
 
 ### ▶ [Abrir la clase interactiva](https://jboglop.github.io/Fisiologia_unisalle/01-induccion/clase.html)
 
-Se abre directamente en el navegador. También puedes [descargar el archivo](clase.html) para usarla sin conexión.
+Se abre directamente en el navegador, en celular o computador.
 
 ## Actividades en línea
 

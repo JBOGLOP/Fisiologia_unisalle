@@ -21,7 +21,7 @@ Cierra el bloque de fundamentos. La lesión celular explicó qué le pasa a la c
 
 ### ▶ [Abrir la clase interactiva](https://jboglop.github.io/Fisiologia_unisalle/03-inflamacion-y-reparacion/clase.html)
 
-Se abre directamente en el navegador. También puedes [descargar el archivo](clase.html) para usarla sin conexión.
+Se abre directamente en el navegador, en celular o computador.
 
 ### ✎ [Taller individual](https://jboglop.github.io/Fisiologia_unisalle/03-inflamacion-y-reparacion/taller.html)
 

@@ -72,8 +72,7 @@ qué hacer con él.
 
 Cada clase se publica aquí el día del encuentro o antes. Al hacer clic en **Ver clase** se abre en el
 navegador, sin descargar nada: funciona en celular y en computador, se adapta al tema claro u oscuro,
-e incluye ejercicios interactivos y autoevaluación. Si prefieres usarla sin conexión, puedes
-descargar el archivo desde la página de detalle de cada sesión.
+e incluye ejercicios interactivos y autoevaluación.
 
 ---
 
