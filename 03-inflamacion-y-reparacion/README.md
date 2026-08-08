@@ -59,6 +59,11 @@ El taller en grupos que estaba previsto para la segunda hora. No alcanzó a hace
 - **RA17** — Explica la función de los sistemas del cuerpo humano, la patogénesis de las enfermedades sistémicas y sus efectos sobre la salud visual y ocular
 - **RA18** — Analiza los cambios del funcionamiento normal de un tejido, órgano o sistema para diferenciar lo normal de lo patológico
 
+
+> Material para los estudiantes matriculados, disponible solo el tiempo que el docente
+> determine. Se consulta en línea: no está autorizada su descarga, copia ni distribución
+> fuera del curso.
+
 ---
 
 ← [Encuentro 2: Inducción: síndrome y mecanismos de lesión](../02-sindrome-y-lesion/) · [Índice del curso](../) · [Encuentro 4: Primer parcial](../04-primer-parcial/) →

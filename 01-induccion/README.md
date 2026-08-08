@@ -53,6 +53,10 @@ Se abre directamente en el navegador, en celular o computador.
 - **RA18** — Analiza los cambios del funcionamiento normal de un tejido, órgano o sistema para diferenciar lo normal de lo patológico
 - **RA16** — Responde al cumplimiento individual y grupal de las actividades y tareas programadas
 
+> Material para los estudiantes matriculados, disponible solo el tiempo que el docente
+> determine. Se consulta en línea: no está autorizada su descarga, copia ni distribución
+> fuera del curso.
+
 ---
 
 [Índice del curso](../) · [Encuentro 2: Inducción: síndrome y mecanismos de lesión](../02-sindrome-y-lesion/) →

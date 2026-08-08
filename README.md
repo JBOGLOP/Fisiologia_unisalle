@@ -166,6 +166,18 @@ existe justamente para eso.
 
 ---
 
+## Condiciones de uso del material
+
+Las clases se publican **para los estudiantes matriculados en el espacio académico** y permanecen
+disponibles **solo el tiempo que el docente determine**. El acceso puede retirarse en cualquier
+momento, sin aviso previo.
+
+El material se consulta **en línea**. No está autorizada su descarga, copia, reproducción ni
+distribución —total o parcial, por cualquier medio— fuera del curso, ni su publicación en otros
+sitios, aulas o repositorios de apuntes.
+
+---
+
 ## Aviso sobre derechos de autor
 
 Este sitio contiene **material docente de elaboración propia**: síntesis, esquemas, ejercicios y
@@ -180,4 +192,4 @@ general; su estudio detallado corresponde a espacios académicos posteriores del
 
 ---
 
-*Última actualización: 26 de julio de 2026*
+*Última actualización: 7 de agosto de 2026*
