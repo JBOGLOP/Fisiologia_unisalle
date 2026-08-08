@@ -4,7 +4,12 @@
 
 | Estado | Material | Duración |
 |---|---|---|
-| 🔜 **Próximo encuentro** | ✅ Publicado | 2 horas |
+| ✅ **Dictado** | ✅ Publicado | 2 horas |
+
+> ### ✎ Taller abierto hasta el miércoles 12 de agosto, 11:59 p. m.
+> No alcanzamos a hacer el taller en clase, así que cada quien lo resuelve por su cuenta.
+> **[Abrir el taller](https://jboglop.github.io/Fisiologia_unisalle/03-inflamacion-y-reparacion/taller.html)**
+> — doce preguntas, con la explicación de cada respuesta al terminar.
 
 ---
 
@@ -18,9 +23,15 @@ Cierra el bloque de fundamentos. La lesión celular explicó qué le pasa a la c
 
 Se abre directamente en el navegador. También puedes [descargar el archivo](clase.html) para usarla sin conexión.
 
-### 👥 [Taller en grupos de la sesión](https://jboglop.github.io/Fisiologia_unisalle/03-inflamacion-y-reparacion/actividad.html)
+### ✎ [Taller individual](https://jboglop.github.io/Fisiologia_unisalle/03-inflamacion-y-reparacion/taller.html)
 
-La segunda hora de la clase. Tres grupos, tres casos clínicos oculares y una cadena fisiopatológica que construir. Las cinco preguntas de cada caso son del nivel del primer parcial.
+**Abierto hasta el miércoles 12 de agosto a las 11:59 p. m.** Doce preguntas sobre la clase y el capítulo 19. Se entra con nombre y correo institucional, se califica al entregar y verás la explicación de cada respuesta.
+
+Tu taller es personal: las preguntas se sortean a partir de tu correo y las opciones van en distinto orden que las de tus compañeros. Comparar respuestas no sirve; resolverlo sí, porque son del nivel del parcial del 13 de agosto.
+
+### 👥 [Los tres casos clínicos](https://jboglop.github.io/Fisiologia_unisalle/03-inflamacion-y-reparacion/actividad.html)
+
+El taller en grupos que estaba previsto para la segunda hora. No alcanzó a hacerse, pero **queda como material de estudio**: tres casos oculares con quince preguntas de desarrollo y la cadena fisiopatológica que hay que construir en cada uno. Son las mismas ideas que evalúa el taller individual, pedidas en formato abierto.
 
 ## Contenidos
 
