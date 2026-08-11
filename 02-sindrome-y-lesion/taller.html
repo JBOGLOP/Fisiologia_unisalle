@@ -125,6 +125,11 @@
       <p style="font-size:.78rem; color:var(--muted); margin:.35rem 0 0">
         Basta con la parte antes de la arroba.</p>
     </div>
+    <div class="field">
+      <label for="codigo">Código estudiantil</label>
+      <input id="codigo" type="text" inputmode="numeric" autocomplete="off"
+             spellcheck="false" placeholder="1234567890">
+    </div>
     <button class="btn" id="entrar" type="button" disabled>Entrar al taller</button>
     <div class="msg" id="msgLogin" role="status" aria-live="polite"></div>
   </div>
@@ -179,7 +184,7 @@
 
   var $ = function(id){ return document.getElementById(id); };
   var estado = {
-    nombre:"", correo:"", preguntas:[], respuestas:{}, inicio:0, entregado:false,
+    nombre:"", correo:"", codigo:"", preguntas:[], respuestas:{}, inicio:0, entregado:false,
     contadores:{ pestana:0, foco:0, devtools:0, copiar:0, pegar:0, menu:0, reinicios:0 }
   };
   var sucio = false, enviando = false;
@@ -212,7 +217,8 @@
   function guardarLocal(){
     try{
       localStorage.setItem(CLAVE, JSON.stringify({
-        nombre: estado.nombre, correo: estado.correo, respuestas: estado.respuestas,
+        nombre: estado.nombre, correo: estado.correo, codigo: estado.codigo,
+        respuestas: estado.respuestas,
         inicio: estado.inicio, contadores: estado.contadores, entregado: estado.entregado
       }));
     }catch(e){}
@@ -285,6 +291,7 @@
     var pre = leerLocal();
     if (pre && pre.nombre){
       sel.value = pre.nombre; $("correo").value = pre.correo || "";
+      $("codigo").value = pre.codigo || "";
       if (pre.entregado){
         ver($("msgLogin"), "warn", "Este taller ya fue entregado desde este dispositivo. "+
           "Si necesitas volver a presentarlo, habla con el docente.");
@@ -298,16 +305,19 @@
 
   $("entrar").addEventListener("click", function(){
     var nombre = $("nombre").value, correo = $("correo").value.trim();
+    var codigo = $("codigo").value.trim();
     if (!nombre){ ver($("msgLogin"), "err", "Selecciona tu nombre."); return; }
     if (!correo){ ver($("msgLogin"), "err", "Escribe tu correo institucional."); return; }
+    if (!codigo){ ver($("msgLogin"), "err", "Escribe tu código estudiantil."); return; }
 
     var b = $("entrar"); b.disabled = true; b.textContent = "Entrando…"; limpiar($("msgLogin"));
 
-    get({ action:"banco", token:TOKEN, nombre:nombre, correo:correo }).then(function(r){
+    get({ action:"banco", token:TOKEN, nombre:nombre, correo:correo, codigo:codigo }).then(function(r){
       b.disabled = false; b.textContent = "Entrar al taller";
       if (!r.ok){ ver($("msgLogin"), "err", r.error); return; }
 
-      estado.nombre = nombre; estado.correo = correo; estado.preguntas = r.preguntas;
+      estado.nombre = nombre; estado.correo = correo; estado.codigo = codigo;
+      estado.preguntas = r.preguntas;
 
       var pre = leerLocal();
       if (pre && pre.nombre === nombre && pre.respuestas) estado.respuestas = pre.respuestas;
@@ -376,7 +386,7 @@
 
   function carga(accion){
     return {
-      action: accion, nombre: estado.nombre, correo: estado.correo,
+      action: accion, nombre: estado.nombre, correo: estado.correo, codigo: estado.codigo,
       respuestas: estado.respuestas, contadores: estado.contadores,
       duracionMin: Math.round((Date.now() - estado.inicio)/60000)
     };
