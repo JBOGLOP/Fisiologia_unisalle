@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Primer parcial · Fisiopatología General</title>
+<style>
+  :root{
+    --ink:#12212b; --paper:#f4f7f7; --surface:#ffffff; --surface-2:#eaf0f0;
+    --line:#cbd8da; --muted:#516268;
+    --fisio:#10505e; --fisio-soft:#dceaec;
+    --pato:#a8412c; --pato-soft:#f5e2dc;
+    --amber:#a06a12; --amber-soft:#f6e9cf;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 12px 30px -18px rgba(18,33,43,.4);
+    --display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+      --line:#2c3d43; --muted:#9bafb4;
+      --fisio:#5cb6c6; --fisio-soft:#12313a;
+      --pato:#e08a70; --pato-soft:#3a2119;
+      --amber:#e0b464; --amber-soft:#3a2f16;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.9);
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font-family:var(--body); line-height:1.55;
+    -webkit-font-smoothing:antialiased; min-height:100dvh; padding:clamp(.8rem,3vw,2rem)}
+  .wrap{max-width:760px; margin:0 auto}
+  .hide{display:none !important}
+
+  .eyebrow{font-family:var(--mono); font-size:.65rem; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--muted); margin:0}
+  h1{font-family:var(--display); font-weight:600; line-height:1.15;
+    font-size:clamp(1.5rem,6vw,2.1rem); margin:.3rem 0 .5rem; text-wrap:balance}
+  h2{font-family:var(--display); font-weight:600; font-size:1.25rem; color:var(--fisio);
+    margin:2rem 0 .2rem}
+  .sub{color:var(--muted); font-size:.95rem; margin:0 0 1.4rem}
+
+  .panel{background:var(--surface); border:1px solid var(--line); border-radius:14px;
+    box-shadow:var(--shadow); padding:clamp(1rem,4vw,1.6rem); margin-bottom:1rem}
+  .aviso{background:var(--amber-soft); border-left:3px solid var(--amber);
+    border-radius:0 10px 10px 0; padding:.85rem 1rem; margin:0 0 1.3rem; font-size:.9rem}
+  .aviso b{color:var(--amber)}
+
+  label{display:block; font-size:.74rem; font-weight:600; color:var(--muted);
+    text-transform:uppercase; letter-spacing:.06em; margin:0 0 .35rem}
+  select,input,textarea{width:100%; font:inherit; font-size:1rem; color:var(--ink);
+    background:var(--paper); border:1px solid var(--line); border-radius:10px;
+    padding:.7rem .8rem; -webkit-appearance:none; appearance:none}
+  textarea{min-height:190px; line-height:1.6; resize:vertical; font-size:.96rem}
+  select:focus,input:focus,textarea:focus{outline:2px solid var(--fisio); outline-offset:1px;
+    border-color:var(--fisio)}
+  .field{margin-bottom:1rem}
+
+  .btn{width:100%; font:inherit; font-weight:600; font-size:1rem; cursor:pointer;
+    background:var(--fisio); color:#fff; border:0; border-radius:99px; padding:.85rem 1rem;
+    transition:filter .15s}
+  .btn:hover{filter:brightness(1.08)}
+  .btn:disabled{opacity:.45; cursor:not-allowed}
+
+  .msg{margin-top:1rem; padding:.8rem 1rem; border-radius:10px; font-size:.9rem; display:none}
+  .msg.ok{display:block; background:var(--fisio-soft); color:var(--fisio);
+    border:1px solid color-mix(in srgb,var(--fisio) 35%,transparent)}
+  .msg.err{display:block; background:var(--pato-soft); color:var(--pato);
+    border:1px solid color-mix(in srgb,var(--pato) 35%,transparent)}
+  .msg.warn{display:block; background:var(--amber-soft); color:var(--amber);
+    border:1px solid color-mix(in srgb,var(--amber) 35%,transparent)}
+
+  /* barra fija con reloj */
+  .bar{position:sticky; top:0; z-index:5; background:color-mix(in srgb,var(--paper) 92%,transparent);
+    backdrop-filter:blur(8px); border-bottom:1px solid var(--line);
+    margin:-.8rem -.8rem 1rem; padding:.6rem clamp(.8rem,3vw,2rem)}
+  .bar-in{max-width:760px; margin:0 auto; display:flex; align-items:center; gap:.8rem;
+    font-size:.82rem; color:var(--muted)}
+  .track{flex:1; height:6px; background:var(--surface-2); border-radius:99px; overflow:hidden}
+  .fill{height:100%; width:0%; background:var(--fisio); transition:width .25s}
+  .rel{font-family:var(--mono); font-variant-numeric:tabular-nums; font-weight:700;
+    font-size:1rem; color:var(--fisio)}
+  .rel.aviso10{color:var(--amber)} .rel.aviso5{color:var(--pato)}
+
+  .q{background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--line);
+    border-radius:12px; padding:1rem 1.1rem; margin-bottom:.8rem}
+  .q.done{border-left-color:var(--fisio)}
+  .q-n{font-family:var(--mono); font-size:.68rem; letter-spacing:.1em; color:var(--muted)}
+  .q-t{font-weight:600; margin:.35rem 0 .8rem; line-height:1.45}
+  .opt{display:flex; gap:.6rem; align-items:flex-start; padding:.6rem .7rem; border-radius:9px;
+    cursor:pointer; border:1px solid transparent; transition:background .12s;
+    text-transform:none; font-weight:400; letter-spacing:normal; color:var(--ink); margin:0}
+  .opt:hover{background:var(--surface-2)}
+  .opt input{width:auto; flex:none; margin:.25rem 0 0}
+  .opt span{font-size:.94rem; line-height:1.4}
+  .opt.sel{background:var(--fisio-soft); border-color:color-mix(in srgb,var(--fisio) 30%,transparent)}
+
+  /* navegación por tema */
+  .navtemas{display:flex; gap:.4rem; flex-wrap:wrap; margin:0 0 1.2rem}
+  .tab{flex:1 1 130px; font:inherit; cursor:pointer; text-align:left;
+    background:var(--surface); color:var(--ink); border:1px solid var(--line);
+    border-bottom:3px solid var(--line); border-radius:10px; padding:.55rem .7rem;
+    transition:border-color .15s, background .15s}
+  .tab:hover{background:var(--surface-2)}
+  .tab b{display:block; font-size:.86rem; font-weight:600; line-height:1.2}
+  .tab span{font-family:var(--mono); font-size:.68rem; color:var(--muted)}
+  .tab.on{border-color:var(--fisio); border-bottom-color:var(--fisio); background:var(--fisio-soft)}
+  .tab.lleno span{color:var(--fisio); font-weight:700}
+  .tab.entregar{flex:0 1 130px; border-bottom-color:var(--pato)}
+  .tab.entregar.on{border-color:var(--pato); background:var(--pato-soft)}
+
+  .bloque{display:none} .bloque.on{display:block}
+  .paso{display:flex; gap:.6rem; margin-top:1rem}
+  .paso .btn{flex:1}
+  .btn.sec{background:none; color:var(--fisio); border:1px solid var(--line)}
+
+  .resumen{display:flex; align-items:center; gap:.8rem; padding:.7rem 0;
+    border-bottom:1px solid var(--line); font-size:.92rem}
+  .resumen:last-child{border-bottom:0}
+  .resumen b{flex:1; font-weight:600}
+  .resumen .n{font-family:var(--mono); font-variant-numeric:tabular-nums}
+  .resumen .ok{color:var(--fisio)} .resumen .no{color:var(--pato)}
+
+  /* El enunciado y las opciones no se pueden seleccionar ni copiar. No es
+     infranqueable —una foto lo salta—, pero cierra la vía cómoda de sacar el
+     banco de preguntas. El área de respuesta sí es seleccionable, como debe. */
+  #vQuiz .q-t, #vQuiz .opt span, #vQuiz h2, #vQuiz .cadena, #vQuiz .q-n{
+    -webkit-user-select:none; -moz-user-select:none; user-select:none;
+    -webkit-touch-callout:none}
+  #vQuiz textarea{-webkit-user-select:text; -moz-user-select:text; user-select:text}
+
+  .vigila{display:flex; gap:.5rem; flex-wrap:wrap; align-items:center;
+    font-family:var(--mono); font-size:.66rem; color:var(--muted);
+    margin:.2rem 0 1rem}
+  .vigila b{color:var(--amber); font-weight:700}
+
+  .abierta .q-t{white-space:pre-wrap; font-weight:500}
+  .cuenta.corta{color:var(--pato); font-weight:700}
+  .cuenta.ok{color:var(--fisio)}
+  .cadena{font-family:var(--mono); font-size:.7rem; letter-spacing:.02em; text-align:center;
+    background:var(--fisio-soft); color:var(--fisio); border-radius:9px;
+    padding:.55rem .5rem; margin:.2rem 0 .8rem; overflow-x:auto; white-space:nowrap}
+  .cuenta{font-family:var(--mono); font-size:.7rem; color:var(--muted); text-align:right;
+    margin:.3rem 0 0}
+
+  .score{text-align:center; padding:1.2rem 0 .4rem}
+  .score b{display:block; font-family:var(--display); font-size:2.6rem; line-height:1; color:var(--fisio)}
+  .score span{font-size:.8rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted)}
+
+  footer{margin-top:1.6rem; padding-top:.9rem; border-top:1px solid var(--line);
+    font-family:var(--mono); font-size:.66rem; letter-spacing:.04em; color:var(--muted)}
+</style>
+</head>
+<body>
+
+<!-- ══════════ 1 · INGRESO ══════════ -->
+<div class="wrap" id="vLogin">
+  <p class="eyebrow">Fisiopatología General · 01008430 · Encuentro 4</p>
+  <h1>Primer parcial</h1>
+  <p class="sub">Jueves 13 de agosto · Capítulos 1 a 6 y 19 · Encuentros 1 a 3</p>
+
+  <div class="aviso">
+    <b>Antes de entrar, lee esto.</b>
+    <ul style="margin:.5rem 0 0; padding-left:1.1rem">
+      <li>Tienes <strong>120 minutos</strong> desde que ingresas. El reloj no se detiene ni se
+        reinicia si cierras la página.</li>
+      <li><strong>Un solo intento.</strong> Al entregar no se puede volver a entrar.</li>
+      <li>Son <strong>30 preguntas de selección múltiple</strong> y <strong>tres preguntas
+        abiertas</strong>, una por tema.</li>
+      <li>Tus respuestas se guardan solas mientras trabajas.</li>
+      <li>No podrás entregar en los primeros minutos: revisa antes de enviar.</li>
+      <li>El examen se abre a pantalla completa y <strong>registra la actividad</strong>: salidas
+        de la pantalla y su duración, y los intentos de copiar o pegar. De estos últimos
+        <strong>se guarda también el texto</strong> involucrado.</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <div class="field">
+      <label for="nombre">Tu nombre</label>
+      <select id="nombre"><option value="">Cargando la lista…</option></select>
+    </div>
+    <div class="field">
+      <label for="correo">Correo institucional</label>
+      <input id="correo" type="email" autocomplete="off" autocapitalize="off"
+             spellcheck="false" placeholder="tuusuario@unisalle.edu.co">
+    </div>
+    <div class="field">
+      <label for="codigo">Código estudiantil</label>
+      <input id="codigo" type="text" inputmode="numeric" autocomplete="off"
+             spellcheck="false" placeholder="10 dígitos">
+    </div>
+    <button class="btn" id="entrar" type="button" disabled>Comenzar el parcial</button>
+    <div class="msg" id="msgLogin" role="status" aria-live="polite"></div>
+  </div>
+
+  <footer>Los tres datos deben corresponder entre sí. Si alguno no coincide, avísale al docente
+    antes de empezar.</footer>
+</div>
+
+<!-- ══════════ 2 · EXAMEN ══════════ -->
+<div id="vQuiz" class="hide">
+  <div class="bar">
+    <div class="bar-in">
+      <span id="progTxt">0 de 33</span>
+      <div class="track"><div class="fill" id="fill"></div></div>
+      <span class="rel" id="reloj">120:00</span>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="eyebrow" id="quien"></p>
+    <h1 style="font-size:clamp(1.2rem,5vw,1.6rem)">Primer parcial</h1>
+    <div class="vigila" id="vigila">Actividad registrada durante el examen.</div>
+    <div class="navtemas" id="navtemas"></div>
+    <div id="cuerpo"></div>
+    <div class="msg" id="msgQuiz" role="status" aria-live="polite"></div>
+    <footer id="guardado">Guardado automático activo.</footer>
+  </div>
+</div>
+
+<!-- ══════════ 3 · FIN ══════════ -->
+<div class="wrap hide" id="vFin">
+  <p class="eyebrow">Parcial entregado</p>
+  <h1>Listo</h1>
+  <div class="panel">
+    <div class="score">
+      <b id="marca">✓</b>
+      <span id="detalleFin">tu parcial quedó registrado</span>
+    </div>
+  </div>
+  <div class="aviso" id="notaFin"></div>
+  <footer>Puedes cerrar esta página.</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var API   = "https://script.google.com/macros/s/AKfycbxHde3-SGWwKMIxxa3nSCbOpKVvcNyjjvCeRVVdicEna8__xW3O83wgvENncfGy9ROTMg/exec";
+  var TOKEN = "n719TP1N6_Sr3mvyPNUd1WHExeURwp6l";
+  var CLAVE = "parcial1-2026";        // STORAGE_KEY propio de este instrumento
+  var ESPERA = 30000;
+
+  var $ = function(id){ return document.getElementById(id); };
+  function ver(el, cls, txt){ el.className = "msg "+cls; el.textContent = txt; }
+  function limpiar(el){ el.className = "msg"; el.textContent = ""; }
+  function esc(s){
+    return String(s === undefined || s === null ? "" : s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+
+  var estado = {
+    nombre:"", correo:"", codigo:"",
+    preguntas:[], abiertas:[], temas:[], respuestas:{}, textos:{},
+    inicio:0, minutos:120, minimo:10, minPalabras:30, entregado:false,
+    // seguimiento por bloques: segundos acumulados y visitas de cada tema
+    temaActual:null, entroTema:0, tiempos:{}, visitas:{},
+    contadores:{ pestana:0, foco:0, devtools:0, copiar:0, pegar:0, menu:0, reinicios:0 }
+  };
+  var sucio = false, enviando = false, tickReloj = null;
+
+  if (API.indexOf("script.google.com") === -1){
+    $("nombre").innerHTML = '<option value="">—</option>';
+    ver($("msgLogin"), "warn", "El parcial todavía no está habilitado.");
+    return;
+  }
+
+  // ---------- red ----------
+  function conTiempo(p){
+    return new Promise(function(ok, mal){
+      var t = setTimeout(function(){ mal(new Error("timeout")); }, ESPERA);
+      p.then(function(v){ clearTimeout(t); ok(v); }, function(e){ clearTimeout(t); mal(e); });
+    });
+  }
+  function get(params){
+    var qs = Object.keys(params).map(function(k){
+      return encodeURIComponent(k)+"="+encodeURIComponent(params[k]); }).join("&");
+    return conTiempo(fetch(API+"?"+qs).then(function(r){ return r.json(); }));
+  }
+  function post(payload){
+    payload.token = TOKEN;
+    return conTiempo(fetch(API, { method:"POST", body: JSON.stringify(payload) })
+      .then(function(r){ return r.json(); }));
+  }
+
+  // ---------- persistencia ----------
+  function guardarLocal(){
+    try{
+      localStorage.setItem(CLAVE, JSON.stringify({
+        nombre:estado.nombre, correo:estado.correo, codigo:estado.codigo,
+        respuestas:estado.respuestas, textos:estado.textos, inicio:estado.inicio,
+        tiempos:estado.tiempos, visitas:estado.visitas,
+        contadores:estado.contadores, entregado:estado.entregado
+      }));
+    }catch(e){}
+  }
+  function leerLocal(){
+    try{ return JSON.parse(localStorage.getItem(CLAVE) || "null"); }catch(e){ return null; }
+  }
+
+  // ---------- reinicio ----------
+  // Los contadores se restauran SIEMPRE que haya estado previo: cerrar la pestaña
+  // y volver a abrirla —justo la señal que más interesa— no debe borrarlos.
+  try{
+    var prev = leerLocal();
+    if (prev && prev.contadores){
+      Object.keys(estado.contadores).forEach(function(k){
+        if (typeof prev.contadores[k] === "number") estado.contadores[k] = prev.contadores[k];
+      });
+      estado.contadores.reinicios++;
+    }
+  }catch(e){}
+
+  // ---------- telemetría ----------
+  // Qué detecta cada señal, y qué NO:
+  //   visibilitychange → cambio de pestaña, minimizar, cambiar de escritorio
+  //       virtual de Windows, alt-tab a otra aplicación que tape la ventana.
+  //       Se mide TAMBIÉN cuánto tiempo estuvo fuera: dos segundos son una
+  //       notificación; noventa son una búsqueda.
+  //   blur sin ocultarse → la ventana sigue visible pero otra tiene el foco.
+  //       Es la firma de dos ventanas lado a lado, que es como se consulta
+  //       internet sin salir del examen.
+  //   fullscreenchange → salió de pantalla completa.
+  //   resize → redimensionó la ventana, típico de acomodar media pantalla.
+  //
+  // Ninguna de estas ve un celular ni un segundo monitor. Eso solo lo cubre la
+  // vigilancia en el salón.
+
+  var ocultaDesde = 0, sinFocoDesde = 0;
+
+  document.addEventListener("visibilitychange", function(){
+    if (estado.entregado) return;
+    if (document.hidden){
+      ocultaDesde = Date.now();
+      estado.contadores.pestana++;
+      marcar(); beacon();
+    } else if (ocultaDesde){
+      var s = Math.round((Date.now() - ocultaDesde)/1000);
+      ocultaDesde = 0;
+      estado.contadores.segFuera = (estado.contadores.segFuera||0) + s;
+      if (s >= 20){
+        estado.contadores.ausenciaLarga = (estado.contadores.ausenciaLarga||0) + 1;
+        evento("ausencia_larga", s + " s fuera de la pantalla");
+      } else {
+        evento("fuera_pantalla", s + " s");
+      }
+      marcar(); avisoVigilancia();
+    }
+  });
+
+  window.addEventListener("blur", function(){
+    if (estado.entregado) return;
+    sinFocoDesde = Date.now();
+    setTimeout(function(){
+      if (document.hidden || estado.entregado) return;   // eso ya lo contó visibilitychange
+      estado.contadores.foco++; marcar();
+    }, 150);
+  });
+  window.addEventListener("focus", function(){
+    if (estado.entregado || !sinFocoDesde) return;
+    var s = Math.round((Date.now() - sinFocoDesde)/1000);
+    sinFocoDesde = 0;
+    // Visible pero sin foco durante un rato: hay otra ventana al lado en uso.
+    if (!document.hidden && s >= 3){
+      estado.contadores.ladoALado = (estado.contadores.ladoALado||0) + 1;
+      evento("ventana_lado_a_lado", s + " s con otra ventana activa");
+      marcar(); avisoVigilancia();
+    }
+  });
+
+  document.addEventListener("fullscreenchange", function(){
+    if (estado.entregado || !estado.nombre) return;
+    if (!document.fullscreenElement){
+      estado.contadores.salioPantalla = (estado.contadores.salioPantalla||0) + 1;
+      evento("salio_pantalla_completa", estado.contadores.salioPantalla);
+      marcar(); avisoVigilancia();
+      ver($("msgQuiz"), "warn", "Saliste de pantalla completa. Queda registrado. "+
+        "Toca aquí para volver.");
+      $("msgQuiz").style.cursor = "pointer";
+      $("msgQuiz").onclick = pantallaCompleta;
+    }
+  });
+
+  var tRedim = null;
+  window.addEventListener("resize", function(){
+    if (estado.entregado || !estado.nombre) return;
+    clearTimeout(tRedim);
+    tRedim = setTimeout(function(){
+      evento("redimension", window.innerWidth + "x" + window.innerHeight);
+    }, 800);
+  });
+
+  // Copiar y cortar: bloqueados sobre el enunciado. Se permite dentro del área
+  // de respuesta, donde el estudiante puede reorganizar su propio texto.
+  //
+  // Se guarda EL TEXTO QUE INTENTÓ COPIAR. Es la diferencia entre «tres intentos
+  // de copia» —un número discutible— y poder mostrar el enunciado exacto que se
+  // estaba sacando del examen.
+  ["copy","cut"].forEach(function(ev){
+    document.addEventListener(ev, function(e){
+      if (!estado.nombre || estado.entregado) return;
+      if (e.target && e.target.tagName === "TEXTAREA"){ estado.contadores.copiar++; marcar(); return; }
+      e.preventDefault();
+      estado.contadores.copiaBloq = (estado.contadores.copiaBloq||0) + 1;
+      var sel = "";
+      try{ sel = String(window.getSelection()).replace(/\s+/g," ").trim(); }catch(err){}
+      evento("copia_bloqueada", "intento "+estado.contadores.copiaBloq, sel);
+      marcar(); avisoVigilancia();
+      ver($("msgQuiz"), "warn", "No se puede copiar el texto del examen. El intento queda registrado.");
+    });
+  });
+
+  // Pegar: bloqueado siempre, también dentro de las respuestas abiertas. Una
+  // respuesta pegada no se escribió aquí.
+  //
+  // Se guarda LO QUE INTENTÓ PEGAR. Si alguien trae una respuesta de fuera, ahí
+  // queda el texto completo, que es la evidencia más concluyente de todas.
+  ["paste","drop"].forEach(function(ev){
+    document.addEventListener(ev, function(e){
+      if (!estado.nombre || estado.entregado) return;
+      e.preventDefault();
+      estado.contadores.pegaBloq = (estado.contadores.pegaBloq||0) + 1;
+      var txt = "";
+      try{
+        var dt = e.clipboardData || e.dataTransfer;
+        if (dt) txt = String(dt.getData("text") || "").replace(/\s+/g," ").trim();
+      }catch(err){}
+      evento("pegado_bloqueado", "intento "+estado.contadores.pegaBloq+
+             (txt ? " · "+txt.split(" ").length+" palabras" : ""), txt);
+      marcar(); avisoVigilancia();
+      ver($("msgQuiz"), "err", "No se puede pegar texto. Las respuestas se escriben aquí, "+
+        "y el intento queda registrado con su contenido.");
+    });
+  });
+
+  document.addEventListener("contextmenu", function(e){
+    if (!estado.nombre || estado.entregado) return;
+    if (e.target && e.target.tagName === "TEXTAREA") return;
+    e.preventDefault();
+    estado.contadores.menu++; marcar();
+  });
+
+  document.addEventListener("keydown", function(e){
+    var k = (e.key||"").toLowerCase();
+    var dev = k === "f12"
+      || (e.ctrlKey && e.shiftKey && ["i","j","c"].indexOf(k) !== -1)
+      || (e.ctrlKey && k === "u");
+    if (dev){
+      e.preventDefault();
+      estado.contadores.devtools++; marcar(); evento("devtools", estado.contadores.devtools);
+    }
+    // Ctrl+P (imprimir) y Ctrl+S (guardar) son otras vías de sacar el examen.
+    if (e.ctrlKey && (k === "p" || k === "s")){
+      e.preventDefault();
+      estado.contadores.copiaBloq = (estado.contadores.copiaBloq||0) + 1;
+      evento(k === "p" ? "imprimir_bloqueado" : "guardar_bloqueado", "");
+      marcar();
+    }
+  });
+
+  function marcar(){ sucio = true; guardarLocal(); }
+
+  /** Pide pantalla completa. Solo funciona desde un gesto del usuario. */
+  function pantallaCompleta(){
+    try{
+      var el = document.documentElement;
+      if (!document.fullscreenElement && el.requestFullscreen){
+        el.requestFullscreen().catch(function(){});
+      }
+      limpiar($("msgQuiz")); $("msgQuiz").onclick = null; $("msgQuiz").style.cursor = "";
+    }catch(e){}
+  }
+
+  /** Deja a la vista del estudiante lo que se está registrando. */
+  function avisoVigilancia(){
+    var el = $("vigila"); if (!el) return;
+    var c = estado.contadores;
+    var partes = [];
+    if (c.pestana) partes.push("salidas de pantalla: <b>"+c.pestana+"</b>");
+    if (c.segFuera) partes.push("tiempo fuera: <b>"+c.segFuera+" s</b>");
+    if (c.ladoALado) partes.push("otra ventana activa: <b>"+c.ladoALado+"</b>");
+    if (c.salioPantalla) partes.push("salidas de pantalla completa: <b>"+c.salioPantalla+"</b>");
+    if (c.pegaBloq) partes.push("pegados bloqueados: <b>"+c.pegaBloq+"</b>");
+    el.innerHTML = partes.length ? "Registrado · " + partes.join(" · ")
+                                 : "Actividad registrada durante el examen.";
+  }
+
+  /**
+   * Los eventos NO se envían de uno en uno: se acumulan en una cola y salen en
+   * lotes. Veintidós estudiantes generando telemetría a la vez producirían
+   * cientos de peticiones por minuto, y Apps Script tiene cuotas: el servidor
+   * empezaría a fallar justo durante el examen.
+   *
+   * Los eventos graves —intento de copia, de pegado, ausencia larga— fuerzan el
+   * envío inmediato: son los que interesa ver en vivo en el tablero.
+   */
+  var cola = [], tFlush = null;
+  var GRAVES = ["pegado_bloqueado","copia_bloqueada","devtools","ausencia_larga",
+                "ventana_lado_a_lado","salio_pantalla_completa","imprimir_bloqueado",
+                "guardar_bloqueado"];
+
+  function evento(tipo, detalle, evidencia){
+    if (!estado.nombre || estado.entregado) return;
+    cola.push({
+      e: tipo,
+      d: String(detalle === undefined ? "" : detalle),
+      tema: estado.temaActual === null ? "" : String(estado.temaActual),
+      min: Math.round((Date.now() - estado.inicio)/60000),
+      ev: evidencia ? String(evidencia).slice(0, 500) : ""
+    });
+    if (GRAVES.indexOf(tipo) !== -1 || cola.length >= 12) vaciarCola();
+    else if (!tFlush) tFlush = setTimeout(vaciarCola, 15000);
+  }
+
+  function vaciarCola(){
+    if (tFlush){ clearTimeout(tFlush); tFlush = null; }
+    if (!cola.length || !estado.nombre) return;
+    var lote = cola.splice(0, cola.length);
+    try{
+      post({ action:"evento", nombre:estado.nombre, correo:estado.correo,
+             codigo:estado.codigo, eventos:lote })
+        .catch(function(){ cola = lote.concat(cola); });   // se reintenta luego
+    }catch(e){ cola = lote.concat(cola); }
+  }
+
+  // ---------- 1 · ingreso ----------
+  get({ action:"roster", token:TOKEN }).then(function(r){
+    var sel = $("nombre");
+    if (!r.ok){
+      sel.innerHTML = '<option value="">—</option>';
+      ver($("msgLogin"), "warn", r.error || "El parcial no está disponible.");
+      return;
+    }
+    sel.innerHTML = '<option value="">Selecciona tu nombre…</option>' +
+      r.alumnos.map(function(n){ return '<option value="'+esc(n)+'">'+esc(n)+'</option>'; }).join("");
+    $("entrar").disabled = false;
+
+    var pre = leerLocal();
+    if (pre && pre.entregado){
+      ver($("msgLogin"), "warn", "Este parcial ya fue entregado desde este dispositivo.");
+      $("entrar").disabled = true;
+    } else if (pre && pre.nombre){
+      sel.value = pre.nombre; $("correo").value = pre.correo || ""; $("codigo").value = pre.codigo || "";
+      ver($("msgLogin"), "ok", "Tenías el parcial en curso. Entra de nuevo para continuar; el reloj sigue corriendo.");
+    }
+  }).catch(function(){
+    ver($("msgLogin"), "err", "No se pudo contactar al servidor. Avísale al docente.");
+  });
+
+  $("entrar").addEventListener("click", function(){
+    var nombre = $("nombre").value, correo = $("correo").value.trim(), codigo = $("codigo").value.trim();
+    if (!nombre){ ver($("msgLogin"), "err", "Selecciona tu nombre."); return; }
+    if (!correo){ ver($("msgLogin"), "err", "Escribe tu correo institucional."); return; }
+    if (!codigo){ ver($("msgLogin"), "err", "Escribe tu código estudiantil."); return; }
+
+    var b = $("entrar"); b.disabled = true; b.textContent = "Entrando…"; limpiar($("msgLogin"));
+
+    get({ action:"examen", token:TOKEN, nombre:nombre, correo:correo, codigo:codigo })
+      .then(function(r){
+        b.disabled = false; b.textContent = "Comenzar el parcial";
+        if (!r.ok){ ver($("msgLogin"), "err", r.error); return; }
+
+        estado.nombre = nombre; estado.correo = correo; estado.codigo = codigo;
+        estado.preguntas = r.preguntas; estado.abiertas = r.abiertas; estado.temas = r.temas;
+        estado.minutos = r.minutos; estado.minimo = r.minimo;
+        if (r.minPalabras) estado.minPalabras = r.minPalabras;
+
+        var pre = leerLocal();
+        if (pre && pre.nombre === nombre){
+          if (pre.respuestas) estado.respuestas = pre.respuestas;
+          if (pre.textos) estado.textos = pre.textos;
+          if (pre.tiempos) estado.tiempos = pre.tiempos;
+          if (pre.visitas) estado.visitas = pre.visitas;
+        }
+        // El reloj NO se reinicia: si hay inicio previo de menos de 4 h, se conserva.
+        estado.inicio = (pre && pre.inicio && (Date.now() - pre.inicio) < 4*3600*1000)
+          ? pre.inicio : Date.now();
+
+        arrancar();
+      }).catch(function(){
+        b.disabled = false; b.textContent = "Comenzar el parcial";
+        ver($("msgLogin"), "err", "No se pudo contactar al servidor.");
+      });
+  });
+
+  // ---------- 2 · examen ----------
+  function arrancar(){
+    $("vLogin").classList.add("hide");
+    $("vQuiz").classList.remove("hide");
+    $("quien").textContent = estado.nombre;
+    pintar();
+    pantallaCompleta();               // gesto del usuario: aquí sí se puede pedir
+    irA(estado.temas[0].id);          // arranca en el tema 1 y deja el primer registro
+    progreso(); guardarLocal();
+    tickReloj = setInterval(reloj, 1000); reloj();
+    setInterval(sincronizar, 60000);
+  }
+
+  function pintar(){
+    var cont = $("cuerpo"); cont.innerHTML = "";
+    var nav = $("navtemas"); nav.innerHTML = "";
+    var n = 0;
+
+    // pestañas: una por tema, más la de entrega
+    estado.temas.forEach(function(tm){
+      var b = document.createElement("button");
+      b.className = "tab"; b.type = "button"; b.dataset.ir = String(tm.id);
+      b.innerHTML = '<b>Tema '+tm.id+'</b><span id="cnt-'+tm.id+'">0 de 11</span>';
+      nav.appendChild(b);
+    });
+    var be = document.createElement("button");
+    be.className = "tab entregar"; be.type = "button"; be.dataset.ir = "fin";
+    be.innerHTML = '<b>Entregar</b><span>revisar</span>';
+    nav.appendChild(be);
+
+    nav.addEventListener("click", function(e){
+      var b = e.target.closest(".tab"); if (!b) return;
+      irA(b.dataset.ir === "fin" ? "fin" : Number(b.dataset.ir));
+    });
+
+    estado.temas.forEach(function(tm, iTema){
+      var bloque = document.createElement("div");
+      bloque.className = "bloque"; bloque.id = "bloque-"+tm.id;
+      cont.appendChild(bloque);
+
+      var h = document.createElement("h2");
+      h.style.marginTop = "0";
+      h.textContent = "Tema " + tm.id + " · " + tm.t;
+      bloque.appendChild(h);
+      var p = document.createElement("p");
+      p.className = "sub"; p.style.margin = "0 0 1rem";
+      p.textContent = tm.cap;
+      bloque.appendChild(p);
+      var cont2 = bloque;
+
+      estado.preguntas.filter(function(q){ return q.tema === tm.id; }).forEach(function(q){
+        n++;
+        var d = document.createElement("div");
+        d.className = "q"; d.id = "q-"+q.id;
+        var html = '<p class="q-n">Pregunta '+n+' de '+estado.preguntas.length+'</p>'+
+                   '<p class="q-t">'+esc(q.t)+'</p>';
+        q.o.forEach(function(op, j){
+          var sel = (estado.respuestas[q.id] === j) ? " sel" : "";
+          html += '<label class="opt'+sel+'" data-q="'+esc(q.id)+'" data-i="'+j+'">'+
+                    '<input type="radio" name="'+esc(q.id)+'" value="'+j+'"'+
+                    (estado.respuestas[q.id] === j ? " checked" : "")+'>'+
+                    '<span>'+esc(op)+'</span></label>';
+        });
+        d.innerHTML = html;
+        if (estado.respuestas[q.id] !== undefined) d.classList.add("done");
+        cont2.appendChild(d);
+      });
+
+      estado.abiertas.filter(function(a){ return a.tema === tm.id; }).forEach(function(a){
+        var d = document.createElement("div");
+        d.className = "q abierta"; d.id = "a-"+a.id;
+        d.innerHTML = '<p class="q-n">Pregunta abierta · tema '+tm.id+'</p>'+
+          '<p class="q-t">'+esc(a.t)+'</p>'+
+          '<div class="cadena">CAUSA → MECANISMO 1 → MECANISMO 2 → SIGNO O SÍNTOMA → ¿QUÉ VE EL OPTÓMETRA?</div>'+
+          '<textarea data-a="'+esc(a.id)+'" placeholder="Escribe aquí tu respuesta."></textarea>'+
+          '<p class="cuenta" id="c-'+esc(a.id)+'">0 palabras</p>';
+        if (estado.textos[a.id]) d.classList.add("done");
+        cont2.appendChild(d);
+        var ta = d.querySelector("textarea");
+        ta.value = estado.textos[a.id] || "";
+        contar(a.id, ta.value);
+      });
+
+      // pasos: atrás y adelante entre bloques
+      var paso = document.createElement("div");
+      paso.className = "paso";
+      var prev = estado.temas[iTema-1], sig = estado.temas[iTema+1];
+      paso.innerHTML =
+        (prev ? '<button class="btn sec" type="button" data-ir="'+prev.id+'">← Tema '+prev.id+'</button>' : '') +
+        (sig  ? '<button class="btn" type="button" data-ir="'+sig.id+'">Tema '+sig.id+' →</button>'
+              : '<button class="btn" type="button" data-ir="fin">Revisar y entregar →</button>');
+      bloque.appendChild(paso);
+      paso.addEventListener("click", function(e){
+        var b = e.target.closest("button[data-ir]"); if (!b) return;
+        irA(b.dataset.ir === "fin" ? "fin" : Number(b.dataset.ir));
+        window.scrollTo(0,0);
+      });
+    });
+
+    // bloque final de revisión y entrega
+    var fin = document.createElement("div");
+    fin.className = "bloque"; fin.id = "bloque-fin";
+    fin.innerHTML = '<h2 style="margin-top:0">Revisar y entregar</h2>'+
+      '<p class="sub">Comprueba que no dejas nada sin responder. Puedes volver a cualquier tema.</p>'+
+      '<div class="panel" id="resumen"></div>'+
+      '<button class="btn" id="entregar" type="button">Entregar el parcial</button>';
+    cont.appendChild(fin);
+    fin.addEventListener("click", function(e){
+      if (e.target.id === "entregar") entregar(false);
+      var b = e.target.closest("button[data-ir]");
+      if (b){ irA(Number(b.dataset.ir)); window.scrollTo(0,0); }
+    });
+
+    cont.addEventListener("change", function(e){
+      var lab = e.target.closest(".opt"); if (!lab) return;
+      var qid = lab.dataset.q, idx = Number(lab.dataset.i);
+      estado.respuestas[qid] = idx;
+      var caja = $("q-"+qid);
+      caja.querySelectorAll(".opt").forEach(function(o){ o.classList.remove("sel"); });
+      lab.classList.add("sel"); caja.classList.add("done");
+      sucio = true; guardarLocal(); progreso();
+    });
+
+    cont.addEventListener("input", function(e){
+      var ta = e.target.closest("textarea"); if (!ta) return;
+      var aid = ta.dataset.a;
+      estado.textos[aid] = ta.value;
+      $("a-"+aid).classList.toggle("done", ta.value.trim().length > 0);
+      contar(aid, ta.value);
+      sucio = true; guardarLocal(); progreso();
+    });
+  }
+
+  function palabras(txt){
+    var s = String(txt || "").replace(/\s+/g, " ").trim();
+    return s ? s.split(" ").length : 0;
+  }
+
+  function contar(aid, txt){
+    var n = palabras(txt);
+    var el = $("c-"+aid); if (!el) return;
+    var falta = estado.minPalabras - n;
+    if (falta > 0){
+      el.className = "cuenta corta";
+      el.textContent = n + (n === 1 ? " palabra" : " palabras") +
+                       " · faltan " + falta + " para el mínimo de " + estado.minPalabras;
+    } else {
+      el.className = "cuenta ok";
+      el.textContent = n + " palabras ✓";
+    }
+  }
+
+  /**
+   * Cambia de bloque. Antes de salir acumula el tiempo del bloque anterior y lo
+   * registra en el servidor, de modo que el docente puede ver cuántos minutos
+   * pasó cada estudiante en cada tema y cuántas veces volvió atrás.
+   */
+  function irA(destino){
+    if (estado.entregado) return;
+    var ahora = Date.now();
+
+    if (estado.temaActual !== null && estado.temaActual !== destino){
+      var dt = Math.round((ahora - estado.entroTema)/1000);
+      if (estado.temaActual !== "fin"){
+        estado.tiempos[estado.temaActual] = (estado.tiempos[estado.temaActual]||0) + dt;
+        evento("sale_tema", "T"+estado.temaActual+" tras "+dt+" s");
+      }
+    }
+
+    estado.temaActual = destino;
+    estado.entroTema = ahora;
+    if (destino !== "fin"){
+      estado.visitas[destino] = (estado.visitas[destino]||0) + 1;
+      evento("entra_tema", "T"+destino+" visita "+estado.visitas[destino]);
+    } else {
+      evento("entra_revision", "");
+    }
+
+    document.querySelectorAll(".bloque").forEach(function(b){ b.classList.remove("on"); });
+    var el = $("bloque-"+destino); if (el) el.classList.add("on");
+    document.querySelectorAll(".tab").forEach(function(t){
+      t.classList.toggle("on", t.dataset.ir === String(destino));
+    });
+    if (destino === "fin") pintarResumen();
+    marcar(); progreso();
+  }
+
+  /** Cierra el tiempo del bloque en curso sin cambiar de vista. */
+  function cerrarTiempo(){
+    if (estado.temaActual === null || estado.temaActual === "fin") return;
+    var dt = Math.round((Date.now() - estado.entroTema)/1000);
+    estado.tiempos[estado.temaActual] = (estado.tiempos[estado.temaActual]||0) + dt;
+    estado.entroTema = Date.now();
+  }
+
+  function respondidasDe(t){
+    var a = estado.preguntas.filter(function(q){
+      return q.tema === t && estado.respuestas[q.id] !== undefined; }).length;
+    // una abierta cuenta solo si llega al mínimo de palabras
+    var b = estado.abiertas.filter(function(x){
+      return x.tema === t && palabras(estado.textos[x.id]) >= estado.minPalabras; }).length;
+    return a + b;
+  }
+  function totalDe(t){
+    return estado.preguntas.filter(function(q){ return q.tema === t; }).length +
+           estado.abiertas.filter(function(x){ return x.tema === t; }).length;
+  }
+
+  function pintarResumen(){
+    var c = $("resumen"); if (!c) return;
+    c.innerHTML = estado.temas.map(function(tm){
+      var r = respondidasDe(tm.id), t = totalDe(tm.id);
+      var cls = r === t ? "ok" : "no";
+      return '<div class="resumen"><b>Tema '+tm.id+' · '+esc(tm.t)+'</b>'+
+             '<span class="n '+cls+'">'+r+' de '+t+'</span>'+
+             '<button class="btn sec" type="button" data-ir="'+tm.id+'" '+
+             'style="flex:0 0 auto; width:auto; padding:.35rem .8rem; font-size:.82rem">ir</button></div>';
+    }).join("");
+  }
+
+  function progreso(){
+    var a = Object.keys(estado.respuestas).length;
+    var b = estado.abiertas.filter(function(x){
+      return (estado.textos[x.id]||"").trim().length > 0; }).length;
+    var total = estado.preguntas.length + estado.abiertas.length;
+    $("progTxt").textContent = (a+b)+" de "+total;
+    $("fill").style.width = (total ? ((a+b)/total*100) : 0)+"%";
+    estado.temas.forEach(function(tm){
+      var el = $("cnt-"+tm.id); if (!el) return;
+      var r = respondidasDe(tm.id), t = totalDe(tm.id);
+      el.textContent = r+" de "+t;
+      var tab = el.closest(".tab"); if (tab) tab.classList.toggle("lleno", r === t);
+    });
+    if (estado.temaActual === "fin") pintarResumen();
+    avisoVigilancia();
+  }
+
+  function reloj(){
+    var restan = estado.minutos*60 - Math.floor((Date.now() - estado.inicio)/1000);
+    if (restan <= 0){ entregar(true); return; }
+    var m = Math.floor(restan/60), s = restan%60;
+    var el = $("reloj");
+    el.textContent = String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+    el.className = "rel" + (restan <= 300 ? " aviso5" : (restan <= 600 ? " aviso10" : ""));
+    if (restan === 600) ver($("msgQuiz"), "warn", "Quedan 10 minutos.");
+    if (restan === 300) ver($("msgQuiz"), "err", "Quedan 5 minutos. Al llegar a cero se entrega solo.");
+  }
+
+  function carga(accion){
+    cerrarTiempo();                    // cuadra el bloque en curso antes de enviar
+    var min = {};
+    Object.keys(estado.tiempos).forEach(function(k){
+      min[k] = Math.round(estado.tiempos[k]/60*10)/10;   // segundos → minutos
+    });
+    return {
+      action: accion, nombre: estado.nombre, correo: estado.correo, codigo: estado.codigo,
+      respuestas: estado.respuestas, abiertas: estado.textos,
+      contadores: estado.contadores,
+      tiempos: min, visitas: estado.visitas,
+      duracionMin: Math.round((Date.now() - estado.inicio)/60000)
+    };
+  }
+
+  function sincronizar(){
+    if (!sucio || estado.entregado || enviando) return;
+    sucio = false;
+    post(carga("snapshot")).then(function(){
+      $("guardado").textContent = "Guardado a las "+new Date().toLocaleTimeString("es-CO",
+        {hour:"2-digit", minute:"2-digit"})+".";
+    }).catch(function(){ sucio = true; });
+  }
+
+  function beacon(){
+    if (estado.entregado || !estado.nombre) return;
+    // La cola pendiente se envía por sendBeacon: es lo único que sobrevive al cierre.
+    if (cola.length){
+      try{
+        var ce = { action:"evento", nombre:estado.nombre, correo:estado.correo,
+                   codigo:estado.codigo, eventos:cola.splice(0,cola.length), token:TOKEN };
+        navigator.sendBeacon && navigator.sendBeacon(API,
+          new Blob([JSON.stringify(ce)], {type:"text/plain"}));
+      }catch(e){}
+    }
+    if (!sucio) return;
+    try{
+      var d = carga("snapshot"); d.token = TOKEN;
+      var ok = navigator.sendBeacon &&
+        navigator.sendBeacon(API, new Blob([JSON.stringify(d)], {type:"text/plain"}));
+      if (ok) sucio = false;
+    }catch(e){}
+  }
+  window.addEventListener("pagehide", beacon);
+  window.addEventListener("beforeunload", function(e){
+    beacon();
+    if (!estado.entregado && estado.nombre){ e.preventDefault(); e.returnValue = ""; }
+  });
+
+  // ---------- entrega ----------
+  // El botón vive dentro del bloque de revisión, que se crea en `pintar()`, así
+  // que su escucha es delegada allí. No se engancha aquí: en este punto todavía
+  // no existe en el DOM.
+
+  function entregar(forzado){
+    if (enviando || estado.entregado) return;
+
+    var min = Math.round((Date.now() - estado.inicio)/60000);
+    if (!forzado && min < estado.minimo){
+      ver($("msgQuiz"), "warn", "Todavía no puedes entregar. Faltan "+
+        (estado.minimo - min)+" minutos: aprovecha para revisar.");
+      return;
+    }
+
+    if (!forzado){
+      var faltanSel = estado.preguntas.length - Object.keys(estado.respuestas).length;
+      var faltanAbi = estado.abiertas.filter(function(x){
+        return !(estado.textos[x.id]||"").trim(); }).length;
+      if (faltanSel || faltanAbi){
+        var av = [];
+        if (faltanSel) av.push(faltanSel+" de selección múltiple");
+        if (faltanAbi) av.push(faltanAbi+" abierta"+(faltanAbi>1?"s":""));
+        if (!confirm("Te faltan "+av.join(" y ")+".\n\n¿Entregar de todas formas?")) return;
+      }
+      if (!confirm("Vas a entregar el parcial.\n\nNo se puede volver a entrar. ¿Confirmas?")) return;
+    }
+
+    vaciarCola();                       // que no se pierda telemetría pendiente
+    enviando = true;
+    if (tickReloj){ clearInterval(tickReloj); tickReloj = null; }
+    var b = $("entregar"); b.disabled = true;
+    b.textContent = forzado ? "Se agotó el tiempo, entregando…" : "Entregando…";
+    limpiar($("msgQuiz"));
+
+    var d = carga("entregar"); d.forzado = !!forzado;
+    post(d).then(function(r){
+      enviando = false;
+      if (!r.ok){
+        b.disabled = false; b.textContent = "Entregar el parcial";
+        if (!forzado) tickReloj = setInterval(reloj, 1000);
+        ver($("msgQuiz"), "err", r.error || "No se pudo entregar.");
+        return;
+      }
+      estado.entregado = true; guardarLocal();
+      $("vQuiz").classList.add("hide");
+      $("vFin").classList.remove("hide");
+      window.scrollTo(0,0);
+      // El puntaje solo llega en modo ENSAYO. En el examen real el servidor no
+      // lo envía: la nota no está completa hasta calificar las abiertas.
+      if (r.prueba && typeof r.correctas === "number"){
+        $("marca").textContent = r.correctas + "/" + r.total;
+        $("detalleFin").textContent = "MODO ENSAYO · selección múltiple · nota " +
+          Number(r.notaSeleccion).toFixed(2);
+      } else {
+        $("detalleFin").textContent = forzado ? "se agotó el tiempo y se entregó automáticamente"
+                                              : "tu parcial quedó registrado";
+      }
+      $("notaFin").textContent = (r.prueba ? "Esta fila quedó marcada [PRUEBA] y se borra con limpiarPruebas(). "
+                                           : "") + (r.mensaje || "Tu parcial quedó registrado.");
+    }).catch(function(){
+      enviando = false;
+      b.disabled = false; b.textContent = "Entregar el parcial";
+      if (!forzado) tickReloj = setInterval(reloj, 1000);
+      ver($("msgQuiz"), "err", "No se pudo entregar. Revisa la conexión y vuelve a intentarlo: "+
+        "tus respuestas siguen guardadas. Si no lo logras, avísale al docente ahora mismo.");
+    });
+  }
+})();
+</script>
+</body>
+</html>
