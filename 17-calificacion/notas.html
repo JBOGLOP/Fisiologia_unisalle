@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Mis notas · Fisiopatología General</title>
+<style>
+  :root{
+    --ink:#12212b; --paper:#f4f7f7; --surface:#ffffff; --surface-2:#eaf0f0;
+    --line:#cbd8da; --muted:#516268;
+    --fisio:#10505e; --fisio-soft:#dceaec;
+    --pato:#a8412c; --pato-soft:#f5e2dc;
+    --amber:#a06a12; --amber-soft:#f6e9cf;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 12px 30px -18px rgba(18,33,43,.4);
+    --display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+      --line:#2c3d43; --muted:#9bafb4;
+      --fisio:#5cb6c6; --fisio-soft:#12313a;
+      --pato:#e08a70; --pato-soft:#3a2119;
+      --amber:#e0b464; --amber-soft:#3a2f16;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.9);
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font-family:var(--body); line-height:1.55;
+    -webkit-font-smoothing:antialiased; min-height:100dvh; padding:clamp(.8rem,3vw,2rem)}
+  .wrap{max-width:640px; margin:0 auto}
+  .hide{display:none !important}
+
+  .eyebrow{font-family:var(--mono); font-size:.65rem; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--muted); margin:0}
+  h1{font-family:var(--display); font-weight:600; line-height:1.15;
+    font-size:clamp(1.5rem,6vw,2.1rem); margin:.3rem 0 .5rem; text-wrap:balance}
+  .sub{color:var(--muted); font-size:.95rem; margin:0 0 1.4rem}
+
+  .panel{background:var(--surface); border:1px solid var(--line); border-radius:14px;
+    box-shadow:var(--shadow); padding:clamp(1rem,4vw,1.6rem); margin-bottom:1rem}
+
+  label{display:block; font-size:.74rem; font-weight:600; color:var(--muted);
+    text-transform:uppercase; letter-spacing:.06em; margin:0 0 .35rem}
+  select,input{width:100%; font:inherit; font-size:1rem; color:var(--ink); background:var(--paper);
+    border:1px solid var(--line); border-radius:10px; padding:.7rem .8rem;
+    -webkit-appearance:none; appearance:none}
+  select:focus,input:focus{outline:2px solid var(--fisio); outline-offset:1px; border-color:var(--fisio)}
+  .field{margin-bottom:1rem}
+
+  .btn{width:100%; font:inherit; font-weight:600; font-size:1rem; cursor:pointer;
+    background:var(--fisio); color:#fff; border:0; border-radius:99px; padding:.85rem 1rem;
+    transition:filter .15s}
+  .btn:hover{filter:brightness(1.08)}
+  .btn:disabled{opacity:.5; cursor:progress}
+  .btn.ghost{background:none; color:var(--fisio); border:1px solid var(--line); margin-top:.6rem}
+
+  .msg{margin-top:1rem; padding:.8rem 1rem; border-radius:10px; font-size:.9rem; display:none}
+  .msg.ok{display:block; background:var(--fisio-soft); color:var(--fisio);
+    border:1px solid color-mix(in srgb,var(--fisio) 35%,transparent)}
+  .msg.err{display:block; background:var(--pato-soft); color:var(--pato);
+    border:1px solid color-mix(in srgb,var(--pato) 35%,transparent)}
+  .msg.warn{display:block; background:var(--amber-soft); color:var(--amber);
+    border:1px solid color-mix(in srgb,var(--amber) 35%,transparent)}
+
+  .aviso{background:var(--fisio-soft); border-left:3px solid var(--fisio);
+    border-radius:0 10px 10px 0; padding:.8rem 1rem; margin:0 0 1.3rem; font-size:.88rem}
+
+  /* nota grande */
+  .grande{text-align:center; padding:.6rem 0 .2rem}
+  .grande b{display:block; font-family:var(--display); font-size:3.2rem; line-height:1;
+    color:var(--fisio); font-variant-numeric:tabular-nums}
+  .grande span{font-size:.76rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted)}
+  .barra{height:7px; background:var(--surface-2); border-radius:99px; overflow:hidden; margin:.9rem 0 .3rem}
+  .barra i{display:block; height:100%; background:var(--fisio)}
+  .pie{font-size:.78rem; color:var(--muted); text-align:center}
+
+  /* lista de actividades */
+  .act{display:flex; align-items:center; gap:.8rem; padding:.75rem 0;
+    border-bottom:1px solid var(--line)}
+  .act:last-child{border-bottom:0}
+  .act-t{flex:1; min-width:0}
+  .act-t b{display:block; font-size:.94rem; font-weight:600; line-height:1.3}
+  .act-t span{font-size:.74rem; color:var(--muted); font-family:var(--mono)}
+  .act-n{font-family:var(--display); font-size:1.5rem; font-variant-numeric:tabular-nums;
+    min-width:2.6rem; text-align:right}
+  .buena{color:var(--fisio)} .floja{color:var(--amber)} .mala{color:var(--pato)}
+  .pend{font-size:.8rem; color:var(--muted); font-family:var(--body);
+    font-style:italic; min-width:5.6rem; text-align:right}
+
+  footer{margin-top:1.6rem; padding-top:.9rem; border-top:1px solid var(--line);
+    font-family:var(--mono); font-size:.66rem; letter-spacing:.04em; color:var(--muted)}
+</style>
+</head>
+<body>
+
+<!-- ══════════ 1 · INGRESO ══════════ -->
+<div class="wrap" id="vLogin">
+  <p class="eyebrow">Fisiopatología General · 01008430 · 2026-2</p>
+  <h1>Mis notas</h1>
+  <p class="sub">Consulta lo que llevas calificado hasta hoy.</p>
+
+  <div class="aviso">
+    Necesitas tu <strong>nombre, correo institucional y código</strong>: los tres tienen que
+    corresponder entre sí. Cada consulta queda registrada.
+  </div>
+
+  <div class="panel">
+    <div class="field">
+      <label for="nombre">Tu nombre</label>
+      <select id="nombre"><option value="">Cargando la lista…</option></select>
+    </div>
+    <div class="field">
+      <label for="correo">Correo institucional</label>
+      <input id="correo" type="email" autocomplete="email" autocapitalize="off"
+             spellcheck="false" placeholder="tuusuario@unisalle.edu.co">
+    </div>
+    <div class="field">
+      <label for="codigo">Código estudiantil</label>
+      <input id="codigo" type="text" inputmode="numeric" autocomplete="off"
+             spellcheck="false" placeholder="10 dígitos">
+    </div>
+    <button class="btn" id="entrar" type="button" disabled>Ver mis notas</button>
+    <div class="msg" id="msgLogin" role="status" aria-live="polite"></div>
+  </div>
+
+  <footer>Si algún dato no coincide, escríbele al docente: jbogoya@unisalle.edu.co</footer>
+</div>
+
+<!-- ══════════ 2 · RESULTADO ══════════ -->
+<div class="wrap hide" id="vNotas">
+  <p class="eyebrow" id="quien"></p>
+  <h1>Primer corte</h1>
+
+  <div class="panel">
+    <div class="grande">
+      <b id="nota">—</b>
+      <span id="rotulo">nota provisional</span>
+    </div>
+    <div class="barra"><i id="fill"></i></div>
+    <p class="pie" id="cubierto"></p>
+  </div>
+
+  <div class="panel">
+    <div id="lista"></div>
+  </div>
+
+  <div class="aviso" id="explica"></div>
+
+  <button class="btn ghost" id="salir" type="button">Salir</button>
+  <footer>Las notas se actualizan a medida que se califica cada actividad.
+    Si encuentras un error, escríbele al docente.</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var API   = "https://script.google.com/macros/s/AKfycbwiynHkK8jnZbkMg3mZzhzkMggj-_uORY8Wk4HMnQlDitKIb2csKMtgKmUglVr0LZXk/exec";
+  var TOKEN = "Qp7vX2mE-nKd4RsAyLb9Tf0WgZhUcJ3o";
+  var ESPERA = 25000;
+
+  var $ = function(id){ return document.getElementById(id); };
+
+  function ver(el, cls, txt){ el.className = "msg "+cls; el.textContent = txt; }
+  function limpiar(el){ el.className = "msg"; el.textContent = ""; }
+  function esc(s){
+    return String(s === undefined || s === null ? "" : s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+
+  if (API.indexOf("script.google.com") === -1){
+    $("nombre").innerHTML = '<option value="">—</option>';
+    ver($("msgLogin"), "warn", "La consulta de notas todavía no está habilitada.");
+    return;
+  }
+
+  function conTiempo(p){
+    return new Promise(function(ok, mal){
+      var t = setTimeout(function(){ mal(new Error("timeout")); }, ESPERA);
+      p.then(function(v){ clearTimeout(t); ok(v); }, function(e){ clearTimeout(t); mal(e); });
+    });
+  }
+  function get(params){
+    var qs = Object.keys(params).map(function(k){
+      return encodeURIComponent(k)+"="+encodeURIComponent(params[k]); }).join("&");
+    return conTiempo(fetch(API+"?"+qs).then(function(r){ return r.json(); }));
+  }
+
+  // ---------- 1 · ingreso ----------
+  get({ action:"roster", token:TOKEN }).then(function(r){
+    var sel = $("nombre");
+    if (!r.ok){
+      sel.innerHTML = '<option value="">—</option>';
+      ver($("msgLogin"), "warn", r.error || "No disponible por ahora.");
+      return;
+    }
+    sel.innerHTML = '<option value="">Selecciona tu nombre…</option>' +
+      r.alumnos.map(function(n){ return '<option value="'+esc(n)+'">'+esc(n)+'</option>'; }).join("");
+    $("entrar").disabled = false;
+  }).catch(function(){
+    ver($("msgLogin"), "err", "No se pudo contactar al servidor. Revisa tu conexión.");
+  });
+
+  $("entrar").addEventListener("click", function(){
+    var nombre = $("nombre").value,
+        correo = $("correo").value.trim(),
+        codigo = $("codigo").value.trim();
+    if (!nombre){ ver($("msgLogin"), "err", "Selecciona tu nombre."); return; }
+    if (!correo){ ver($("msgLogin"), "err", "Escribe tu correo institucional."); return; }
+    if (!codigo){ ver($("msgLogin"), "err", "Escribe tu código estudiantil."); return; }
+
+    var b = $("entrar"); b.disabled = true; b.textContent = "Consultando…"; limpiar($("msgLogin"));
+
+    get({ action:"misnotas", token:TOKEN, nombre:nombre, correo:correo, codigo:codigo })
+      .then(function(r){
+        b.disabled = false; b.textContent = "Ver mis notas";
+        if (!r.ok){ ver($("msgLogin"), "err", r.error); return; }
+        if (!r.notas){ ver($("msgLogin"), "warn", "Todavía no hay notas registradas a tu nombre."); return; }
+        mostrar(r);
+      }).catch(function(){
+        b.disabled = false; b.textContent = "Ver mis notas";
+        ver($("msgLogin"), "err", "No se pudo contactar al servidor.");
+      });
+  });
+
+  // ---------- 2 · notas ----------
+  function mostrar(r){
+    $("vLogin").classList.add("hide");
+    $("vNotas").classList.remove("hide");
+    window.scrollTo(0,0);
+    $("quien").textContent = r.alumno.n;
+
+    var n = r.notas;
+    var esc5 = n.escala || 5;
+
+    if (n.provisional === null){
+      $("nota").textContent = "—";
+      $("rotulo").textContent = "aún sin notas";
+      $("fill").style.width = "0%";
+    } else {
+      $("nota").textContent = n.provisional.toFixed(1);
+      $("rotulo").textContent = "nota provisional del corte";
+      $("fill").style.width = Math.min(100, n.provisional/esc5*100)+"%";
+    }
+    $("cubierto").textContent = "Calculada sobre el "+n.pesoCubierto+
+      " del corte, que es lo que llevas calificado.";
+
+    var cont = $("lista"); cont.innerHTML = "";
+    n.items.forEach(function(it){
+      var d = document.createElement("div");
+      d.className = "act";
+      var val;
+      if (it.nota === null){
+        val = '<span class="pend">sin calificar</span>';
+      } else {
+        var cls = it.nota >= 4 ? "buena" : (it.nota >= 3 ? "floja" : "mala");
+        val = '<span class="act-n '+cls+'">'+it.nota.toFixed(1)+'</span>';
+      }
+      d.innerHTML = '<span class="act-t"><b>'+esc(it.t)+'</b>'+
+                    '<span>'+it.peso+' % del corte</span></span>'+val;
+      cont.appendChild(d);
+    });
+
+    $("explica").innerHTML = "Tu asistencia registrada es <strong>"+esc(n.asistencia)+
+      "</strong>. La nota de arriba es <strong>provisional</strong>: se calcula solo con lo "+
+      "que ya está calificado y cambiará cuando se sumen las actividades que faltan.";
+  }
+
+  $("salir").addEventListener("click", function(){
+    $("vNotas").classList.add("hide");
+    $("vLogin").classList.remove("hide");
+    $("correo").value = ""; $("codigo").value = "";
+    limpiar($("msgLogin"));
+    window.scrollTo(0,0);
+  });
+})();
+</script>
+</body>
+</html>

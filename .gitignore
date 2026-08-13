@@ -19,6 +19,25 @@ tablero*.html
 dashboard*.html
 taller-*-backend/
 
+# Regla general: CUALQUIER carpeta que termine en «-backend» es privada. Cubre
+# los talleres y todo instrumento futuro sin tener que acordarse de añadirla.
+*-backend/
+
+# El consolidado de calificaciones lleva el roster completo con códigos y
+# correos, los dos tokens y las notas de todo el curso. La regla `taller-*-backend/`
+# NO lo cubre —no empieza por «taller»—, así que va nombrado aparte.
+#
+# ⚠️ `17-calificacion/` se llama como las carpetas de encuentro, que SÍ se
+# publican. Sin estas líneas, un `git add -A` la subiría entera.
+consolidado-backend/
+
+# Se ignora el CONTENIDO de la carpeta, no la carpeta. Es deliberado: git no
+# permite volver a incluir un archivo si su directorio padre está excluido, y
+# `notas.html` —la página que consultan los estudiantes— sí tiene que publicarse.
+# Con esta forma, todo lo de dentro queda fuera salvo lo que se reincluya abajo.
+17-calificacion/*
+!17-calificacion/notas.html
+
 # DATOS PERSONALES DE ESTUDIANTES — nunca al repositorio público.
 # La lista de curso y la página de asistencia contienen nombres y códigos
 # de estudiantes identificables. El repositorio es público: no pueden entrar.
