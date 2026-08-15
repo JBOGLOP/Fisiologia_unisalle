@@ -37,6 +37,10 @@ consolidado-backend/
 # Con esta forma, todo lo de dentro queda fuera salvo lo que se reincluya abajo.
 17-calificacion/*
 !17-calificacion/notas.html
+# `revision.html` es del docente, pero se publica igual: la clave se comprueba
+# en el servidor y la página no la lleva dentro. Sin publicarla no se podría
+# entrar desde fuera del equipo, que es justo para lo que se hizo.
+!17-calificacion/revision.html
 
 # DATOS PERSONALES DE ESTUDIANTES — nunca al repositorio público.
 # La lista de curso y la página de asistencia contienen nombres y códigos

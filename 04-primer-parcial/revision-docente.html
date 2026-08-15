@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Revisión del primer parcial</title>
+<style>
+  :root{
+    --bg:#f4f6f7; --panel:#fff; --tinta:#12303a; --suave:#5b7683; --linea:#dbe4e8;
+    --acento:#0d6070; --ok:#1c7c54; --mal:#b0451a; --marca:#e8f1f3;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#0e1719; --panel:#152227; --tinta:#e6eef1; --suave:#9db2bb;
+           --linea:#26383f; --acento:#4fb3c7; --ok:#5fc79a; --mal:#e7996f; --marca:#1b2f36; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--tinta);
+       font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+  .wrap{max-width:1040px;margin:0 auto;padding:clamp(.9rem,3vw,2rem)}
+  .eyebrow{font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;color:var(--suave);margin:0 0 .3rem}
+  h1{font-size:clamp(1.3rem,3.5vw,1.8rem);margin:0 0 1.2rem}
+  .panel{background:var(--panel);border:1px solid var(--linea);border-radius:12px;
+         padding:clamp(.9rem,2.5vw,1.4rem);margin-bottom:1rem}
+  label{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;
+        color:var(--suave);font-weight:700;margin:0 0 .3rem}
+  input,select{width:100%;padding:.55rem .7rem;font:inherit;border:1px solid var(--linea);
+    border-radius:8px;background:var(--bg);color:var(--tinta)}
+  .campo{margin-bottom:.8rem}
+  button{padding:.6rem 1rem;font:inherit;font-weight:600;border-radius:8px;cursor:pointer;
+         border:1px solid var(--linea);background:var(--panel);color:var(--tinta)}
+  button.p{background:var(--acento);color:#fff;border-color:var(--acento);width:100%}
+  .msg{margin-top:.7rem;padding:.6rem .8rem;border-radius:8px;font-size:.88rem;display:none}
+  .msg.v{display:block} .msg.err{background:#fdeee7;color:#8d3714}
+  @media (prefers-color-scheme: dark){ .msg.err{background:#3a1f14;color:#e7996f} }
+  table{width:100%;border-collapse:collapse;font-size:.86rem}
+  th,td{text-align:left;padding:.42rem .5rem;border-bottom:1px solid var(--linea);
+        font-variant-numeric:tabular-nums;white-space:nowrap}
+  th{font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;color:var(--suave)}
+  tbody tr{cursor:pointer} tbody tr:hover{background:var(--marca)}
+  td.n{text-align:right}
+  .baja{color:var(--mal);font-weight:700}
+  .env{overflow-x:auto}
+  .cifras{display:grid;grid-template-columns:repeat(auto-fit,minmax(115px,1fr));gap:.7rem;margin:.6rem 0}
+  .caja{background:var(--marca);border-radius:9px;padding:.6rem .8rem}
+  .caja span{display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;color:var(--suave)}
+  .caja b{font-size:1.35rem;font-variant-numeric:tabular-nums}
+  h2{font-size:1rem;margin:1.4rem 0 .5rem}
+  .q{border-top:1px solid var(--linea);padding:.7rem 0}
+  .q .cab{display:flex;gap:.6rem;align-items:baseline}
+  .q .cab b{flex:none;width:2.1rem;height:2.1rem;border-radius:7px;display:grid;place-items:center;
+            font-size:.75rem;color:#fff;background:var(--mal)}
+  .q .cab b.s{background:var(--ok)} .q .cab b.n{background:var(--suave)}
+  .op{margin:.25rem 0 0 2.7rem;font-size:.88rem}
+  .op i{font-style:normal;color:var(--suave);margin-right:.3rem}
+  .op.c{color:var(--ok);font-weight:600} .op.d{color:var(--mal)}
+  .exp{margin:.4rem 0 0 2.7rem;font-size:.83rem;color:var(--suave);border-left:2px solid var(--linea);
+       padding-left:.7rem}
+  .enun{background:var(--marca);border-radius:8px;padding:.6rem .8rem;font-size:.85rem;
+        white-space:pre-wrap;margin:.4rem 0}
+  .resp{border-left:3px solid var(--acento);padding:.5rem 0 .5rem 1rem;white-space:pre-wrap;
+        font-size:.94rem;margin:.4rem 0}
+  .ev{font-size:.8rem;color:var(--suave);font-family:ui-monospace,Menlo,Consolas,monospace}
+  .hide{display:none}
+  .aviso{border-left:3px solid var(--mal);padding:.4rem 0 .4rem .8rem;font-size:.85rem;color:var(--suave)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div id="vLogin">
+    <p class="eyebrow">Fisiopatología General · 01008430 · Primer parcial</p>
+    <h1>Revisión y reclamaciones</h1>
+    <div class="panel" style="max-width:400px">
+      <div class="campo"><label for="u">Usuario</label>
+        <input id="u" autocomplete="username" autocapitalize="off" spellcheck="false"></div>
+      <div class="campo"><label for="k">Clave</label>
+        <input id="k" type="password" autocomplete="current-password"></div>
+      <button class="p" id="entrar">Entrar</button>
+      <div class="msg" id="msg" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div id="vLista" class="hide"></div>
+  <div id="vDet" class="hide"></div>
+
+</div>
+
+<script>
+  var API   = "https://script.google.com/macros/s/AKfycbxHde3-SGWwKMIxxa3nSCbOpKVvcNyjjvCeRVVdicEna8__xW3O83wgvENncfGy9ROTMg/exec";
+  var cred = null;      // se guarda solo en memoria: al recargar hay que entrar otra vez
+  var LISTA = null;
+
+  var $ = function(id){ return document.getElementById(id); };
+  function esc(s){ return String(s==null?"":s)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+  function num(x,d){ return (x==null||x==="") ? "—" : Number(x).toFixed(d==null?2:d); }
+
+  function pedir(extra){
+    var p = { action:"docente", usuario:cred.u, clave:cred.k };
+    for (var k in extra) p[k]=extra[k];
+    var qs = Object.keys(p).map(function(k){
+      return encodeURIComponent(k)+"="+encodeURIComponent(p[k]); }).join("&");
+    return new Promise(function(ok,mal){
+      var t=setTimeout(function(){ mal(new Error("timeout")); },30000);
+      fetch(API+"?"+qs).then(function(r){return r.json();})
+        .then(function(v){clearTimeout(t);ok(v);},function(e){clearTimeout(t);mal(e);});
+    });
+  }
+
+  $("entrar").addEventListener("click", function(){
+    var u=$("u").value.trim(), k=$("k").value;
+    if(!u||!k){ $("msg").className="msg v err"; $("msg").textContent="Escribe usuario y clave."; return; }
+    cred={u:u,k:k};
+    var b=this; b.disabled=true; b.textContent="Entrando…";
+    pedir({}).then(function(r){
+      b.disabled=false; b.textContent="Entrar";
+      if(!r.ok){ cred=null; $("msg").className="msg v err"; $("msg").textContent=r.error; return; }
+      LISTA=r; lista(r);
+    }).catch(function(){
+      b.disabled=false; b.textContent="Entrar"; cred=null;
+      $("msg").className="msg v err"; $("msg").textContent="No se pudo contactar al servidor.";
+    });
+  });
+  $("k").addEventListener("keydown", function(e){ if(e.key==="Enter") $("entrar").click(); });
+
+  function lista(r){
+    var f = r.lista.slice().sort(function(a,b){ return (b.notaFinal||0)-(a.notaFinal||0); });
+    var h = '<p class="eyebrow">Primer parcial · 13 de agosto de 2026</p>'
+          + '<h1>Revisión · '+f.length+' estudiantes</h1>';
+    h += '<div class="panel">';
+    if (!r.publicado){
+      h += '<p class="aviso">Los resultados <b>todavía no son visibles</b> para los estudiantes. '
+         + 'Se abren el '+esc(String(r.publicaDesde||'').slice(0,10))+'.</p>';
+    }
+    h += '<div class="env"><table><thead><tr><th>Estudiante</th><th>Código</th>'
+       + '<th class="n">Acier</th><th class="n">Selec</th><th class="n">T1</th><th class="n">T2</th>'
+       + '<th class="n">T3</th><th class="n">Abier</th><th class="n">FINAL</th>'
+       + '<th class="n">Dur</th><th>Riesgo</th></tr></thead><tbody>';
+    f.forEach(function(a){
+      h += '<tr data-c="'+esc(a.correo)+'"><td>'+esc(a.nombre)+'</td><td>'+esc(a.codigo)+'</td>'
+         + '<td class="n">'+a.correctas+'/'+a.total+'</td><td class="n">'+num(a.notaSel)+'</td>'
+         + a.abiertas.map(function(x){ return '<td class="n">'+(x==null?'—':num(x,1))+'</td>'; }).join('')
+         + '<td class="n">'+num(a.notaAbi)+'</td>'
+         + '<td class="n '+((a.notaFinal!=null&&a.notaFinal<3)?'baja':'')+'"><b>'+num(a.notaFinal)+'</b></td>'
+         + '<td class="n">'+a.duracion+"'"+'</td><td>'+esc(a.riesgo)+'</td></tr>';
+    });
+    h += '</tbody></table></div><p class="eyebrow" style="margin-top:.8rem">'
+       + 'Haz clic en una fila para ver su examen completo</p></div>';
+    $("vLogin").classList.add("hide"); $("vDet").classList.add("hide");
+    $("vLista").classList.remove("hide"); $("vLista").innerHTML=h;
+    Array.prototype.forEach.call(document.querySelectorAll('tbody tr'), function(tr){
+      tr.addEventListener('click', function(){ detalle(this.dataset.c); });
+    });
+  }
+
+  function detalle(correo){
+    $("vLista").classList.add("hide");
+    $("vDet").classList.remove("hide");
+    $("vDet").innerHTML = '<p class="eyebrow">Cargando…</p>';
+    pedir({correo:correo}).then(function(r){
+      if(!r.ok){ $("vDet").innerHTML='<p class="aviso">'+esc(r.error)+'</p>'; return; }
+      var a=r.alumno, h='';
+      h += '<button id="volver">‹ Volver a la lista</button>';
+      h += '<h1 style="margin-top:.8rem">'+esc(a.nombre)+'</h1>';
+      h += '<div class="panel"><div class="cifras">'
+         + '<div class="caja"><span>Selección</span><b>'+num(a.notaSel)+'</b></div>'
+         + '<div class="caja"><span>Aciertos</span><b>'+a.correctas+'/'+a.total+'</b></div>'
+         + '<div class="caja"><span>Abiertas</span><b>'+num(a.notaAbi)+'</b></div>'
+         + '<div class="caja"><span>NOTA FINAL</span><b>'+num(a.notaFinal)+'</b></div>'
+         + '<div class="caja"><span>Duración</span><b>'+a.duracion+"'"+'</b></div>'
+         + '<div class="caja"><span>Riesgo</span><b style="font-size:1rem">'+esc(a.riesgo)+'</b></div>'
+         + '</div><p class="eyebrow">Pestaña '+a.pestana+' · ausencias largas '+a.ausencia
+         + ' · lado a lado '+a.ladoALado+' · copias bloqueadas '+a.copiaBloq
+         + ' · pegados bloqueados '+a.pegaBloq+'</p></div>';
+
+      h += '<div class="panel"><h2 style="margin-top:0">Preguntas abiertas</h2>';
+      a.textoAbiertas.forEach(function(x){
+        h += '<div class="q"><div class="cab"><b class="'+(x.nota>=2.5?'s':'')+'">'
+           + (x.nota==null?'—':num(x.nota,1))+'</b><div><b>Tema '+x.tema+'</b></div></div>'
+           + '<div class="enun">'+esc(x.enunciado)+'</div>'
+           + '<div class="resp">'+(x.respuesta?esc(x.respuesta):'<i>Sin respuesta</i>')+'</div>'
+           + '<div class="exp"><b>Guía:</b> '+esc(x.guia)+'</div></div>';
+      });
+      h += '</div>';
+
+      h += '<div class="panel"><h2 style="margin-top:0">Selección múltiple · en el orden que ella o él lo vio</h2>';
+      a.detalle.forEach(function(q){
+        var cls = q.dada==null ? 'n' : (q.ok?'s':'');
+        h += '<div class="q"><div class="cab"><b class="'+cls+'">'+q.n+'</b>'
+           + '<div>'+esc(q.t)+'</div></div>';
+        q.o.forEach(function(op,j){
+          var c = (j===q.correcta) ? ' c' : ((j===q.dada && !q.ok) ? ' d' : '');
+          var marca = (j===q.correcta?'✔':(j===q.dada?'✘':'·'));
+          h += '<div class="op'+c+'"><i>'+marca+' '+String.fromCharCode(65+j)+')</i>'+esc(op)+'</div>';
+        });
+        h += '<div class="exp">'+esc(q.e)+'</div></div>';
+      });
+      h += '</div>';
+
+      if (a.eventos && a.eventos.length){
+        h += '<div class="panel"><h2 style="margin-top:0">Bitácora · '+a.eventos.length+' eventos</h2>'
+           + '<div class="env"><table><thead><tr><th>Cuándo</th><th>Evento</th><th>Detalle</th>'
+           + '<th>Tema</th><th>Min</th><th>Evidencia</th></tr></thead><tbody>';
+        a.eventos.forEach(function(e){
+          h += '<tr class="ev"><td>'+esc(e.cuando)+'</td><td>'+esc(e.evento)+'</td>'
+             + '<td>'+esc(e.detalle)+'</td><td>'+esc(e.tema)+'</td><td>'+esc(e.min)+'</td>'
+             + '<td>'+esc(e.evidencia)+'</td></tr>';
+        });
+        h += '</tbody></table></div><p class="eyebrow" style="margin-top:.7rem">'
+           + 'La telemetría es señal para conversar, no prueba de fraude: se puede falsificar '
+           + 'con el token. El control real fue la vigilancia presencial.</p></div>';
+      }
+
+      $("vDet").innerHTML=h;
+      $("volver").addEventListener('click', function(){
+        $("vDet").classList.add("hide"); $("vLista").classList.remove("hide"); window.scrollTo(0,0);
+      });
+      window.scrollTo(0,0);
+    }).catch(function(){
+      $("vDet").innerHTML='<p class="aviso">No se pudo cargar. Vuelve a intentarlo.</p>';
+    });
+  }
+</script>
+</body>
+</html>

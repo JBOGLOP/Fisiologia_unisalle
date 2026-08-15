@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resultados del primer parcial · Fisiopatología General</title>
+<style>
+  :root{
+    --bg:#f4f6f7; --panel:#fff; --tinta:#12303a; --suave:#5b7683; --linea:#dbe4e8;
+    --acento:#0d6070; --ok:#1c7c54; --mal:#b0451a; --marca:#e8f1f3;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#0e1719; --panel:#152227; --tinta:#e6eef1; --suave:#9db2bb;
+           --linea:#26383f; --acento:#4fb3c7; --ok:#5fc79a; --mal:#e7996f; --marca:#1b2f36; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--tinta);
+       font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+  .wrap{max-width:760px;margin:0 auto;padding:clamp(1rem,4vw,2.5rem)}
+  .eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+           color:var(--suave);margin:0 0 .3rem}
+  h1{font-size:clamp(1.4rem,4vw,2rem);margin:0 0 .3rem;line-height:1.2}
+  .sub{color:var(--suave);margin:0 0 1.4rem}
+  .panel{background:var(--panel);border:1px solid var(--linea);border-radius:12px;
+         padding:clamp(1rem,3vw,1.5rem);margin-bottom:1rem}
+  .campo{margin-bottom:.9rem}
+  label{display:block;font-size:.75rem;text-transform:uppercase;letter-spacing:.07em;
+        color:var(--suave);font-weight:700;margin-bottom:.3rem}
+  input,select{width:100%;padding:.6rem .7rem;font:inherit;border:1px solid var(--linea);
+    border-radius:8px;background:var(--bg);color:var(--tinta)}
+  .pista{font-size:.78rem;color:var(--suave);margin:.3rem 0 0}
+  button{width:100%;padding:.75rem;font:inherit;font-weight:650;border:0;border-radius:999px;
+         background:var(--acento);color:#fff;cursor:pointer}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  .msg{margin-top:.8rem;padding:.7rem .9rem;border-radius:8px;font-size:.9rem;display:none}
+  .msg.v{display:block}
+  .msg.err{background:#fdeee7;color:#8d3714}
+  .msg.info{background:var(--marca);color:var(--tinta)}
+  @media (prefers-color-scheme: dark){ .msg.err{background:#3a1f14;color:#e7996f} }
+  .cifras{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.8rem}
+  .caja{background:var(--marca);border-radius:10px;padding:.8rem 1rem}
+  .caja span{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;
+             color:var(--suave);margin-bottom:.15rem}
+  .caja b{font-size:1.7rem;font-variant-numeric:tabular-nums;line-height:1.1}
+  .final b{color:var(--ok)}
+  h2{font-size:1.05rem;margin:1.6rem 0 .6rem}
+  .tema{border-top:1px solid var(--linea);padding:.7rem 0}
+  .tema:first-of-type{border-top:0}
+  .lineafila{display:flex;justify-content:space-between;gap:1rem;align-items:baseline}
+  .lineafila b{font-variant-numeric:tabular-nums}
+  .barra{height:6px;background:var(--linea);border-radius:3px;overflow:hidden;margin-top:.35rem}
+  .barra i{display:block;height:100%;background:var(--acento)}
+  .rej{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.5rem}
+  .rej b{width:1.9rem;height:1.9rem;border-radius:6px;display:grid;place-items:center;
+         font-size:.7rem;font-weight:700;color:#fff;background:var(--mal)}
+  .rej b.s{background:var(--ok)}
+  .rej b.n{background:var(--suave)}
+  .mia{border-left:3px solid var(--acento);padding:.6rem 0 .6rem 1rem;white-space:pre-wrap;
+       font-size:.95rem;margin:.5rem 0}
+  .enun{background:var(--marca);border-radius:8px;padding:.7rem .9rem;font-size:.86rem;
+        white-space:pre-wrap;margin:.4rem 0}
+  footer{color:var(--suave);font-size:.8rem;border-top:1px solid var(--linea);
+         margin-top:2rem;padding-top:1rem}
+  .hide{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div id="vLogin">
+    <p class="eyebrow">Fisiopatología General · 01008430 · Primer parcial</p>
+    <h1>Consulta tu resultado</h1>
+    <p class="sub">Verás tu nota de selección múltiple, tus respuestas abiertas con la
+      calificación de cada una y tu nota final del parcial.</p>
+
+    <div class="panel">
+      <div class="campo">
+        <label for="nombre">Tu nombre</label>
+        <select id="nombre"><option value="">Cargando la lista…</option></select>
+      </div>
+      <div class="campo">
+        <label for="correo">Correo institucional</label>
+        <input id="correo" type="email" autocomplete="email" autocapitalize="off"
+               spellcheck="false" placeholder="tuusuario@unisalle.edu.co">
+        <p class="pista">Basta con la parte antes de la arroba.</p>
+      </div>
+      <div class="campo">
+        <label for="codigo">Código estudiantil</label>
+        <input id="codigo" type="text" inputmode="numeric" autocomplete="off"
+               spellcheck="false" placeholder="1234567890">
+      </div>
+      <button id="entrar" type="button" disabled>Ver mi resultado</button>
+      <div class="msg" id="msg" role="status" aria-live="polite"></div>
+    </div>
+    <footer>Solo puedes consultar tu propio resultado. Si algo no coincide con lo que
+      esperabas, habla con el docente antes de sacar conclusiones: la reclamación tiene
+      plazo y se atiende con el examen a la vista.</footer>
+  </div>
+
+  <div id="vRes" class="hide"></div>
+
+</div>
+
+<script>
+  var API   = "https://script.google.com/macros/s/AKfycbxHde3-SGWwKMIxxa3nSCbOpKVvcNyjjvCeRVVdicEna8__xW3O83wgvENncfGy9ROTMg/exec";
+  // Token de consulta. Solo sirve para pedir la fila propia, y el servidor la
+  // entrega únicamente si el nombre, el correo y el código coinciden entre sí.
+  var TOKEN = "5QaC7IbXaEgr4fM3Q1sSJPzst6ujlfwS";
+  var TOKEN_ROSTER = "n719TP1N6_Sr3mvyPNUd1WHExeURwp6l";
+  var ESPERA = 25000;
+
+  var $ = function(id){ return document.getElementById(id); };
+  function esc(s){ return String(s==null?"":s)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+  function ver(cls,txt){ var m=$("msg"); m.className="msg v "+cls; m.textContent=txt; }
+  function limpiar(){ $("msg").className="msg"; $("msg").textContent=""; }
+
+  function get(params){
+    var qs = Object.keys(params).map(function(k){
+      return encodeURIComponent(k)+"="+encodeURIComponent(params[k]); }).join("&");
+    return new Promise(function(ok,mal){
+      var t = setTimeout(function(){ mal(new Error("timeout")); }, ESPERA);
+      fetch(API+"?"+qs).then(function(r){ return r.json(); })
+        .then(function(v){ clearTimeout(t); ok(v); },
+              function(e){ clearTimeout(t); mal(e); });
+    });
+  }
+
+  get({ action:"roster", token:TOKEN_ROSTER }).then(function(r){
+    var sel = $("nombre");
+    if (!r.ok || !r.alumnos){
+      sel.innerHTML = '<option value="">No se pudo cargar la lista</option>';
+      ver("err", r.error || "No se pudo cargar la lista del curso."); return;
+    }
+    sel.innerHTML = '<option value="">Selecciona tu nombre…</option>' +
+      r.alumnos.map(function(n){ return '<option value="'+esc(n)+'">'+esc(n)+'</option>'; }).join("");
+    $("entrar").disabled = false;
+  }).catch(function(){
+    ver("err","No se pudo contactar al servidor. Revisa tu conexión e inténtalo de nuevo.");
+  });
+
+  $("entrar").addEventListener("click", function(){
+    var nombre=$("nombre").value, correo=$("correo").value.trim(), codigo=$("codigo").value.trim();
+    if(!nombre){ ver("err","Selecciona tu nombre."); return; }
+    if(!correo){ ver("err","Escribe tu correo institucional."); return; }
+    if(!codigo){ ver("err","Escribe tu código estudiantil."); return; }
+    var b=this; b.disabled=true; b.textContent="Consultando…"; limpiar();
+    get({ action:"resultado", token:TOKEN, nombre:nombre, correo:correo, codigo:codigo })
+      .then(function(r){
+        b.disabled=false; b.textContent="Ver mi resultado";
+        if(!r.ok){ ver("err", r.error); return; }
+        pintar(r);
+      }).catch(function(){
+        b.disabled=false; b.textContent="Ver mi resultado";
+        ver("err","No se pudo contactar al servidor. Inténtalo de nuevo.");
+      });
+  });
+
+  function pintar(r){
+    var s=r.seleccion, h="";
+    h += '<p class="eyebrow">Fisiopatología General · Primer parcial</p>';
+    h += '<h1>'+esc(r.alumno.n)+'</h1>';
+
+    h += '<div class="panel"><div class="cifras">'
+       + '<div class="caja"><span>Selección múltiple</span><b>'+s.nota.toFixed(2)+'</b></div>'
+       + '<div class="caja"><span>Abiertas</span><b>'
+       + (r.notaAbiertas!=null?r.notaAbiertas.toFixed(2):'—')+'</b></div>'
+       + '<div class="caja final"><span>Nota del parcial</span><b>'
+       + (r.notaFinal!=null?r.notaFinal.toFixed(2):'—')+'</b></div>'
+       + '</div>';
+    if (r.notaFinal==null){
+      h += '<p class="pista" style="margin-top:.8rem">Falta calificar '+r.pendientes
+         + ' pregunta(s) abierta(s); por eso la nota del parcial aún no aparece.</p>';
+    } else {
+      h += '<p class="pista" style="margin-top:.8rem">La selección múltiple pesa el '
+         + Math.round(r.pesos.seleccion*100)+' % y las abiertas el '
+         + Math.round(r.pesos.abiertas*100)+' %.</p>';
+    }
+    h += '</div>';
+
+    h += '<div class="panel"><h2 style="margin-top:0">Selección múltiple · '
+       + s.correctas+' de '+s.total+'</h2>';
+    s.porTema.forEach(function(t){
+      var pct = Math.round((t.aciertos/t.de)*100);
+      h += '<div class="tema"><div class="lineafila"><span>Tema '+t.tema+' · '+esc(t.t)+'</span>'
+         + '<b>'+t.aciertos+'/'+t.de+'</b></div>'
+         + '<div class="barra"><i style="width:'+pct+'%"></i></div></div>';
+    });
+    h += '<h2>Pregunta por pregunta</h2><div class="rej">';
+    r.detalle.forEach(function(q,i){
+      var cls = !q.respondida ? 'n' : (q.ok ? 's' : '');
+      h += '<b class="'+cls+'" title="Tema '+q.tema+(q.respondida?'':' · sin responder')+'">'
+         + (i+1)+'</b>';
+    });
+    h += '</div><p class="pista">Verde: acertada. Naranja: fallada. Gris: sin responder.'
+       + (r.retro?'':' La respuesta correcta se revisa en la socialización, con el examen a la vista.')
+       + '</p></div>';
+
+    h += '<div class="panel"><h2 style="margin-top:0">Tus respuestas abiertas</h2>';
+    r.abiertas.forEach(function(a){
+      h += '<div class="tema"><div class="lineafila"><b>Tema '+a.tema+'</b><b>'
+         + (a.nota!=null? a.nota.toFixed(1)+' / 5,0' : 'sin calificar')+'</b></div>'
+         + '<div class="enun">'+esc(a.enunciado)+'</div>'
+         + '<div class="mia">'+(a.respuesta?esc(a.respuesta):'<i>Sin respuesta</i>')+'</div></div>';
+    });
+    h += '</div>';
+
+    h += '<footer>Este resultado corresponde al primer parcial y no incluye los quices, '
+       + 'los productos ni la participación, que también hacen parte del primer corte. '
+       + 'Si algo no coincide con lo que esperabas, escríbele al docente: la reclamación '
+       + 'se atiende con el examen a la vista.</footer>';
+
+    $("vLogin").classList.add("hide");
+    $("vRes").classList.remove("hide");
+    $("vRes").innerHTML = h;
+    window.scrollTo(0,0);
+  }
+</script>
+</body>
+</html>
