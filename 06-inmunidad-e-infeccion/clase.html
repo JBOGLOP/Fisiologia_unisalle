@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clase 6 — Inmunidad y respuesta del huésped a la infección</title>
+<style>
+  :root{
+    --ink:#12212b;
+    --paper:#f4f7f7;
+    --surface:#ffffff;
+    --surface-2:#eaf0f0;
+    --line:#cbd8da;
+    --muted:#516268;
+    --fisio:#10505e;
+    --fisio-soft:#dceaec;
+    --pato:#a8412c;
+    --pato-soft:#f5e2dc;
+    --amber:#9a6b12;
+    --amber-soft:#f6ecd6;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 8px 24px -16px rgba(18,33,43,.35);
+
+    --display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+
+    --measure:66ch;
+    --pad:clamp(1rem,4vw,2.5rem);
+  }
+
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+      --line:#2c3d43; --muted:#9bafb4;
+      --fisio:#5cb6c6; --fisio-soft:#12313a;
+      --pato:#e08a70; --pato-soft:#3a2119;
+      --amber:#d5a446; --amber-soft:#33290f;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.9);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+    --line:#2c3d43; --muted:#9bafb4;
+    --fisio:#5cb6c6; --fisio-soft:#12313a;
+    --pato:#e08a70; --pato-soft:#3a2119;
+    --amber:#d5a446; --amber-soft:#33290f;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.9);
+  }
+  :root[data-theme="light"]{
+    --ink:#12212b; --paper:#f4f7f7; --surface:#ffffff; --surface-2:#eaf0f0;
+    --line:#cbd8da; --muted:#516268;
+    --fisio:#10505e; --fisio-soft:#dceaec;
+    --pato:#a8412c; --pato-soft:#f5e2dc;
+    --amber:#9a6b12; --amber-soft:#f6ecd6;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 8px 24px -16px rgba(18,33,43,.35);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--body); font-size:clamp(15px,.5vw + 14px,17px);
+    line-height:1.62; -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{font-family:var(--display); font-weight:600; line-height:1.15; text-wrap:balance; margin:0}
+  p{margin:0}
+  a{color:var(--fisio)}
+
+  .wrap{max-width:1040px; margin:0 auto; padding-inline:var(--pad)}
+  .prose{max-width:var(--measure)}
+  .stack{display:flex; flex-direction:column}
+  .stack>*+*{margin-top:1rem}
+
+  .eyebrow{
+    font-family:var(--mono); font-size:.68rem; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--muted);
+  }
+
+  header.top{
+    position:sticky; top:0; z-index:50;
+    background:color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .top-in{display:flex; align-items:center; gap:1rem; height:54px}
+  .brand{font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); white-space:nowrap}
+  nav.jump{margin-left:auto; display:flex; gap:.15rem; overflow-x:auto; scrollbar-width:none}
+  nav.jump::-webkit-scrollbar{display:none}
+  nav.jump a{
+    font-size:.78rem; text-decoration:none; color:var(--muted);
+    padding:.3rem .55rem; border-radius:99px; white-space:nowrap;
+  }
+  nav.jump a:hover{color:var(--ink); background:var(--surface-2)}
+  .theme-btn{
+    border:1px solid var(--line); background:var(--surface); color:var(--muted);
+    border-radius:99px; width:32px; height:32px; cursor:pointer; flex:none; font-size:.85rem;
+  }
+  .theme-btn:hover{color:var(--ink)}
+
+  .hero{padding:clamp(2.5rem,7vw,5rem) 0 clamp(2rem,5vw,3.5rem)}
+  .hero h1{font-size:clamp(2.1rem,5.5vw,3.6rem); letter-spacing:-.01em; margin-top:.6rem}
+  .hero .sub{max-width:58ch; color:var(--muted); font-size:1.05rem; margin-top:1.1rem}
+  .hero-meta{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.6rem}
+  .chip{
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.06em;
+    border:1px solid var(--line); border-radius:99px; padding:.3rem .7rem;
+    background:var(--surface); color:var(--muted);
+  }
+  .chip strong{color:var(--ink); font-weight:600}
+
+  section{padding:clamp(2.2rem,5vw,3.6rem) 0; border-top:1px solid var(--line)}
+  .sec-head{display:flex; align-items:baseline; gap:.9rem; margin-bottom:1.4rem; flex-wrap:wrap}
+  .sec-num{
+    font-family:var(--mono); font-size:.72rem; color:var(--fisio);
+    border:1px solid var(--fisio); border-radius:4px; padding:.1rem .4rem; flex:none;
+  }
+  .sec-head h2{font-size:clamp(1.4rem,3vw,2rem)}
+
+  .grid{display:grid; gap:1rem}
+  @media(min-width:720px){
+    .g2{grid-template-columns:repeat(2,1fr)}
+    .g3{grid-template-columns:repeat(3,1fr)}
+    .g4{grid-template-columns:repeat(4,1fr)}
+  }
+  .card{
+    background:var(--surface); border:1px solid var(--line); border-radius:10px;
+    padding:1.1rem 1.2rem; box-shadow:var(--shadow);
+  }
+  .card h3{font-size:1.02rem; margin-bottom:.45rem}
+  .card p, .card li{font-size:.92rem; color:var(--muted)}
+  .card.fisio{border-left:3px solid var(--fisio)}
+  .card.pato{border-left:3px solid var(--pato)}
+  .card.amber{border-left:3px solid var(--amber)}
+  .card ul{margin:.4rem 0 0; padding-left:1.1rem}
+  .card li+li{margin-top:.25rem}
+  .card .ocular{
+    margin-top:.7rem; padding-top:.6rem; border-top:1px dashed var(--line);
+    font-size:.82rem; color:var(--fisio);
+  }
+
+  .callout{
+    background:var(--fisio-soft); border:1px solid color-mix(in srgb,var(--fisio) 30%, transparent);
+    border-radius:10px; padding:1rem 1.2rem;
+  }
+  .callout .eyebrow{color:var(--fisio)}
+  .callout.warn{background:var(--pato-soft); border-color:color-mix(in srgb,var(--pato) 30%, transparent)}
+  .callout.warn .eyebrow{color:var(--pato)}
+  .callout.note{background:var(--amber-soft); border-color:color-mix(in srgb,var(--amber) 35%, transparent)}
+  .callout.note .eyebrow{color:var(--amber)}
+
+  /* cascade */
+  .cascade{list-style:none; margin:1rem 0 0; padding:0; counter-reset:step}
+  .cascade li{
+    position:relative; padding:.55rem 0 .55rem 2.4rem;
+    border-bottom:1px solid var(--line); font-size:.93rem;
+  }
+  .cascade li:last-child{border-bottom:none}
+  .cascade li::before{
+    counter-increment:step; content:counter(step);
+    position:absolute; left:0; top:.55rem;
+    font-family:var(--mono); font-size:.7rem;
+    width:1.5rem; height:1.5rem; border-radius:99px;
+    display:grid; place-items:center;
+    background:var(--pato-soft); color:var(--pato);
+    border:1px solid color-mix(in srgb,var(--pato) 35%, transparent);
+  }
+  .cascade li strong{color:var(--ink)}
+
+  /* fork diagram */
+  .fork{display:grid; gap:.8rem; margin-top:1rem}
+  @media(min-width:720px){.fork{grid-template-columns:1fr 1fr}}
+  .fork .lane{border:1px solid var(--line); border-radius:10px; padding:1rem; background:var(--surface)}
+  .fork .lane.rev{border-top:3px solid var(--fisio)}
+  .fork .lane.irr{border-top:3px solid var(--pato)}
+  .fork .lane h3{font-size:1rem; margin-bottom:.4rem}
+  .fork .lane p{font-size:.9rem; color:var(--muted)}
+
+  blockquote{
+    margin:0; padding-left:1.1rem; border-left:3px solid var(--amber);
+    font-family:var(--display); font-size:1.12rem; font-style:italic;
+  }
+  blockquote cite{display:block; font-family:var(--body); font-style:normal; font-size:.8rem; color:var(--muted); margin-top:.5rem}
+
+  .table-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface)}
+  table{border-collapse:collapse; width:100%; font-size:.88rem; min-width:560px}
+  th,td{text-align:left; padding:.6rem .8rem; border-bottom:1px solid var(--line); vertical-align:top}
+  th{font-family:var(--mono); font-size:.68rem; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); font-weight:500}
+  tbody tr:last-child td{border-bottom:none}
+  td.k{font-weight:600; white-space:nowrap}
+
+  /* drills */
+  .drill-row{
+    display:flex; align-items:center; gap:.5rem; flex-wrap:wrap;
+    padding:.65rem 0; border-bottom:1px solid var(--line);
+  }
+  .drill-row:last-child{border-bottom:none}
+  .drill-q{flex:1 1 240px; font-size:.94rem}
+  .btn{
+    font-family:var(--body); font-size:.78rem; cursor:pointer;
+    border:1px solid var(--line); background:var(--surface); color:var(--ink);
+    border-radius:99px; padding:.3rem .75rem;
+  }
+  .btn:hover{border-color:var(--fisio)}
+  .btn:focus-visible, a:focus-visible, .q-head:focus-visible{outline:2px solid var(--fisio); outline-offset:2px}
+  .btn.ok{background:var(--fisio); border-color:var(--fisio); color:#fff}
+  .btn.no{background:var(--pato); border-color:var(--pato); color:#fff}
+  .verdict{font-size:.82rem; flex-basis:100%; color:var(--muted)}
+  .verdict b{color:var(--ink)}
+  .score{font-family:var(--mono); font-size:.78rem; color:var(--muted); margin-top:.8rem}
+
+  .q{border:1px solid var(--line); border-radius:10px; background:var(--surface); overflow:hidden}
+  .q+.q{margin-top:.6rem}
+  .q-head{
+    width:100%; text-align:left; background:none; border:0; color:inherit;
+    font:inherit; padding:.85rem 1rem; cursor:pointer; display:flex; gap:.7rem; align-items:baseline;
+  }
+  .q-head:hover{background:var(--surface-2)}
+  .q-n{font-family:var(--mono); font-size:.72rem; color:var(--fisio); flex:none}
+  .q-body{padding:0 1rem 1rem 2.4rem; font-size:.9rem; color:var(--muted); display:none}
+  .q.open .q-body{display:block}
+  .q.open .q-head{background:var(--surface-2)}
+
+  footer{border-top:1px solid var(--line); padding:2rem 0 3rem; color:var(--muted); font-size:.83rem}
+
+  /* ── iconos de sección ───────────────────────────────── */
+  .sec-ico{width:22px; height:22px; flex:none; color:var(--fisio); align-self:center; overflow:visible}
+  .sec-ico path,.sec-ico rect,.sec-ico circle,.sec-ico line,.sec-ico polyline{
+    fill:none; stroke:currentColor; stroke-width:1.6;
+    stroke-linecap:round; stroke-linejoin:round;
+  }
+  .sec-ico .solid{fill:currentColor; stroke:none}
+
+  /* ── figuras y diagramas ─────────────────────────────── */
+  figure.fig{margin:1.5rem 0 0; padding:0}
+  .fig-frame{
+    border:1px solid var(--line); border-radius:12px; background:var(--surface);
+    box-shadow:var(--shadow); overflow-x:auto; overflow-y:hidden;
+    padding:1rem .9rem .85rem; -webkit-overflow-scrolling:touch;
+  }
+  .fig-frame::-webkit-scrollbar{height:8px}
+  .fig-frame::-webkit-scrollbar-thumb{background:var(--line); border-radius:99px}
+  .fig-label{
+    font-family:var(--mono); font-size:.64rem; letter-spacing:.15em;
+    color:var(--muted); display:block; margin-bottom:.7rem;
+  }
+  figure.fig figcaption{
+    margin-top:.7rem; font-size:.84rem; color:var(--muted); max-width:74ch; line-height:1.55;
+  }
+  figure.fig figcaption b, figure.fig figcaption strong{color:var(--ink); font-weight:600}
+  .fig-hint{
+    display:block; margin-top:.35rem; font-family:var(--mono);
+    font-size:.62rem; letter-spacing:.09em; color:var(--muted); opacity:.8;
+  }
+  @media(min-width:760px){.fig-hint{display:none}}
+
+  /* SVG: colores atados al tema, no quemados */
+  svg.diagram{display:block; width:100%; height:auto; min-width:660px; font-family:var(--body)}
+  svg.diagram text{fill:var(--ink); dominant-baseline:auto}
+  svg.diagram .t-h{font-size:13px; font-weight:600}
+  svg.diagram .t-m{font-size:11.5px; font-weight:600}
+  svg.diagram .t-s{font-size:10.5px; fill:var(--muted); font-weight:400}
+  svg.diagram .t-xs{font-size:9.5px; fill:var(--muted); font-weight:400}
+  svg.diagram .t-k{font-family:var(--mono); font-size:9px; letter-spacing:.11em; fill:var(--muted)}
+  svg.diagram .c-fis{fill:var(--fisio)}
+  svg.diagram .c-pat{fill:var(--pato)}
+  svg.diagram .c-amb{fill:var(--amber)}
+  svg.diagram .c-ink{fill:var(--ink)}
+  svg.diagram .bg-sur{fill:var(--surface)}
+  svg.diagram .bg-s2{fill:var(--surface-2)}
+  svg.diagram .bg-fis{fill:var(--fisio-soft)}
+  svg.diagram .bg-pat{fill:var(--pato-soft)}
+  svg.diagram .bg-amb{fill:var(--amber-soft)}
+  svg.diagram .bg-non{fill:none}
+  svg.diagram .k-lin{stroke:var(--line); stroke-width:1.4}
+  svg.diagram .k-fis{stroke:var(--fisio); stroke-width:1.6}
+  svg.diagram .k-pat{stroke:var(--pato); stroke-width:1.6}
+  svg.diagram .k-amb{stroke:var(--amber); stroke-width:1.6}
+  svg.diagram .k-mut{stroke:var(--muted); stroke-width:1.4}
+  svg.diagram .k-pap{stroke:var(--paper); stroke-width:2.2}
+  svg.diagram .halo{paint-order:stroke fill; stroke:var(--surface); stroke-width:4px; stroke-linejoin:round}
+  svg.diagram .k-thin{stroke-width:1.1}
+  svg.diagram .dash{stroke-dasharray:4 4}
+  svg.diagram .cap{stroke-linecap:round; stroke-linejoin:round}
+  svg.diagram .faint{opacity:.45}
+  svg.diagram .m-lin{fill:var(--line)}
+  svg.diagram .m-fis{fill:var(--fisio)}
+  svg.diagram .m-pat{fill:var(--pato)}
+  svg.diagram .gs-fis{stop-color:var(--fisio)}
+  svg.diagram .gs-amb{stop-color:var(--amber)}
+  svg.diagram .gs-pat{stop-color:var(--pato)}
+
+  @media (prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
+
+  @media print{
+    header.top, .theme-btn, nav.jump{display:none}
+    body{background:#fff; color:#000; font-size:11pt}
+    section{page-break-inside:auto; border-top:1px solid #ccc}
+    .card, .callout, figure.fig, .q, .lane{page-break-inside:avoid}
+    .fig-frame{overflow:visible; box-shadow:none}
+    svg.diagram{min-width:0}
+    .q-body{display:block !important}
+  }
+
+  /* ── diagrama interactivo de la secuencia vascular ───────────────── */
+  .vaso{position:relative}
+  .vaso svg{width:100%; height:auto; display:block; min-width:520px}
+  .vaso .paso{opacity:0; transition:opacity .5s ease}
+  .vaso .paso.on{opacity:1}
+  .vaso .lumen-n{transition:opacity .6s ease}
+  .vaso text{font-family:var(--mono); font-size:11px; fill:var(--muted)}
+  .vaso text.rot{fill:var(--pato); font-weight:700}
+  .vaso text.fis{fill:var(--fisio); font-weight:700}
+  .vaso text.big{font-size:12.5px}
+
+  .vaso-ctrl{display:flex; gap:.5rem; align-items:center; flex-wrap:wrap;
+    margin-top:.9rem; padding-top:.8rem; border-top:1px solid var(--line)}
+  .vaso-ctrl .cnt{font-family:var(--mono); font-size:.68rem; letter-spacing:.08em;
+    color:var(--muted); min-width:6.5rem}
+  .vaso-ctrl .sp{flex:1}
+  .vaso-txt{margin:.8rem 0 0; padding:.75rem .9rem; border-radius:10px;
+    background:var(--surface-2); font-size:.92rem; line-height:1.5; min-height:3.6rem}
+  .vaso-txt b{color:var(--fisio)}
+  .vaso-pistas{display:flex; gap:.3rem; margin-top:.7rem}
+  .vaso-pistas i{flex:1; height:3px; border-radius:99px; background:var(--line);
+    transition:background .3s}
+  .vaso-pistas i.on{background:var(--fisio)}
+
+  /* ── enlaces a las figuras del libro · SOLO en la copia local ─────────
+     Las figuras son material protegido de la editorial: no se publican.
+     Este bloque se revela únicamente si la clase se abre desde el disco
+     (protocolo file:) o con ?docente=1, de modo que el estudiante que
+     entra por el sitio publicado nunca ve estos enlaces.               */
+  .docente{display:none !important}
+  body.docente-on .docente{display:inline-flex !important}
+  body.docente-on .panel-doc{display:block !important}
+
+  .figlink{align-items:center; gap:.4rem; margin:.7rem .4rem 0 0;
+    font-family:var(--mono); font-size:.66rem; letter-spacing:.06em;
+    text-decoration:none; color:var(--fisio); background:var(--fisio-soft);
+    border:1px solid color-mix(in srgb,var(--fisio) 30%,transparent);
+    border-radius:99px; padding:.25rem .7rem; transition:filter .15s}
+  .figlink:hover{filter:brightness(1.08)}
+
+  .panel-doc{margin:1rem 0 0; padding:.9rem 1.1rem; border-radius:12px;
+    background:var(--amber-soft); border:1px solid var(--amber)}
+  .panel-doc .t{font-family:var(--mono); font-size:.66rem; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--amber); font-weight:700; margin:0 0 .2rem}
+  .panel-doc .s{font-size:.82rem; color:var(--muted); margin:0 0 .6rem}
+  .panel-doc .figs{display:flex; flex-wrap:wrap}
+
+  /* ── acordeones de ampliación · elemento details nativo, sin JS ────── */
+  details.amp{border:1px solid var(--line); border-left:4px solid var(--fisio);
+    border-radius:11px; background:var(--surface); margin:1rem 0; overflow:hidden}
+  details.amp[open]{box-shadow:var(--shadow)}
+  details.amp > summary{cursor:pointer; list-style:none; padding:.75rem 1rem;
+    font-weight:600; font-size:.94rem; display:flex; align-items:center; gap:.6rem;
+    background:var(--surface-2); transition:background .15s}
+  details.amp > summary::-webkit-details-marker{display:none}
+  details.amp > summary::before{content:'+'; font-family:var(--mono); font-weight:700;
+    font-size:1.05rem; color:var(--fisio); width:1.1rem; flex:none; text-align:center}
+  details.amp[open] > summary::before{content:'–'}
+  details.amp > summary:hover{background:var(--fisio-soft)}
+  details.amp .cuerpo{padding:1rem 1.1rem .3rem; font-size:.94rem}
+  details.amp .cuerpo > p:last-child{margin-bottom:.9rem}
+  details.amp .eti{font-family:var(--mono); font-size:.6rem; letter-spacing:.11em;
+    text-transform:uppercase; color:var(--muted); margin-left:auto; flex:none}
+  details.amp.op{border-left-color:var(--pato)}
+  details.amp.op > summary::before{color:var(--pato)}
+  details.amp.op > summary:hover{background:var(--pato-soft)}
+
+  /* ── diagrama de las cuatro fases ─────────────────────────────────── */
+  .fases svg{width:100%; height:auto; display:block; min-width:540px}
+  .fases text{font-family:var(--mono); font-size:11px; fill:var(--muted)}
+  .fases text.tit{font-family:var(--body); font-size:13px; font-weight:700; fill:var(--ink)}
+  .fases text.mal{fill:var(--pato); font-weight:700}
+  .fases text.bien{fill:var(--fisio); font-weight:700}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-in">
+    <span class="brand">Fisiopatología General · Clase 6</span>
+    <nav class="jump">
+      <a href="#repaso">Repaso</a>
+      <a href="#concepto">Concepto</a>
+      <a href="#lineas">Dos líneas</a>
+      <a href="#innata">Innata</a>
+      <a href="#adaptativa">Adaptativa</a>
+      <a href="#hla">HLA</a>
+      <a href="#autoinmunidad">Autoinmunidad</a>
+      <a href="#hipersensibilidad">Hipersensibilidad</a>
+      <a href="#ocular">Ojo</a>
+      <a href="#ejercicios">Ejercicios</a>
+    </nav>
+    <button class="theme-btn" id="themeBtn" aria-label="Cambiar tema">◐</button>
+  </div>
+</header>
+
+<main>
+
+  <div class="wrap hero">
+    <p class="eyebrow">Clase 6 · Segundo corte · Semana 6</p>
+    <h1>Inmunidad y respuesta del huésped a la infección</h1>
+    <p class="sub">El encuentro 3 terminó con un neutrófilo que llega, fagocita y muere sin saber a
+      quién se enfrentaba. Esta clase es lo que ocurre cuando el cuerpo necesita reconocer a ese
+      invasor en concreto — y recordarlo.</p>
+    <div class="hero-meta">
+      <span class="chip">Encuentro <strong>6 de 16</strong></span>
+      <span class="chip">Fecha <strong>27 ago 2026</strong></span>
+      <span class="chip">Duración <strong>2 horas</strong></span>
+      <span class="chip">Texto guía <strong>caps. 20, 21 y 22</strong></span>
+      <span class="chip">Siguiente <strong>Fiebre y dolor</strong></span>
+    </div>
+  </div>
+
+  <!-- 01 ─────────────────────────────────────────────────────────── -->
+  <section id="repaso">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">01</span><h2>De dónde venimos</h2></div>
+      <div class="prose">
+        <p>En el encuentro 3 seguimos a un neutrófilo desde el vaso hasta el foco: marginación,
+          rodamiento, adhesión, transmigración. Llegó, fagocitó y murió. <strong>Ahí paramos.</strong></p>
+        <p>Pero un neutrófilo no distingue un estafilococo de otro. Reconoce «bacteria» y actúa.
+          Esta clase empieza donde termina esa inespecificidad: <strong>qué pasa cuando el cuerpo
+          necesita reconocer a <em>este</em> invasor en concreto, y recordarlo</strong>.</p>
+      </div>
+
+      <div class="callout" style="margin-top:1.2rem">
+        <p class="eyebrow">La bisagra</p>
+        <p style="margin-top:.4rem">La inflamación y la inmunidad no son dos temas: son el mismo
+          proceso visto a dos escalas de tiempo. La primera responde en <strong>minutos y horas</strong>
+          y no aprende. La segunda tarda <strong>días o semanas</strong> y no olvida. El puente entre
+          las dos es la célula presentadora de antígeno.</p>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Tres cosas del parcial que hacen falta hoy</h3>
+      <div class="grid g3">
+        <div class="card fisio"><h3>Quimiotaxis</h3>
+          <p>C5a y leucotrieno B4 traen al neutrófilo. Hoy veremos <strong>quién</strong> los
+            manda llamar y por qué a veces se equivoca de blanco.</p></div>
+        <div class="card fisio"><h3>Opsonización</h3>
+          <p>Recubrir lo que hay que comer. Las opsoninas eran IgG y C3b. Hoy vemos
+            <strong>de dónde sale esa IgG</strong>.</p></div>
+        <div class="card fisio"><h3>Complemento</h3>
+          <p>Lo vimos como amplificador. Hoy aparece con sus <strong>tres vías</strong>, y una de
+            ellas —la clásica— solo existe si hubo anticuerpo antes.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 ─────────────────────────────────────────────────────────── -->
+  <section id="concepto">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">02</span><h2>Qué es el proceso inmunitario</h2></div>
+      <div class="prose">
+        <p>El <strong>mecanismo fisiológico que los seres pluricelulares usan para defenderse de la
+          invasión por otros organismos</strong>. Pero limitarlo a eso se queda corto: también
+          regula la homeostasis y participa en la reparación tisular —la misma que vimos formando
+          cicatriz—.</p>
+        <p>La palabra viene del latín <em>inmunitas</em>: la protección que tenían los senadores
+          romanos frente a cualquier acción judicial mientras ejercían el cargo. Estar inmune era
+          estar <strong>exento</strong>.</p>
+      </div>
+
+      <div class="callout warn" style="margin-top:1.2rem">
+        <p class="eyebrow">La propiedad básica</p>
+        <p style="margin-top:.4rem"><strong>Distinguir lo propio de lo ajeno.</strong> Todo lo demás
+          —las células, las citocinas, los anticuerpos— existe al servicio de esa distinción. Y toda
+          la patología de esta clase nace de que esa distinción falle: por defecto, por exceso, o
+          por confusión.</p>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Un equilibrio delicado</h3>
+      <div class="fork">
+        <div class="branch"><h4>Tolerancia</h4>
+          <p>Frente a lo propio. No atacar las células del cuerpo, ni los alimentos, ni las
+            bacterias comensales del intestino.</p></div>
+        <div class="branch"><h4>Respuesta</h4>
+          <p>Frente a lo ajeno. Reconocer, atacar, eliminar — y guardar memoria por si vuelve.</p></div>
+      </div>
+
+      <div class="prose" style="margin-top:1.2rem">
+        <p>No todo antígeno despierta la misma reacción. Un agente es <strong>inmunogénico</strong>
+          si es capaz de generar respuesta, y unos lo son más que otros: <strong>las proteínas son
+          las estructuras más inmunogénicas</strong>; los lípidos y los ácidos nucleicos, malos
+          inmunógenos. Esto tiene consecuencia práctica —explica por qué las vacunas se diseñan
+          sobre proteínas—.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 ─────────────────────────────────────────────────────────── -->
+  <section id="lineas">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">03</span><h2>Las dos líneas de defensa</h2></div>
+      <div class="prose">
+        <p>La distinción que organiza toda la clase. Pero <strong>no son excluyentes: son
+          complementarias</strong>, y la adaptativa depende de la innata para saber contra qué
+          está peleando.</p>
+      </div>
+
+      <div class="table-scroll" style="margin-top:1.2rem">
+        <table>
+          <thead><tr><th></th><th>Innata</th><th>Adaptativa</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Especificidad</strong></td>
+              <td>Independiente de antígeno. Reconoce <em>patrones</em>.</td>
+              <td>Dependiente y específica de antígeno.</td></tr>
+            <tr><td><strong>Tiempo</strong></td>
+              <td>Inmediata: minutos, horas.</td>
+              <td>Con retraso: días, semanas.</td></tr>
+            <tr><td><strong>Memoria</strong></td>
+              <td>No tiene. La segunda exposición es igual que la primera.</td>
+              <td>Sí. La segunda es más rápida y más eficaz.</td></tr>
+            <tr><td><strong>Células</strong></td>
+              <td>Monocitos, macrófagos, dendríticas, NK, eosinófilos, basófilos, neutrófilos,
+                mastocitos.</td>
+              <td>Linfocitos T y B.</td></tr>
+            <tr><td><strong>Reconoce</strong></td>
+              <td>PAMP y DAMP, por PRR.</td>
+              <td>Péptidos presentados en MHC, por TCR y BCR.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout" style="margin-top:1.2rem">
+        <p class="eyebrow">Ni una ni otra: las dos</p>
+        <p style="margin-top:.4rem">Los <strong>linfocitos Tγδ</strong> y los <strong>NKT</strong>
+          pertenecen a ambas. Y una misma célula madre hematopoyética pluripotencial de la médula
+          ósea da origen a las dos estirpes: la mieloide y la linfoide. No hay dos sistemas, hay uno
+          con dos velocidades.</p>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Los tres principios que cumple la innata</h3>
+      <div class="cascade">
+        <div class="step"><span class="n">1</span>
+          <p><strong>Reconocer</strong> una amplia gama de patógenos.</p></div>
+        <div class="step"><span class="n">2</span>
+          <p><strong>Matarlos</strong> una vez reconocidos.</p></div>
+        <div class="step"><span class="n">3</span>
+          <p><strong>Conservar</strong> los tejidos del huésped — es decir, mantener la tolerancia.</p></div>
+      </div>
+      <div class="prose" style="margin-top:1rem">
+        <p>El tercero es el que más se olvida y el que explica la mitad de las enfermedades de esta
+          clase. <strong>Defenderse sin destruirse</strong> es la parte difícil.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 ─────────────────────────────────────────────────────────── -->
+  <section id="innata">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">04</span><h2>Inmunidad innata</h2></div>
+
+      <h3 style="margin:.6rem 0 .8rem; font-size:1.12rem">Primero, las barreras</h3>
+      <div class="prose">
+        <p>Antes de que exista respuesta alguna hay <strong>barreras epiteliales</strong>, y la más
+          importante es la piel. No solo por ser una pared: por la queratina que le da consistencia,
+          por la melanina que la protege de la radiación ultravioleta —el mismo agente físico del
+          encuentro 2—, por el pH y las sales del sudor.</p>
+        <p>Las mucosas añaden mecanismos propios: <strong>cilios</strong> que barren,
+          <strong>moco</strong> que atrapa. Y algo que se pasa por alto: producen
+          <strong>péptidos antimicrobianos</strong>.</p>
+      </div>
+      <div class="grid g2" style="margin-top:1rem">
+        <div class="card fisio"><h3>Defensinas</h3>
+          <p>Producidas por células epiteliales, neutrófilos, NK y linfocitos T citotóxicos en
+            respuesta a citocinas o a productos microbianos. Actúan de forma tóxica directa.</p></div>
+        <div class="card fisio"><h3>Catelicidinas</h3>
+          <p>De neutrófilos y epitelios. Se parten en dos dominios protectores. Uno de ellos une su
+            extremo C al <strong>lipopolisacárido</strong> de las gramnegativas y lo neutraliza.</p></div>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Cómo reconoce sin ser específica</h3>
+      <div class="prose">
+        <p>Aquí está la idea central de toda la inmunidad innata, y es elegante: <strong>no reconoce
+          organismos, reconoce patrones</strong>. Detalles moleculares comunes a familias enteras de
+          patógenos, esenciales para su supervivencia y <em>ausentes en el huésped</em>.</p>
+      </div>
+      <div class="fork" style="margin-top:1rem">
+        <div class="branch"><h4>PAMP</h4>
+          <p><em>Patrones moleculares asociados a patógenos.</em> El lipopolisacárido de las
+            gramnegativas, el ácido lipoteicoico de las grampositivas, la flagelina, el ARN
+            bicatenario de los virus.</p></div>
+        <div class="branch"><h4>DAMP</h4>
+          <p><em>Patrones moleculares asociados a daño.</em> Constituyentes <strong>propios</strong>
+            alterados o liberados por daño celular: proteínas de choque térmico, HMGB1.</p></div>
+      </div>
+
+      <div class="callout warn" style="margin-top:1.2rem">
+        <p class="eyebrow">Vuelve la clase 2</p>
+        <p style="margin-top:.4rem">Los DAMP son la respuesta formal a una pregunta que dejamos
+          abierta: <strong>por qué la necrosis inflama y la apoptosis no</strong>. La necrosis rompe
+          la membrana y derrama contenido intracelular — y ese contenido, fuera de su sitio, ES un
+          DAMP. La apoptosis mantiene todo envuelto y no libera ninguno.</p>
+      </div>
+
+      <div class="prose" style="margin-top:1.2rem">
+        <p>Quien los detecta son los <strong>PRR</strong>, receptores de reconocimiento de patrones.
+          Un número limitado, no polimórficos, seleccionados por la evolución. La familia mejor
+          descrita son los <strong>receptores de tipo <em>toll</em></strong>: trece identificados en
+          mamíferos, expresados en polimorfonucleares, macrófagos y células dendríticas.</p>
+      </div>
+
+      <div class="table-scroll" style="margin-top:1rem">
+        <table>
+          <thead><tr><th>Receptor</th><th>Ligando</th><th>Qué delata</th></tr></thead>
+          <tbody>
+            <tr><td>TLR2</td><td>Peptidoglucano, lipoproteína</td><td>Grampositivas</td></tr>
+            <tr><td>TLR3</td><td>ARN bicatenario</td><td>Virus</td></tr>
+            <tr><td><strong>TLR4</strong></td><td><strong>Lipopolisacáridos</strong></td>
+              <td>Gramnegativas — el mejor descrito</td></tr>
+            <tr><td>TLR5</td><td>Flagelina</td><td>Bacterias con flagelo</td></tr>
+            <tr><td>TLR7 · TLR8</td><td>ARN monocatenario</td><td>Virus</td></tr>
+            <tr><td>TLR9</td><td>Dinucleopéptidos</td><td>ADN bacteriano y viral</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="prose" style="margin-top:1rem">
+        <p>El TLR4 y el lipopolisacárido explican la <strong>sepsis</strong>: los TLR reaccionan a un
+          rango amplio de PAMP sin exposición previa, y esa respuesta masiva e inmediata es parte de
+          lo que hace peligrosa a la sepsis. <em>El daño no lo hace solo la bacteria; lo hace la
+          respuesta.</em></p>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">El complemento, ahora completo</h3>
+      <div class="prose">
+        <p>Unas veinte proteínas plasmáticas normalmente inactivas que, al activarse, inician una
+          cascada proteolítica. Su seguridad está en que <strong>las proteínas reguladoras están en
+          las células del huésped y ausentes en los microorganismos</strong>.</p>
+      </div>
+      <div class="grid g3" style="margin-top:1rem">
+        <div class="card fisio"><h3>Vía clásica</h3>
+          <p>La activan <strong>IgG e IgM unidas a antígeno</strong>. Necesita que haya habido
+            respuesta adaptativa antes: es el complemento al servicio del anticuerpo.</p></div>
+        <div class="card fisio"><h3>Vía alternativa</h3>
+          <p>Sobre la superficie microbiana, <strong>sin anticuerpos</strong>. Proteólisis de C3 que
+            deja C3b pegado al microbio. Innata pura.</p></div>
+        <div class="card fisio"><h3>Vía de las lectinas</h3>
+          <p>La proteína de unión a manosa reconoce manosas y fucosas de la superficie del agente.
+            También sin anticuerpo.</p></div>
+      </div>
+      <div class="callout" style="margin-top:1rem">
+        <p class="eyebrow">Tres cosas hace el complemento, y ya las conoces</p>
+        <p style="margin-top:.4rem"><strong>Opsonizar</strong> (C3b) · <strong>atraer</strong>
+          (C3a y C5a son quimiotácticos y anafilotoxinas: activan mastocitos y aumentan la
+          permeabilidad) · <strong>perforar</strong> (complejo de ataque a la membrana). Las tres
+          aparecieron en el encuentro 3; ahora tienen nombre y vía.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 ─────────────────────────────────────────────────────────── -->
+  <section id="adaptativa">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">05</span><h2>Inmunidad adaptativa</h2></div>
+      <div class="prose">
+        <p>Se desarrolla <strong>cuando la innata no bastó</strong> y la infección se estableció.
+          Tiene dos funciones: reconocer antígenos «no propios» en presencia de los propios, y
+          generar la respuesta efectora específica contra ese patógeno.</p>
+        <p>Su sello es la <strong>memoria</strong>, y la memoria es lo que hace posible la
+          vacunación.</p>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Los linfocitos T</h3>
+      <div class="prose">
+        <p>Se llaman T porque maduran en el <strong>timo</strong>. Llegan sin CD4 ni CD8
+          —«doble negativo»—, allí expresan ambos —«doble positivo»— y finalmente pierden uno.</p>
+      </div>
+      <div class="fork" style="margin-top:1rem">
+        <div class="branch"><h4>CD8 · citotóxicos</h4>
+          <p>Reconocen péptidos en <strong>MHC de clase I</strong>. El contacto célula-célula es
+            imprescindible. Matan células infectadas por virus y células tumorales.</p></div>
+        <div class="branch"><h4>CD4 · colaboradores</h4>
+          <p>Reconocen péptidos en <strong>MHC de clase II</strong>. No matan: activan. Coordinan la
+            proliferación y diferenciación de otros linfocitos T y B.</p></div>
+      </div>
+
+      <div class="prose" style="margin-top:1.2rem">
+        <p>Los CD4 se subdividen según las citocinas que secretan, y <strong>cada subpoblación
+          resuelve un tipo de problema distinto</strong>. Esta tabla es el corazón de la clase.</p>
+      </div>
+      <div class="table-scroll" style="margin-top:1rem">
+        <table>
+          <thead><tr><th>Subpoblación</th><th>Produce</th><th>Contra qué sirve</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Th1</strong></td><td>IFN-γ, IL-2, linfotoxina</td>
+              <td>Microbios <strong>fagocitados</strong>: potencia la capacidad microbicida del
+                macrófago.</td></tr>
+            <tr><td><strong>Th2</strong></td><td>IL-4, IL-5</td>
+              <td>Parásitos <strong>helmintos</strong>: estimula IgE, activa eosinófilos y
+                mastocitos.</td></tr>
+            <tr><td><strong>Th17</strong></td><td>IL-17, IL-22</td>
+              <td>Microbios <strong>extracelulares</strong>: recluta neutrófilos.</td></tr>
+            <tr><td><strong>T reguladores</strong></td><td>—</td>
+              <td>Suprimen la función de otros linfocitos. <strong>El freno.</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn" style="margin-top:1rem">
+        <p class="eyebrow">Por qué importa el freno</p>
+        <p style="margin-top:.4rem">Los Th1 activan la respuesta y los Th2 producen moléculas
+          antiinflamatorias que la atenúan y la detienen. <strong>Si falla la diferenciación a Th2,
+          la cascada inflamatoria no se puede regular</strong> — y una inmunodeficiencia termina
+          produciendo hiperinmunidad. Es contraintuitivo y es real.</p>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Los linfocitos B y los anticuerpos</h3>
+      <div class="prose">
+        <p>Se llaman B por la <strong>bolsa de Fabricio</strong>, el órgano donde se identificaron
+          en las aves; en nosotros maduran en la médula ósea. Al activarse se diferencian en células
+          de memoria o en <strong>células plasmáticas</strong>, que son las que secretan anticuerpos.</p>
+        <p>Un anticuerpo tiene dos regiones y cada una hace algo distinto: el fragmento
+          <strong>Fab</strong> reconoce el antígeno; el fragmento <strong>Fc</strong> se fija a
+          macrófagos, linfocitos y al complemento. <em>Una punta agarra, la otra entrega.</em></p>
+      </div>
+      <div class="table-scroll" style="margin-top:1rem">
+        <table>
+          <thead><tr><th>Ig</th><th>% en sangre</th><th>Lo que hay que recordar</th></tr></thead>
+          <tbody>
+            <tr><td><strong>IgG</strong></td><td>70 %</td>
+              <td>La opsonina por excelencia. Fija complemento, atraviesa membranas biológicas y
+                <strong>pasa a la leche materna</strong>.</td></tr>
+            <tr><td><strong>IgM</strong></td><td>5–10 %</td>
+              <td>La primera en aparecer. Fija complemento y aglutina, pero no atraviesa membranas.</td></tr>
+            <tr><td><strong>IgA</strong></td><td>—</td>
+              <td>La de las <strong>mucosas</strong> y la leche materna. Mantiene la tolerancia
+                frente a alimentos y bacterias comensales.</td></tr>
+            <tr><td><strong>IgE</strong></td><td>traza</td>
+              <td>Antiparasitaria… y la responsable de la alergia. La veremos en hipersensibilidad I.</td></tr>
+            <tr><td><strong>IgD</strong></td><td>traza</td>
+              <td>Receptor en la superficie del linfocito B. No se une a antígenos libres.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Dónde ocurre todo esto</h3>
+      <div class="fork">
+        <div class="branch"><h4>Órganos primarios</h4>
+          <p><strong>Médula ósea y timo.</strong> Las células nacen y maduran. Aquí se desarrolla la
+            <strong>tolerancia central</strong>.</p></div>
+        <div class="branch"><h4>Órganos secundarios</h4>
+          <p><strong>Bazo, ganglios, placas de Peyer, MALT, BALT, SALT.</strong> Aquí las células se
+            encuentran y se produce la respuesta dependiente de antígeno.</p></div>
+      </div>
+      <div class="prose" style="margin-top:1rem">
+        <p>Dos datos que sorprenden: el <strong>MALT</strong> —tejido linfoide de las mucosas—
+          contiene la mayoría de las células linfoides del cuerpo y produce la mayor parte de la
+          IgA. Y el <strong>SALT</strong>, el tejido linfoide asociado a la piel, es el órgano
+          linfoide más grande que tenemos.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 ─────────────────────────────────────────────────────────── -->
+  <section id="hla">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">06</span><h2>El HLA: la cédula de la célula</h2></div>
+      <div class="prose">
+        <p><strong>MHC y HLA son lo mismo.</strong> MHC es el nombre genérico —complejo principal de
+          histocompatibilidad—; HLA es como se llama en humanos, porque se identificó primero en
+          leucocitos. Son genes del <strong>brazo corto del cromosoma 6</strong>.</p>
+        <p>La analogía que mejor funciona: <strong>todas las células llevan el HLA en la superficie
+          como una identificación</strong>. Es lo que impide que una NK las destruya. Sin cédula,
+          eres sospechoso.</p>
+      </div>
+
+      <div class="fork" style="margin-top:1.2rem">
+        <div class="branch"><h4>MHC de clase I</h4>
+          <p>En <strong>todas las células nucleadas</strong> —hasta cien mil moléculas por célula—.
+            Presenta antígenos generados <em>dentro</em> de la célula: proteínas virales, proteínas
+            tumorales. Se lo enseña a los <strong>CD8</strong>.</p>
+          <p style="margin-top:.5rem"><em>«Mira lo que estoy fabricando por dentro.»</em></p></div>
+        <div class="branch"><h4>MHC de clase II</h4>
+          <p>Solo en <strong>células presentadoras de antígeno</strong>: linfocitos B, macrófagos,
+            dendríticas. Presenta lo que la célula <em>fagocitó</em> desde fuera. Se lo enseña a los
+            <strong>CD4</strong>.</p>
+          <p style="margin-top:.5rem"><em>«Mira lo que me encontré ahí afuera.»</em></p></div>
+      </div>
+
+      <div class="callout" style="margin-top:1.2rem">
+        <p class="eyebrow">La regla que resuelve media clase</p>
+        <p style="margin-top:.4rem"><strong>Clase I → CD8 → mata la célula.</strong> Si el problema
+          está <em>dentro</em>, la célula es irrecuperable y hay que eliminarla.<br>
+          <strong>Clase II → CD4 → convoca ayuda.</strong> Si el problema está <em>fuera</em>, hay
+          que organizar la respuesta.</p>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Cómo se enseña a no atacarse</h3>
+      <div class="cascade">
+        <div class="step"><span class="n">1</span>
+          <p><strong>Selección positiva.</strong> Sobreviven los linfocitos que se unen a los
+            antígenos con afinidad suficiente. Los que no reconocen nada, se eliminan.</p></div>
+        <div class="step"><span class="n">2</span>
+          <p><strong>Selección negativa.</strong> Mueren los que tienen <em>demasiada</em> afinidad
+            por lo propio. Sin este segundo filtro, la selección positiva por sí sola favorecería la
+            autoinmunidad.</p></div>
+        <div class="step"><span class="n">3</span>
+          <p><strong>Los supervivientes</strong> se clonan y migran al tejido linfático.</p></div>
+      </div>
+      <div class="prose" style="margin-top:1rem">
+        <p>Ese doble filtro es la <strong>tolerancia central</strong>. La siguiente sección es lo que
+          pasa cuando falla.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 ─────────────────────────────────────────────────────────── -->
+  <section id="autoinmunidad">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">07</span><h2>Cuando la distinción falla</h2></div>
+      <div class="prose">
+        <p>Toda la patología inmunitaria cabe en dos direcciones: el sistema hace
+          <strong>de menos</strong> o hace <strong>de más</strong>.</p>
+      </div>
+
+      <div class="fork" style="margin-top:1.2rem">
+        <div class="branch"><h4>Hipoinmunidad</h4>
+          <p>El sistema no responde a un agente que sí es ajeno. <strong>Inmunodeficiencias.</strong>
+            Consecuencia: infecciones recurrentes.</p></div>
+        <div class="branch"><h4>Hiperinmunidad</h4>
+          <p>La respuesta es mayor que el estímulo, o se dirige contra lo propio.
+            <strong>Hipersensibilidad y autoinmunidad.</strong> Consecuencia: daño al tejido propio.</p></div>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Inmunodeficiencias · dos orígenes</h3>
+      <div class="grid g2">
+        <div class="card pato"><h3>Primarias</h3>
+          <p>Genéticas. Fallan en algún punto concreto de la maduración o de la respuesta, y
+            <strong>el punto que falla predice la infección</strong>: sin C3 hay infecciones
+            piógenas; sin C5–C9 hay gonococo y meningococo; sin fagocitos funcionales, abscesos y
+            granulomas.</p></div>
+        <div class="card pato"><h3>Secundarias</h3>
+          <p>Adquiridas: infección (sida), <strong>malnutrición</strong>, cáncer, fármacos
+            inmunodepresores, <strong>edad</strong>, asplenia. Son las frecuentes.</p></div>
+      </div>
+
+      <div class="callout warn" style="margin-top:1.2rem">
+        <p class="eyebrow">Un caso que enseña el mecanismo</p>
+        <p style="margin-top:.4rem"><strong>La enfermedad granulomatosa crónica</strong>: falla la
+          síntesis de radical superóxido del fagocito. Predominan las infecciones por microbios
+          <em>positivos a la catalasa</em> como <em>S. aureus</em> — porque los negativos a la
+          catalasa producen peróxido que se concentra en el fagosoma y los mata solos. El
+          catalasa-positivo destruye ese peróxido y sobrevive. <strong>El microbio se salva
+          eliminando el arma que el propio fagocito no puede fabricar.</strong></p>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Autoinmunidad · qué predispone</h3>
+      <div class="grid g3">
+        <div class="card"><h3>Genética</h3>
+          <p>Los familiares cercanos tienen más tendencia. Pero en gemelos homocigóticos uno puede
+            enfermar y el otro no: <strong>un solo factor rara vez basta</strong>.</p></div>
+        <div class="card"><h3>Sexo y edad</h3>
+          <p>Mayor incidencia en mujeres —se sospecha de estrógenos y progesterona—. Y la tolerancia
+            a lo propio disminuye con la edad.</p></div>
+        <div class="card"><h3>Genotipo HLA</h3>
+          <p>Ciertas combinaciones predisponen y otras <strong>protegen</strong>. Los alelos varían
+            entre grupos étnicos.</p></div>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Mimetismo molecular</h3>
+      <div class="prose">
+        <p>El mecanismo más elegante y más inquietante. <strong>Una molécula del patógeno se parece
+          demasiado a una molécula propia.</strong> El anticuerpo que se fabricó contra el invasor
+          también reconoce lo propio — y el ataque continúa aunque el invasor ya no esté.</p>
+      </div>
+      <div class="cascade" style="margin-top:1rem">
+        <div class="step"><span class="n">1</span>
+          <p>Faringitis por <strong>estreptococo β-hemolítico del grupo A</strong>, mal tratada.</p></div>
+        <div class="step"><span class="n">2</span>
+          <p>La bacteria expone la <strong>proteína M</strong>. El cuerpo fabrica anticuerpos
+            contra ella.</p></div>
+        <div class="step"><span class="n">3</span>
+          <p>La proteína M <strong>se parece a estructuras del miocardiocito</strong>.</p></div>
+        <div class="step"><span class="n">4</span>
+          <p>Reacción cruzada → <strong>carditis reumática</strong>. Una infección de garganta
+            termina dañando el corazón.</p></div>
+      </div>
+
+      <div class="callout" style="margin-top:1.2rem">
+        <p class="eyebrow">Cuidado con el atajo diagnóstico</p>
+        <p style="margin-top:.4rem">La presencia de autoanticuerpos <strong>no establece la relación
+          causa-efecto</strong>. Aparecen también en personas inmunológicamente sanas, y a veces son
+          <em>resultado</em> del daño y no su causa. Es exactamente la distinción entre etiología y
+          consecuencia que trabajamos el primer día.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 ─────────────────────────────────────────────────────────── -->
+  <section id="hipersensibilidad">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">08</span><h2>Los cuatro tipos de hipersensibilidad</h2></div>
+      <div class="prose">
+        <p>Reacciones en las que <strong>la respuesta al antígeno daña los tejidos propios</strong>.
+          Se clasifican por el mediador responsable, no por la enfermedad. Y todas comparten un
+          requisito: <strong>hace falta una sensibilización previa</strong>. La primera exposición
+          no enferma; la segunda sí.</p>
+      </div>
+
+      <div class="table-scroll" style="margin-top:1.2rem">
+        <table>
+          <thead><tr><th>Tipo</th><th>Mediador</th><th>Mecanismo</th><th>Clínica típica</th></tr></thead>
+          <tbody>
+            <tr><td><strong>I</strong> · inmediata</td><td>IgE</td>
+              <td>IgE en el mastocito → degranulación → histamina</td>
+              <td>Rinitis alérgica, asma, urticaria, <strong>conjuntivitis</strong>, anafilaxia</td></tr>
+            <tr><td><strong>II</strong> · citotóxica</td><td>IgG · IgM</td>
+              <td>Anticuerpo contra antígeno <em>en la célula</em> → complemento y fagocitosis</td>
+              <td>Anemia hemolítica, trombocitopenia, Graves, fiebre reumática</td></tr>
+            <tr><td><strong>III</strong> · inmunocomplejos</td><td>IgG · IgM</td>
+              <td>Complejos antígeno-anticuerpo <em>circulantes</em> que se depositan</td>
+              <td>Vasculitis, glomerulonefritis, artritis, lupus</td></tr>
+            <tr><td><strong>IV</strong> · retardada</td><td>Linfocitos T</td>
+              <td>Th1, Th2 o Th17 activados; 24–72 h</td>
+              <td>Dermatitis por contacto, granulomas</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout warn" style="margin-top:1.2rem">
+        <p class="eyebrow">La diferencia entre II y III, que siempre se confunde</p>
+        <p style="margin-top:.4rem">No es el anticuerpo —los dos usan IgG—. Es <strong>dónde está el
+          antígeno</strong>. En el tipo II está <em>fijo en la célula diana</em>, así que se destruye
+          esa célula. En el tipo III está <em>libre en circulación</em>, forma complejos que viajan y
+          se depositan donde el vaso los atrape. Por eso el tipo II da anemia y el tipo III da
+          glomerulonefritis: el tipo III no elige el órgano, lo elige la hidrodinámica.</p>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Tipo I · las tres fases</h3>
+      <div class="cascade">
+        <div class="step"><span class="n">1</span>
+          <p><strong>Sensibilización.</strong> El alérgeno se presenta, se activan CD4 → Th2 → los
+            linfocitos B producen IgE, que se adhiere a los receptores FcεR del mastocito. <em>No
+            hay síntomas.</em></p></div>
+        <div class="step"><span class="n">2</span>
+          <p><strong>Fase aguda</strong>, 5–30 min tras la segunda exposición. Degranulación:
+            histamina y heparina. Broncoconstricción, vasodilatación, edema, hipersecreción de moco.</p></div>
+        <div class="step"><span class="n">3</span>
+          <p><strong>Fase tardía</strong>, 3–4 h después. Eicosanoides, prostaglandinas y
+            leucotrienos; quimiotaxis de eosinófilos, linfocitos y monocitos. Amplifica.</p></div>
+        <div class="step"><span class="n">4</span>
+          <p><strong>Fase crónica</strong>, si el alérgeno sigue entrando. Triptasa, quimasa y
+            carboxipeptidasa dañan el tejido; proliferan fibroblastos y aparece
+            <strong>fibrosis</strong>.</p></div>
+      </div>
+      <div class="prose" style="margin-top:1rem">
+        <p>Reconoce el final: <strong>la respuesta que protege, sostenida, se vuelve la
+          enfermedad</strong>. Es el mismo desenlace que la inflamación crónica del encuentro 3.</p>
+      </div>
+
+      <div class="callout" style="margin-top:1.2rem">
+        <p class="eyebrow">Por dónde entra decide qué se ve</p>
+        <p style="margin-top:.4rem">Los mastocitos están en todo el tejido vascular y epitelial, así
+          que la clínica depende de <strong>cuáles se activaron</strong>. Inhalado → mucosa nasal y
+          bronquial → rinitis y asma. Ingerido → epitelio gástrico → vómito y diarrea, que es el
+          cuerpo expulsando lo que le hace daño. Subcutáneo → piel → urticaria y angioedema.
+          <strong>Por la sangre → anafilaxia</strong>, con hipotensión por fuga de agua al
+          intersticio: las fuerzas de Starling otra vez.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 ─────────────────────────────────────────────────────────── -->
+  <section id="ocular">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">09</span><h2>Qué ve el optómetra</h2></div>
+      <div class="prose">
+        <p>Cuatro situaciones donde esta clase deja de ser teoría. Como siempre, son
+          <strong>aplicaciones ilustrativas del mecanismo</strong>; su estudio detallado corresponde
+          a espacios posteriores del programa.</p>
+      </div>
+
+      <div class="grid g2" style="margin-top:1.2rem">
+        <div class="card"><h3>Conjuntivitis alérgica · tipo I</h3>
+          <p>El alérgeno llega a la conjuntiva, activa los mastocitos que ahí residen y la histamina
+            hace el resto: <strong>hiperemia, quemosis, prurito y lagrimeo</strong>. El prurito es el
+            dato que la distingue de la infecciosa, y es histamina pura.</p></div>
+        <div class="card"><h3>Ojo seco y Sjögren · autoinmunidad</h3>
+          <p>El taller del encuentro 2 ya lo planteó: el ojo seco es <strong>plurietiológico</strong>.
+            Una de sus rutas es autoinmunitaria, con destrucción de la glándula lagrimal. Misma
+            superficie ocular, mecanismo distinto, manejo distinto.</p></div>
+        <div class="card"><h3>La córnea, tejido privilegiado</h3>
+          <p>Es <strong>avascular</strong> — y eso, que en el encuentro 3 explicaba su lentitud para
+            repararse, aquí explica otra cosa: la respuesta inmunitaria llega mal. Es la razón de
+            que el trasplante de córnea tenga tasas de éxito que ningún otro órgano alcanza
+            <em>sin</em> compatibilidad HLA.</p></div>
+        <div class="card"><h3>Uveítis y HLA-B27</h3>
+          <p>El ejemplo más claro de que <strong>el genotipo HLA predispone</strong>. Una uveítis
+            anterior recidivante obliga a preguntar por dolor lumbar, articulaciones y antecedentes:
+            el ojo puede ser lo primero que se manifieste.</p></div>
+      </div>
+
+      <div class="callout" style="margin-top:1.2rem">
+        <p class="eyebrow">La idea que se lleva a la consulta</p>
+        <p style="margin-top:.4rem">Un ojo rojo con prurito, un ojo seco que no cede, una uveítis que
+          vuelve. Ninguna de las tres se resuelve mirando solo el ojo. <strong>La superficie ocular
+          es una mucosa, y las mucosas son territorio del sistema inmunitario.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 ─────────────────────────────────────────────────────────── -->
+  <section id="ejercicios">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">10</span><h2>Para comprobar que quedó</h2></div>
+      <div class="prose">
+        <p>Tres ejercicios. No son de memoria: cada uno pide decidir a qué categoría pertenece algo,
+          que es lo que de verdad se evalúa.</p>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">1 · ¿Innata o adaptativa?</h3>
+      <div id="drillA"></div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">2 · ¿Clase I o clase II?</h3>
+      <div id="drillB"></div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">3 · ¿Qué tipo de hipersensibilidad?</h3>
+      <div id="drillC"></div>
+
+      <div class="callout warn" style="margin-top:2rem">
+        <p class="eyebrow">Para la próxima sesión</p>
+        <p style="margin-top:.4rem">El encuentro 7 es <strong>fiebre y dolor</strong>, y ya tienes
+          medio mecanismo: la <strong>IL-1</strong> de esta clase actúa sobre el hipotálamo vía
+          <strong>PGE₂</strong> y sube el termostato. La fiebre no es exceso de calor: es una orden
+          central. Llega sabiendo qué célula produce IL-1 y por qué.</p>
+      </div>
+    </div>
+  </section>
+
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Fisiopatología General (01008430) · Programa de Optometría · Facultad de Ciencias de la Salud ·
+      Universidad de La Salle · Semestre 2026-2</p>
+    <p style="margin-top:.4rem">Encuentro 6 de 16. Los ejemplos oculares son aplicaciones ilustrativas
+      del mecanismo general; su estudio detallado corresponde a espacios académicos posteriores.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  document.getElementById('themeBtn').addEventListener('click', function(){
+    var dark = root.getAttribute('data-theme') === 'dark'
+      || (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+    root.setAttribute('data-theme', dark ? 'light' : 'dark');
+  });
+
+function buildDrill(host, opts, items, explain){
+    var el = document.getElementById(host);
+    var right = 0, answered = 0;
+    var score = document.createElement('p');
+    score.className = 'score';
+    items.forEach(function(it){
+      var row = document.createElement('div'); row.className = 'drill-row';
+      var q = document.createElement('span'); q.className = 'drill-q'; q.textContent = it.t;
+      var v = document.createElement('span'); v.className = 'verdict';
+      row.appendChild(q);
+      var done = false;
+      opts.forEach(function(o){
+        var b = document.createElement('button');
+        b.className = 'btn'; b.type = 'button'; b.textContent = o.label;
+        b.addEventListener('click', function(){
+          row.querySelectorAll('.btn').forEach(function(x){ x.classList.remove('ok','no'); });
+          var ok = o.key === it.a;
+          b.classList.add(ok ? 'ok' : 'no');
+          v.innerHTML = (ok ? '<b>Correcto.</b> ' : '<b>Revise.</b> ') + explain(it);
+          if(!done){ done = true; answered++; if(ok) right++; }
+          else { /* recuento solo del primer intento */ }
+          score.textContent = 'Primer intento: ' + right + ' de ' + answered + ' respondidas (' + items.length + ' en total)';
+        });
+        row.appendChild(b);
+      });
+      row.appendChild(v);
+      el.appendChild(row);
+    });
+    el.appendChild(score);
+  }
+
+  // ── modo docente ─────────────────────────────────────────────────────
+  // Las figuras del libro no se publican. Los enlaces solo se revelan si la
+  // clase se abre desde el disco (file:) o si se fuerza con ?docente=1, de
+  // modo que quien entra por el sitio publicado no los ve nunca.
+  (function(){
+    var local = location.protocol === 'file:';
+    var forzado = /[?&]docente=1/.test(location.search);
+    if (local || forzado) document.body.classList.add('docente-on');
+  })();
+
+  
+  buildDrill('drillA',
+    [{key:'in',label:'Innata'},{key:'ad',label:'Adaptativa'}],
+    [
+      {t:'Un macrófago reconoce lipopolisacárido por su TLR4 y libera citocinas', a:'in',
+       e:'Reconoce un patrón común a las gramnegativas, no a una bacteria concreta. Sin exposición previa y sin memoria.'},
+      {t:'Al segundo contacto con el mismo virus, la respuesta es más rápida y más eficaz', a:'ad',
+       e:'La memoria es el sello de la adaptativa. La innata responde igual la primera vez que la décima.'},
+      {t:'Un linfocito B se diferencia en célula plasmática y secreta IgG contra un antígeno concreto', a:'ad',
+       e:'Específica de antígeno: ese anticuerpo no sirve para otro microbio.'},
+      {t:'El complemento se activa por la vía alternativa sobre la superficie de una bacteria', a:'in',
+       e:'La vía alternativa NO necesita anticuerpo. La clásica sí, y esa sería adaptativa en su origen.'},
+      {t:'Una célula NK destruye una célula infectada sin necesidad de presentación antigénica', a:'in',
+       e:'A diferencia del linfocito T, la NK no necesita que nadie le presente el antígeno.'},
+      {t:'El moco y los cilios de la vía aérea expulsan un microorganismo', a:'in',
+       e:'Barrera epitelial: la defensa que actúa antes de que exista respuesta alguna.'},
+      {t:'Un linfocito T CD8 reconoce un péptido viral presentado en MHC de clase I y mata la célula', a:'ad',
+       e:'Reconocimiento específico vía TCR. La citotoxicidad de los CD8 es adaptativa; la de las NK, innata.'},
+      {t:'Los neutrófilos son las primeras células que llegan al foco infeccioso', a:'in',
+       e:'Llegan en horas y fagocitan lo que esté opsonizado, sea lo que sea.'}
+    ],
+    'Regla rápida: si la respuesta es la misma la primera vez que la quinta, es innata. Si mejora con la repetición, es adaptativa.');
+
+  buildDrill('drillB',
+    [{key:'i',label:'Clase I'},{key:'ii',label:'Clase II'}],
+    [
+      {t:'Presenta proteínas virales fabricadas dentro de la propia célula', a:'i',
+       e:'Antígeno endógeno: el problema está DENTRO. Se lo enseña a los CD8, que la eliminarán.'},
+      {t:'Solo la expresan linfocitos B, macrófagos y células dendríticas', a:'ii',
+       e:'Son las células presentadoras de antígeno. La clase I la tienen todas las nucleadas.'},
+      {t:'Presenta a los linfocitos T CD4 colaboradores', a:'ii',
+       e:'Clase II → CD4 → convocar ayuda. Clase I → CD8 → matar.'},
+      {t:'Está presente en todas las células nucleadas del cuerpo, hasta cien mil moléculas por célula', a:'i',
+       e:'Es la identificación que impide que una NK las destruya.'},
+      {t:'Presenta un antígeno que la célula fagocitó desde el exterior', a:'ii',
+       e:'Antígeno exógeno: el problema está FUERA y hay que organizar la respuesta.'},
+      {t:'La vía por la que una célula tumoral es reconocida y eliminada', a:'i',
+       e:'La proteína anómala se fabrica dentro, se presenta en clase I y el CD8 actúa.'}
+    ],
+    'La pregunta que lo resuelve: ¿el antígeno se fabricó dentro de la célula o entró desde fuera?');
+
+  buildDrill('drillC',
+    [{key:'i',label:'Tipo I'},{key:'ii',label:'Tipo II'},{key:'iii',label:'Tipo III'},{key:'iv',label:'Tipo IV'}],
+    [
+      {t:'Conjuntivitis con prurito intenso y quemosis a los diez minutos de exponerse al polen', a:'i',
+       e:'IgE sobre mastocitos de la conjuntiva. Los minutos y el prurito son la firma de la histamina.'},
+      {t:'Anemia hemolítica tras una transfusión incompatible', a:'ii',
+       e:'IgG contra un antígeno FIJO en la membrana del eritrocito. Se destruye esa célula.'},
+      {t:'Glomerulonefritis con depósitos y descenso de C3 y C4', a:'iii',
+       e:'Inmunocomplejos circulantes que se depositan donde el capilar los atrapa. El órgano no lo elige el antígeno.'},
+      {t:'Dermatitis por contacto que aparece 48 horas después de tocar el níquel', a:'iv',
+       e:'Retardada, mediada por linfocitos T. Las 24-72 h son el dato que la delata.'},
+      {t:'Carditis semanas después de una faringitis estreptocócica mal tratada', a:'ii',
+       e:'Mimetismo molecular: la proteína M se parece al miocardiocito y el anticuerpo reacciona de forma cruzada.'},
+      {t:'Formación de granulomas alrededor de un microorganismo que el macrófago no logra destruir', a:'iv',
+       e:'La lesión característica del tipo IV. El sistema no puede eliminarlo, así que lo amuralla.'},
+      {t:'Hipotensión, broncoespasmo y edema minutos después de una picadura', a:'i',
+       e:'Anafilaxia. El alérgeno viajó por sangre, así que se activaron mastocitos por todo el cuerpo.'},
+      {t:'Vasculitis en un paciente con lupus, con inmunocomplejos detectables en suero', a:'iii',
+       e:'El depósito de complejos en la pared del vaso es el mecanismo del tipo III.'}
+    ],
+    'Primero decide el mediador: IgE es I; linfocito T es IV. Si es IgG, pregunta dónde está el antígeno: fijo en la célula es II, circulante es III.');
+
+})();
+</script>
+
+</body>
+</html>
