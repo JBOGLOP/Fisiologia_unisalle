@@ -70,3 +70,7 @@ Thumbs.db
 desktop.ini
 .DS_Store
 ~$*
+
+# Formulario de autorregistro incompleto: el nombre es texto libre, no la lista
+# del curso. Se maneja en local hasta decidir si se completa o se descarta.
+01-induccion/asistencia.html
