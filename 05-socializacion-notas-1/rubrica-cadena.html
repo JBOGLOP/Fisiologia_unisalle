@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rúbrica de la cadena fisiopatológica</title>
+<style>
+  :root{
+    --ink:#12212b; --paper:#f4f7f7; --surface:#ffffff; --surface-2:#eaf0f0;
+    --line:#cbd8da; --muted:#516268;
+    --fisio:#10505e; --fisio-soft:#dceaec;
+    --pato:#a8412c; --pato-soft:#f5e2dc;
+    --amber:#a06a12; --amber-soft:#f6e9cf;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 12px 30px -18px rgba(18,33,43,.4);
+    --display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+      --line:#2c3d43; --muted:#9bafb4;
+      --fisio:#5cb6c6; --fisio-soft:#12313a;
+      --pato:#e08a70; --pato-soft:#3a2119;
+      --amber:#e0b464; --amber-soft:#3a2f16;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.9);
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font-family:var(--body); line-height:1.6;
+    -webkit-font-smoothing:antialiased; padding:clamp(.8rem,3vw,2rem)}
+  .wrap{max-width:840px; margin:0 auto}
+
+  .eyebrow{font-family:var(--mono); font-size:.65rem; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--muted); margin:0}
+  h1{font-family:var(--display); font-weight:600; line-height:1.12;
+    font-size:clamp(1.7rem,6vw,2.4rem); margin:.35rem 0 .6rem; text-wrap:balance}
+  h2{font-family:var(--display); font-weight:600; font-size:clamp(1.15rem,3.4vw,1.45rem);
+    margin:2.4rem 0 .7rem; padding-top:1.2rem; border-top:1px solid var(--line)}
+  h3{font-family:var(--display); font-weight:600; font-size:1.05rem; margin:1.5rem 0 .5rem}
+  p{margin:0 0 .9rem}
+  .sub{color:var(--muted); font-size:1rem; margin:0 0 1.6rem}
+  strong{font-weight:600}
+
+  .chips{display:flex; flex-wrap:wrap; gap:.4rem; margin:0 0 1.6rem}
+  .chip{font-family:var(--mono); font-size:.66rem; letter-spacing:.05em; background:var(--surface-2);
+    border:1px solid var(--line); border-radius:99px; padding:.3rem .7rem; color:var(--muted)}
+  .chip strong{color:var(--ink)}
+
+  .nota{background:var(--fisio-soft); border-left:3px solid var(--fisio); border-radius:0 10px 10px 0;
+    padding:.9rem 1.1rem; margin:1.2rem 0; font-size:.94rem}
+  .nota b{color:var(--fisio)}
+  .nota.amb{background:var(--amber-soft); border-left-color:var(--amber)}
+  .nota.amb b{color:var(--amber)}
+
+  /* ── la cadena ── */
+  .cadena{display:flex; flex-wrap:wrap; align-items:stretch; gap:.4rem; margin:1.4rem 0}
+  .esl{flex:1 1 8rem; background:var(--surface); border:1px solid var(--line);
+    border-top:3px solid var(--fisio); border-radius:10px; padding:.7rem .8rem}
+  .esl .n{font-family:var(--mono); font-size:.62rem; letter-spacing:.1em; color:var(--fisio)}
+  .esl .t{font-weight:600; font-size:.88rem; line-height:1.35; margin-top:.2rem}
+  .esl:last-child{border-top-color:var(--pato)}
+  .esl:last-child .n{color:var(--pato)}
+
+  /* ── tablas ── */
+  .tw{overflow-x:auto; margin:1.2rem 0; border:1px solid var(--line); border-radius:12px;
+    background:var(--surface)}
+  table{border-collapse:collapse; width:100%; min-width:620px; font-size:.9rem}
+  th,td{text-align:left; padding:.7rem .85rem; border-bottom:1px solid var(--line);
+    vertical-align:top}
+  thead th{background:var(--fisio-soft); color:var(--fisio); font-size:.7rem;
+    text-transform:uppercase; letter-spacing:.07em; font-weight:700; white-space:nowrap}
+  tbody tr:last-child td{border-bottom:0}
+  .crit{font-weight:600; width:11rem}
+  .crit em{display:block; font-style:normal; font-weight:400; font-size:.82rem;
+    color:var(--muted); margin-top:.25rem}
+  .p2,.p1,.p0{font-family:var(--mono); font-weight:700; text-align:center; width:2.4rem}
+  .p2{color:var(--fisio)} .p1{color:var(--amber)} .p0{color:var(--pato)}
+
+  /* ── ejemplos ── */
+  .ej{border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:1.2rem 0;
+    background:var(--surface)}
+  .ej-cab{padding:.7rem 1rem; font-family:var(--mono); font-size:.68rem; letter-spacing:.1em;
+    text-transform:uppercase; font-weight:700}
+  .ej.bien .ej-cab{background:var(--fisio-soft); color:var(--fisio)}
+  .ej.mal  .ej-cab{background:var(--pato-soft);  color:var(--pato)}
+  .ej-fila{display:flex; gap:.9rem; padding:.8rem 1rem; border-top:1px solid var(--line);
+    align-items:flex-start}
+  .ej-et{font-family:var(--mono); font-size:.6rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--muted); width:6.5rem; flex:none; padding-top:.15rem}
+  .ej-tx{flex:1; font-size:.92rem}
+  .ej-pt{font-family:var(--mono); font-weight:700; font-size:.8rem; flex:none; width:1.6rem;
+    text-align:right}
+  .ej-por{display:block; font-size:.82rem; color:var(--muted); margin-top:.3rem; font-style:italic}
+
+  ol,ul{margin:0 0 .9rem; padding-left:1.3rem}
+  li{margin-bottom:.45rem}
+
+  footer{margin-top:2.5rem; padding-top:1rem; border-top:1px solid var(--line);
+    font-family:var(--mono); font-size:.66rem; letter-spacing:.04em; color:var(--muted); line-height:1.7}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<p class="eyebrow">Fisiopatología General · 01008430 · Optometría</p>
+<h1>Rúbrica de la cadena fisiopatológica</h1>
+<p class="sub">Con esto se califica todo lo que en este curso pide <em>explicar</em>. Léela antes de
+producir, no después: está publicada precisamente para que sepas de antemano qué se mide.</p>
+
+<div class="chips">
+  <span class="chip">Escala <strong>2 · 1 · 0</strong></span>
+  <span class="chip">Máximo <strong>10 puntos</strong></span>
+  <span class="chip">Equivale a <strong>5,0</strong></span>
+  <span class="chip">Vigente desde <strong>20 ago 2026</strong></span>
+</div>
+
+<h2>Dónde se aplica</h2>
+
+<p>Una sola escala para el corte entero. La misma regla en el ejercicio semanal barato y en el
+producto que más pesa, para que nunca tengas que adivinar con qué te van a medir.</p>
+
+<div class="tw"><table>
+  <thead><tr><th>Instrumento</th><th>Cuándo</th><th>Qué se califica</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Tu eslabón</strong> del aula invertida</td><td>27 de agosto</td>
+        <td>Los criterios que apliquen a tu eslabón</td></tr>
+    <tr><td><strong>Pregunta de mecanismo</strong> del quiz</td><td>Cada encuentro</td>
+        <td>Un solo criterio, el que corresponda al paso que se pida</td></tr>
+    <tr><td><strong>Cadena I</strong></td><td>3 de septiembre</td><td>Los cinco criterios</td></tr>
+    <tr><td><strong>Preguntas abiertas</strong> de los parciales</td><td>Parciales 2 y final</td>
+        <td>Los cinco criterios</td></tr>
+  </tbody>
+</table></div>
+
+<h2>La cadena</h2>
+
+<p>Es la columna vertebral del curso desde el primer encuentro. Cinco casillas, y ninguna se
+sostiene sin la anterior.</p>
+
+<div class="cadena">
+  <div class="esl"><span class="n">1</span><div class="t">Causa</div></div>
+  <div class="esl"><span class="n">2</span><div class="t">Mecanismo 1</div></div>
+  <div class="esl"><span class="n">3</span><div class="t">Mecanismo 2</div></div>
+  <div class="esl"><span class="n">4</span><div class="t">Signo o síntoma</div></div>
+  <div class="esl"><span class="n">5</span><div class="t">¿Qué ve el optómetra?</div></div>
+</div>
+
+<div class="nota">
+  <b>La quinta casilla no es un adorno.</b> Es la que convierte un mecanismo de libro en algo que
+  sirve en consulta, y es la que más se olvida. Una cadena sin ella está incompleta, y eso se ha
+  dicho desde el primer encuentro.
+</div>
+
+<h2>Los cinco criterios</h2>
+
+<p>Cada criterio está redactado como <strong>pregunta</strong>, porque es la pregunta que se le hace
+a tu texto al leerlo. Vale <strong>2, 1 o 0</strong>. No hay medios puntos.</p>
+
+<div class="tw"><table>
+  <thead><tr><th>Criterio</th><th class="p2">2</th><th>Logrado</th><th class="p1">1</th><th>Parcial</th><th class="p0">0</th></tr></thead>
+  <tbody>
+    <tr>
+      <td class="crit">Causa<em>¿Identifica la causa, y no un síntoma?</em></td>
+      <td class="p2">2</td>
+      <td>Nombra la causa y dice por qué lo es en <em>este</em> caso.</td>
+      <td class="p1">1</td>
+      <td>Nombra la causa correcta pero no la distingue de lo que solo la acompaña.</td>
+      <td class="p0">0</td>
+    </tr>
+    <tr>
+      <td class="crit">Mecanismo 1<em>¿Dice qué le hace qué a qué, o solo nombra estructuras?</em></td>
+      <td class="p2">2</td>
+      <td>Hay sujeto, verbo y objeto: algo le hace algo a algo, y se entiende el efecto.</td>
+      <td class="p1">1</td>
+      <td>Nombra las estructuras correctas pero no dice qué ocurre entre ellas.</td>
+      <td class="p0">0</td>
+    </tr>
+    <tr>
+      <td class="crit">Mecanismo 2<em>¿El segundo paso se sigue del primero?</em></td>
+      <td class="p2">2</td>
+      <td>Se explicita por qué el paso anterior <em>obliga</em> a este.</td>
+      <td class="p1">1</td>
+      <td>El paso es correcto pero aparece suelto, sin unirlo al anterior.</td>
+      <td class="p0">0</td>
+    </tr>
+    <tr>
+      <td class="crit">Signo o síntoma<em>¿El signo se explica por los mecanismos anteriores?</em></td>
+      <td class="p2">2</td>
+      <td>Se puede rastrear el signo hacia atrás hasta la causa sin huecos.</td>
+      <td class="p1">1</td>
+      <td>El signo es el correcto pero se enuncia sin derivarlo.</td>
+      <td class="p0">0</td>
+    </tr>
+    <tr>
+      <td class="crit">¿Qué ve el optómetra?<em>¿Es un hallazgo observable en consulta, no un diagnóstico?</em></td>
+      <td class="p2">2</td>
+      <td>Describe qué se observa, con qué, y qué decisión se toma.</td>
+      <td class="p1">1</td>
+      <td>Menciona el hallazgo pero no qué se hace con él.</td>
+      <td class="p0">0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>El 0 es siempre el mismo en los cinco:</strong> la casilla está vacía, es incorrecta, o
+está copiada del texto sin que se vea que se entendió.</p>
+
+<h3>De puntos a nota</h3>
+
+<div class="tw"><table>
+  <thead><tr><th>Puntos</th><th>10</th><th>9</th><th>8</th><th>7</th><th>6</th><th>5</th><th>4</th><th>3</th><th>2</th><th>1</th><th>0</th></tr></thead>
+  <tbody><tr><td><strong>Nota</strong></td><td>5,0</td><td>4,5</td><td>4,0</td><td>3,5</td><td>3,0</td><td>2,5</td><td>2,0</td><td>1,5</td><td>1,0</td><td>0,5</td><td>0,0</td></tr></tbody>
+</table></div>
+
+<p>Cada trabajo se devuelve con los cinco puntajes y una <strong>columna de comentarios</strong>. Si
+algo no se entiende, la reclamación se atiende con la rúbrica a la vista.</p>
+
+<h2>Un ejemplo resuelto</h2>
+
+<p>Es el caso de la primera pregunta abierta del parcial del 13 de agosto: paciente de 58 años,
+hipertensión de diez años sin control, y en el fondo de ojo cruces arteriovenosos patológicos y un
+exudado algodonoso. Así se ve una cadena de <strong>10 sobre 10</strong>.</p>
+
+<div class="ej bien">
+  <div class="ej-cab">10 / 10 · nota 5,0</div>
+  <div class="ej-fila"><span class="ej-et">Causa</span>
+    <span class="ej-tx">La causa es la hipertensión arterial sostenida durante diez años y sin
+      control. No es la edad ni el exudado: el exudado es consecuencia, y la edad sola no produce
+      este patrón.
+      <span class="ej-por">Nombra la causa y la distingue de lo que solo la acompaña.</span></span>
+    <span class="ej-pt p2">2</span></div>
+  <div class="ej-fila"><span class="ej-et">Mecanismo 1</span>
+    <span class="ej-tx">La presión elevada de forma sostenida somete la pared de la arteriola
+      retiniana a un estrés mecánico continuo. La pared responde engrosando su capa muscular y
+      depositando material hialino, y ese engrosamiento reduce la luz del vaso.
+      <span class="ej-por">Sujeto, verbo y objeto: la presión le hace algo a la pared, y se entiende el efecto.</span></span>
+    <span class="ej-pt p2">2</span></div>
+  <div class="ej-fila"><span class="ej-et">Mecanismo 2</span>
+    <span class="ej-tx">Como la arteriola engrosada comparte vaina adventicia con la vénula, al
+      endurecerse la comprime en el cruce: de ahí el cruce arteriovenoso patológico. Y como la luz
+      arteriolar se estrechó, el territorio que irriga recibe menos sangre y queda isquémico.
+      <span class="ej-por">Dice por qué el paso anterior obliga a este: sin el engrosamiento no hay ni compresión ni isquemia.</span></span>
+    <span class="ej-pt p2">2</span></div>
+  <div class="ej-fila"><span class="ej-et">Signo</span>
+    <span class="ej-tx">La isquemia detiene el transporte axoplásmico en la capa de fibras
+      nerviosas. El axón sigue fabricando material que ya no puede desplazar, se acumula y se ve
+      como una mancha blanca de bordes difusos: el exudado algodonoso. Es, literalmente, un
+      microinfarto de la capa de fibras.
+      <span class="ej-por">El signo se rastrea hacia atrás hasta la causa sin huecos.</span></span>
+    <span class="ej-pt p2">2</span></div>
+  <div class="ej-fila"><span class="ej-et">Optómetra</span>
+    <span class="ej-tx">En el fondo de ojo observo los cruces patológicos y la mancha algodonosa.
+      No diagnostico hipertensión: documento un daño de órgano blanco y remito para control de la
+      presión, dejando registro fotográfico para comparar. La retina es la única ventana donde se
+      ven vasos vivos sin cirugía.
+      <span class="ej-por">Describe qué observa, con qué, y qué decide.</span></span>
+    <span class="ej-pt p2">2</span></div>
+</div>
+
+<h2>El mismo caso, mal resuelto</h2>
+
+<p>No es un ejemplo inventado: recoge los tres errores que más se repitieron en el parcial. Los
+contenidos son casi todos correctos — y aun así saca <strong>3 sobre 10</strong>.</p>
+
+<div class="ej mal">
+  <div class="ej-cab">3 / 10 · nota 1,5</div>
+  <div class="ej-fila"><span class="ej-et">Causa</span>
+    <span class="ej-tx">Etiología: hipertensión, edad, exudado algodonoso, cruces AV.
+      <span class="ej-por">Enumera en vez de afirmar, y mete signos entre las causas. El exudado no
+        causa nada: es lo que hay que explicar.</span></span>
+    <span class="ej-pt p1">1</span></div>
+  <div class="ej-fila"><span class="ej-et">Mecanismo 1</span>
+    <span class="ej-tx">Patogénesis: arteriolas, capa muscular, material hialino, endotelio.
+      <span class="ej-por"><b>El error más costoso del parcial.</b> Todas las estructuras son las
+        correctas y no hay un solo verbo: no dice qué le pasa a la pared ni por qué. Nombrar no es
+        explicar.</span></span>
+    <span class="ej-pt p1">1</span></div>
+  <div class="ej-fila"><span class="ej-et">Mecanismo 2</span>
+    <span class="ej-tx">Hay isquemia en la retina.
+      <span class="ej-por">Correcto y suelto. No dice de dónde sale la isquemia, así que la cadena
+        se rompe justo aquí.</span></span>
+    <span class="ej-pt p1">1</span></div>
+  <div class="ej-fila"><span class="ej-et">Signo</span>
+    <span class="ej-tx">Por eso aparece el exudado algodonoso.
+      <span class="ej-por">Salta de la causa al signo sin explicar el transporte axoplásmico. «Por
+        eso» no es un mecanismo: es una palabra que ocupa el lugar del mecanismo.</span></span>
+    <span class="ej-pt p0">0</span></div>
+  <div class="ej-fila"><span class="ej-et">Optómetra</span>
+    <span class="ej-tx">El paciente tiene retinopatía hipertensiva.
+      <span class="ej-por">Es un diagnóstico, no un hallazgo, y no dice qué se hace. La casilla
+        pregunta qué <em>ve</em> y qué <em>decide</em>.</span></span>
+    <span class="ej-pt p0">0</span></div>
+</div>
+
+<h2>Los tres errores que separan un 10 de un 3</h2>
+
+<ol>
+  <li><strong>Enumerar en vez de afirmar.</strong> Una lista de estructuras separadas por comas no
+    es una explicación, aunque todas las palabras sean correctas. Si en tu casilla no hay un verbo
+    que diga qué le hace qué a qué, la casilla está vacía.</li>
+  <li><strong>Saltar de la causa al signo.</strong> «Por eso», «lo que produce» y «en consecuencia»
+    son las tres expresiones que suelen tapar el hueco. Cuando escribas una, comprueba que antes
+    esté el mecanismo que la justifica.</li>
+  <li><strong>Dar un diagnóstico en la última casilla.</strong> El diagnóstico es una conclusión;
+    la casilla pide lo observable y la decisión. Escribe qué se ve, con qué instrumento, y qué
+    haces con el paciente.</li>
+</ol>
+
+<div class="nota amb">
+  <b>Un consejo práctico.</b> Cuando termines, lee tu cadena de atrás hacia adelante preguntando
+  «¿y esto por qué?» en cada casilla. Si en algún punto la respuesta no está escrita más arriba,
+  ahí está el hueco. Es el mismo procedimiento con el que se califica.
+</div>
+
+<footer>
+  Fisiopatología General (01008430) · Programa de Optometría · Facultad de Ciencias de la Salud ·
+  Universidad de La Salle · Semestre 2026-2<br>
+  Presentada en el encuentro 5, socialización de notas del primer parcial, el 20 de agosto de 2026.
+  Rige para el segundo y el tercer corte.
+</footer>
+
+</div>
+</body>
+</html>
