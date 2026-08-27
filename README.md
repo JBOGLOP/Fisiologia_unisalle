@@ -51,11 +51,11 @@ qué hacer con él.
 | | # | Fecha | Tema | Material |
 |---|---|---|---|---|
 | ✅ | **1** | 23 de julio | Inducción: definiciones y generalidades de fisiología y patología | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/01-induccion/clase.html)** · [detalle](01-induccion/) |
-| 🔜 | **2** | 30 de julio | Inducción: síndrome y mecanismos de lesión | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/02-sindrome-y-lesion/clase.html)** · [detalle](02-sindrome-y-lesion/) |
-| ⬜ | **3** | 6 de agosto | Inflamación y reparación de tejidos | _en preparación_ |
+| ✅ | **2** | 30 de julio | Inducción: síndrome y mecanismos de lesión | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/02-sindrome-y-lesion/clase.html)** · [detalle](02-sindrome-y-lesion/) |
+| ✅ | **3** | 6 de agosto | Inflamación y reparación de tejidos | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/03-inflamacion-y-reparacion/clase.html)** · [detalle](03-inflamacion-y-reparacion/) |
 | 📝 | **4** | **13 de agosto** | **Primer parcial** | — |
 | 💬 | **5** | 20 de agosto | Socialización de notas | — |
-| ⬜ | **6** | 27 de agosto | Inmunidad y respuesta del huésped a la infección | _en preparación_ |
+| 🔴 | **6** | **27 de agosto** | Inmunidad y respuesta del huésped a la infección | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/06-inmunidad-e-infeccion/clase.html)** · [🔗 actividad](https://jboglop.github.io/Fisiologia_unisalle/06-inmunidad-e-infeccion/cadena.html) · [detalle](06-inmunidad-e-infeccion/) |
 | ⬜ | **7** | 3 de septiembre | Fisiopatología de la fiebre y del dolor | _en preparación_ |
 | ⬜ | **8** | 10 de septiembre | Fisiopatología del edema y del síncope | _en preparación_ |
 | 📝 | **9** | 17 de septiembre | **Segundo parcial** | — |
@@ -68,7 +68,7 @@ qué hacer con él.
 | 📝 | **15** | 5 de noviembre | **Parcial final** | — |
 | 💬 | **16** | 12 de noviembre | Socialización de notas y cierre | — |
 
-**Convenciones:** ✅ cumplida · 🔜 próxima · ⬜ programada · 📝 evaluación · 💬 retroalimentación · ⏸️ receso
+**Convenciones:** ✅ cumplida · 🔴 hoy · 🔜 próxima · ⬜ programada · 📝 evaluación · 💬 retroalimentación · ⏸️ receso
 
 Cada clase se publica aquí el día del encuentro o antes. Al hacer clic en **Ver clase** se abre en el
 navegador, sin descargar nada: funciona en celular y en computador, se adapta al tema claro u oscuro,

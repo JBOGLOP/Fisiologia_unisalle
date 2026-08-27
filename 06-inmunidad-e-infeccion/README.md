@@ -4,7 +4,7 @@
 
 | Estado | Material | Duración |
 |---|---|---|
-| ⬜ **Programada** | 🕓 En preparación | 2 horas |
+| 🔴 **Hoy** | ✅ Publicado | 2 horas |
 
 ---
 
@@ -14,7 +14,8 @@ Extiende el mecanismo de la inflamación hacia la respuesta específica. Aquí s
 
 ## Material de clase
 
-_En preparación._ La clase interactiva se publica aquí el día del encuentro o antes.
+- 📄 **[Ver la clase interactiva](https://jboglop.github.io/Fisiologia_unisalle/06-inmunidad-e-infeccion/clase.html)** — se abre en el navegador, en celular o computador.
+- 🔗 **[Actividad · Tu eslabón de la cadena](https://jboglop.github.io/Fisiologia_unisalle/06-inmunidad-e-infeccion/cadena.html)** — aula invertida: cada estudiante entra con su nombre, correo y código, recibe el eslabón que le corresponde y lo defiende en clase.
 
 ## Contenidos
 
