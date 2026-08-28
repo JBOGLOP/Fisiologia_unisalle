@@ -4,37 +4,41 @@
 
 | Estado | Material | Duración |
 |---|---|---|
-| ⬜ **Programada** | 🕓 En preparación | 2 horas |
+| ⬜ **Programada** | ✅ Clase publicada · actividad en preparación | 2 horas |
 
 ---
 
 ## De qué trata
 
-Primera aplicación directa de la inflamación. Fiebre y dolor van juntos porque comparten mediadores: entender uno explica el otro.
+Primera aplicación directa de la inflamación. Fiebre y dolor van juntos porque comparten mediadores: las prostaglandinas en el hipotálamo producen fiebre; la «sopa inflamatoria» sobre los nociceptores produce dolor. La clase tiene dos mitades: se cierran primero las defensas de las cadenas del Encuentro 6 y luego se abre el tema nuevo.
 
 ## Material de clase
 
-_En preparación._ La clase interactiva se publica aquí el día del encuentro o antes.
+- 📄 **[Ver la clase interactiva](https://jboglop.github.io/Fisiologia_unisalle/07-fiebre-y-dolor/clase.html)** — se abre en el navegador, en celular o computador.
+- 🔗 **Actividad · Mapa de mecanismo colaborativo** — _en preparación._ Aula invertida: cada grupo reconstruye una vía fisiopatológica (fiebre; transducción del dolor; vías y modulación) y la defiende. Se habilita antes del 3 de septiembre.
 
 ## Contenidos
 
-- Fiebre: pirógenos exógenos y endógenos
-- IL-1, IL-6 y TNF; síntesis de PGE₂ y termostato hipotalámico
-- Fases de la fiebre y diferencia con la hipertermia
-- Dolor: nocicepción, tipos de nociceptor y vías de conducción
-- Sensibilización periférica y central
-- Dolor nociceptivo, neuropático y mixto
-- Aplicación ocular: dolor de superficie frente a dolor profundo y qué orienta cada uno
+- Fiebre: termorregulación e hipotálamo; pirógenos exógenos y endógenos (IL-1, IL-6, TNF-α, IFN-β)
+- Síntesis de PGE₂ y elevación del punto de ajuste; cómo actúa un antipirético
+- Las tres fases de la fiebre y los patrones; consecuencias y umbrales
+- Fiebre frente a hipertermia: la distinción que cambia el tratamiento
+- Dolor: definición de la IASP, neuromátrix; nocicepción, dolor, sufrimiento y conductas
+- Tipos de dolor (nociceptivo, inflamatorio, neuropático) y la «sopa inflamatoria»
+- Nociceptores y fibras A-δ y C; los cuatro procesos y las tres neuronas
+- Componentes discriminativo-sensorial y afectivo; modulación endógena
+- Aplicación ocular: la córnea como tejido más inervado, cefalea de origen visual, el ojo rojo febril
 
 ## Lectura previa
 
-- Uribe Olivares, caps. 11 y 7
+- Uribe Olivares, cap. 7 (Dolor) y cap. 25 (Síndrome febril)
 
 ## Trabajo independiente
 
-- Lectura de los capítulos 7 y 11 del texto guía
-- Primera versión de la cadena fisiopatológica del síntoma asignado
-- Resolución del cuestionario de la sesión
+- Preparar el nodo del mapa de mecanismo asignado, antes de la sesión
+- Lectura de los capítulos 7 y 25 del texto guía
+- Cuadro propio: fiebre frente a hipertermia, mínimo cuatro criterios
+- Esquema a mano de los cuatro procesos de la nocicepción
 
 ## Resultados de aprendizaje que se movilizan
 

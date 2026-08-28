@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clase 7 — Fisiopatología de la fiebre y del dolor</title>
+<style>
+  :root{
+    --ink:#12212b;
+    --paper:#f4f7f7;
+    --surface:#ffffff;
+    --surface-2:#eaf0f0;
+    --line:#cbd8da;
+    --muted:#516268;
+    --fisio:#10505e;
+    --fisio-soft:#dceaec;
+    --pato:#a8412c;
+    --pato-soft:#f5e2dc;
+    --amber:#9a6b12;
+    --amber-soft:#f6ecd6;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 8px 24px -16px rgba(18,33,43,.35);
+    --display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+    --measure:66ch;
+    --pad:clamp(1rem,4vw,2.5rem);
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+      --line:#2c3d43; --muted:#9bafb4;
+      --fisio:#5cb6c6; --fisio-soft:#12313a;
+      --pato:#e08a70; --pato-soft:#3a2119;
+      --amber:#d5a446; --amber-soft:#33290f;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.9);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+    --line:#2c3d43; --muted:#9bafb4;
+    --fisio:#5cb6c6; --fisio-soft:#12313a;
+    --pato:#e08a70; --pato-soft:#3a2119;
+    --amber:#d5a446; --amber-soft:#33290f;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.9);
+  }
+  :root[data-theme="light"]{
+    --ink:#12212b; --paper:#f4f7f7; --surface:#ffffff; --surface-2:#eaf0f0;
+    --line:#cbd8da; --muted:#516268;
+    --fisio:#10505e; --fisio-soft:#dceaec;
+    --pato:#a8412c; --pato-soft:#f5e2dc;
+    --amber:#9a6b12; --amber-soft:#f6ecd6;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 8px 24px -16px rgba(18,33,43,.35);
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--body); font-size:clamp(15px,.5vw + 14px,17px); line-height:1.62; -webkit-font-smoothing:antialiased}
+  h1,h2,h3,h4{font-family:var(--display); font-weight:600; line-height:1.15; text-wrap:balance; margin:0}
+  p{margin:0}
+  a{color:var(--fisio)}
+  .wrap{max-width:1040px; margin:0 auto; padding-inline:var(--pad)}
+  .prose{max-width:var(--measure)}
+  .stack{display:flex; flex-direction:column}
+  .stack>*+*{margin-top:1rem}
+  .eyebrow{font-family:var(--mono); font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)}
+
+  header.top{position:sticky; top:0; z-index:50; background:color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter:blur(10px); border-bottom:1px solid var(--line)}
+  .top-in{display:flex; align-items:center; gap:1rem; height:54px}
+  .brand{font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); white-space:nowrap}
+  nav.jump{margin-left:auto; display:flex; gap:.15rem; overflow-x:auto; scrollbar-width:none}
+  nav.jump::-webkit-scrollbar{display:none}
+  nav.jump a{font-size:.78rem; text-decoration:none; color:var(--muted); padding:.3rem .55rem; border-radius:99px; white-space:nowrap}
+  nav.jump a:hover{color:var(--ink); background:var(--surface-2)}
+  .theme-btn{border:1px solid var(--line); background:var(--surface); color:var(--muted); border-radius:99px; width:32px; height:32px; cursor:pointer; flex:none; font-size:.85rem}
+  .theme-btn:hover{color:var(--ink)}
+
+  .hero{padding:clamp(2.5rem,7vw,5rem) 0 clamp(2rem,5vw,3.5rem)}
+  .hero h1{font-size:clamp(2.1rem,5.5vw,3.6rem); letter-spacing:-.01em; margin-top:.6rem}
+  .hero .sub{max-width:60ch; color:var(--muted); font-size:1.05rem; margin-top:1.1rem}
+  .hero-meta{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.6rem}
+  .chip{font-family:var(--mono); font-size:.7rem; letter-spacing:.06em; border:1px solid var(--line); border-radius:99px; padding:.3rem .7rem; background:var(--surface); color:var(--muted)}
+  .chip strong{color:var(--ink); font-weight:600}
+  .split-word{display:inline-flex; flex-wrap:wrap}
+  .split-word .a{color:var(--amber)}
+  .split-word .b{color:var(--pato)}
+
+  section{padding:clamp(2.2rem,5vw,3.6rem) 0; border-top:1px solid var(--line)}
+  .sec-head{display:flex; align-items:baseline; gap:.9rem; margin-bottom:1.4rem; flex-wrap:wrap}
+  .sec-num{font-family:var(--mono); font-size:.72rem; color:var(--fisio); border:1px solid var(--fisio); border-radius:4px; padding:.1rem .4rem; flex:none}
+  .sec-head h2{font-size:clamp(1.4rem,3vw,2rem)}
+  .band-f .sec-num{color:var(--amber); border-color:var(--amber)}
+  .band-d .sec-num{color:var(--pato); border-color:var(--pato)}
+
+  .grid{display:grid; gap:1rem}
+  @media(min-width:720px){ .g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)} }
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:1.1rem 1.2rem; box-shadow:var(--shadow)}
+  .card h3{font-size:1.02rem; margin-bottom:.45rem}
+  .card p, .card li{font-size:.92rem; color:var(--muted)}
+  .card.fisio{border-left:3px solid var(--fisio)}
+  .card.pato{border-left:3px solid var(--pato)}
+  .card.amber{border-left:3px solid var(--amber)}
+  .card ul{margin:.4rem 0 0; padding-left:1.1rem}
+  .card li+li{margin-top:.25rem}
+  .card .ocular{margin-top:.7rem; padding-top:.6rem; border-top:1px dashed var(--line); font-size:.82rem; color:var(--fisio)}
+
+  .callout{background:var(--fisio-soft); border:1px solid color-mix(in srgb,var(--fisio) 30%, transparent); border-radius:10px; padding:1rem 1.2rem}
+  .callout .eyebrow{color:var(--fisio)}
+  .callout.warn{background:var(--pato-soft); border-color:color-mix(in srgb,var(--pato) 30%, transparent)}
+  .callout.warn .eyebrow{color:var(--pato)}
+  .callout.note{background:var(--amber-soft); border-color:color-mix(in srgb,var(--amber) 35%, transparent)}
+  .callout.note .eyebrow{color:var(--amber)}
+
+  blockquote{margin:0; padding-left:1.1rem; border-left:3px solid var(--amber); font-family:var(--display); font-size:1.15rem; font-style:italic}
+  blockquote cite{display:block; font-family:var(--body); font-style:normal; font-size:.8rem; color:var(--muted); margin-top:.5rem}
+
+  /* set-point diagram */
+  .thermo{display:grid; gap:.6rem; grid-template-columns:1fr; margin-top:1rem}
+  @media(min-width:720px){.thermo{grid-template-columns:repeat(3,1fr); align-items:stretch}}
+  .thermo .box{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:.9rem 1rem; position:relative}
+  .thermo .box .et{font-family:var(--mono); font-size:.63rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+  .thermo .box h4{font-size:1rem; margin:.25rem 0 .35rem}
+  .thermo .box p{font-size:.86rem; color:var(--muted)}
+  .thermo .f1{border-top:3px solid var(--fisio)}
+  .thermo .f2{border-top:3px solid var(--amber)}
+  .thermo .f3{border-top:3px solid var(--fisio)}
+
+  /* cascade */
+  .cascade{list-style:none; margin:1rem 0 0; padding:0; counter-reset:step}
+  .cascade li{position:relative; padding:.55rem 0 .55rem 2.4rem; border-bottom:1px solid var(--line); font-size:.93rem}
+  .cascade li:last-child{border-bottom:none}
+  .cascade li::before{counter-increment:step; content:counter(step); position:absolute; left:0; top:.55rem; font-family:var(--mono); font-size:.7rem; width:1.5rem; height:1.5rem; border-radius:99px; display:grid; place-items:center; background:var(--amber-soft); color:var(--amber); border:1px solid color-mix(in srgb,var(--amber) 35%, transparent)}
+  .cascade.d li::before{background:var(--pato-soft); color:var(--pato); border-color:color-mix(in srgb,var(--pato) 35%, transparent)}
+  .cascade li strong{color:var(--ink)}
+
+  /* chain */
+  .chain{display:flex; flex-wrap:wrap; align-items:stretch; gap:.5rem; margin-top:1rem}
+  .node{flex:1 1 150px; background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:.75rem .8rem; min-width:0}
+  .node .lbl{font-family:var(--mono); font-size:.63rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+  .node .val{font-family:var(--display); font-size:1rem; margin-top:.2rem}
+  .node .ex{font-size:.78rem; color:var(--muted); margin-top:.3rem}
+  .arrow{align-self:center; color:var(--muted); font-size:1.1rem; flex:none}
+  @media(max-width:719px){.arrow{transform:rotate(90deg); margin:.1rem auto}}
+
+  .table-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface)}
+  table{border-collapse:collapse; width:100%; font-size:.88rem; min-width:520px}
+  th,td{text-align:left; padding:.6rem .8rem; border-bottom:1px solid var(--line); vertical-align:top}
+  th{font-family:var(--mono); font-size:.68rem; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); font-weight:500}
+  tbody tr:last-child td{border-bottom:none}
+  td.k{font-weight:600; white-space:nowrap}
+
+  .fork{display:grid; gap:.8rem; margin-top:1rem}
+  @media(min-width:720px){.fork{grid-template-columns:1fr 1fr}}
+  .fork .lane{border:1px solid var(--line); border-radius:10px; padding:1rem; background:var(--surface)}
+  .fork .lane.a{border-top:3px solid var(--amber)}
+  .fork .lane.b{border-top:3px solid var(--pato)}
+  .fork .lane h3{font-size:1rem; margin-bottom:.4rem}
+  .fork .lane p, .fork .lane li{font-size:.9rem; color:var(--muted)}
+  .fork .lane ul{margin:.4rem 0 0; padding-left:1.1rem}
+
+  /* drill */
+  .drill-row{display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; padding:.65rem 0; border-bottom:1px solid var(--line)}
+  .drill-row:last-child{border-bottom:none}
+  .drill-q{flex:1 1 240px; font-size:.94rem}
+  .btn{font-family:var(--body); font-size:.78rem; cursor:pointer; border:1px solid var(--line); background:var(--surface); color:var(--ink); border-radius:99px; padding:.3rem .75rem}
+  .btn:hover{border-color:var(--fisio)}
+  .btn:focus-visible, a:focus-visible, .q-head:focus-visible{outline:2px solid var(--fisio); outline-offset:2px}
+  .btn.ok{background:var(--fisio); border-color:var(--fisio); color:#fff}
+  .btn.no{background:var(--pato); border-color:var(--pato); color:#fff}
+  .verdict{font-size:.82rem; flex-basis:100%; color:var(--muted)}
+  .verdict b{color:var(--ink)}
+  .score{font-family:var(--mono); font-size:.78rem; color:var(--muted); margin-top:.8rem}
+
+  .q{border:1px solid var(--line); border-radius:10px; background:var(--surface); overflow:hidden}
+  .q+.q{margin-top:.6rem}
+  .q-head{width:100%; text-align:left; background:none; border:0; color:inherit; font:inherit; padding:.85rem 1rem; cursor:pointer; display:flex; gap:.7rem; align-items:baseline}
+  .q-head:hover{background:var(--surface-2)}
+  .q-n{font-family:var(--mono); font-size:.72rem; color:var(--fisio); flex:none}
+  .q-body{padding:0 1rem 1rem 2.4rem; font-size:.9rem; color:var(--muted); display:none}
+  .q.open .q-body{display:block}
+  .q.open .q-head{background:var(--surface-2)}
+
+  .act{background:var(--fisio-soft); border:1px solid color-mix(in srgb,var(--fisio) 35%, transparent); border-radius:12px; padding:1.2rem 1.3rem}
+  .act .cta{display:inline-block; margin-top:.9rem; background:var(--fisio); color:#fff; text-decoration:none; font-weight:600; font-size:.9rem; padding:.55rem 1.2rem; border-radius:99px}
+  .act .cta:hover{filter:brightness(1.08)}
+
+  footer{border-top:1px solid var(--line); padding:2rem 0 3rem; color:var(--muted); font-size:.83rem}
+  @media (prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-in">
+    <span class="brand">Fisiopatología General · Clase 7</span>
+    <nav class="jump">
+      <a href="#repaso">Repaso</a>
+      <a href="#dos">Dos síntomas</a>
+      <a href="#termo">Termorregulación</a>
+      <a href="#fiebre">Fiebre</a>
+      <a href="#fases">Fases</a>
+      <a href="#hipertermia">Fiebre vs hipertermia</a>
+      <a href="#dolor">Dolor</a>
+      <a href="#nocicepcion">Nocicepción</a>
+      <a href="#vias">Vías</a>
+      <a href="#ocular">Ojo</a>
+      <a href="#actividad">Actividad</a>
+      <a href="#autoeval">Autoevaluación</a>
+    </nav>
+    <button class="theme-btn" id="themeBtn" aria-label="Cambiar tema">◐</button>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <p class="eyebrow">Clase 7 · Síntomas y signos · Semana del 3 de septiembre</p>
+    <h1>Fisiopatología de la <span class="split-word"><span class="a">fiebre</span>&nbsp;y&nbsp;del&nbsp;<span class="b">dolor</span></span></h1>
+    <p class="sub">Los dos motivos de consulta más frecuentes del mundo. Los dos son mecanismos de defensa —avisan de que algo anda mal— y los dos pueden dejar de proteger y volverse la enfermedad. Hoy estudiamos cómo se generan, por qué duelen o queman, y dónde el optómetra los encuentra.</p>
+    <div class="hero-meta">
+      <span class="chip">Sesión <strong>7 de 16</strong></span>
+      <span class="chip">Fecha <strong>3 sep 2026</strong></span>
+      <span class="chip">Duración <strong>2 horas</strong></span>
+      <span class="chip">Texto guía <strong>caps. 7 y 25</strong></span>
+      <span class="chip">Primera parte <strong>defensas del E6</strong></span>
+    </div>
+  </div>
+
+  <!-- 01 -->
+  <section id="repaso">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">01</span><h2>De dónde venimos, y qué haremos hoy</h2></div>
+      <div class="prose stack">
+        <p>La clase pasada montamos las cadenas de la respuesta inmunitaria. Hoy la clase tiene <strong>dos mitades</strong>: primero <strong>terminamos las defensas de los eslabones del Encuentro 6</strong> —retomamos en «La respuesta humoral», grupo B— y cerramos las tres cadenas. Después abrimos el tema nuevo.</p>
+        <p>Y el tema nuevo enlaza directo con lo anterior: la inflamación libera mediadores. Dos de esos mediadores, actuando en dos sitios distintos, producen los dos síntomas de hoy. Las <strong>prostaglandinas</strong> en el hipotálamo producen <em>fiebre</em>; la <strong>«sopa inflamatoria»</strong> sobre los nociceptores produce <em>dolor</em>. No son temas nuevos: son la misma inflamación, leída donde el paciente la siente.</p>
+      </div>
+      <div class="callout" style="margin-top:1.2rem">
+        <p class="eyebrow">La idea que ordena la sesión</p>
+        <p style="margin-top:.4rem">Fiebre y dolor comparten una estructura: un <strong>estímulo</strong> (casi siempre inflamatorio) → un <strong>mensajero químico</strong> → un <strong>centro que reajusta un valor de referencia</strong> → una <strong>respuesta protectora</strong> que, si se prolonga, se vuelve daño. Guarda ese molde: se repite en los dos.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section id="dos">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">02</span><h2>Dos síntomas, una misma lógica</h2></div>
+      <div class="grid g2">
+        <div class="card amber">
+          <p class="eyebrow">Signo · se mide</p>
+          <h3>Fiebre</h3>
+          <p>Elevación <strong>regulada</strong> de la temperatura por encima del rango normal del individuo. El cuerpo <em>sube a propósito</em> su termostato. Es objetivable con termómetro: es un signo.</p>
+          <p class="ocular">Rasgo clave: el punto de ajuste sube, y el cuerpo trabaja para <em>alcanzarlo</em>.</p>
+        </div>
+        <div class="card pato">
+          <p class="eyebrow">Síntoma · se refiere</p>
+          <h3>Dolor</h3>
+          <p>Experiencia sensorial y emocional desagradable asociada a un daño tisular real o potencial (IASP). Solo lo percibe quien lo padece: es el síntoma puro, el que usamos para definir «síntoma» en la sesión 1.</p>
+          <p class="ocular">Rasgo clave: no es solo sensación; tiene componente emocional y puede existir sin lesión.</p>
+        </div>
+      </div>
+      <p class="prose" style="margin-top:1.1rem">Ambos son <strong>adaptativos</strong>: la fiebre dificulta la replicación de muchos microorganismos y potencia la inmunidad; el dolor es una señal de alarma que retira la mano del fuego antes de que haya quemadura. El problema aparece cuando el mecanismo se prolonga o se desregula. Ahí el mecanismo protector se convierte, como dijimos en la sesión 2, en el mecanismo que enferma.</p>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section id="termo" class="band-f">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">03</span><h2>Fiebre · el termostato del cuerpo</h2></div>
+      <div class="prose stack">
+        <p>La temperatura corporal está controlada por el <strong>centro termorregulador del hipotálamo anterior</strong>, que recibe aferencias de receptores térmicos periféricos y centrales, y responde por vía simpática y por cambios de conducta para mantener la homeostasis térmica. La temperatura normal es baja en la madrugada y alta al anochecer, con una variación de ~0,5 °C en el día.</p>
+        <p>Piensa en un termostato con un <strong>valor de referencia</strong> (<em>set point</em>). Todo el mecanismo de la fiebre se resume en una frase: <strong>algo sube el valor de referencia del hipotálamo</strong>, y el cuerpo, obediente, se calienta hasta alcanzarlo.</p>
+      </div>
+
+      <h3 style="margin:1.6rem 0 .8rem; font-size:1.12rem">Cómo se sube el termostato</h3>
+      <div class="chain">
+        <div class="node" style="border-left:3px solid var(--pato)">
+          <p class="lbl">Pirógeno exógeno</p>
+          <p class="val">La señal externa</p>
+          <p class="ex">Microorganismos o sus productos (p. ej. endotoxina bacteriana). Estimulan a los macrófagos.</p>
+        </div>
+        <span class="arrow">→</span>
+        <div class="node" style="border-left:3px solid var(--amber)">
+          <p class="lbl">Pirógeno endógeno</p>
+          <p class="val">Las citocinas</p>
+          <p class="ex">Los macrófagos liberan IL-1, IL-6, TNF-α e IFN-β. Son las mismas citocinas de la inflamación del E3.</p>
+        </div>
+        <span class="arrow">→</span>
+        <div class="node" style="border-left:3px solid var(--amber)">
+          <p class="lbl">Mediador final</p>
+          <p class="val">Prostaglandina E2</p>
+          <p class="ex">Se produce en el hipotálamo y se une a sus receptores allí.</p>
+        </div>
+        <span class="arrow">→</span>
+        <div class="node" style="border-left:3px solid var(--fisio)">
+          <p class="lbl">Efecto</p>
+          <p class="val">Sube el <em>set point</em></p>
+          <p class="ex">El hipotálamo fija una temperatura nueva, más alta. El cuerpo la persigue.</p>
+        </div>
+      </div>
+
+      <div class="callout note" style="margin-top:1.2rem">
+        <p class="eyebrow">Por qué esto explica cómo actúa un antipirético</p>
+        <p style="margin-top:.4rem">La PGE2 se sintetiza por la <strong>ciclooxigenasa</strong>. El paracetamol y la aspirina inhiben esa enzima: sin PGE2, el termostato vuelve a su valor normal. Por eso un antipirético baja la fiebre pero <strong>no</strong> baja la temperatura de un golpe de calor —ahí no hay PGE2 elevando el set point—. Ese contraste es la pregunta de examen clásica, y lo vemos en la sección 5.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section id="fases" class="band-f">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">04</span><h2>Fiebre · las tres fases</h2></div>
+      <p class="prose" style="margin-bottom:1rem">Cuando el termostato sube, la temperatura real todavía es «normal» pero el cuerpo la <em>siente baja</em> respecto del nuevo valor. Todo lo que sigue es el cuerpo tratando de alcanzar, sostener y luego abandonar ese valor. Reconocer la fase en la que llega el paciente cambia lo que uno observa.</p>
+
+      <div class="thermo">
+        <div class="box f1">
+          <p class="et">Fase 1 · ascenso</p>
+          <h4>Escalofrío</h4>
+          <p>El cuerpo produce y conserva calor para subir: contracción muscular (<strong>tiritona</strong>), piloerección (piel de gallina), <strong>vasoconstricción</strong> periférica, taquicardia, taquipnea, posición en ovillo. El paciente tiene frío aunque su temperatura ya sube.</p>
+        </div>
+        <div class="box f2">
+          <p class="et">Fase 2 · meseta</p>
+          <h4>Estado</h4>
+          <p>Se alcanza el nuevo equilibrio a temperatura mayor. Cesan los escalofríos; piel <strong>caliente y húmeda</strong>, rubicundez, sed intensa, mialgias, artralgias, cefalea, ojos brillantes. El paciente ya no tiene frío: tiene fiebre.</p>
+        </div>
+        <div class="box f3">
+          <p class="et">Fase 3 · descenso</p>
+          <h4>Lisis</h4>
+          <p>Desaparecen los pirógenos (o actúa un antipirético): el termostato baja y se activa la termólisis. <strong>Vasodilatación</strong>, sensación de calor, <strong>sudoración profusa</strong>, baja la presión y la frecuencia cardíaca.</p>
+        </div>
+      </div>
+
+      <div class="grid g2" style="margin-top:1.2rem">
+        <div class="card">
+          <h3>Patrones de fiebre</h3>
+          <p>El patrón no diagnostica, pero orienta hacia el agente:</p>
+          <ul>
+            <li><strong>Intermitente:</strong> vuelve a lo normal al menos una vez al día</li>
+            <li><strong>Sostenida / continua:</strong> siempre alta, varía &lt; 0,5 °C</li>
+            <li><strong>Remitente:</strong> no llega a lo normal, con oscilaciones pequeñas</li>
+            <li><strong>Recurrente:</strong> días normales entre episodios febriles</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Consecuencias y umbrales</h3>
+          <ul>
+            <li>Por cada grado sobre 37 °C, el consumo de O₂ sube <strong>~13 %</strong> — riesgoso en insuficiencia cardíaca o respiratoria</li>
+            <li><strong>Hiperpirexia:</strong> &gt; 41,5 °C — infecciones graves o hemorragia del SNC</li>
+            <li>Etiología del síndrome febril: infecciones (40 %), neoplasias (20 %), enfermedades del tejido conjuntivo (15 %), otras (20 %), idiopática (5 %)</li>
+          </ul>
+        </div>
+      </div>
+
+      <blockquote style="margin-top:1.4rem">
+        La fiebre en sí misma es un mecanismo de defensa adaptativo que ayuda, en la mayoría de los casos, a eliminar la causa subyacente, sobre todo si es de origen microbiano.
+        <cite>Uribe Olivares, <em>Fisiopatología. La ciencia del porqué y el cómo</em>, cap. 25 (Síndrome febril)</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section id="hipertermia" class="band-f">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">05</span><h2>Fiebre no es lo mismo que hipertermia</h2></div>
+      <p class="prose" style="margin-bottom:1.2rem">Las dos suben la temperatura, pero son procesos <strong>opuestos</strong>, y confundirlas puede ser fatal porque el tratamiento difiere.</p>
+      <div class="fork">
+        <div class="lane a">
+          <p class="eyebrow">El termostato se movió</p>
+          <h3>Fiebre</h3>
+          <ul>
+            <li>El <em>set point</em> hipotalámico <strong>sube</strong>; el cuerpo regula hacia arriba a propósito</li>
+            <li>La regulación está <strong>intacta</strong></li>
+            <li>Los <strong>antipiréticos sí bajan</strong> la temperatura (quitan la PGE2)</li>
+            <li>Piel caliente y húmeda; suele ser autolimitada</li>
+          </ul>
+        </div>
+        <div class="lane b">
+          <p class="eyebrow">El termostato está normal, pero…</p>
+          <h3>Hipertermia</h3>
+          <ul>
+            <li>El <em>set point</em> es <strong>normal</strong>; la temperatura sube <strong>sin control</strong> porque se anula la pérdida de calor</li>
+            <li>La regulación <strong>falla o se supera</strong> (golpe de calor, ejercicio en ambiente caluroso, deshidratación, atropina, éxtasis, hipertermia maligna, síndrome neuroléptico)</li>
+            <li>Los <strong>antipiréticos NO sirven</strong>: no hay PGE2 que quitar</li>
+            <li>Piel caliente y <strong>seca</strong> en la insolación; puede ser rápidamente mortal</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout warn" style="margin-top:1.2rem">
+        <p class="eyebrow">La prueba que las distingue</p>
+        <p style="margin-top:.4rem">Ante temperatura elevada, la respuesta al antipirético es reveladora: si baja, era fiebre (había un termostato subido que se pudo bajar); si no baja, sospecha hipertermia y actúa por medios físicos y sobre la causa. En hipertermia el cuerpo <em>quiere</em> enfriarse pero no puede; en fiebre <em>no quiere</em> hasta que desaparezca el pirógeno.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section id="dolor" class="band-d">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">06</span><h2>Dolor · qué es, y qué no es</h2></div>
+      <div class="prose stack">
+        <p>La IASP lo define como una <strong>experiencia sensorial y emocional desagradable</strong> asociada a un daño tisular real o potencial. La definición trae dos ideas que cambian todo: el dolor <strong>no es solo sensación</strong> (tiene componentes emocionales y conductuales), y <strong>puede existir sin una causa somática que lo justifique</strong>. Melzack llamó <em>neuromátrix</em> al sistema cerebral que integra todas esas variables y da al dolor su carácter subjetivo.</p>
+        <p>Por eso hay que separar cuatro cosas que el lenguaje cotidiano confunde:</p>
+      </div>
+      <div class="grid g4" style="margin-top:1.2rem">
+        <div class="card"><p class="eyebrow">1</p><h3>Nocicepción</h3><p>Los fenómenos biológicos —transducción, transmisión, modulación— desencadenados por el estímulo nocivo, <strong>antes</strong> de ser conscientes. No siempre produce dolor.</p></div>
+        <div class="card"><p class="eyebrow">2</p><h3>Dolor</h3><p>La <strong>percepción subjetiva</strong> consciente, con sus componentes sensorial, emocional y discriminativo.</p></div>
+        <div class="card"><p class="eyebrow">3</p><h3>Sufrimiento</h3><p>Reacción afectiva negativa por dolor, miedo, ansiedad o estrés. No todo sufrimiento viene del dolor.</p></div>
+        <div class="card"><p class="eyebrow">4</p><h3>Conductas de dolor</h3><p>Lo que el paciente hace o deja de hacer por el dolor y el sufrimiento.</p></div>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Agudo y crónico: no es solo cuánto dura</h3>
+      <div class="fork">
+        <div class="lane a" style="border-top-color:var(--fisio)">
+          <p class="eyebrow">Es un síntoma</p>
+          <h3>Dolor agudo («rápido»)</h3>
+          <ul>
+            <li>Se siente ~0,1 s tras el estímulo; menos de 3 meses</li>
+            <li>Naturaleza nociceptiva; función <strong>protectora</strong> (señal de alarma)</li>
+            <li>Respuesta simpático-adrenérgica: dilatación pupilar, sudoración palmar, conducta de escape</li>
+            <li>Se autolimita y desaparece con la lesión que lo originó</li>
+          </ul>
+        </div>
+        <div class="lane b">
+          <p class="eyebrow">Es una enfermedad</p>
+          <h3>Dolor crónico («lento»)</h3>
+          <ul>
+            <li>Más de 3 meses; <strong>sin función protectora</strong></li>
+            <li>Puede considerarse una enfermedad en sí mismo</li>
+            <li>Persiste aun tras curar la lesión, incluso <strong>sin lesión periférica</strong></li>
+            <li>Se asocia a depresión y alteración del comportamiento</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="margin:1.8rem 0 .8rem; font-size:1.12rem">Tipos de dolor</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Tipo</th><th>Origen</th><th>Rasgo clave</th></tr></thead>
+          <tbody>
+            <tr><td class="k">Nociceptivo somático</td><td>Lesión de piel, músculo, hueso</td><td>Bien localizado, circunscrito</td></tr>
+            <tr><td class="k">Nociceptivo visceral</td><td>Lesión de órganos internos</td><td>Difuso, se irradia lejos del órgano; náuseas y diaforesis</td></tr>
+            <tr><td class="k">Inflamatorio</td><td>Respuesta inflamatoria que estimula nociceptores</td><td>La «sopa inflamatoria» (ver abajo)</td></tr>
+            <tr><td class="k">Muscular</td><td>Trauma, fatiga, isquemia</td><td>Claudicación intermitente al ejercitar</td></tr>
+            <tr><td class="k">Neuropático («anormal»)</td><td>Lesión del sistema nervioso periférico o central</td><td><strong>Sin relación</strong> entre lesión tisular y dolor</td></tr>
+            <tr><td class="k">Iatrogénico</td><td>Causado por el tratamiento</td><td>Frecuente en oncología (cirugía, radio, quimio)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout warn" style="margin-top:1.2rem">
+        <p class="eyebrow">La «sopa inflamatoria» (o cóctel algogénico)</p>
+        <p style="margin-top:.4rem">La lesión libera un caldo de sustancias sobre el nociceptor. Unas lo <strong>activan</strong> directamente —K⁺, serotonina, bradicinina, histamina—; otras lo <strong>sensibilizan</strong>, bajando su umbral —prostaglandinas, leucotrienos, sustancia P—. Por eso una zona inflamada duele con un roce que normalmente no dolería: el nociceptor quedó con el umbral bajo. Es el mismo puente con la inflamación del E3.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section id="nocicepcion" class="band-d">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">07</span><h2>Los nociceptores y las fibras</h2></div>
+      <div class="prose stack">
+        <p>El nociceptor es un receptor que <strong>distingue lo inocuo de lo nocivo</strong>: tiene umbral alto, codifica la intensidad del estímulo dañino y no dispara sin un estímulo previo. Se les llama a veces «receptores del dolor», pero no es exacto: no toda activación de nociceptores produce dolor, ni todo dolor viene de ellos.</p>
+      </div>
+      <div class="grid g3" style="margin-top:1.2rem">
+        <div class="card pato">
+          <p class="eyebrow">Rápidas · mielínicas</p>
+          <h3>Fibras A-δ</h3>
+          <p>Conducen a 5–30 m/s. Responden casi solo a estímulos <strong>mecánicos</strong> intensos. Median el <strong>primer dolor</strong>: agudo, punzante, bien localizado —el pinchazo.</p>
+        </div>
+        <div class="card pato">
+          <p class="eyebrow">Lentas · amielínicas</p>
+          <h3>Fibras C</h3>
+          <p>Conducen a &lt; 1,5 m/s. Terminaciones libres <strong>polimodales</strong>: mecánicas, térmicas y químicas. Median el <strong>segundo dolor</strong>: sordo, quemante, difuso, persistente.</p>
+        </div>
+        <div class="card">
+          <p class="eyebrow">Reserva</p>
+          <h3>Nociceptores silenciosos</h3>
+          <p>No responden en tejido sano; solo se activan <strong>tras la lesión</strong>, y entonces responden a muchos estímulos. Explican por qué un tejido dañado se vuelve exquisitamente sensible.</p>
+        </div>
+      </div>
+      <p class="prose" style="margin-top:1.1rem; color:var(--muted); font-size:.92rem">Los nociceptores además liberan neuropéptidos (sustancia P, CGRP) por «activación antidrómica» cerca de los vasos, produciendo vasodilatación y edema: el propio nociceptor alimenta la inflamación que lo activó.</p>
+    </div>
+  </section>
+
+  <!-- 08 -->
+  <section id="vias" class="band-d">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">08</span><h2>El camino del dolor: de la piel a la conciencia</h2></div>
+      <p class="prose" style="margin-bottom:1rem">Cuatro procesos y tres neuronas. Este es el esqueleto que hay que poder dibujar de memoria.</p>
+
+      <ol class="cascade d">
+        <li><strong>Transducción</strong> — el nociceptor convierte el estímulo químico, mecánico o térmico en un potencial de acción. Aquí actúa la «sopa inflamatoria».</li>
+        <li><strong>Transmisión</strong> — la <strong>neurona de 1.er orden</strong> lleva la señal al ganglio raquídeo y hace sinapsis en el <strong>asta posterior</strong> de la médula (láminas de Rexed). La <strong>2.ª neurona</strong> cruza y asciende por las vías anterolaterales (espinotalámico, espinorreticular, espinomesencefálico) hasta el tálamo.</li>
+        <li><strong>Percepción</strong> — la <strong>3.ª neurona</strong> lleva del tálamo a la corteza. Aquí el estímulo se vuelve <em>dolor</em> consciente, con sus dos caras (ver abajo).</li>
+        <li><strong>Modulación</strong> — en todo el trayecto, sistemas inhibitorios y excitatorios ajustan la señal. El dolor final es un <strong>equilibrio</strong>, no una transmisión pasiva.</li>
+      </ol>
+
+      <div class="grid g2" style="margin-top:1.3rem">
+        <div class="card">
+          <p class="eyebrow">Una cara</p>
+          <h3>Componente discriminativo-sensorial</h3>
+          <p>«Dónde, cuánto, qué tipo». Tálamo ventroposterolateral → cortezas somatosensoriales S1 y S2. Es el dolor que se puede localizar y describir.</p>
+        </div>
+        <div class="card">
+          <p class="eyebrow">La otra cara</p>
+          <h3>Componente afectivo</h3>
+          <p>«Cuánto molesta, cuánto asusta». Núcleos talámicos mediales → corteza prefrontal y cingulada. Es la razón por la que el mismo estímulo duele distinto según el ánimo, el contexto y la persona.</p>
+        </div>
+      </div>
+
+      <div class="callout note" style="margin-top:1.2rem">
+        <p class="eyebrow">Por qué dos personas no sienten igual el mismo pinchazo</p>
+        <p style="margin-top:.4rem">Como la señal se <strong>modula</strong> en cada relevo y se integra en dos sistemas —uno sensorial, uno afectivo—, la percepción final varía entre individuos. Es, a nivel del dolor, la misma idea de la sesión 2: <strong>no existen enfermedades, existen enfermos</strong>. El dolor es el ejemplo más claro de que la respuesta depende de quién la vive.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 -->
+  <section id="ocular">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">09</span><h2>Qué ve el optómetra</h2></div>
+      <p class="prose" style="margin-bottom:1.3rem">Fiebre y dolor llegan al consultorio optométrico más de lo que parece. Ninguno de estos cuadros se estudia hoy en profundidad; están para que reconozcas el mecanismo que acabas de aprender.</p>
+      <div class="grid g3">
+        <div class="card pato">
+          <p class="eyebrow">Dolor · el tejido más inervado</p>
+          <h3>La córnea</h3>
+          <p>La córnea tiene la <strong>densidad de nociceptores más alta del cuerpo</strong> —fibras A-δ y C—. Por eso una abrasión mínima produce dolor intenso, lagrimeo y fotofobia desproporcionados al tamaño de la lesión. Es transducción pura sobre terminaciones libres.</p>
+        </div>
+        <div class="card pato">
+          <p class="eyebrow">Dolor referido y afectivo</p>
+          <h3>Cefalea de origen visual</h3>
+          <p>La astenopía y los defectos refractivos no corregidos producen cefalea. El componente afectivo explica por qué empeora con estrés y fatiga: el mismo estímulo, modulado distinto.</p>
+        </div>
+        <div class="card amber">
+          <p class="eyebrow">Fiebre · señal sistémica</p>
+          <h3>El ojo rojo febril</h3>
+          <p>Un ojo rojo con fiebre cambia la sospecha: orienta a causa infecciosa o inflamatoria sistémica, no a una irritación local. La fiebre es el dato que reencuadra el cuadro ocular dentro del cuerpo.</p>
+        </div>
+      </div>
+      <p class="prose" style="margin-top:1.1rem">Y una regla práctica que sale directo de la sección 5: un paciente con <strong>ojo rojo, dolor y fiebre que no cede a antipiréticos</strong> no encaja en el molde de la fiebre común. La respuesta al antipirético es información, también en el ojo.</p>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="actividad">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">10</span><h2>Actividad · Mapa de mecanismo colaborativo</h2></div>
+      <div class="act">
+        <p class="eyebrow">Aula invertida · se prepara ANTES del 3 de septiembre</p>
+        <h3 style="font-size:1.2rem; margin:.3rem 0 .6rem">Cada grupo arma un mapa de mecanismo; en clase lo defiende</h3>
+        <div class="prose stack" style="max-width:none">
+          <p>Esta vez no es una cadena lineal, sino un <strong>mapa</strong>: cada grupo reconstruye una vía fisiopatológica completa conectando sus nodos —estímulo, mensajero, centro, respuesta, consecuencia clínica— y explicando cada flecha. Un grupo trabaja <strong>fiebre</strong> (pirógenos → hipotálamo → fases), otro la <strong>«sopa» y la transducción</strong> del dolor, otro las <strong>vías y la modulación</strong>.</p>
+          <p>Como el Encuentro 6, cada estudiante es dueño de un nodo con nombre, y ningún nodo se sostiene sin el anterior. La diferencia: aquí el producto es un mapa visual que se proyecta y se discute entre grupos. Se prepara con anticipación y la ventana cierra la noche anterior, para llegar a clase con los mapas ya leídos.</p>
+        </div>
+        <a class="cta" href="./" style="background:var(--amber)">Se habilita antes del 3 de septiembre · ver detalle</a>
+      </div>
+      <div class="callout note" style="margin-top:1rem">
+        <p class="eyebrow">Cómo se conecta con la clase de hoy</p>
+        <p style="margin-top:.4rem">Las secciones 3 a 8 son, literalmente, el material que necesitas para tu nodo. Léelas antes de escribir: el criterio de una buena defensa es que tu flecha —el «esto obliga a aquello»— sea inevitable.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section id="autoeval">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">11</span><h2>Autoevaluación</h2></div>
+      <p class="prose" style="margin-bottom:1rem">Responde mentalmente antes de abrir cada tarjeta.</p>
+
+      <h3 style="margin-bottom:.4rem; font-size:1.05rem">A · ¿Fiebre o hipertermia?</h3>
+      <p style="color:var(--muted); font-size:.9rem; margin-bottom:.6rem">Decide según dónde está el termostato.</p>
+      <div class="card" id="drillA"></div>
+
+      <h3 style="margin:2rem 0 .8rem; font-size:1.05rem">B · Diez preguntas</h3>
+      <div id="quiz"></div>
+
+      <div class="grid g2" style="margin-top:1.6rem">
+        <div class="card">
+          <h3>Trabajo independiente</h3>
+          <ul>
+            <li>Preparar tu <strong>nodo del mapa de mecanismo</strong> antes de la sesión</li>
+            <li>Lectura de los capítulos 7 (Dolor) y 25 (Síndrome febril) del texto guía</li>
+            <li>Cuadro propio: fiebre vs hipertermia, mínimo cuatro criterios</li>
+            <li>Esquema a mano de los cuatro procesos de la nocicepción</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Fuentes de la sesión</h3>
+          <ul>
+            <li>Uribe Olivares, R. A. (2018). <em>Fisiopatología. La ciencia del porqué y el cómo</em>. Elsevier. Cap. 7 (Marcelo Heron Petri, Dolor) y cap. 25 (Síndrome febril).</li>
+            <li>IASP — definición de dolor.</li>
+            <li>Kluger MJ. <em>The adaptive value of fever</em>. Infect Dis Clin North Am, 1996.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Fisiopatología General (01008430) · Programa de Optometría · Facultad de Ciencias de la Salud · Universidad de La Salle · Semestre 2026-2</p>
+    <p style="margin-top:.4rem">Clase 7 de 16. Los ejemplos oculares ilustran el mecanismo general; su estudio detallado corresponde a espacios académicos posteriores.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  document.getElementById('themeBtn').addEventListener('click', function(){
+    var dark = root.getAttribute('data-theme') === 'dark'
+      || (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+    root.setAttribute('data-theme', dark ? 'light' : 'dark');
+  });
+
+  // ---- drill A: fiebre o hipertermia ----
+  var itemsA = [
+    { t:'Sube la temperatura porque el hipotálamo fijó un valor de referencia más alto', a:'fiebre', e:'El set point subió; el cuerpo regula hacia arriba a propósito. Es fiebre.' },
+    { t:'Trabajador con golpe de calor: piel caliente y seca, no responde a antipiréticos', a:'hiper', e:'El set point es normal; falla la pérdida de calor. Es hipertermia, y el antipirético no sirve.' },
+    { t:'Niño con infección viral: escalofríos, luego piel caliente y húmeda; cede con paracetamol', a:'fiebre', e:'Hay pirógenos y PGE2; el antipirético baja el termostato. Fiebre.' },
+    { t:'Paciente con éxtasis: temperatura muy alta por vasoconstricción y producción de calor', a:'hiper', e:'Set point normal, disipación de calor perdida. Hipertermia.' },
+    { t:'Hipertermia maligna por anestésicos que desacoplan la fosforilación oxidativa', a:'hiper', e:'Producción incontrolada de calor con termostato normal. Hipertermia, potencialmente fatal.' },
+    { t:'La temperatura sube tras la liberación de IL-1 e IL-6 por macrófagos', a:'fiebre', e:'Pirógenos endógenos → PGE2 → sube el set point. Fiebre.' }
+  ];
+  var A = document.getElementById('drillA'); var okA=0, ansA=0;
+  var scoreA = document.createElement('p'); scoreA.className='score';
+  itemsA.forEach(function(it){
+    var row=document.createElement('div'); row.className='drill-row';
+    var q=document.createElement('span'); q.className='drill-q'; q.textContent=it.t;
+    var v=document.createElement('span'); v.className='verdict'; row.appendChild(q);
+    var done=false;
+    [['fiebre','Fiebre'],['hiper','Hipertermia']].forEach(function(o){
+      var b=document.createElement('button'); b.className='btn'; b.type='button'; b.textContent=o[1];
+      b.addEventListener('click', function(){
+        row.querySelectorAll('.btn').forEach(function(x){x.classList.remove('ok','no');});
+        var ok=o[0]===it.a; b.classList.add(ok?'ok':'no');
+        v.innerHTML=(ok?'<b>Correcto.</b> ':'<b>Revisa.</b> ')+it.e;
+        if(!done){done=true; ansA++; if(ok)okA++; scoreA.textContent='Primer intento: '+okA+' de '+ansA+' ('+itemsA.length+' en total)';}
+      });
+      row.appendChild(b);
+    });
+    row.appendChild(v); A.appendChild(row);
+  });
+  A.appendChild(scoreA);
+
+  // ---- quiz ----
+  var qs = [
+    ['¿Cuál es la diferencia esencial, a nivel del termostato, entre fiebre e hipertermia?',
+     'En la fiebre el punto de ajuste (set point) del hipotálamo SUBE y el cuerpo regula hacia esa temperatura mayor de forma controlada. En la hipertermia el set point es normal, pero la temperatura sube sin control porque se anula la pérdida de calor. Por eso los antipiréticos bajan la fiebre pero no la hipertermia.'],
+    ['Describe la cascada que produce fiebre, desde el pirógeno exógeno hasta el efecto.',
+     'El pirógeno exógeno (p. ej. endotoxina) estimula a los macrófagos, que liberan pirógenos endógenos —citocinas IL-1, IL-6, TNF-α, IFN-β—; estas inducen la producción de prostaglandina E2 en el hipotálamo; la PGE2 se une a sus receptores y eleva el punto de ajuste termorregulador.'],
+    ['¿Por qué un antipirético baja la fiebre pero no la temperatura de un golpe de calor?',
+     'El antipirético inhibe la ciclooxigenasa y con ello la síntesis de PGE2, devolviendo el termostato a su valor normal. En el golpe de calor no hay PGE2 elevando el set point: la temperatura sube por fallo de la disipación de calor, así que quitar la PGE2 no cambia nada.'],
+    ['Nombra las tres fases de la fiebre y un signo de cada una.',
+     'Ascenso o escalofrío: tiritona, piloerección, vasoconstricción, el paciente tiene frío. Estado o meseta: piel caliente y húmeda, rubicundez, sed, cefalea. Lisis o descenso: vasodilatación, sudoración profusa, sensación de calor.'],
+    ['La IASP define el dolor. ¿Qué dos ideas nuevas aporta esa definición?',
+     'Primero, que el dolor no es solo una experiencia sensorial (nociceptiva), sino que también tiene componentes emocionales y conductuales. Segundo, que el dolor puede presentarse sin una causa somática que lo justifique.'],
+    ['Diferencia nocicepción de dolor.',
+     'La nocicepción son los fenómenos biológicos (transducción, transmisión, modulación) que desencadena un estímulo nocivo antes de hacerse consciente; no siempre produce dolor. El dolor es la percepción subjetiva consciente, con sus componentes sensorial, emocional y discriminativo.'],
+    ['Contrasta las fibras A-δ y C.',
+     'A-δ: mielínicas, rápidas (5–30 m/s), responden a estímulos mecánicos intensos, median el primer dolor (agudo, punzante, localizado). C: amielínicas, lentas (<1,5 m/s), polimodales (mecánicas, térmicas, químicas), median el segundo dolor (sordo, quemante, difuso).'],
+    ['¿Qué es la «sopa inflamatoria» y qué le hace al nociceptor?',
+     'Es el conjunto de sustancias liberadas por la lesión. Unas activan directamente el nociceptor (K+, serotonina, bradicinina, histamina); otras lo sensibilizan bajando su umbral (prostaglandinas, leucotrienos, sustancia P). Por eso una zona inflamada duele ante estímulos que normalmente no dolerían.'],
+    ['Menciona los cuatro procesos del camino del dolor.',
+     'Transducción (el nociceptor convierte el estímulo en potencial de acción), transmisión (1.ª neurona al asta posterior, 2.ª neurona cruza y asciende al tálamo), percepción (3.ª neurona al córtex, donde se hace consciente) y modulación (ajuste inhibitorio/excitatorio a lo largo de todo el trayecto).'],
+    ['¿Por qué el mismo estímulo doloroso se siente distinto en dos personas?',
+     'Porque la señal se modula en cada relevo y se integra en dos sistemas: el discriminativo-sensorial (tálamo VPL → cortezas S1/S2: dónde y cuánto) y el afectivo (núcleos mediales → prefrontal y cingulada: cuánto molesta). La combinación depende del individuo, su ánimo y su contexto. Es el «no hay enfermedades, hay enfermos» aplicado al dolor.']
+  ];
+  var quiz=document.getElementById('quiz');
+  qs.forEach(function(pair,i){
+    var d=document.createElement('div'); d.className='q';
+    var h=document.createElement('button'); h.className='q-head'; h.type='button'; h.setAttribute('aria-expanded','false');
+    h.innerHTML='<span class="q-n">'+String(i+1).padStart(2,'0')+'</span><span>'+pair[0]+'</span>';
+    var b=document.createElement('div'); b.className='q-body'; b.textContent=pair[1];
+    h.addEventListener('click', function(){ var open=d.classList.toggle('open'); h.setAttribute('aria-expanded', open?'true':'false'); });
+    d.appendChild(h); d.appendChild(b); quiz.appendChild(d);
+  });
+})();
+</script>
+</body>
+</html>
