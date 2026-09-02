@@ -31,7 +31,8 @@ Primera aplicación directa de la inflamación. Fiebre y dolor van juntos porque
 
 ## Lectura previa
 
-- Uribe Olivares, cap. 7 (Dolor) y cap. 25 (Síndrome febril)
+- Uribe Olivares, cap. 7 (Dolor) y cap. 11 (Fiebre)
+- Refuerzo: Costanzo, cap. 3 (Neurofisiología · sistema somatosensorial y dolor)
 
 ## Trabajo independiente
 
