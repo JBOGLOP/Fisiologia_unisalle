@@ -56,7 +56,7 @@ qué hacer con él.
 | 📝 | **4** | **13 de agosto** | **Primer parcial** | — |
 | 💬 | **5** | 20 de agosto | Socialización de notas | — |
 | ✅ | **6** | 27 de agosto | Inmunidad y respuesta del huésped a la infección | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/06-inmunidad-e-infeccion/clase.html)** · [🔗 actividad](https://jboglop.github.io/Fisiologia_unisalle/06-inmunidad-e-infeccion/cadena.html) · [detalle](06-inmunidad-e-infeccion/) |
-| 🔜 | **7** | 3 de septiembre | Fisiopatología de la fiebre y del dolor | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/07-fiebre-y-dolor/clase.html)** · [detalle](07-fiebre-y-dolor/) |
+| 🔜 | **7** | 3 de septiembre | Fisiopatología de la fiebre y del dolor | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/07-fiebre-y-dolor/clase.html)** · [🔗 actividad](https://jboglop.github.io/Fisiologia_unisalle/07-fiebre-y-dolor/mapa.html) · [detalle](07-fiebre-y-dolor/) |
 | ⬜ | **8** | 10 de septiembre | Fisiopatología del edema y del síncope | _en preparación_ |
 | 📝 | **9** | 17 de septiembre | **Segundo parcial** | — |
 | 💬 | **10** | 24 de septiembre | Socialización de notas | — |
