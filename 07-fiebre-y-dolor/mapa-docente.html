@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Mapa · Encuentro 7 · Docente</title>
+<style>
+  :root{
+    --ink:#12212b; --paper:#f4f7f7; --surface:#ffffff; --surface-2:#eaf0f0;
+    --line:#cbd8da; --muted:#516268;
+    --fisio:#10505e; --fisio-soft:#dceaec;
+    --pato:#a8412c; --pato-soft:#f5e2dc;
+    --amber:#a06a12; --amber-soft:#f6e9cf;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 12px 30px -18px rgba(18,33,43,.4);
+    --display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+      --line:#2c3d43; --muted:#9bafb4;
+      --fisio:#5cb6c6; --fisio-soft:#12313a;
+      --pato:#e08a70; --pato-soft:#3a2119;
+      --amber:#e0b464; --amber-soft:#3a2f16;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.9);
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font-family:var(--body); line-height:1.55;
+    -webkit-font-smoothing:antialiased; min-height:100dvh; padding:clamp(.8rem,3vw,2rem)}
+  .wrap{max-width:960px; margin:0 auto}
+  .hide{display:none !important}
+
+  .eyebrow{font-family:var(--mono); font-size:.65rem; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--muted); margin:0}
+  h1{font-family:var(--display); font-weight:600; line-height:1.15;
+    font-size:clamp(1.5rem,6vw,2.1rem); margin:.3rem 0 .5rem}
+  h2{font-family:var(--display); font-weight:600; font-size:1.2rem; margin:0 0 .5rem}
+  .sub{color:var(--muted); font-size:.95rem; margin:0 0 1.4rem}
+
+  .panel{background:var(--surface); border:1px solid var(--line); border-radius:14px;
+    box-shadow:var(--shadow); padding:clamp(1rem,4vw,1.6rem); margin-bottom:1rem}
+
+  label{display:block; font-size:.74rem; font-weight:600; color:var(--muted);
+    text-transform:uppercase; letter-spacing:.06em; margin:0 0 .35rem}
+  input{width:100%; font:inherit; font-size:1rem; color:var(--ink); background:var(--paper);
+    border:1px solid var(--line); border-radius:10px; padding:.7rem .8rem}
+  input:focus{outline:2px solid var(--fisio); outline-offset:1px; border-color:var(--fisio)}
+  .field{margin-bottom:1rem}
+
+  .btn{font:inherit; font-weight:600; font-size:.9rem; cursor:pointer; background:var(--fisio);
+    color:#fff; border:0; border-radius:99px; padding:.6rem 1.1rem; transition:filter .15s}
+  .btn:hover{filter:brightness(1.08)}
+  .btn:disabled{opacity:.5; cursor:progress}
+  .btn.full{width:100%; padding:.85rem 1rem; font-size:1rem}
+  .btn.sec{background:transparent; color:var(--fisio);
+    border:1px solid color-mix(in srgb,var(--fisio) 45%,transparent)}
+
+  .msg{margin-top:1rem; padding:.8rem 1rem; border-radius:10px; font-size:.9rem; display:none}
+  .msg.err{display:block; background:var(--pato-soft); color:var(--pato)}
+  .msg.warn{display:block; background:var(--amber-soft); color:var(--amber)}
+
+  .barra{display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; margin:0 0 1.2rem}
+  .tab{font:inherit; font-size:.86rem; font-weight:600; cursor:pointer; background:var(--surface);
+    color:var(--muted); border:1px solid var(--line); border-radius:99px; padding:.45rem .95rem}
+  .tab.on{background:var(--fisio); color:#fff; border-color:var(--fisio)}
+  .espacio{flex:1}
+  .cont{font-family:var(--mono); font-size:.75rem; color:var(--muted)}
+
+  .caso{background:var(--pato-soft); border-left:3px solid var(--pato); border-radius:0 10px 10px 0;
+    padding:.9rem 1.1rem; margin:0 0 1.2rem; font-size:.93rem}
+  .caso .et{font-family:var(--mono); font-size:.64rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--pato); display:block; margin-bottom:.4rem}
+
+  .esl{background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--fisio);
+    border-radius:12px; padding:1rem 1.2rem; margin-bottom:.8rem}
+  .esl.falta{border-left-color:var(--pato); background:var(--pato-soft)}
+  .esl-cab{display:flex; gap:.7rem; align-items:baseline; flex-wrap:wrap; margin-bottom:.5rem}
+  .esl-n{font-family:var(--mono); font-size:.78rem; color:var(--fisio); font-weight:700}
+  .esl-t{font-family:var(--display); font-size:1.08rem; font-weight:600; flex:1; min-width:12rem}
+  .esl-quien{font-size:.8rem; color:var(--muted)}
+  .esl-quien b{color:var(--ink); font-weight:600}
+  .campo{margin-top:.75rem}
+  .campo .et{font-family:var(--mono); font-size:.62rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--muted); display:block; margin-bottom:.25rem}
+  .campo p{margin:0; font-size:.94rem; white-space:pre-wrap}
+  .campo.obliga{background:var(--amber-soft); border-radius:9px; padding:.6rem .8rem}
+  .campo.obliga .et{color:var(--amber)}
+  .pide{font-size:.85rem; color:var(--muted); font-style:italic; margin:.4rem 0 0}
+  .meta{font-family:var(--mono); font-size:.68rem; color:var(--muted); margin-top:.6rem}
+
+  .faltan{background:var(--amber-soft); border-left:3px solid var(--amber); border-radius:0 10px 10px 0;
+    padding:.8rem 1rem; margin:0 0 1.2rem; font-size:.88rem}
+  .faltan b{color:var(--amber)}
+  .faltan ul{margin:.4rem 0 0; padding-left:1.1rem}
+
+  #vProy{position:fixed; inset:0; background:var(--paper); z-index:50; padding:clamp(1rem,4vw,3rem);
+    display:flex; flex-direction:column; overflow-y:auto}
+  #vProy .cab{font-family:var(--mono); font-size:.8rem; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:.6rem}
+  #vProy .tit{font-family:var(--display); font-size:clamp(1.6rem,4.5vw,2.6rem); line-height:1.15;
+    margin:0 0 .3rem}
+  #vProy .autor{font-size:clamp(1rem,2vw,1.25rem); color:var(--fisio); font-weight:600;
+    margin:0 0 1.4rem}
+  #vProy .cuerpo{flex:1; font-size:clamp(1rem,1.9vw,1.35rem); line-height:1.6; white-space:pre-wrap;
+    max-width:60ch}
+  #vProy .pieProy{display:flex; gap:.6rem; align-items:center; margin-top:1.4rem;
+    padding-top:1rem; border-top:1px solid var(--line)}
+
+  footer{margin-top:1.6rem; padding-top:.9rem; border-top:1px solid var(--line);
+    font-family:var(--mono); font-size:.66rem; letter-spacing:.04em; color:var(--muted)}
+</style>
+</head>
+<body>
+
+<!-- ══════════ CLAVE ══════════ -->
+<div class="wrap" id="vClave">
+  <p class="eyebrow">Fisiopatología General · 01008430</p>
+  <h1>Mapas del encuentro 7</h1>
+  <p class="sub">Acceso del docente.</p>
+  <div class="panel">
+    <div class="field">
+      <label for="usuario">Usuario</label>
+      <input id="usuario" type="text" autocomplete="username" spellcheck="false">
+    </div>
+    <div class="field">
+      <label for="clave">Clave</label>
+      <input id="clave" type="password" autocomplete="current-password">
+    </div>
+    <button class="btn full" id="entrar" type="button">Entrar</button>
+    <div class="msg" id="msgClave" role="status" aria-live="polite"></div>
+  </div>
+  <footer>La clave se comprueba en el servidor. Esta página no la contiene.</footer>
+</div>
+
+<!-- ══════════ TABLERO ══════════ -->
+<div class="wrap hide" id="vTablero">
+  <p class="eyebrow">Encuentro 7 · aula invertida</p>
+  <h1>Los tres mapas</h1>
+  <p class="sub" id="resumen"></p>
+
+  <div class="barra">
+    <button class="tab on" data-g="A" type="button">A · Fiebre</button>
+    <button class="tab" data-g="B" type="button">B · Dolor: transducción</button>
+    <button class="tab" data-g="C" type="button">C · Dolor: vías</button>
+    <span class="espacio"></span>
+    <button class="btn sec" id="proyectar" type="button">Proyectar</button>
+    <button class="btn sec" id="recargar" type="button">Recargar</button>
+  </div>
+
+  <div id="faltantes"></div>
+  <div id="contenido"></div>
+
+  <footer>Los nodos sin entregar aparecen en rojo con el nombre de quien debía escribirlos.
+    En clase se defienden en orden: 1, 2, 3…</footer>
+</div>
+
+<!-- ══════════ PROYECCIÓN ══════════ -->
+<div id="vProy" class="hide">
+  <p class="cab" id="pCab"></p>
+  <h2 class="tit" id="pTit"></h2>
+  <p class="autor" id="pAutor"></p>
+  <div class="cuerpo" id="pCuerpo"></div>
+  <div class="pieProy">
+    <button class="btn sec" id="pAnt" type="button">← Anterior</button>
+    <button class="btn" id="pSig" type="button">Siguiente →</button>
+    <span class="espacio"></span>
+    <span class="cont" id="pPos"></span>
+    <button class="btn sec" id="pSalir" type="button">Salir</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ⚠️ PEGAR LA URL /exec DEL BACKEND DEL MAPA DESPUÉS DE DESPLEGARLO.
+  var API = "PEGAR_URL_EXEC_DEL_MAPA_AQUI";
+  var ESPERA = 30000;
+
+  var $ = function(id){ return document.getElementById(id); };
+  var datos = null, grupoActual = "A", proy = { lista:[], i:0 };
+  var cred = { usuario:"", clave:"" };
+
+  function conTiempo(p){
+    return new Promise(function(ok, mal){
+      var t = setTimeout(function(){ mal(new Error("timeout")); }, ESPERA);
+      p.then(function(v){ clearTimeout(t); ok(v); }, function(e){ clearTimeout(t); mal(e); });
+    });
+  }
+  function get(params){
+    var qs = Object.keys(params).map(function(k){
+      return encodeURIComponent(k)+"="+encodeURIComponent(params[k]); }).join("&");
+    return conTiempo(fetch(API+"?"+qs).then(function(r){ return r.json(); }));
+  }
+  function ver(el, cls, txt){ el.className = "msg "+cls; el.textContent = txt; }
+  function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
+
+  // ---------- entrar ----------
+  function entrar(){
+    var btn = $("entrar");
+    cred.usuario = $("usuario").value.trim();
+    cred.clave = $("clave").value;
+    if (!cred.usuario || !cred.clave){ ver($("msgClave"), "err", "Faltan los datos."); return; }
+    btn.disabled = true; btn.textContent = "Entrando…";
+    get({ action:"docente", usuario:cred.usuario, clave:cred.clave })
+      .then(function(r){
+        btn.disabled = false; btn.textContent = "Entrar";
+        if (!r.ok){ ver($("msgClave"), "err", r.error); return; }
+        datos = r;
+        $("vClave").classList.add("hide"); $("vTablero").classList.remove("hide");
+        pintar();
+      })
+      .catch(function(){
+        btn.disabled = false; btn.textContent = "Entrar";
+        ver($("msgClave"), "err", "No hubo respuesta del servidor.");
+      });
+  }
+  $("entrar").addEventListener("click", entrar);
+  $("clave").addEventListener("keydown", function(e){ if (e.key === "Enter") entrar(); });
+
+  $("recargar").addEventListener("click", function(){
+    var btn = this; btn.disabled = true; btn.textContent = "…";
+    get({ action:"docente", usuario:cred.usuario, clave:cred.clave }).then(function(r){
+      btn.disabled = false; btn.textContent = "Recargar";
+      if (r.ok){ datos = r; pintar(); }
+    }).catch(function(){ btn.disabled = false; btn.textContent = "Recargar"; });
+  });
+
+  // ---------- pintar ----------
+  function cadena(){
+    for (var i=0;i<datos.cadenas.length;i++) if (datos.cadenas[i].grupo === grupoActual) return datos.cadenas[i];
+    return datos.cadenas[0];
+  }
+
+  function pintar(){
+    $("resumen").textContent = datos.entregados + " de " + datos.total + " nodos entregados" +
+      (datos.abierto ? " · la entrega sigue abierta hasta el " + datos.cierra
+                     : " · la entrega ya cerró") +
+      (datos.prueba ? "  ⚠️ MODO PRUEBA ACTIVO" : "");
+
+    $("faltantes").innerHTML = datos.faltan.length
+      ? '<div class="faltan"><b>Faltan ' + datos.faltan.length + ' nodos.</b> Sin ellos el ' +
+        'mapa se rompe en clase: hay que decidir si se cubren o si se deja el hueco a la vista.' +
+        '<ul>' + datos.faltan.map(function(f){ return "<li>"+esc(f)+"</li>"; }).join("") + '</ul></div>'
+      : "";
+
+    var c = cadena();
+    var html = '<div class="caso"><span class="et">Grupo ' + c.grupo + ' · ' + esc(c.tema) +
+               '</span>' + esc(c.caso) + '<p style="margin:.7rem 0 0; font-style:italic">' +
+               esc(c.pregunta) + '</p></div>';
+
+    html += c.eslabones.map(function(e){
+      if (!e.entregado){
+        return '<div class="esl falta"><div class="esl-cab"><span class="esl-n">' + e.n +
+               '</span><span class="esl-t">' + esc(e.t) + '</span>' +
+               '<span class="esl-quien">le tocaba a <b>' + esc(e.aQuienLeToca) + '</b></span></div>' +
+               '<p class="pide">' + esc(e.pide) + '</p>' +
+               '<p class="meta">SIN ENTREGAR</p></div>';
+      }
+      var d = e.datos;
+      return '<div class="esl"><div class="esl-cab"><span class="esl-n">' + e.n +
+             '</span><span class="esl-t">' + esc(e.t) + '</span>' +
+             '<span class="esl-quien"><b>' + esc(d.nombre) + '</b></span></div>' +
+             '<div class="campo"><span class="et">Qué afirma</span><p>' + esc(d.afirma) + '</p></div>' +
+             '<div class="campo"><span class="et">En qué se apoya</span><p>' + esc(d.fuente) + '</p></div>' +
+             '<div class="campo obliga"><span class="et">Qué nodo anterior lo obliga</span><p>' +
+             esc(d.obliga) + '</p></div>' +
+             '<p class="meta">' + d.palAfirma + ' + ' + d.palObliga + ' palabras · ' +
+             esc(d.cuando) + (d.nota != null ? ' · NOTA ' + d.nota : '') + '</p>' +
+             (d.comentario ? '<p class="pide">' + esc(d.comentario) + '</p>' : '') +
+             '</div>';
+    }).join("");
+
+    $("contenido").innerHTML = html;
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll(".tab"), function(t){
+    t.addEventListener("click", function(){
+      Array.prototype.forEach.call(document.querySelectorAll(".tab"), function(x){ x.classList.remove("on"); });
+      t.classList.add("on"); grupoActual = t.dataset.g; pintar();
+    });
+  });
+
+  // ---------- proyección ----------
+  function abrirProyeccion(){
+    var c = cadena();
+    proy.lista = c.eslabones.map(function(e){
+      return { g:c.grupo, tema:c.tema, n:e.n, t:e.t, quien:e.entregado ? e.datos.nombre : e.aQuienLeToca,
+               entregado:e.entregado,
+               cuerpo: e.entregado
+                 ? e.datos.afirma + "\n\n— ¿QUÉ NODO ANTERIOR LO OBLIGA? —\n" + e.datos.obliga +
+                   "\n\n[ " + e.datos.fuente + " ]"
+                 : "Sin entregar.\n\nLo que debía contener:\n" + e.pide };
+    });
+    proy.i = 0; pintarProy();
+    $("vProy").classList.remove("hide");
+  }
+  function pintarProy(){
+    var e = proy.lista[proy.i];
+    if (!e) return;
+    $("pCab").textContent = "Grupo " + e.g + " · " + e.tema + " · nodo " + e.n + " de " + proy.lista.length;
+    $("pTit").textContent = e.t;
+    $("pAutor").textContent = (e.entregado ? "" : "SIN ENTREGAR · le tocaba a ") + e.quien;
+    $("pCuerpo").textContent = e.cuerpo;
+    $("pPos").textContent = (proy.i + 1) + " / " + proy.lista.length;
+    $("pAnt").disabled = proy.i === 0;
+    $("pSig").disabled = proy.i === proy.lista.length - 1;
+  }
+  $("proyectar").addEventListener("click", abrirProyeccion);
+  $("pSig").addEventListener("click", function(){ if (proy.i < proy.lista.length-1){ proy.i++; pintarProy(); } });
+  $("pAnt").addEventListener("click", function(){ if (proy.i > 0){ proy.i--; pintarProy(); } });
+  $("pSalir").addEventListener("click", function(){ $("vProy").classList.add("hide"); });
+  document.addEventListener("keydown", function(e){
+    if ($("vProy").classList.contains("hide")) return;
+    if (e.key === "ArrowRight" || e.key === " "){ e.preventDefault(); $("pSig").click(); }
+    if (e.key === "ArrowLeft"){ e.preventDefault(); $("pAnt").click(); }
+    if (e.key === "Escape") $("pSalir").click();
+  });
+
+})();
+</script>
+</body>
+</html>
