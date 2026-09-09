@@ -178,6 +178,11 @@
   .act .cta:hover{filter:brightness(1.08)}
 
   footer{border-top:1px solid var(--line); padding:2rem 0 3rem; color:var(--muted); font-size:.83rem}
+  figure.fig{margin:1.4rem 0 0; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:1.1rem 1.2rem .9rem}
+  figure.fig svg{display:block; width:100%; height:auto; color:var(--ink)}
+  figure.fig figcaption{margin-top:.7rem; font-size:.84rem; color:var(--muted); line-height:1.5}
+  figure.fig figcaption b{color:var(--ink)}
+  .svg-mut{fill:var(--muted)} .svg-ink{fill:var(--ink)}
   @media (prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
 </style>
 </head>
@@ -303,6 +308,54 @@
         <li><strong>Prostaglandina E2</strong> — allí se produce <strong>PGE2</strong>, el mediador final que <strong>sube el valor de referencia</strong>. El termostato queda fijado más alto.</li>
       </ol>
 
+      <figure class="fig">
+        <svg viewBox="0 0 860 200" role="img" aria-label="Cascada de la fiebre: el lipopolisacárido bacteriano es opsonizado por el complemento y fagocitado por las células de Kupffer, que liberan las citocinas IL-1, IL-6 y TNF; estas viajan por la sangre hasta el OVLT y el área preóptica, que carecen de barrera hematoencefálica, donde inducen prostaglandina E2, que sube el valor de referencia del hipotálamo.">
+          <defs>
+            <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/>
+            </marker>
+          </defs>
+          <!-- nodos -->
+          <g font-family="system-ui,sans-serif" font-size="12.5" text-anchor="middle">
+            <rect x="8" y="66" width="120" height="56" rx="9" fill="var(--pato-soft)" stroke="var(--pato)"/>
+            <text class="svg-ink" x="68" y="88" font-weight="700">LPS</text>
+            <text class="svg-mut" x="68" y="106">pirógeno exógeno</text>
+
+            <rect x="188" y="66" width="132" height="56" rx="9" fill="var(--surface)" stroke="var(--line)"/>
+            <text class="svg-ink" x="254" y="88" font-weight="700">Kupffer</text>
+            <text class="svg-mut" x="254" y="106">fagocita (macrófago)</text>
+
+            <rect x="380" y="66" width="132" height="56" rx="9" fill="var(--surface)" stroke="var(--line)"/>
+            <text class="svg-ink" x="446" y="84" font-weight="700">Citocinas</text>
+            <text class="svg-mut" x="446" y="102">IL-1 · IL-6 · TNF</text>
+
+            <rect x="572" y="66" width="140" height="56" rx="9" fill="var(--surface)" stroke="var(--line)"/>
+            <text class="svg-ink" x="642" y="84" font-weight="700">OVLT / preóptica</text>
+            <text class="svg-mut" x="642" y="102">sin barrera H-E</text>
+
+            <rect x="772" y="52" width="80" height="84" rx="9" fill="var(--amber-soft)" stroke="var(--amber)"/>
+            <text x="812" y="80" font-weight="700" fill="var(--amber)">PGE2</text>
+            <text class="svg-ink" x="812" y="100">sube el</text>
+            <text class="svg-ink" x="812" y="116">set point</text>
+          </g>
+          <!-- flechas -->
+          <g stroke="var(--muted)" stroke-width="1.6" fill="none" marker-end="url(#ah)">
+            <line x1="128" y1="94" x2="184" y2="94"/>
+            <line x1="320" y1="94" x2="376" y2="94"/>
+            <line x1="512" y1="94" x2="568" y2="94"/>
+            <line x1="712" y1="94" x2="768" y2="94"/>
+          </g>
+          <g font-family="ui-monospace,monospace" font-size="10.5" class="svg-mut" text-anchor="middle">
+            <text x="156" y="86">complemento</text>
+            <text x="156" y="99">opsoniza</text>
+            <text x="348" y="88">liberan</text>
+            <text x="540" y="88">sangre</text>
+            <text x="740" y="88">inducen</text>
+          </g>
+        </svg>
+        <figcaption><b>La fiebre se fabrica lejos del cerebro y entra por su única puerta sin barrera.</b> El LPS no llega al hipotálamo; llega la señal química (citocinas → PGE2) que solo puede actuar en el OVLT y el área preóptica, los dos puntos sin barrera hematoencefálica. Ahí la PGE2 sube el valor de referencia.</figcaption>
+      </figure>
+
       <div class="grid g2" style="margin-top:1.2rem">
         <div class="card">
           <h3>El cuerpo persigue el nuevo valor</h3>
@@ -326,6 +379,49 @@
     <div class="wrap">
       <div class="sec-head"><span class="sec-num">05</span><h2>Fiebre · las tres fases y los patrones</h2></div>
       <p class="prose" style="margin-bottom:1rem">Reconocer la fase en la que llega el paciente cambia lo que uno observa: la misma fiebre se ve distinta según esté subiendo, en meseta o bajando.</p>
+
+      <figure class="fig">
+        <svg viewBox="0 0 860 320" role="img" aria-label="Curva de la fiebre: el valor de referencia del hipotálamo salta de 37 a 39 grados y vuelve a bajar; la temperatura real persigue ese valor con retraso. Mientras sube, el cuerpo siente frío y tirita (fase de ascenso); en la meseta iguala el nuevo valor (fase de estado); cuando el valor baja, la temperatura real queda por encima y el cuerpo suda (fase de lisis).">
+          <!-- ejes -->
+          <g stroke="var(--line)" stroke-width="1">
+            <line x1="70" y1="40" x2="70" y2="250"/>
+            <line x1="70" y1="250" x2="820" y2="250"/>
+            <line x1="70" y1="210" x2="820" y2="210" stroke-dasharray="2 4"/>
+            <line x1="70" y1="90" x2="820" y2="90" stroke-dasharray="2 4"/>
+          </g>
+          <g font-family="ui-monospace,monospace" font-size="11" class="svg-mut" text-anchor="end">
+            <text x="60" y="214">37°</text>
+            <text x="60" y="94">39°</text>
+          </g>
+          <!-- bandas de fase -->
+          <g font-family="system-ui,sans-serif" font-size="12" text-anchor="middle">
+            <line x1="250" y1="60" x2="250" y2="250" stroke="var(--line)" stroke-dasharray="3 3"/>
+            <line x1="410" y1="60" x2="410" y2="250" stroke="var(--line)" stroke-dasharray="3 3"/>
+            <line x1="560" y1="60" x2="560" y2="250" stroke="var(--line)" stroke-dasharray="3 3"/>
+            <text class="svg-ink" x="330" y="272" font-weight="600">Ascenso</text>
+            <text class="svg-mut" x="330" y="288" font-size="10.5">vasoconstricción + temblor</text>
+            <text class="svg-ink" x="485" y="272" font-weight="600">Estado</text>
+            <text class="svg-mut" x="485" y="288" font-size="10.5">piel caliente y húmeda</text>
+            <text class="svg-ink" x="670" y="272" font-weight="600">Lisis</text>
+            <text class="svg-mut" x="670" y="288" font-size="10.5">vasodilatación + sudor</text>
+          </g>
+          <!-- valor de referencia (set point), escalonado -->
+          <path d="M90,210 H250 V90 H560 V210 H800" fill="none" stroke="var(--amber)" stroke-width="2.4" stroke-dasharray="7 5"/>
+          <!-- temperatura real, persigue con retraso -->
+          <path d="M90,210 H250 C300,210 360,120 410,90 H560 C610,90 670,190 720,210 H800" fill="none" stroke="var(--pato)" stroke-width="2.6"/>
+          <!-- brecha: siente frío -->
+          <text x="332" y="150" font-family="system-ui,sans-serif" font-size="11" class="svg-mut" text-anchor="middle">siente frío:</text>
+          <text x="332" y="164" font-family="system-ui,sans-serif" font-size="11" class="svg-mut" text-anchor="middle">real &lt; referencia</text>
+          <!-- leyenda -->
+          <g font-family="system-ui,sans-serif" font-size="11.5">
+            <line x1="90" y1="26" x2="120" y2="26" stroke="var(--amber)" stroke-width="2.4" stroke-dasharray="7 5"/>
+            <text class="svg-ink" x="126" y="30">valor de referencia (set point)</text>
+            <line x1="330" y1="26" x2="360" y2="26" stroke="var(--pato)" stroke-width="2.6"/>
+            <text class="svg-ink" x="366" y="30">temperatura real</text>
+          </g>
+        </svg>
+        <figcaption><b>La temperatura real siempre persigue al termostato, nunca al revés.</b> El hipotálamo sube el set point de golpe (línea ámbar); la temperatura real (roja) sube con retraso, y en ese desfase el cuerpo se siente frío y tirita. En la lisis pasa lo contrario: el set point baja primero y la temperatura real, ahora «de más», se disipa sudando.</figcaption>
+      </figure>
 
       <div class="thermo">
         <div class="box f1">
@@ -509,6 +605,57 @@
         <li><strong>Percepción</strong> — del tálamo (3.ª neurona) a la <strong>corteza somatosensorial S1 y S2</strong>, con su mapa del cuerpo: el <strong>homúnculo</strong>. Las zonas más grandes son cara y manos, las más inervadas y sensibles. Aquí el estímulo se vuelve <em>dolor</em> consciente.</li>
         <li><strong>Modulación</strong> — en todo el trayecto, sistemas inhibitorios y excitatorios ajustan la señal. El dolor final es un <strong>equilibrio</strong>, no una transmisión pasiva.</li>
       </ol>
+
+      <figure class="fig">
+        <svg viewBox="0 0 860 300" role="img" aria-label="Vía del dolor con las tres neuronas. La primera neurona lleva la señal desde el nociceptor de la piel, en el lado izquierdo del cuerpo, hasta el asta posterior de la médula. La segunda neurona cruza la línea media (decusación) y asciende por el haz espinotalámico del lado derecho hasta el tálamo. La tercera neurona va del tálamo a la corteza somatosensorial. Por eso el dolor de un lado del cuerpo se procesa en el hemisferio contrario.">
+          <!-- línea media -->
+          <line x1="430" y1="20" x2="430" y2="255" stroke="var(--line)" stroke-width="1" stroke-dasharray="4 4"/>
+          <text x="430" y="275" font-family="ui-monospace,monospace" font-size="10.5" class="svg-mut" text-anchor="middle">línea media</text>
+          <text x="150" y="24" font-family="ui-monospace,monospace" font-size="10.5" class="svg-mut" text-anchor="middle">LADO IZQUIERDO (estímulo)</text>
+          <text x="660" y="24" font-family="ui-monospace,monospace" font-size="10.5" class="svg-mut" text-anchor="middle">LADO DERECHO (percepción)</text>
+
+          <defs>
+            <marker id="ap" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="var(--pato)"/>
+            </marker>
+          </defs>
+
+          <!-- nodos -->
+          <g font-family="system-ui,sans-serif" font-size="12" text-anchor="middle">
+            <circle cx="70" cy="210" r="9" fill="var(--pato-soft)" stroke="var(--pato)"/>
+            <text class="svg-ink" x="70" y="238">nociceptor</text>
+            <text class="svg-mut" x="70" y="252" font-size="10.5">piel</text>
+
+            <rect x="330" y="188" width="120" height="46" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+            <text class="svg-ink" x="390" y="208" font-weight="600">asta posterior</text>
+            <text class="svg-mut" x="390" y="224" font-size="10.5">médula · sinapsis</text>
+
+            <rect x="560" y="120" width="110" height="46" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+            <text class="svg-ink" x="615" y="140" font-weight="600">tálamo</text>
+            <text class="svg-mut" x="615" y="156" font-size="10.5">VPL</text>
+
+            <rect x="700" y="46" width="140" height="46" rx="8" fill="var(--pato-soft)" stroke="var(--pato)"/>
+            <text class="svg-ink" x="770" y="66" font-weight="600">corteza S1 / S2</text>
+            <text class="svg-mut" x="770" y="82" font-size="10.5">dolor consciente</text>
+          </g>
+
+          <!-- trayecto -->
+          <g fill="none" stroke="var(--pato)" stroke-width="2.4" marker-end="url(#ap)">
+            <line x1="82" y1="207" x2="326" y2="205"/>            <!-- 1ª neurona -->
+            <path d="M450,205 C500,205 520,192 560,166"/>          <!-- 2ª: cruza la media hacia el tálamo derecho -->
+            <line x1="628" y1="118" x2="690" y2="82"/>              <!-- 3ª neurona -->
+          </g>
+
+          <!-- etiquetas de tramo -->
+          <g font-family="ui-monospace,monospace" font-size="10.5" class="svg-mut" text-anchor="middle">
+            <text x="200" y="196">1.ª neurona</text>
+            <text x="505" y="176">2.ª · cruza</text>
+            <text x="672" y="104">3.ª neurona</text>
+          </g>
+          <text x="505" y="250" font-family="system-ui,sans-serif" font-size="11.5" font-weight="600" fill="var(--pato)" text-anchor="middle">decusación</text>
+        </svg>
+        <figcaption><b>La segunda neurona cruza: por eso el dolor de un lado se «siente» en el hemisferio contrario.</b> La 1.ª neurona entra por el asta posterior del mismo lado; la 2.ª cruza la línea media y asciende por el haz espinotalámico contralateral hasta el tálamo; la 3.ª lleva la señal a la corteza, donde se hace dolor consciente.</figcaption>
+      </figure>
 
       <div class="grid g2" style="margin-top:1.3rem">
         <div class="card">
