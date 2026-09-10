@@ -14,7 +14,8 @@ Dos signos unidos por la hemodinámica: uno por acumulación de líquido donde n
 
 ## Material de clase
 
-- 📘 **[Clase interactiva](clase.html)** — 12 secciones, con tres diagramas originales (fuerzas de Starling, reflejo barorreceptor, y la tríada PA = GC × RVP con las tres causas de síncope), tablas de mecanismos y causas, dos ejercicios interactivos y autoevaluación de 10 preguntas.
+- 📘 **[Clase interactiva](clase.html)** — 13 secciones, con tres diagramas originales (fuerzas de Starling, reflejo barorreceptor, y la tríada PA = GC × RVP con las tres causas de síncope), tablas de mecanismos y causas, dos ejercicios interactivos y autoevaluación de 10 preguntas.
+- 🔗 **[Mapa de mecanismo](mapa.html)** — actividad asincrónica de repaso para el segundo parcial: cada estudiante reconstruye un nodo de una vía (edema · Starling, edema · mecanismos, o síncope). Cierra el **16 de septiembre**, la víspera del parcial. No se defiende en clase; el docente la revisa desde su tablero.
 
 ## Contenidos
 
