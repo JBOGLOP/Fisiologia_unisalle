@@ -263,7 +263,8 @@
     <div class="wrap">
       <div class="sec-head"><span class="sec-num">03</span><h2>Edema · las cuatro fuerzas de Starling</h2></div>
       <div class="prose stack">
-        <p>En 1896 Ernest Starling explicó cómo se intercambia líquido a través de la pared del capilar: es un tira y afloja entre <strong>cuatro presiones</strong>. Dos empujan líquido <em>hacia afuera</em> del capilar (filtración) y dos lo traen <em>hacia adentro</em> (reabsorción). La resta de todas ellas, multiplicada por la permeabilidad de la pared (el coeficiente Kf), da la <strong>filtración neta</strong>.</p>
+        <p>En 1896 Ernest Starling explicó cómo se intercambia líquido a través de la pared del capilar. Su descripción —hoy la <strong>ecuación de Starling</strong>— es uno de los pilares de la fisiología cardiovascular y del equilibrio de líquidos del cuerpo: ese «tira y afloja» de presiones es el que decide, en cada punto del capilar, si el líquido <strong>se queda en la sangre</strong> o <strong>pasa al tejido</strong> (el intersticio).</p>
+        <p>Son <strong>cuatro presiones</strong>, en dos equipos. Dos empujan líquido <em>hacia afuera</em> del capilar (<strong>filtración</strong>) y dos lo traen <em>hacia adentro</em> (<strong>reabsorción</strong>). La resta entre los dos equipos, multiplicada por la permeabilidad de la pared (el coeficiente K<sub>f</sub>), da la <strong>filtración neta</strong>.</p>
       </div>
 
       <figure class="fig">
@@ -281,13 +282,13 @@
             <line x1="150" y1="120" x2="150" y2="78"/><line x1="195" y1="120" x2="195" y2="78"/>
           </g>
           <text x="172" y="68" font-family="system-ui,sans-serif" font-size="11.5" font-weight="600" fill="var(--pato)" text-anchor="middle">filtra: sale líquido</text>
-          <text x="172" y="192" font-family="ui-monospace,monospace" font-size="10.5" class="svg-mut" text-anchor="middle">extremo arterial · PC ≈ 30</text>
+          <text x="172" y="192" font-family="ui-monospace,monospace" font-size="10.5" class="svg-mut" text-anchor="middle">extremo arterial · Pc ≈ 30</text>
           <!-- entrada venosa -->
           <g stroke="var(--fisio)" stroke-width="2.2" marker-end="url(#ain)">
             <line x1="565" y1="78" x2="565" y2="118"/><line x1="610" y1="78" x2="610" y2="118"/>
           </g>
           <text x="587" y="68" font-family="system-ui,sans-serif" font-size="11.5" font-weight="600" fill="var(--fisio)" text-anchor="middle">reabsorbe: entra</text>
-          <text x="587" y="192" font-family="ui-monospace,monospace" font-size="10.5" class="svg-mut" text-anchor="middle">extremo venoso · PC ≈ 15</text>
+          <text x="587" y="192" font-family="ui-monospace,monospace" font-size="10.5" class="svg-mut" text-anchor="middle">extremo venoso · Pc ≈ 15</text>
           <!-- linfático -->
           <line x1="405" y1="166" x2="405" y2="212" stroke="var(--fisio)" stroke-width="2.2" marker-end="url(#ain)"/>
           <rect x="320" y="214" width="170" height="22" rx="11" fill="var(--fisio-soft)" stroke="var(--fisio)" stroke-dasharray="5 3"/>
@@ -299,18 +300,21 @@
 
       <div class="table-scroll">
         <table>
-          <thead><tr><th>Fuerza de Starling</th><th>Valor medio</th><th>Efecto</th></tr></thead>
+          <thead><tr><th>Fuerza de Starling</th><th>Valor medio</th><th>Equipo</th><th>Qué hace</th></tr></thead>
           <tbody>
-            <tr><td class="k">Presión hidrostática capilar (PC)</td><td>30 art. / 15 ven.</td><td>Empuja líquido <strong>hacia afuera</strong> del capilar</td></tr>
-            <tr><td class="k">Presión coloidosmótica del plasma (π<sub>p</sub>)</td><td>28 mmHg</td><td>Atrae líquido <strong>hacia adentro</strong> (proteínas, sobre todo albúmina)</td></tr>
-            <tr><td class="k">Presión hidrostática intersticial (P<sub>li</sub>)</td><td>≈ −3 a 3 mmHg</td><td>Normalmente favorece la <strong>entrada</strong> al capilar</td></tr>
-            <tr><td class="k">Presión coloidosmótica intersticial (π<sub>li</sub>)</td><td>8 mmHg</td><td>Atrae líquido <strong>hacia el intersticio</strong></td></tr>
+            <tr><td class="k">Presión hidrostática capilar (P<sub>c</sub>)</td><td>30 art. / 15 ven.</td><td><strong style="color:var(--pato)">SACA</strong></td><td>La sangre empuja contra la pared y fuerza la salida de líquido</td></tr>
+            <tr><td class="k">Presión coloidosmótica intersticial (π<sub>i</sub>)</td><td>8 mmHg</td><td><strong style="color:var(--pato)">SACA</strong></td><td>Las pocas proteínas del tejido atraen agua hacia afuera</td></tr>
+            <tr><td class="k">Presión coloidosmótica del plasma (π<sub>c</sub>)</td><td>28 mmHg</td><td><strong style="color:var(--fisio)">METE</strong></td><td>Las proteínas de la sangre —sobre todo la albúmina— retienen el agua</td></tr>
+            <tr><td class="k">Presión hidrostática intersticial (P<sub>i</sub>)</td><td>≈ −3 a 3 mmHg</td><td><strong style="color:var(--fisio)">METE</strong></td><td>La presión del líquido del tejido empuja de vuelta hacia el capilar</td></tr>
           </tbody>
         </table>
       </div>
       <div class="callout" style="margin-top:1.1rem">
         <p class="eyebrow">La ecuación, en una línea</p>
-        <p style="margin-top:.4rem">Filtración neta = <strong>Kf · ( PC − P<sub>li</sub> − π<sub>p</sub> + π<sub>li</sub> )</strong>. Normalmente la filtración supera ligeramente a la reabsorción, y ese pequeño sobrante (~7 mmHg de presión) lo retira el sistema linfático. El <strong>80 % de la π<sub>p</sub></strong> lo aporta la <strong>albúmina</strong>: por eso perder albúmina desequilibra todo el sistema.</p>
+        <p style="margin-top:.4rem">La regla del juego, en su forma más visual:</p>
+        <p style="margin-top:.4rem; font-size:1.02rem; text-align:center">Filtración neta = <strong>K<sub>f</sub> × [ (presiones que <span style="color:var(--pato)">sacan</span>) − (presiones que <span style="color:var(--fisio)">meten</span>) ]</strong></p>
+        <p style="margin-top:.5rem; font-size:1.02rem; text-align:center">= <strong>K<sub>f</sub> × [ (<span style="color:var(--pato)">P<sub>c</sub> + π<sub>i</sub></span>) − (<span style="color:var(--fisio)">π<sub>c</sub> + P<sub>i</sub></span>) ]</strong></p>
+        <p style="margin-top:.6rem">Normalmente la filtración supera <em>ligeramente</em> a la reabsorción, y ese pequeño sobrante (~7 mmHg de presión) lo retira el sistema linfático. El <strong>80 % de la π<sub>c</sub></strong> lo aporta la <strong>albúmina</strong>: por eso perder albúmina desequilibra todo el sistema y es una de las vías más frecuentes de edema.</p>
       </div>
     </div>
   </section>
@@ -326,10 +330,10 @@
         <table>
           <thead><tr><th>Mecanismo</th><th>Fuerza alterada</th><th>Ejemplos típicos</th></tr></thead>
           <tbody>
-            <tr><td class="k">↑ Presión hidrostática capilar</td><td>PC sube</td><td>Insuficiencia cardíaca, hipertensión, obstrucción venosa (trombosis), sobrecarga de volumen</td></tr>
+            <tr><td class="k">↑ Presión hidrostática capilar</td><td>P<sub>c</sub> sube</td><td>Insuficiencia cardíaca, hipertensión, obstrucción venosa (trombosis), sobrecarga de volumen</td></tr>
             <tr><td class="k">↑ Permeabilidad capilar</td><td>Kf sube</td><td>Inflamación / alergia: histamina, prostaglandinas, interleucinas contraen el endotelio y abren acuaporinas</td></tr>
-            <tr><td class="k">↓ Presión coloidosmótica plasmática</td><td>π<sub>p</sub> baja</td><td>Pérdida o falta de proteínas: cirrosis, síndrome nefrótico, desnutrición, quemaduras extensas</td></tr>
-            <tr><td class="k">↑ Presión coloidosmótica intersticial</td><td>π<sub>li</sub> sube</td><td>Acúmulo de proteínas/solutos en el tejido: mixedema del hipotiroidismo, amiloidosis</td></tr>
+            <tr><td class="k">↓ Presión coloidosmótica plasmática</td><td>π<sub>c</sub> baja</td><td>Pérdida o falta de proteínas: cirrosis, síndrome nefrótico, desnutrición, quemaduras extensas</td></tr>
+            <tr><td class="k">↑ Presión coloidosmótica intersticial</td><td>π<sub>i</sub> sube</td><td>Acúmulo de proteínas/solutos en el tejido: mixedema del hipotiroidismo, amiloidosis</td></tr>
             <tr><td class="k">↓ Retorno linfático</td><td>el drenaje falla</td><td>Filariasis (elefantiasis), tumores que comprimen, cirugías con resección ganglionar</td></tr>
           </tbody>
         </table>
@@ -675,7 +679,7 @@
     ['¿Cómo se reparte el agua del cuerpo y qué es exactamente el edema?',
      'El agua es ~60% del peso corporal: 40% intracelular y 20% extracelular (plasma + líquido intersticial). El edema es la acumulación anormal de líquido en el espacio intersticial por un desequilibrio de las fuerzas de Starling; se hace visible dentro de las primeras 72 h y el intersticio puede admitir varios litros antes de notarse.'],
     ['Enumera las cuatro fuerzas de Starling y di hacia dónde mueve el líquido cada una.',
-     'PC (presión hidrostática capilar, ~30 arterial / 15 venoso): saca líquido. πp (coloidosmótica del plasma, 28): mete líquido (proteínas, sobre todo albúmina). Pli (hidrostática intersticial, ~3): normalmente mete. πli (coloidosmótica intersticial, 8): saca. Filtración neta = Kf·(PC − Pli − πp + πli); el pequeño sobrante lo drena el linfático.'],
+     'Dos equipos. Sacan líquido: Pc (hidrostática capilar, ~30 arterial / 15 venoso) y πi (coloidosmótica intersticial, 8). Meten líquido: πc (coloidosmótica del plasma, 28; sobre todo albúmina) y Pi (hidrostática intersticial, ~3). Filtración neta = Kf × [(Pc + πi) − (πc + Pi)]; normalmente la filtración gana por poco y el sobrante lo drena el linfático.'],
     ['¿Cuáles son los cinco mecanismos del edema?',
      '1) ↑ presión hidrostática capilar (IC, HTA, obstrucción venosa). 2) ↑ permeabilidad capilar (inflamación: histamina, prostaglandinas, interleucinas). 3) ↓ presión coloidosmótica plasmática (cirrosis, síndrome nefrótico, desnutrición, quemaduras). 4) ↑ presión coloidosmótica intersticial (mixedema, amiloidosis). 5) ↓ retorno linfático (filariasis, tumores, cirugía).'],
     ['La insuficiencia cardíaca y el síndrome nefrótico dan edema por mecanismos distintos. Explícalos.',
