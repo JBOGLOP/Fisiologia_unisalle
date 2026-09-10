@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clase 8 — Fisiopatología del edema y del síncope</title>
+<style>
+  :root{
+    --ink:#12212b;
+    --paper:#f4f7f7;
+    --surface:#ffffff;
+    --surface-2:#eaf0f0;
+    --line:#cbd8da;
+    --muted:#516268;
+    --fisio:#10505e;
+    --fisio-soft:#dceaec;
+    --pato:#a8412c;
+    --pato-soft:#f5e2dc;
+    --amber:#9a6b12;
+    --amber-soft:#f6ecd6;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 8px 24px -16px rgba(18,33,43,.35);
+    --display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+    --measure:66ch;
+    --pad:clamp(1rem,4vw,2.5rem);
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+      --line:#2c3d43; --muted:#9bafb4;
+      --fisio:#5cb6c6; --fisio-soft:#12313a;
+      --pato:#e08a70; --pato-soft:#3a2119;
+      --amber:#d5a446; --amber-soft:#33290f;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.9);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+    --line:#2c3d43; --muted:#9bafb4;
+    --fisio:#5cb6c6; --fisio-soft:#12313a;
+    --pato:#e08a70; --pato-soft:#3a2119;
+    --amber:#d5a446; --amber-soft:#33290f;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.9);
+  }
+  :root[data-theme="light"]{
+    --ink:#12212b; --paper:#f4f7f7; --surface:#ffffff; --surface-2:#eaf0f0;
+    --line:#cbd8da; --muted:#516268;
+    --fisio:#10505e; --fisio-soft:#dceaec;
+    --pato:#a8412c; --pato-soft:#f5e2dc;
+    --amber:#9a6b12; --amber-soft:#f6ecd6;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 8px 24px -16px rgba(18,33,43,.35);
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--body); font-size:clamp(15px,.5vw + 14px,17px); line-height:1.62; -webkit-font-smoothing:antialiased}
+  h1,h2,h3,h4{font-family:var(--display); font-weight:600; line-height:1.15; text-wrap:balance; margin:0}
+  p{margin:0}
+  a{color:var(--fisio)}
+  .wrap{max-width:1040px; margin:0 auto; padding-inline:var(--pad)}
+  .prose{max-width:var(--measure)}
+  .stack{display:flex; flex-direction:column}
+  .stack>*+*{margin-top:1rem}
+  .eyebrow{font-family:var(--mono); font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)}
+
+  header.top{position:sticky; top:0; z-index:50; background:color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter:blur(10px); border-bottom:1px solid var(--line)}
+  .top-in{display:flex; align-items:center; gap:1rem; height:54px}
+  .brand{font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); white-space:nowrap}
+  nav.jump{margin-left:auto; display:flex; gap:.15rem; overflow-x:auto; scrollbar-width:none}
+  nav.jump::-webkit-scrollbar{display:none}
+  nav.jump a{font-size:.78rem; text-decoration:none; color:var(--muted); padding:.3rem .55rem; border-radius:99px; white-space:nowrap}
+  nav.jump a:hover{color:var(--ink); background:var(--surface-2)}
+  .theme-btn{border:1px solid var(--line); background:var(--surface); color:var(--muted); border-radius:99px; width:32px; height:32px; cursor:pointer; flex:none; font-size:.85rem}
+  .theme-btn:hover{color:var(--ink)}
+
+  .hero{padding:clamp(2.5rem,7vw,5rem) 0 clamp(2rem,5vw,3.5rem)}
+  .hero h1{font-size:clamp(2.1rem,5.5vw,3.6rem); letter-spacing:-.01em; margin-top:.6rem}
+  .hero .sub{max-width:60ch; color:var(--muted); font-size:1.05rem; margin-top:1.1rem}
+  .hero-meta{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.6rem}
+  .chip{font-family:var(--mono); font-size:.7rem; letter-spacing:.06em; border:1px solid var(--line); border-radius:99px; padding:.3rem .7rem; background:var(--surface); color:var(--muted)}
+  .chip strong{color:var(--ink); font-weight:600}
+  .split-word{display:inline-flex; flex-wrap:wrap}
+  .split-word .a{color:var(--fisio)}
+  .split-word .b{color:var(--pato)}
+
+  section{padding:clamp(2.2rem,5vw,3.6rem) 0; border-top:1px solid var(--line)}
+  .sec-head{display:flex; align-items:baseline; gap:.9rem; margin-bottom:1.4rem; flex-wrap:wrap}
+  .sec-num{font-family:var(--mono); font-size:.72rem; color:var(--fisio); border:1px solid var(--fisio); border-radius:4px; padding:.1rem .4rem; flex:none}
+  .sec-head h2{font-size:clamp(1.4rem,3vw,2rem)}
+  .band-f .sec-num{color:var(--amber); border-color:var(--amber)}
+  .band-d .sec-num{color:var(--pato); border-color:var(--pato)}
+
+  .grid{display:grid; gap:1rem}
+  @media(min-width:720px){ .g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)} }
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:1.1rem 1.2rem; box-shadow:var(--shadow)}
+  .card h3{font-size:1.02rem; margin-bottom:.45rem}
+  .card p, .card li{font-size:.92rem; color:var(--muted)}
+  .card.fisio{border-left:3px solid var(--fisio)}
+  .card.pato{border-left:3px solid var(--pato)}
+  .card.amber{border-left:3px solid var(--amber)}
+  .card ul{margin:.4rem 0 0; padding-left:1.1rem}
+  .card li+li{margin-top:.25rem}
+  .card .ocular{margin-top:.7rem; padding-top:.6rem; border-top:1px dashed var(--line); font-size:.82rem; color:var(--fisio)}
+
+  .callout{background:var(--fisio-soft); border:1px solid color-mix(in srgb,var(--fisio) 30%, transparent); border-radius:10px; padding:1rem 1.2rem}
+  .callout .eyebrow{color:var(--fisio)}
+  .callout.warn{background:var(--pato-soft); border-color:color-mix(in srgb,var(--pato) 30%, transparent)}
+  .callout.warn .eyebrow{color:var(--pato)}
+  .callout.note{background:var(--amber-soft); border-color:color-mix(in srgb,var(--amber) 35%, transparent)}
+  .callout.note .eyebrow{color:var(--amber)}
+
+  blockquote{margin:0; padding-left:1.1rem; border-left:3px solid var(--amber); font-family:var(--display); font-size:1.15rem; font-style:italic}
+  blockquote cite{display:block; font-family:var(--body); font-style:normal; font-size:.8rem; color:var(--muted); margin-top:.5rem}
+
+  .thermo{display:grid; gap:.6rem; grid-template-columns:1fr; margin-top:1rem}
+  @media(min-width:720px){.thermo{grid-template-columns:repeat(3,1fr); align-items:stretch}}
+  .thermo .box{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:.9rem 1rem; position:relative}
+  .thermo .box .et{font-family:var(--mono); font-size:.63rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+  .thermo .box h4{font-size:1rem; margin:.25rem 0 .35rem}
+  .thermo .box p{font-size:.86rem; color:var(--muted)}
+  .thermo .f1{border-top:3px solid var(--fisio)}
+  .thermo .f2{border-top:3px solid var(--amber)}
+  .thermo .f3{border-top:3px solid var(--pato)}
+
+  .cascade{list-style:none; margin:1rem 0 0; padding:0; counter-reset:step}
+  .cascade li{position:relative; padding:.55rem 0 .55rem 2.4rem; border-bottom:1px solid var(--line); font-size:.93rem}
+  .cascade li:last-child{border-bottom:none}
+  .cascade li::before{counter-increment:step; content:counter(step); position:absolute; left:0; top:.55rem; font-family:var(--mono); font-size:.7rem; width:1.5rem; height:1.5rem; border-radius:99px; display:grid; place-items:center; background:var(--fisio-soft); color:var(--fisio); border:1px solid color-mix(in srgb,var(--fisio) 35%, transparent)}
+  .cascade.d li::before{background:var(--pato-soft); color:var(--pato); border-color:color-mix(in srgb,var(--pato) 35%, transparent)}
+  .cascade li strong{color:var(--ink)}
+
+  .table-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface); margin-top:1.1rem}
+  table{border-collapse:collapse; width:100%; font-size:.88rem; min-width:520px}
+  th,td{text-align:left; padding:.6rem .8rem; border-bottom:1px solid var(--line); vertical-align:top}
+  th{font-family:var(--mono); font-size:.68rem; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); font-weight:500}
+  tbody tr:last-child td{border-bottom:none}
+  td.k{font-weight:600; white-space:nowrap}
+
+  .fork{display:grid; gap:.8rem; margin-top:1rem}
+  @media(min-width:720px){.fork{grid-template-columns:1fr 1fr}}
+  .fork .lane{border:1px solid var(--line); border-radius:10px; padding:1rem; background:var(--surface)}
+  .fork .lane.a{border-top:3px solid var(--fisio)}
+  .fork .lane.b{border-top:3px solid var(--pato)}
+  .fork .lane h3{font-size:1rem; margin-bottom:.4rem}
+  .fork .lane p, .fork .lane li{font-size:.9rem; color:var(--muted)}
+  .fork .lane ul{margin:.4rem 0 0; padding-left:1.1rem}
+
+  .drill-row{display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; padding:.65rem 0; border-bottom:1px solid var(--line)}
+  .drill-row:last-child{border-bottom:none}
+  .drill-q{flex:1 1 240px; font-size:.94rem}
+  .btn{font-family:var(--body); font-size:.78rem; cursor:pointer; border:1px solid var(--line); background:var(--surface); color:var(--ink); border-radius:99px; padding:.3rem .75rem}
+  .btn:hover{border-color:var(--fisio)}
+  .btn:focus-visible, a:focus-visible, .q-head:focus-visible{outline:2px solid var(--fisio); outline-offset:2px}
+  .btn.ok{background:var(--fisio); border-color:var(--fisio); color:#fff}
+  .btn.no{background:var(--pato); border-color:var(--pato); color:#fff}
+  .verdict{font-size:.82rem; flex-basis:100%; color:var(--muted)}
+  .verdict b{color:var(--ink)}
+  .score{font-family:var(--mono); font-size:.78rem; color:var(--muted); margin-top:.8rem}
+
+  .q{border:1px solid var(--line); border-radius:10px; background:var(--surface); overflow:hidden}
+  .q+.q{margin-top:.6rem}
+  .q-head{width:100%; text-align:left; background:none; border:0; color:inherit; font:inherit; padding:.85rem 1rem; cursor:pointer; display:flex; gap:.7rem; align-items:baseline}
+  .q-head:hover{background:var(--surface-2)}
+  .q-n{font-family:var(--mono); font-size:.72rem; color:var(--fisio); flex:none}
+  .q-body{padding:0 1rem 1rem 2.4rem; font-size:.9rem; color:var(--muted); display:none}
+  .q.open .q-body{display:block}
+  .q.open .q-head{background:var(--surface-2)}
+
+  .act{background:var(--fisio-soft); border:1px solid color-mix(in srgb,var(--fisio) 35%, transparent); border-radius:12px; padding:1.2rem 1.3rem}
+  .act .cta{display:inline-block; margin-top:.9rem; color:#fff; text-decoration:none; font-weight:600; font-size:.9rem; padding:.55rem 1.2rem; border-radius:99px}
+  .act .cta:hover{filter:brightness(1.08)}
+
+  footer{border-top:1px solid var(--line); padding:2rem 0 3rem; color:var(--muted); font-size:.83rem}
+  figure.fig{margin:1.4rem 0 0; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:1.1rem 1.2rem .9rem}
+  figure.fig svg{display:block; width:100%; height:auto; color:var(--ink)}
+  figure.fig figcaption{margin-top:.7rem; font-size:.84rem; color:var(--muted); line-height:1.5}
+  figure.fig figcaption b{color:var(--ink)}
+  .svg-mut{fill:var(--muted)} .svg-ink{fill:var(--ink)}
+  @media (prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-in">
+    <span class="brand">Fisiopatología General · Clase 8</span>
+    <nav class="jump">
+      <a href="#repaso">Repaso</a>
+      <a href="#agua">El agua</a>
+      <a href="#starling">Starling</a>
+      <a href="#mecanismos">Mecanismos</a>
+      <a href="#tipos">Tipos</a>
+      <a href="#puente">De líquido a presión</a>
+      <a href="#sincope">Síncope</a>
+      <a href="#barorreflejo">Barorreflejo</a>
+      <a href="#causas">Tres causas</a>
+      <a href="#vasovagal">Vasovagal</a>
+      <a href="#ocular">Ojo</a>
+      <a href="#autoeval">Autoevaluación</a>
+    </nav>
+    <button class="theme-btn" id="themeBtn" aria-label="Cambiar tema">◐</button>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <p class="eyebrow">Clase 8 · Síntomas y signos · Semana del 10 de septiembre</p>
+    <h1>Fisiopatología del <span class="split-word"><span class="a">edema</span>&nbsp;y&nbsp;del&nbsp;<span class="b">síncope</span></span></h1>
+    <p class="sub">Dos signos que parecen no tener nada que ver —uno se hincha, el otro se desmaya— pero son la misma física leída en dos escalas: el equilibrio de presiones en la circulación. En el edema el líquido sale del vaso y no vuelve; en el síncope la presión cae y el cerebro se queda, por unos segundos, sin sangre.</p>
+    <div class="hero-meta">
+      <span class="chip">Sesión <strong>8 de 16</strong></span>
+      <span class="chip">Fecha <strong>10 sep 2026</strong></span>
+      <span class="chip">Duración <strong>2 horas</strong></span>
+      <span class="chip">Texto guía <strong>caps. 10 y 18</strong></span>
+      <span class="chip">Refuerzo <strong>Guyton &amp; Hall</strong></span>
+    </div>
+  </div>
+
+  <!-- 01 -->
+  <section id="repaso">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">01</span><h2>De dónde venimos, y qué haremos hoy</h2></div>
+      <div class="prose stack">
+        <p>La sesión pasada trabajamos fiebre y dolor, y quedó el <strong>mapa de mecanismo</strong> como tarea. Hoy abrimos con la <strong>defensa de esos mapas por grupos</strong> y luego entramos al tema nuevo: dos signos de la circulación, el <strong>edema</strong> y el <strong>síncope</strong>.</p>
+        <p>Parecen mundos distintos, pero comparten un mismo eje: el <strong>equilibrio de presiones</strong>. El edema aparece cuando se rompe el balance de fuerzas que mantiene el líquido dentro del capilar; el síncope aparece cuando se rompe el balance que mantiene la presión arterial y, con ella, el flujo de sangre al cerebro. Aprende la microcirculación en el edema y tendrás medio síncope entendido.</p>
+      </div>
+      <div class="callout" style="margin-top:1.2rem">
+        <p class="eyebrow">La idea que ordena la sesión</p>
+        <p style="margin-top:.4rem">Todo se reduce a <strong>presiones que se equilibran</strong>. Un lado empuja el líquido o la sangre hacia donde debe ir; el otro lo retiene. Cuando una fuerza gana de más o falla, aparece el signo: <strong>líquido en el intersticio</strong> (edema) o <strong>caída de la presión</strong> con hipoperfusión cerebral (síncope). Guarda ese molde: es el mismo en las dos mitades de hoy.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section id="agua">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">02</span><h2>Edema · dónde vive el agua del cuerpo</h2></div>
+      <div class="prose stack">
+        <p>El agua es el líquido más abundante del organismo: cerca del <strong>60 % del peso corporal</strong>. De ese total, un <strong>40 % está dentro de las células</strong> (líquido intracelular) y un <strong>20 % fuera</strong> (líquido extracelular), que a su vez se reparte entre el <strong>plasma</strong> y el <strong>líquido intersticial</strong> —el que baña los tejidos entre los capilares y las células—.</p>
+        <p>Cuando ese reparto se altera y se acumula líquido de más en el espacio intersticial, aparece el <strong>edema</strong>: del griego <em>oidema</em>, «hinchazón». Es un <strong>signo</strong> —se ve y se palpa— presente en muchísimas enfermedades. El intersticio puede admitir varios litros antes de que la hinchazón sea evidente, y suele hacerse notorio dentro de las <strong>primeras 72 horas</strong>, cuando la filtración llega a multiplicarse hasta 70 veces.</p>
+      </div>
+      <div class="grid g3" style="margin-top:1.3rem">
+        <div class="card fisio">
+          <p class="eyebrow">Localizado</p>
+          <h3>Un solo territorio</h3>
+          <p>Afecta un área o un órgano: edema unilateral de una pierna (obstrucción o estasis venosa), <strong>hidrotórax</strong> (en la pleura) o <strong>ascitis</strong> (en el peritoneo).</p>
+        </div>
+        <div class="card fisio">
+          <p class="eyebrow">Generalizado</p>
+          <h3>Todo el cuerpo</h3>
+          <p>Cuando afecta varias zonas. La forma masiva se llama <strong>anasarca</strong>. Aparece en insuficiencia cardíaca y en enfermedades renales.</p>
+        </div>
+        <div class="card amber">
+          <p class="eyebrow">Dato clínico</p>
+          <h3>Cómo se sospecha</h3>
+          <p>Dificultad para calzarse, «hinchazón» de piernas sobre todo por la tarde, o un anillo que aprieta más de lo habitual. Detalles pequeños que anuncian el edema.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section id="starling">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">03</span><h2>Edema · las cuatro fuerzas de Starling</h2></div>
+      <div class="prose stack">
+        <p>En 1896 Ernest Starling explicó cómo se intercambia líquido a través de la pared del capilar: es un tira y afloja entre <strong>cuatro presiones</strong>. Dos empujan líquido <em>hacia afuera</em> del capilar (filtración) y dos lo traen <em>hacia adentro</em> (reabsorción). La resta de todas ellas, multiplicada por la permeabilidad de la pared (el coeficiente Kf), da la <strong>filtración neta</strong>.</p>
+      </div>
+
+      <figure class="fig">
+        <svg viewBox="0 0 760 300" role="img" aria-label="Intercambio de líquido en el capilar según Starling. En el extremo arterial la presión hidrostática (unos 30 mmHg) supera a la presión coloidosmótica del plasma (28 mmHg) y el líquido sale al intersticio. En el extremo venoso la presión hidrostática baja a unos 15 mmHg, la coloidosmótica gana y el líquido vuelve a entrar. El vaso linfático drena el pequeño excedente junto con las proteínas escapadas.">
+          <defs>
+            <marker id="aout" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--pato)"/></marker>
+            <marker id="ain" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--fisio)"/></marker>
+          </defs>
+          <text x="20" y="28" font-family="ui-monospace,monospace" font-size="10.5" class="svg-mut">INTERSTICIO</text>
+          <!-- capilar -->
+          <rect x="90" y="120" width="580" height="46" rx="23" fill="var(--pato-soft)" stroke="var(--pato)" stroke-width="2"/>
+          <text x="380" y="148" font-family="system-ui,sans-serif" font-size="12" class="svg-mut" text-anchor="middle">capilar &nbsp;· &nbsp;sangre →</text>
+          <!-- salida arterial -->
+          <g stroke="var(--pato)" stroke-width="2.2" marker-end="url(#aout)">
+            <line x1="150" y1="120" x2="150" y2="78"/><line x1="195" y1="120" x2="195" y2="78"/>
+          </g>
+          <text x="172" y="68" font-family="system-ui,sans-serif" font-size="11.5" font-weight="600" fill="var(--pato)" text-anchor="middle">filtra: sale líquido</text>
+          <text x="172" y="192" font-family="ui-monospace,monospace" font-size="10.5" class="svg-mut" text-anchor="middle">extremo arterial · PC ≈ 30</text>
+          <!-- entrada venosa -->
+          <g stroke="var(--fisio)" stroke-width="2.2" marker-end="url(#ain)">
+            <line x1="565" y1="78" x2="565" y2="118"/><line x1="610" y1="78" x2="610" y2="118"/>
+          </g>
+          <text x="587" y="68" font-family="system-ui,sans-serif" font-size="11.5" font-weight="600" fill="var(--fisio)" text-anchor="middle">reabsorbe: entra</text>
+          <text x="587" y="192" font-family="ui-monospace,monospace" font-size="10.5" class="svg-mut" text-anchor="middle">extremo venoso · PC ≈ 15</text>
+          <!-- linfático -->
+          <line x1="405" y1="166" x2="405" y2="212" stroke="var(--fisio)" stroke-width="2.2" marker-end="url(#ain)"/>
+          <rect x="320" y="214" width="170" height="22" rx="11" fill="var(--fisio-soft)" stroke="var(--fisio)" stroke-dasharray="5 3"/>
+          <text x="405" y="229" font-family="system-ui,sans-serif" font-size="11" fill="var(--fisio)" text-anchor="middle">vaso linfático</text>
+          <text x="405" y="256" font-family="system-ui,sans-serif" font-size="10.5" class="svg-mut" text-anchor="middle">drena el excedente + las proteínas escapadas</text>
+        </svg>
+        <figcaption><b>El líquido sale por el extremo arterial y casi todo vuelve por el venoso; el linfático recoge el resto.</b> En el extremo arterial la presión hidrostática (que empuja hacia afuera) le gana a la coloidosmótica; en el venoso la presión hidrostática cae y la coloidosmótica del plasma —las proteínas— vuelve a atraer el líquido. Lo que no regresa lo drena el linfático.</figcaption>
+      </figure>
+
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Fuerza de Starling</th><th>Valor medio</th><th>Efecto</th></tr></thead>
+          <tbody>
+            <tr><td class="k">Presión hidrostática capilar (PC)</td><td>30 art. / 15 ven.</td><td>Empuja líquido <strong>hacia afuera</strong> del capilar</td></tr>
+            <tr><td class="k">Presión coloidosmótica del plasma (π<sub>p</sub>)</td><td>28 mmHg</td><td>Atrae líquido <strong>hacia adentro</strong> (proteínas, sobre todo albúmina)</td></tr>
+            <tr><td class="k">Presión hidrostática intersticial (P<sub>li</sub>)</td><td>≈ −3 a 3 mmHg</td><td>Normalmente favorece la <strong>entrada</strong> al capilar</td></tr>
+            <tr><td class="k">Presión coloidosmótica intersticial (π<sub>li</sub>)</td><td>8 mmHg</td><td>Atrae líquido <strong>hacia el intersticio</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout" style="margin-top:1.1rem">
+        <p class="eyebrow">La ecuación, en una línea</p>
+        <p style="margin-top:.4rem">Filtración neta = <strong>Kf · ( PC − P<sub>li</sub> − π<sub>p</sub> + π<sub>li</sub> )</strong>. Normalmente la filtración supera ligeramente a la reabsorción, y ese pequeño sobrante (~7 mmHg de presión) lo retira el sistema linfático. El <strong>80 % de la π<sub>p</sub></strong> lo aporta la <strong>albúmina</strong>: por eso perder albúmina desequilibra todo el sistema.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section id="mecanismos">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">04</span><h2>Edema · los cinco mecanismos</h2></div>
+      <div class="prose">
+        <p>Solo hay <strong>cinco maneras</strong> de romper el equilibrio de Starling, y todas terminan igual: más líquido en el intersticio. Aprender el edema es aprender <em>qué fuerza se rompió</em>. Fíjate en que el segundo mecanismo —el aumento de permeabilidad— es exactamente la inflamación del Encuentro 3 y del Encuentro 7: las mismas citocinas.</p>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Mecanismo</th><th>Fuerza alterada</th><th>Ejemplos típicos</th></tr></thead>
+          <tbody>
+            <tr><td class="k">↑ Presión hidrostática capilar</td><td>PC sube</td><td>Insuficiencia cardíaca, hipertensión, obstrucción venosa (trombosis), sobrecarga de volumen</td></tr>
+            <tr><td class="k">↑ Permeabilidad capilar</td><td>Kf sube</td><td>Inflamación / alergia: histamina, prostaglandinas, interleucinas contraen el endotelio y abren acuaporinas</td></tr>
+            <tr><td class="k">↓ Presión coloidosmótica plasmática</td><td>π<sub>p</sub> baja</td><td>Pérdida o falta de proteínas: cirrosis, síndrome nefrótico, desnutrición, quemaduras extensas</td></tr>
+            <tr><td class="k">↑ Presión coloidosmótica intersticial</td><td>π<sub>li</sub> sube</td><td>Acúmulo de proteínas/solutos en el tejido: mixedema del hipotiroidismo, amiloidosis</td></tr>
+            <tr><td class="k">↓ Retorno linfático</td><td>el drenaje falla</td><td>Filariasis (elefantiasis), tumores que comprimen, cirugías con resección ganglionar</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout note" style="margin-top:1.1rem">
+        <p class="eyebrow">El puente con la inflamación</p>
+        <p style="margin-top:.4rem">El edema del habón alérgico, del ojo picado o de la articulación inflamada es <strong>mecanismo 2</strong>: aumento de permeabilidad por los mismos mediadores que estudiamos en inflamación. No es un tema nuevo; es la inflamación vista desde la fuerza de Starling que rompe.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section id="tipos">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">05</span><h2>Edema · dos casos que hay que saber distinguir</h2></div>
+      <div class="fork">
+        <div class="lane a">
+          <p class="eyebrow">Mecanismo 1 · presión</p>
+          <h3>Insuficiencia cardíaca</h3>
+          <p>El corazón bombea menos, cae el gasto cardíaco y se activan mecanismos de rescate: el sistema <strong>renina-angiotensina-aldosterona</strong>, los nervios simpáticos renales y la <strong>ADH (vasopresina)</strong>. El riñón retiene sodio y agua → sube el volumen → sube la <strong>presión hidrostática capilar</strong> → edema, típicamente en zonas declives (tobillos) y en el pulmón.</p>
+        </div>
+        <div class="lane b">
+          <p class="eyebrow">Mecanismo 3 · proteínas</p>
+          <h3>Síndrome nefrótico / cirrosis</h3>
+          <p>Aquí el problema son las <strong>proteínas</strong>: el riñón nefrótico las pierde por la orina y el hígado cirrótico deja de fabricarlas. Cae la <strong>albúmina</strong> y con ella la presión coloidosmótica del plasma → el líquido ya no es reabsorbido → edema y ascitis. Curiosamente, la hipoalbuminemia también reduce el volumen eficaz y <em>reactiva</em> el sistema RAA, sumando retención de sodio.</p>
+        </div>
+      </div>
+      <p class="prose" style="margin-top:1.1rem">Otros que conviene reconocer: el <strong>angioedema</strong> (respuesta a un alérgeno, más inflamación que extravasación), el edema del <strong>embarazo</strong> (gravitacional por dificultad del retorno venoso + retención hormonal de sodio) y el edema por <strong>fármacos</strong> (algunos bloqueadores de calcio, por vasodilatación). En todos, pregúntate siempre lo mismo: <em>¿qué fuerza de Starling se rompió?</em></p>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section id="puente" class="band-d">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">06</span><h2>De líquido a presión</h2></div>
+      <div class="prose stack">
+        <p>El edema nos enseñó a pensar en presiones dentro de un capilar. Ahora subimos de escala: de la presión <em>en un vaso</em> a la <strong>presión arterial de todo el sistema</strong>. Y la presión arterial tiene una fórmula que conviene tatuarse:</p>
+      </div>
+      <div class="callout warn" style="margin-top:1.1rem">
+        <p class="eyebrow">La ecuación de la presión</p>
+        <p style="margin-top:.4rem; font-size:1.05rem"><strong>PA = Gasto cardíaco × Resistencia vascular periférica</strong><br>y a su vez, <strong>Gasto cardíaco = Frecuencia cardíaca × Volumen sistólico</strong>.</p>
+        <p style="margin-top:.5rem">Cualquier cosa que baje la frecuencia, el volumen que expulsa el corazón o el tono de los vasos, <strong>baja la presión</strong>. Y si la presión baja lo suficiente, el cerebro —que depende críticamente de su perfusión— se queda sin sangre. Esa es la puerta del síncope.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section id="sincope" class="band-d">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">07</span><h2>Síncope · qué es y qué no es</h2></div>
+      <div class="prose stack">
+        <p>El <strong>síncope</strong> es la <strong>pérdida súbita, transitoria y autolimitada de la conciencia</strong>, acompañada de la pérdida del tono postural (el paciente cae), causada por una <strong>reducción transitoria del flujo sanguíneo cerebral</strong>. El inicio es rápido, la duración corta y la recuperación espontánea, sin necesidad de maniobras. Basta con que el flujo cerebral caiga durante unos <strong>10 segundos</strong> para perder el conocimiento.</p>
+        <p>Su <strong>vía final común</strong> es siempre la misma: <strong>caída de la presión arterial → hipoperfusión cerebral global</strong>. Por eso el síncope no es un diagnóstico, es un signo; lo importante es descubrir <em>qué</em> hizo caer la presión.</p>
+      </div>
+      <div class="grid g2" style="margin-top:1.3rem">
+        <div class="card pato">
+          <h3>No confundir con…</h3>
+          <p>Hay que diferenciarlo de otras pérdidas de conciencia: las <strong>convulsiones</strong> (origen eléctrico cerebral, no por hipoperfusión), los <strong>trastornos metabólicos</strong> (hipoglucemia) y los <strong>eventos psiquiátricos</strong>. La clave del síncope verdadero: recuperación rápida y completa.</p>
+        </div>
+        <div class="card amber">
+          <h3>A qué edad</h3>
+          <p>La distribución es <strong>bimodal</strong>: un primer pico entre los 10 y 30 años (máximo hacia los 15, casi siempre benigno) y un segundo pico hacia los <strong>65 años</strong> (más probable causa cardíaca). Supone del 1 al 3 % de las urgencias.</p>
+        </div>
+      </div>
+      <div class="callout warn" style="margin-top:1.1rem">
+        <p class="eyebrow">El pródromo</p>
+        <p style="margin-top:.4rem">Muchos pacientes tienen aviso —<strong>pródromo</strong>—: mareo, calor sudoroso, náuseas, <strong>visión borrosa o en túnel</strong>. Otros caen sin previo aviso (típico del síncope cardíaco). Ese detalle —con o sin aviso— orienta la causa.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 -->
+  <section id="barorreflejo" class="band-d">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">08</span><h2>Síncope · el sistema que sostiene la presión</h2></div>
+      <div class="prose stack">
+        <p>Antes de ver cómo falla, hay que ver cómo se sostiene normalmente la presión. El encargado es el <strong>sistema nervioso autónomo</strong>, sobre todo el <strong>simpático</strong>: desde el centro vasomotor del bulbo manda señales continuas que mantienen los vasos en contracción parcial (el <strong>tono vasomotor</strong>) y regulan el corazón. La noradrenalina actúa sobre receptores α y produce vasoconstricción.</p>
+        <p>El ajuste fino lo hace el <strong>reflejo barorreceptor</strong>, un circuito de retroalimentación negativa. Los barorreceptores —sensores de estiramiento en el <strong>seno carotídeo</strong> y el <strong>cayado aórtico</strong>— avisan al bulbo de cuánto se estiran las arterias, y el bulbo corrige.</p>
+      </div>
+
+      <figure class="fig">
+        <svg viewBox="0 0 860 330" role="img" aria-label="Reflejo barorreceptor como circuito de retroalimentación negativa. Un aumento de la presión arterial estira los barorreceptores del seno carotídeo y el cayado aórtico; estos avisan al bulbo (núcleo del tracto solitario), que inhibe el simpático y activa el vago; el resultado es bajar la frecuencia cardíaca y dilatar los vasos, lo que baja la presión de vuelta a lo normal. En el síncope reflejo este circuito se dispara de forma paradójica y la presión no se sostiene.">
+          <defs>
+            <marker id="al" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--fisio)"/></marker>
+          </defs>
+          <!-- nodos -->
+          <g font-family="system-ui,sans-serif" text-anchor="middle">
+            <g>
+              <rect x="382" y="30" width="96" height="40" rx="9" fill="var(--pato-soft)" stroke="var(--pato)"/>
+              <text x="430" y="55" font-size="14" font-weight="700" fill="var(--pato)">↑ PA</text>
+            </g>
+            <g>
+              <rect x="620" y="108" width="180" height="52" rx="9" fill="var(--surface)" stroke="var(--line)"/>
+              <text x="710" y="130" font-size="12.5" class="svg-ink" font-weight="600">barorreceptores</text>
+              <text x="710" y="147" font-size="10.5" class="svg-mut">seno carotídeo · aorta</text>
+            </g>
+            <g>
+              <rect x="560" y="252" width="180" height="52" rx="9" fill="var(--surface)" stroke="var(--line)"/>
+              <text x="650" y="274" font-size="12.5" class="svg-ink" font-weight="600">bulbo</text>
+              <text x="650" y="291" font-size="10.5" class="svg-mut">núcleo del tracto solitario</text>
+            </g>
+            <g>
+              <rect x="120" y="252" width="190" height="52" rx="9" fill="var(--surface)" stroke="var(--line)"/>
+              <text x="215" y="274" font-size="12.5" class="svg-ink" font-weight="600">↓ simpático · ↑ vago</text>
+              <text x="215" y="291" font-size="10.5" class="svg-mut">respuesta autonómica</text>
+            </g>
+            <g>
+              <rect x="60" y="108" width="180" height="52" rx="9" fill="var(--surface)" stroke="var(--line)"/>
+              <text x="150" y="130" font-size="12.5" class="svg-ink" font-weight="600">↓ FC · vasodilatación</text>
+              <text x="150" y="147" font-size="10.5" class="svg-mut">baja el gasto y la resistencia</text>
+            </g>
+          </g>
+          <!-- flechas del anillo -->
+          <g fill="none" stroke="var(--fisio)" stroke-width="2" marker-end="url(#al)">
+            <path d="M478,58 C560,72 600,92 660,104"/>
+            <path d="M712,160 C716,200 700,228 686,248"/>
+            <line x1="558" y1="278" x2="314" y2="278"/>
+            <path d="M188,250 C168,220 158,196 152,164"/>
+            <path d="M170,106 C230,74 320,62 380,56"/>
+          </g>
+          <text x="292" y="90" font-family="ui-monospace,monospace" font-size="11" font-weight="700" fill="var(--fisio)" text-anchor="middle">↓ PA (corrige)</text>
+          <!-- centro -->
+          <text x="430" y="182" font-family="var(--display),serif" font-size="14" font-weight="700" class="svg-ink" text-anchor="middle">reflejo barorreceptor</text>
+          <text x="430" y="202" font-family="system-ui,sans-serif" font-size="11" class="svg-mut" text-anchor="middle">amortiguador · retroalimentación negativa</text>
+        </svg>
+        <figcaption><b>Un lazo que se corrige solo: si la presión sube, el reflejo la baja; si baja, la sube.</b> Los barorreceptores miden el estiramiento arterial y el bulbo responde con el simpático y el vago. En el <b>síncope reflejo</b> este mismo lazo se dispara «al revés» y la presión, en vez de sostenerse, se desploma.</figcaption>
+      </figure>
+
+      <p class="prose" style="margin-top:1.1rem">Hay dos sensores más que conviene nombrar: los <strong>quimiorreceptores</strong> (detectan falta de O₂ y exceso de CO₂ y H⁺, pero solo actúan con fuerza cuando la PA cae por debajo de 80 mmHg) y los <strong>receptores de baja presión</strong> de las aurículas, que ajustan el volumen sanguíneo.</p>
+    </div>
+  </section>
+
+  <!-- 09 -->
+  <section id="causas" class="band-d">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">09</span><h2>Síncope · las tres causas</h2></div>
+      <div class="prose">
+        <p>Todas las causas de síncope caben en <strong>tres categorías</strong>, y la fórmula de la presión las ordena: cada categoría es una palanca distinta de <strong>PA = GC × RVP</strong> que se rompe.</p>
+      </div>
+
+      <figure class="fig">
+        <svg viewBox="0 0 860 300" role="img" aria-label="Las tres causas de síncope según la ecuación de la presión arterial (PA igual a gasto cardíaco por resistencia vascular). El síncope reflejo baja la frecuencia cardíaca por el vago y la resistencia por retirada del simpático. El síncope cardíaco baja el gasto cardíaco de golpe por arritmia o estenosis. El síncope ortostático baja la resistencia por fallo de la vasoconstricción al ponerse de pie. Las tres bajan la presión arterial y producen hipoperfusión cerebral en unos diez segundos.">
+          <defs>
+            <marker id="ac" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--pato)"/></marker>
+          </defs>
+          <!-- ecuación -->
+          <text x="430" y="34" font-family="var(--display),serif" font-size="17" font-weight="700" class="svg-ink" text-anchor="middle">PA = GC × RVP</text>
+          <text x="430" y="56" font-family="system-ui,sans-serif" font-size="11.5" class="svg-mut" text-anchor="middle">GC = FC × VS &nbsp;·&nbsp; RVP = tono de los vasos</text>
+          <!-- cajas causa -->
+          <g font-family="system-ui,sans-serif">
+            <rect x="40" y="80" width="240" height="86" rx="10" fill="var(--surface)" stroke="var(--line)"/>
+            <text x="160" y="104" font-size="13.5" font-weight="700" class="svg-ink" text-anchor="middle">Reflejo (neural)</text>
+            <text x="160" y="126" font-size="11" class="svg-mut" text-anchor="middle">↑ vago → <tspan fill="var(--pato)" font-weight="700">↓ FC</tspan></text>
+            <text x="160" y="144" font-size="11" class="svg-mut" text-anchor="middle">retirada simpática → <tspan fill="var(--pato)" font-weight="700">↓ RVP</tspan></text>
+            <text x="160" y="160" font-size="10" class="svg-mut" text-anchor="middle">vasovagal · situacional · seno carotídeo</text>
+
+            <rect x="310" y="80" width="240" height="86" rx="10" fill="var(--surface)" stroke="var(--line)"/>
+            <text x="430" y="104" font-size="13.5" font-weight="700" class="svg-ink" text-anchor="middle">Cardíaco</text>
+            <text x="430" y="126" font-size="11" class="svg-mut" text-anchor="middle">arritmia o estenosis →</text>
+            <text x="430" y="144" font-size="11" class="svg-mut" text-anchor="middle"><tspan fill="var(--pato)" font-weight="700">↓ GC</tspan> brusco</text>
+            <text x="430" y="160" font-size="10" class="svg-mut" text-anchor="middle">sin aviso · mayor mortalidad</text>
+
+            <rect x="580" y="80" width="240" height="86" rx="10" fill="var(--surface)" stroke="var(--line)"/>
+            <text x="700" y="104" font-size="13.5" font-weight="700" class="svg-ink" text-anchor="middle">Ortostático</text>
+            <text x="700" y="126" font-size="11" class="svg-mut" text-anchor="middle">al ponerse de pie</text>
+            <text x="700" y="144" font-size="11" class="svg-mut" text-anchor="middle">fallo vasoconstrictor → <tspan fill="var(--pato)" font-weight="700">↓ RVP</tspan></text>
+            <text x="700" y="160" font-size="10" class="svg-mut" text-anchor="middle">caída ≥20 sistólica en 3 min</text>
+          </g>
+          <!-- flechas a la barra -->
+          <g stroke="var(--pato)" stroke-width="2" marker-end="url(#ac)">
+            <line x1="160" y1="166" x2="230" y2="220"/>
+            <line x1="430" y1="166" x2="430" y2="220"/>
+            <line x1="700" y1="166" x2="630" y2="220"/>
+          </g>
+          <!-- desenlace -->
+          <rect x="120" y="224" width="620" height="52" rx="10" fill="var(--pato-soft)" stroke="var(--pato)"/>
+          <text x="430" y="248" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="var(--pato)" text-anchor="middle">↓ PA → hipoperfusión cerebral global (~10 s)</text>
+          <text x="430" y="267" font-family="system-ui,sans-serif" font-size="12" fill="var(--pato)" text-anchor="middle">→ SÍNCOPE</text>
+        </svg>
+        <figcaption><b>Tres causas, una sola fórmula: cada una tumba un factor distinto de PA = GC × RVP.</b> El reflejo golpea la frecuencia y el tono a la vez; el cardíaco corta el gasto de golpe (y es el más peligroso); el ortostático deja caer la resistencia al ponerse de pie. Las tres terminan en la misma hipoperfusión cerebral.</figcaption>
+      </figure>
+
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Categoría</th><th>Qué falla</th><th>Ejemplos</th></tr></thead>
+          <tbody>
+            <tr><td class="k">Reflejo (neural)</td><td>Fallo autonómico transitorio: ↑ vagal + retirada simpática</td><td>Vasovagal (desmayo), situacional (tos, micción, deglución), del seno carotídeo</td></tr>
+            <tr><td class="k">Cardíaco</td><td>Caída brusca del gasto cardíaco</td><td>Arritmias, estenosis aórtica, infarto extenso, embolia pulmonar</td></tr>
+            <tr><td class="k">Ortostático</td><td>Fallo de la vasoconstricción simpática al ponerse de pie</td><td>Fármacos que deplecionan volumen, deshidratación, fallo autonómico (ancianos)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="vasovagal" class="band-d">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">10</span><h2>Síncope · el desmayo por dentro (vasovagal)</h2></div>
+      <div class="prose">
+        <p>El síncope vasovagal —el <strong>desmayo</strong> común— es el ejemplo más elegante, porque es un reflejo que se dispara <em>al revés</em>. Sigue la cadena, porque cada eslabón obliga al siguiente:</p>
+      </div>
+      <ol class="cascade d">
+        <li><strong>Acumulación venosa</strong> — de pie mucho tiempo, con miedo o dolor, la sangre se estanca en las piernas y llega menos al corazón.</li>
+        <li><strong>Cae la precarga</strong> — con menos llenado, el ventrículo tiene poco volumen que expulsar; baja el gasto cardíaco y la presión.</li>
+        <li><strong>El corazón casi vacío se contrae con fuerza</strong> — esa contracción vigorosa sobre un ventrículo con poco volumen activa unos <strong>mecanorreceptores (fibras C)</strong> de la pared del ventrículo izquierdo.</li>
+        <li><strong>El reflejo paradójico</strong> — esas fibras avisan al bulbo, que responde «como si la presión estuviera alta»: <strong>retira el tono simpático</strong> y <strong>aumenta el vagal</strong>.</li>
+        <li><strong>Vasodilatación + bradicardia</strong> — justo lo contrario de lo que hace falta. La presión se desploma.</li>
+        <li><strong>Hipoperfusión cerebral → síncope</strong> — el paciente se marea, ve borroso o en túnel, y cae. Al caer, recupera el retorno venoso y despierta.</li>
+      </ol>
+      <div class="callout warn" style="margin-top:1.2rem">
+        <p class="eyebrow">Por qué caerse es, en parte, la cura</p>
+        <p style="margin-top:.4rem">Al pasar de pie a tendido, la gravedad deja de robar sangre a la cabeza: el retorno venoso se restablece, sube la presión y el paciente vuelve en sí en segundos. También basta la <strong>visión de sangre</strong> o una emoción intensa para disparar el reflejo: los centros nerviosos superiores también participan.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section id="ocular">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">11</span><h2>Qué ve el optómetra</h2></div>
+      <p class="prose" style="margin-bottom:1.3rem">Edema y síncope entran al consultorio optométrico con firma propia. Ninguno se estudia hoy a fondo; están para que reconozcas el mecanismo que acabas de aprender.</p>
+      <div class="grid g3">
+        <div class="card fisio">
+          <p class="eyebrow">Edema · permeabilidad</p>
+          <h3>Edema palpebral y periorbitario</h3>
+          <p>El párpado es tejido laxo y muy vascularizado: se hincha fácil. Un edema periorbitario orienta a <strong>alergia</strong> (mecanismo 2, permeabilidad) o, si es bilateral y matutino, a causa <strong>renal o cardíaca</strong> (mecanismos 1 y 3). El mismo signo, distinta fuerza rota.</p>
+        </div>
+        <div class="card pato">
+          <p class="eyebrow">Síncope · isquemia retiniana</p>
+          <h3>Visión borrosa o en túnel</h3>
+          <p>En el presíncope, la caída de presión produce <strong>isquemia de la retina y del lóbulo occipital</strong>: el paciente refiere visión borrosa, oscurecimiento o «visión en túnel» justo antes de desmayarse. Es un pródromo visual que el optómetra puede reconocer.</p>
+        </div>
+        <div class="card amber">
+          <p class="eyebrow">Seguridad en consulta</p>
+          <h3>El paciente que se desmaya</h3>
+          <p>La bipedestación prolongada, el dolor de un procedimiento o la ansiedad pueden desencadenar un <strong>vasovagal</strong> en plena consulta. Reconocer el pródromo —palidez, sudor, mareo— y recostar al paciente restablece el retorno venoso y evita la caída.</p>
+        </div>
+      </div>
+      <p class="prose" style="margin-top:1.1rem">Regla práctica: ante síntomas visuales transitorios <strong>al ponerse de pie</strong>, piensa en hipotensión ortostática antes que en un problema ocular primario. El ojo, otra vez, es una ventana al resto del cuerpo.</p>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section id="autoeval">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">12</span><h2>Autoevaluación</h2></div>
+      <p class="prose" style="margin-bottom:1rem">Responde mentalmente antes de decidir. Los dos ejercicios interactivos son el mismo que haremos en clase.</p>
+
+      <h3 style="margin-bottom:.4rem; font-size:1.05rem">A · ¿Qué mecanismo del edema?</h3>
+      <p style="color:var(--muted); font-size:.9rem; margin-bottom:.6rem">Decide qué fuerza de Starling se rompió.</p>
+      <div class="card" id="drillA"></div>
+
+      <h3 style="margin:2rem 0 .4rem; font-size:1.05rem">B · ¿Qué tipo de síncope?</h3>
+      <p style="color:var(--muted); font-size:.9rem; margin-bottom:.6rem">Reflejo, cardíaco u ortostático.</p>
+      <div class="card" id="drillB"></div>
+
+      <h3 style="margin:2rem 0 .8rem; font-size:1.05rem">C · Diez preguntas</h3>
+      <div id="quiz"></div>
+
+      <div class="grid g2" style="margin-top:1.6rem">
+        <div class="card">
+          <h3>Trabajo independiente</h3>
+          <ul>
+            <li>Cuadro propio: los <strong>cinco mecanismos del edema</strong> con la fuerza de Starling que rompe cada uno y un ejemplo</li>
+            <li>Esquema a mano del <strong>intercambio capilar</strong> con las cuatro fuerzas y sus valores</li>
+            <li>Clasificar tres casos de <strong>síncope</strong> (reflejo / cardíaco / ortostático) justificando con PA = GC × RVP</li>
+            <li>Lectura de los capítulos 10 (Edema) y 18 (Síncope) del texto guía</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Fuentes de la sesión</h3>
+          <ul>
+            <li>Uribe Olivares, R. A. (2018). <em>Fisiopatología. La ciencia del porqué y el cómo</em>. Elsevier. Cap. 10 (Edema) y cap. 18 (Síncope).</li>
+            <li>Hall, J. E. <em>Guyton y Hall. Tratado de Fisiología Médica</em>, 13.ª ed. (fuerzas de Starling, reflejo barorreceptor).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Fisiopatología General (01008430) · Programa de Optometría · Facultad de Ciencias de la Salud · Universidad de La Salle · Semestre 2026-2</p>
+    <p style="margin-top:.4rem">Clase 8 de 16. Los ejemplos oculares ilustran el mecanismo general; su estudio detallado corresponde a espacios académicos posteriores.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  document.getElementById('themeBtn').addEventListener('click', function(){
+    var dark = root.getAttribute('data-theme') === 'dark'
+      || (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+    root.setAttribute('data-theme', dark ? 'light' : 'dark');
+  });
+
+  function buildDrill(mount, items, opts){
+    var A = document.getElementById(mount); if(!A) return;
+    var ok=0, ans=0;
+    var score = document.createElement('p'); score.className='score';
+    items.forEach(function(it){
+      var row=document.createElement('div'); row.className='drill-row';
+      var q=document.createElement('span'); q.className='drill-q'; q.textContent=it.t;
+      var v=document.createElement('span'); v.className='verdict'; row.appendChild(q);
+      var done=false;
+      opts.forEach(function(o){
+        var b=document.createElement('button'); b.className='btn'; b.type='button'; b.textContent=o[1];
+        b.addEventListener('click', function(){
+          row.querySelectorAll('.btn').forEach(function(x){x.classList.remove('ok','no');});
+          var good=o[0]===it.a; b.classList.add(good?'ok':'no');
+          v.innerHTML=(good?'<b>Correcto.</b> ':'<b>Revisa.</b> ')+it.e;
+          if(!done){done=true; ans++; if(good)ok++; score.textContent='Primer intento: '+ok+' de '+ans+' ('+items.length+' en total)';}
+        });
+        row.appendChild(b);
+      });
+      row.appendChild(v); A.appendChild(row);
+    });
+    A.appendChild(score);
+  }
+
+  buildDrill('drillA', [
+    { t:'Insuficiencia cardíaca: edema en los tobillos por congestión venosa', a:'pc', e:'Baja el gasto, se retiene sodio y agua, sube el volumen y la presión hidrostática capilar. Mecanismo 1.' },
+    { t:'Cirrosis con hipoalbuminemia y ascitis', a:'prot', e:'El hígado no fabrica albúmina: cae la presión coloidosmótica del plasma. Mecanismo 3.' },
+    { t:'Roncha alérgica: enrojecimiento e hinchazón local inmediata', a:'perm', e:'Histamina y mediadores abren el endotelio: aumenta la permeabilidad. Mecanismo 2 (la inflamación del E3/E7).' },
+    { t:'Filariasis con elefantiasis de la pierna', a:'linf', e:'Los parásitos obstruyen los vasos linfáticos: falla el drenaje. Mecanismo 5.' },
+    { t:'Síndrome nefrótico: se pierde albúmina por la orina', a:'prot', e:'Otra vez proteínas: baja la π del plasma. Mecanismo 3.' },
+    { t:'Trombosis venosa profunda que obstruye el retorno', a:'pc', e:'La obstrucción venosa eleva la presión hidrostática por detrás del trombo. Mecanismo 1.' }
+  ], [['pc','↑ Presión'],['prot','↓ Proteínas'],['perm','↑ Permeab.'],['linf','Linfático']]);
+
+  buildDrill('drillB', [
+    { t:'Joven que ve sangre, se marea, suda frío y se desmaya estando de pie', a:'ref', e:'Desencadenante emocional + bipedestación: reflejo vasovagal.' },
+    { t:'Anciano que al levantarse de la cama se marea; la PA sistólica cae 25 mmHg de pie', a:'ort', e:'Caída ≥20 mmHg al ponerse de pie por fallo vasoconstrictor: ortostático.' },
+    { t:'Paciente con arritmia que pierde el conocimiento de golpe, sin ningún aviso', a:'car', e:'Sin pródromo y por caída brusca del gasto: síncope cardíaco (el de mayor riesgo).' },
+    { t:'Se desmaya al orinar de noche', a:'ref', e:'Activación de mecanorreceptores vesicales: reflejo situacional.' },
+    { t:'Se desmaya al afeitarse el cuello con la camisa apretada', a:'ref', e:'Hipersensibilidad del seno carotídeo: reflejo.' },
+    { t:'Toma varios fármacos que deplecionan volumen y se marea cada vez que se para', a:'ort', e:'Volumen bajo + vasoconstricción insuficiente al pararse: ortostático (causa más común).' },
+    { t:'Estenosis aórtica: síncope que aparece con el esfuerzo', a:'car', e:'Obstrucción al gasto ventricular izquierdo: síncope cardíaco.' }
+  ], [['ref','Reflejo'],['car','Cardíaco'],['ort','Ortostático']]);
+
+  var qs = [
+    ['¿Cómo se reparte el agua del cuerpo y qué es exactamente el edema?',
+     'El agua es ~60% del peso corporal: 40% intracelular y 20% extracelular (plasma + líquido intersticial). El edema es la acumulación anormal de líquido en el espacio intersticial por un desequilibrio de las fuerzas de Starling; se hace visible dentro de las primeras 72 h y el intersticio puede admitir varios litros antes de notarse.'],
+    ['Enumera las cuatro fuerzas de Starling y di hacia dónde mueve el líquido cada una.',
+     'PC (presión hidrostática capilar, ~30 arterial / 15 venoso): saca líquido. πp (coloidosmótica del plasma, 28): mete líquido (proteínas, sobre todo albúmina). Pli (hidrostática intersticial, ~3): normalmente mete. πli (coloidosmótica intersticial, 8): saca. Filtración neta = Kf·(PC − Pli − πp + πli); el pequeño sobrante lo drena el linfático.'],
+    ['¿Cuáles son los cinco mecanismos del edema?',
+     '1) ↑ presión hidrostática capilar (IC, HTA, obstrucción venosa). 2) ↑ permeabilidad capilar (inflamación: histamina, prostaglandinas, interleucinas). 3) ↓ presión coloidosmótica plasmática (cirrosis, síndrome nefrótico, desnutrición, quemaduras). 4) ↑ presión coloidosmótica intersticial (mixedema, amiloidosis). 5) ↓ retorno linfático (filariasis, tumores, cirugía).'],
+    ['La insuficiencia cardíaca y el síndrome nefrótico dan edema por mecanismos distintos. Explícalos.',
+     'La insuficiencia cardíaca actúa por mecanismo 1: cae el gasto, se activan RAA, simpático y ADH, se retiene sodio y agua, sube el volumen y con él la presión hidrostática capilar. El síndrome nefrótico actúa por mecanismo 3: pierde albúmina por la orina, cae la presión coloidosmótica del plasma y el líquido deja de reabsorberse.'],
+    ['¿Qué relación tiene el edema con la inflamación que vimos antes?',
+     'El aumento de permeabilidad capilar (mecanismo 2) lo producen los mismos mediadores de la inflamación: histamina, prostaglandinas e interleucinas, que contraen la célula endotelial y abren acuaporinas. El edema del habón alérgico o de la articulación inflamada es, literalmente, inflamación leída desde la fuerza de Starling que rompe.'],
+    ['Define síncope y menciona su vía final común.',
+     'El síncope es la pérdida súbita, transitoria y autolimitada de la conciencia con pérdida del tono postural, por reducción transitoria del flujo sanguíneo cerebral, con recuperación espontánea. Su vía final común es la caída de la presión arterial que produce hipoperfusión cerebral global; bastan ~10 s de flujo insuficiente para perder el conocimiento.'],
+    ['Explica el reflejo barorreceptor.',
+     'Es un circuito de retroalimentación negativa. Los barorreceptores del seno carotídeo y el cayado aórtico detectan el estiramiento arterial; si la PA sube, avisan al bulbo (núcleo del tracto solitario), que inhibe el centro vasoconstrictor simpático y activa el vago: baja la FC y se dilatan los vasos, bajando la PA. Si la PA baja, ocurre lo contrario. Por eso se llama "amortiguador".'],
+    ['¿Cuáles son las tres categorías de síncope y qué falla en cada una?',
+     'Reflejo (neural): fallo autonómico transitorio con ↑ vagal + retirada simpática → ↓ FC y ↓ RVP (vasovagal, situacional, seno carotídeo). Cardíaco: caída brusca del gasto cardíaco por arritmia o cardiopatía estructural; ocurre sin aviso y tiene la mayor mortalidad. Ortostático: fallo de la vasoconstricción simpática al ponerse de pie (caída ≥20 mmHg sistólica o ≥10 diastólica en 3 min).'],
+    ['Describe paso a paso el síncope vasovagal.',
+     'Acumulación venosa (de pie, miedo, dolor) → cae la precarga → baja el gasto y la presión → el ventrículo casi vacío se contrae con fuerza y activa mecanorreceptores (fibras C) del VI → el bulbo responde de forma paradójica retirando el simpático y aumentando el vago → vasodilatación + bradicardia → hipotensión → hipoperfusión cerebral → síncope. Al caer, se restablece el retorno venoso y el paciente despierta.'],
+    ['¿Qué manifestaciones visuales tiene el presíncope y por qué le importan al optómetra?',
+     'La caída de presión produce isquemia de la retina y del lóbulo occipital: visión borrosa, oscurecimiento o "visión en túnel" antes del desmayo. Importa porque el paciente puede sufrir un vasovagal en la consulta (bipedestación, dolor, ansiedad) y porque unos síntomas visuales transitorios al ponerse de pie apuntan a hipotensión ortostática, no a un problema ocular primario.']
+  ];
+  var quiz=document.getElementById('quiz');
+  qs.forEach(function(pair,i){
+    var d=document.createElement('div'); d.className='q';
+    var h=document.createElement('button'); h.className='q-head'; h.type='button'; h.setAttribute('aria-expanded','false');
+    h.innerHTML='<span class="q-n">'+String(i+1).padStart(2,'0')+'</span><span>'+pair[0]+'</span>';
+    var b=document.createElement('div'); b.className='q-body'; b.textContent=pair[1];
+    h.addEventListener('click', function(){ var open=d.classList.toggle('open'); h.setAttribute('aria-expanded', open?'true':'false'); });
+    d.appendChild(h); d.appendChild(b); quiz.appendChild(d);
+  });
+})();
+</script>
+</body>
+</html>

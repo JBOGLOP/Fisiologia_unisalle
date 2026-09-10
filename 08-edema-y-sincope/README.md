@@ -4,26 +4,28 @@
 
 | Estado | Material | Duración |
 |---|---|---|
-| ⬜ **Programada** | 🕓 En preparación | 2 horas |
+| ✅ **Publicada** | 📘 [Clase interactiva](clase.html) | 2 horas |
 
 ---
 
 ## De qué trata
 
-Dos signos unidos por la hemodinámica: uno por acumulación de líquido donde no debe estar, otro por perfusión insuficiente donde sí hace falta.
+Dos signos unidos por la hemodinámica: uno por acumulación de líquido donde no debe estar, otro por perfusión insuficiente donde sí hace falta. El hilo conductor es el **equilibrio de presiones**: en el edema se rompe el balance de fuerzas de Starling en el capilar; en el síncope, el balance que sostiene la presión arterial y el flujo cerebral.
 
 ## Material de clase
 
-_En preparación._ La clase interactiva se publica aquí el día del encuentro o antes.
+- 📘 **[Clase interactiva](clase.html)** — 12 secciones, con tres diagramas originales (fuerzas de Starling, reflejo barorreceptor, y la tríada PA = GC × RVP con las tres causas de síncope), tablas de mecanismos y causas, dos ejercicios interactivos y autoevaluación de 10 preguntas.
 
 ## Contenidos
 
-- Fuerzas de Starling: presión hidrostática y presión oncótica
-- Papel del drenaje linfático y de la permeabilidad capilar
-- Mecanismos del edema: aumento de presión hidrostática, descenso de la presión oncótica, obstrucción linfática e inflamación
-- Síncope: definición y diferencia con otras pérdidas de conciencia
-- Perfusión cerebral y mecanismos del síncope vasovagal, ortostático y cardiogénico
-- Aplicación ocular: edema palpebral y edema macular como expresiones del mismo principio
+- Reparto del agua corporal (60 / 40 / 20) y concepto de edema
+- Fuerzas de Starling: presión hidrostática y coloidosmótica; drenaje linfático y permeabilidad capilar
+- Los cinco mecanismos del edema y qué fuerza rompe cada uno
+- Insuficiencia cardíaca frente a síndrome nefrótico / cirrosis
+- Síncope: definición, vía final común y diferencia con otras pérdidas de conciencia
+- La ecuación PA = GC × RVP y el reflejo barorreceptor
+- Las tres causas de síncope: reflejo (vasovagal), cardíaco y ortostático
+- Aplicación ocular: edema palpebral y periorbitario; visión en túnel del presíncope
 
 ## Lectura previa
 
