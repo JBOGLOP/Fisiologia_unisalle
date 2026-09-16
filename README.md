@@ -56,10 +56,10 @@ qué hacer con él.
 | 📝 | **4** | **13 de agosto** | **Primer parcial** | — |
 | 💬 | **5** | 20 de agosto | Socialización de notas | — |
 | ✅ | **6** | 27 de agosto | Inmunidad y respuesta del huésped a la infección | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/06-inmunidad-e-infeccion/clase.html)** · [🔗 actividad](https://jboglop.github.io/Fisiologia_unisalle/06-inmunidad-e-infeccion/cadena.html) · [detalle](06-inmunidad-e-infeccion/) |
-| ✅ | **7** | 3 de septiembre | Fisiopatología de la fiebre y del dolor | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/07-fiebre-y-dolor/clase.html)** · [detalle](07-fiebre-y-dolor/) |
-| 🔜 | **8** | 10 de septiembre | Fisiopatología del edema y del síncope | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/08-edema-y-sincope/clase.html)** · [detalle](08-edema-y-sincope/) |
-| 📝 | **9** | 17 de septiembre | **Segundo parcial** | — |
-| 💬 | **10** | 24 de septiembre | Socialización de notas | — |
+| ✅ | **7** | 10 de septiembre | Fisiopatología de la fiebre y del dolor | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/07-fiebre-y-dolor/clase.html)** · [detalle](07-fiebre-y-dolor/) |
+| 🔜 | **8** | 17 de septiembre | Fisiopatología del edema y del síncope | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/08-edema-y-sincope/clase.html)** · [detalle](08-edema-y-sincope/) |
+| 📝 | **9** | 24 de septiembre | **Segundo parcial** | — |
+| ❌ | **10** | — | Socialización de notas · **cancelada** (el espacio se reasigna al segundo parcial para recuperar el tiempo) | — |
 | ⬜ | **11** | 1 de octubre | Fisiopatología de la disnea, la cianosis y el vértigo | _en preparación_ |
 | ⏸️ | — | 8 de octubre | _Semana de receso institucional_ | — |
 | ⬜ | **12** | 15 de octubre | Patología ambiental y nutricional: el ojo como órgano diana | _en preparación_ |
@@ -68,7 +68,7 @@ qué hacer con él.
 | 📝 | **15** | 5 de noviembre | **Parcial final** | — |
 | 💬 | **16** | 12 de noviembre | Socialización de notas y cierre | — |
 
-**Convenciones:** ✅ cumplida · 🔴 hoy · 🔜 próxima · ⬜ programada · 📝 evaluación · 💬 retroalimentación · ⏸️ receso
+**Convenciones:** ✅ cumplida · 🔴 hoy · 🔜 próxima · ⬜ programada · 📝 evaluación · 💬 retroalimentación · ⏸️ receso · ❌ cancelada
 
 Cada clase se publica aquí el día del encuentro o antes. Al hacer clic en **Ver clase** se abre en el
 navegador, sin descargar nada: funciona en celular y en computador, se adapta al tema claro u oscuro,
@@ -81,7 +81,7 @@ e incluye ejercicios interactivos y autoevaluación.
 | Bloque | Encuentros | De qué trata | Cierra con |
 |---|---|---|---|
 | **1. Fundamentos** | 1–3 | Qué es la fisiopatología, salud y enfermedad, semiología básica, y la respuesta del tejido a la agresión: lesión, adaptación, inflamación y reparación | Primer parcial · 13 ago |
-| **2. Inmunidad, síntomas y signos** | 6–8 | Respuesta inmunitaria e infección; fiebre, dolor, edema y síncope | Segundo parcial · 17 sep |
+| **2. Inmunidad, síntomas y signos** | 6–8 | Respuesta inmunitaria e infección; fiebre, dolor, edema y síncope | Segundo parcial · 24 sep |
 | **3. Aplicación disciplinar** | 11–14 | Disnea, cianosis y vértigo; ambiente y nutrición; diabetes e hipertensión; trastornos ópticos | Parcial final · 5 nov |
 
 El orden no es casual: la inflamación se ve **antes** que la fiebre, el dolor y el edema, porque es

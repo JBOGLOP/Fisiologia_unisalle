@@ -1,6 +1,6 @@
 # Encuentro 8 — Fisiopatología del edema y del síncope
 
-**10 de septiembre de 2026** · Clase · Fisiopatología General (`01008430`) · Optometría · Universidad de La Salle
+**17 de septiembre de 2026** · Clase · Fisiopatología General (`01008430`) · Optometría · Universidad de La Salle
 
 | Estado | Material | Duración |
 |---|---|---|

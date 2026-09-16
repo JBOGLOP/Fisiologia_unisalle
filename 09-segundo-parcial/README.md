@@ -1,6 +1,6 @@
 # Encuentro 9 — Segundo parcial
 
-**17 de septiembre de 2026** · Evaluación · Fisiopatología General (`01008430`) · Optometría · Universidad de La Salle
+**24 de septiembre de 2026** · Evaluación · Fisiopatología General (`01008430`) · Optometría · Universidad de La Salle
 
 | Estado | Material | Duración |
 |---|---|---|

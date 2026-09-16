@@ -1,6 +1,6 @@
 # Encuentro 7 — Fisiopatología de la fiebre y del dolor
 
-**3 de septiembre de 2026** · Clase · Fisiopatología General (`01008430`) · Optometría · Universidad de La Salle
+**10 de septiembre de 2026** · Clase · Fisiopatología General (`01008430`) · Optometría · Universidad de La Salle
 
 | Estado | Material | Duración |
 |---|---|---|
