@@ -4,7 +4,7 @@
 
 | Estado | Material | Duración |
 |---|---|---|
-| ⬜ **Programada** | 🕓 En preparación | 2 horas |
+| ⬜ **Programada** | 📘 [Clase interactiva](clase.html) | 2 horas |
 
 ---
 
@@ -14,7 +14,7 @@ Cierra los síntomas y signos con el eje de la oxigenación, y añade el vértig
 
 ## Material de clase
 
-_En preparación._ La clase interactiva se publica aquí el día del encuentro o antes.
+- 📘 **[Clase interactiva](clase.html)** — 11 secciones, con cuatro diagramas originales (el lazo de control ventilatorio, la disociación neuromecánica de la disnea, el umbral de la cianosis en anemia/normal/policitemia, y el conflicto de los tres sistemas del equilibrio en el vértigo), tabla de mecanismos, dos ejercicios interactivos (central vs. periférico) y autoevaluación de 10 preguntas.
 
 ## Contenidos
 
@@ -41,4 +41,4 @@ _En preparación._ La clase interactiva se publica aquí el día del encuentro o
 
 ---
 
-← [Encuentro 10: Socialización de notas](../10-socializacion-notas-2/) · [Índice del curso](../) · [Encuentro 12: Patología ambiental y nutricional: el ojo como órgano diana](../12-ambiental-y-nutricional/) →
+← [Encuentro 9: Segundo parcial](../09-segundo-parcial/) · [Índice del curso](../) · [Encuentro 12: Patología ambiental y nutricional: el ojo como órgano diana](../12-ambiental-y-nutricional/) →

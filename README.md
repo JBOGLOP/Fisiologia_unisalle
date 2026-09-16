@@ -60,7 +60,7 @@ qué hacer con él.
 | 🔜 | **8** | 17 de septiembre | Fisiopatología del edema y del síncope | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/08-edema-y-sincope/clase.html)** · [detalle](08-edema-y-sincope/) |
 | 📝 | **9** | 24 de septiembre | **Segundo parcial** | — |
 | ❌ | **10** | — | Socialización de notas · **cancelada** (el espacio se reasigna al segundo parcial para recuperar el tiempo) | — |
-| ⬜ | **11** | 1 de octubre | Fisiopatología de la disnea, la cianosis y el vértigo | _en preparación_ |
+| ⬜ | **11** | 1 de octubre | Fisiopatología de la disnea, la cianosis y el vértigo | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/11-disnea-cianosis-y-vertigo/clase.html)** · [detalle](11-disnea-cianosis-y-vertigo/) |
 | ⏸️ | — | 8 de octubre | _Semana de receso institucional_ | — |
 | ⬜ | **12** | 15 de octubre | Patología ambiental y nutricional: el ojo como órgano diana | _en preparación_ |
 | ⬜ | **13** | 22 de octubre | Diabetes e hipertensión: el ojo como ventana sistémica | _en preparación_ |

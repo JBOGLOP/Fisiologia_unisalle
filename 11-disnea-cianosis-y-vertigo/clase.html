@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clase 11 — Fisiopatología de la disnea, la cianosis y el vértigo</title>
+<style>
+  :root{
+    --ink:#12212b; --paper:#f4f7f7; --surface:#ffffff; --surface-2:#eaf0f0;
+    --line:#cbd8da; --muted:#516268;
+    --fisio:#10505e; --fisio-soft:#dceaec;
+    --pato:#a8412c; --pato-soft:#f5e2dc;
+    --amber:#9a6b12; --amber-soft:#f6ecd6;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 8px 24px -16px rgba(18,33,43,.35);
+    --display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+    --measure:66ch;
+    --pad:clamp(1rem,4vw,2.5rem);
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+      --line:#2c3d43; --muted:#9bafb4;
+      --fisio:#5cb6c6; --fisio-soft:#12313a;
+      --pato:#e08a70; --pato-soft:#3a2119;
+      --amber:#d5a446; --amber-soft:#33290f;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.9);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+    --line:#2c3d43; --muted:#9bafb4;
+    --fisio:#5cb6c6; --fisio-soft:#12313a;
+    --pato:#e08a70; --pato-soft:#3a2119;
+    --amber:#d5a446; --amber-soft:#33290f;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.9);
+  }
+  :root[data-theme="light"]{
+    --ink:#12212b; --paper:#f4f7f7; --surface:#ffffff; --surface-2:#eaf0f0;
+    --line:#cbd8da; --muted:#516268;
+    --fisio:#10505e; --fisio-soft:#dceaec;
+    --pato:#a8412c; --pato-soft:#f5e2dc;
+    --amber:#9a6b12; --amber-soft:#f6ecd6;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 8px 24px -16px rgba(18,33,43,.35);
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--body); font-size:clamp(15px,.5vw + 14px,17px); line-height:1.62; -webkit-font-smoothing:antialiased}
+  h1,h2,h3,h4{font-family:var(--display); font-weight:600; line-height:1.15; text-wrap:balance; margin:0}
+  p{margin:0}
+  a{color:var(--fisio)}
+  .wrap{max-width:1040px; margin:0 auto; padding-inline:var(--pad)}
+  .prose{max-width:var(--measure)}
+  .stack{display:flex; flex-direction:column}
+  .stack>*+*{margin-top:1rem}
+  .eyebrow{font-family:var(--mono); font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)}
+
+  header.top{position:sticky; top:0; z-index:50; background:color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter:blur(10px); border-bottom:1px solid var(--line)}
+  .top-in{display:flex; align-items:center; gap:1rem; height:54px}
+  .brand{font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); white-space:nowrap}
+  nav.jump{margin-left:auto; display:flex; gap:.15rem; overflow-x:auto; scrollbar-width:none}
+  nav.jump::-webkit-scrollbar{display:none}
+  nav.jump a{font-size:.78rem; text-decoration:none; color:var(--muted); padding:.3rem .55rem; border-radius:99px; white-space:nowrap}
+  nav.jump a:hover{color:var(--ink); background:var(--surface-2)}
+  .theme-btn{border:1px solid var(--line); background:var(--surface); color:var(--muted); border-radius:99px; width:32px; height:32px; cursor:pointer; flex:none; font-size:.85rem}
+  .theme-btn:hover{color:var(--ink)}
+
+  .hero{padding:clamp(2.5rem,7vw,5rem) 0 clamp(2rem,5vw,3.5rem)}
+  .hero h1{font-size:clamp(2.1rem,5.5vw,3.6rem); letter-spacing:-.01em; margin-top:.6rem}
+  .hero .sub{max-width:60ch; color:var(--muted); font-size:1.05rem; margin-top:1.1rem}
+  .hero-meta{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.6rem}
+  .chip{font-family:var(--mono); font-size:.7rem; letter-spacing:.06em; border:1px solid var(--line); border-radius:99px; padding:.3rem .7rem; background:var(--surface); color:var(--muted)}
+  .chip strong{color:var(--ink); font-weight:600}
+  .split-word{display:inline-flex; flex-wrap:wrap; gap:.1em}
+  .split-word .a{color:var(--fisio)}
+  .split-word .b{color:var(--pato)}
+  .split-word .c{color:var(--amber)}
+
+  section{padding:clamp(2.2rem,5vw,3.6rem) 0; border-top:1px solid var(--line)}
+  .sec-head{display:flex; align-items:baseline; gap:.9rem; margin-bottom:1.4rem; flex-wrap:wrap}
+  .sec-num{font-family:var(--mono); font-size:.72rem; color:var(--fisio); border:1px solid var(--fisio); border-radius:4px; padding:.1rem .4rem; flex:none}
+  .sec-head h2{font-size:clamp(1.4rem,3vw,2rem)}
+  .band-f .sec-num{color:var(--amber); border-color:var(--amber)}
+  .band-d .sec-num{color:var(--pato); border-color:var(--pato)}
+
+  .grid{display:grid; gap:1rem}
+  @media(min-width:720px){ .g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)} }
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:1.1rem 1.2rem; box-shadow:var(--shadow)}
+  .card h3{font-size:1.02rem; margin-bottom:.45rem}
+  .card p, .card li{font-size:.92rem; color:var(--muted)}
+  .card.fisio{border-left:3px solid var(--fisio)}
+  .card.pato{border-left:3px solid var(--pato)}
+  .card.amber{border-left:3px solid var(--amber)}
+  .card ul{margin:.4rem 0 0; padding-left:1.1rem}
+  .card li+li{margin-top:.25rem}
+  .card .ocular{margin-top:.7rem; padding-top:.6rem; border-top:1px dashed var(--line); font-size:.82rem; color:var(--fisio)}
+
+  .callout{background:var(--fisio-soft); border:1px solid color-mix(in srgb,var(--fisio) 30%, transparent); border-radius:10px; padding:1rem 1.2rem}
+  .callout .eyebrow{color:var(--fisio)}
+  .callout.warn{background:var(--pato-soft); border-color:color-mix(in srgb,var(--pato) 30%, transparent)}
+  .callout.warn .eyebrow{color:var(--pato)}
+  .callout.note{background:var(--amber-soft); border-color:color-mix(in srgb,var(--amber) 35%, transparent)}
+  .callout.note .eyebrow{color:var(--amber)}
+
+  .table-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface); margin-top:1.1rem}
+  table{border-collapse:collapse; width:100%; font-size:.88rem; min-width:520px}
+  th,td{text-align:left; padding:.6rem .8rem; border-bottom:1px solid var(--line); vertical-align:top}
+  th{font-family:var(--mono); font-size:.68rem; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); font-weight:500}
+  tbody tr:last-child td{border-bottom:none}
+  td.k{font-weight:600; white-space:nowrap}
+
+  .fork{display:grid; gap:.8rem; margin-top:1rem}
+  @media(min-width:720px){.fork{grid-template-columns:1fr 1fr}}
+  .fork .lane{border:1px solid var(--line); border-radius:10px; padding:1rem; background:var(--surface)}
+  .fork .lane.a{border-top:3px solid var(--fisio)}
+  .fork .lane.b{border-top:3px solid var(--pato)}
+  .fork .lane h3{font-size:1rem; margin-bottom:.4rem}
+  .fork .lane p, .fork .lane li{font-size:.9rem; color:var(--muted)}
+  .fork .lane ul{margin:.4rem 0 0; padding-left:1.1rem}
+
+  .drill-row{display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; padding:.65rem 0; border-bottom:1px solid var(--line)}
+  .drill-row:last-child{border-bottom:none}
+  .drill-q{flex:1 1 240px; font-size:.94rem}
+  .btn{font-family:var(--body); font-size:.78rem; cursor:pointer; border:1px solid var(--line); background:var(--surface); color:var(--ink); border-radius:99px; padding:.3rem .75rem}
+  .btn:hover{border-color:var(--fisio)}
+  .btn:focus-visible, a:focus-visible, .q-head:focus-visible{outline:2px solid var(--fisio); outline-offset:2px}
+  .btn.ok{background:var(--fisio); border-color:var(--fisio); color:#fff}
+  .btn.no{background:var(--pato); border-color:var(--pato); color:#fff}
+  .verdict{font-size:.82rem; flex-basis:100%; color:var(--muted)}
+  .verdict b{color:var(--ink)}
+  .score{font-family:var(--mono); font-size:.78rem; color:var(--muted); margin-top:.8rem}
+
+  .q{border:1px solid var(--line); border-radius:10px; background:var(--surface); overflow:hidden}
+  .q+.q{margin-top:.6rem}
+  .q-head{width:100%; text-align:left; background:none; border:0; color:inherit; font:inherit; padding:.85rem 1rem; cursor:pointer; display:flex; gap:.7rem; align-items:baseline}
+  .q-head:hover{background:var(--surface-2)}
+  .q-n{font-family:var(--mono); font-size:.72rem; color:var(--fisio); flex:none}
+  .q-body{padding:0 1rem 1rem 2.4rem; font-size:.9rem; color:var(--muted); display:none}
+  .q.open .q-body{display:block}
+  .q.open .q-head{background:var(--surface-2)}
+
+  footer{border-top:1px solid var(--line); padding:2rem 0 3rem; color:var(--muted); font-size:.83rem}
+  figure.fig{margin:1.4rem 0 0; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:1.1rem 1.2rem .9rem}
+  figure.fig svg{display:block; width:100%; height:auto; color:var(--ink)}
+  figure.fig figcaption{margin-top:.7rem; font-size:.84rem; color:var(--muted); line-height:1.5}
+  figure.fig figcaption b{color:var(--ink)}
+  .svg-mut{fill:var(--muted)} .svg-ink{fill:var(--ink)}
+  @media (prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-in">
+    <span class="brand">Fisiopatología General · Clase 11</span>
+    <nav class="jump">
+      <a href="#repaso">Repaso</a>
+      <a href="#disnea">Disnea</a>
+      <a href="#control">Control ventilatorio</a>
+      <a href="#mecanismos">Mecanismos</a>
+      <a href="#cianosis">Cianosis</a>
+      <a href="#umbral">El umbral</a>
+      <a href="#vertigo">Vértigo</a>
+      <a href="#equilibrio">Equilibrio</a>
+      <a href="#ocular">Ojo</a>
+      <a href="#autoeval">Autoevaluación</a>
+    </nav>
+    <button class="theme-btn" id="themeBtn" aria-label="Cambiar tema">◐</button>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <p class="eyebrow">Clase 11 · Síntomas y signos · Semana del 1 de octubre</p>
+    <h1>Fisiopatología de la <span class="split-word"><span class="a">disnea</span>,&nbsp;la&nbsp;<span class="b">cianosis</span>&nbsp;y&nbsp;el&nbsp;<span class="c">vértigo</span></span></h1>
+    <p class="sub">Tres motivos de consulta que parecen inconexos —la falta de aire, el color azul, el mundo que gira— pero comparten una misma lógica: el cuerpo maneja varias corrientes de información a la vez, y el síntoma aparece cuando esas corrientes <strong>no concuerdan</strong> o cuando una variable <strong>cruza un umbral</strong>.</p>
+    <div class="hero-meta">
+      <span class="chip">Sesión <strong>11 de 16</strong></span>
+      <span class="chip">Fecha <strong>1 oct 2026</strong></span>
+      <span class="chip">Duración <strong>2 horas</strong></span>
+      <span class="chip">Texto guía <strong>caps. 8, 9 y 14</strong></span>
+    </div>
+  </div>
+
+  <!-- 01 -->
+  <section id="repaso">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">01</span><h2>Tres señales, una misma lógica</h2></div>
+      <div class="prose stack">
+        <p>Venimos de estudiar signos y síntomas por bloques: fiebre y dolor, edema y síncope. Hoy cerramos el bloque con tres más —<strong>disnea</strong>, <strong>cianosis</strong> y <strong>vértigo</strong>— que a primera vista no tienen nada que ver: uno es respiratorio, otro es de la sangre, otro del equilibrio.</p>
+        <p>Pero el molde es el mismo que traemos: el organismo compara <strong>varias fuentes de información</strong> y actúa según el resultado. Cuando esas fuentes <em>se contradicen</em> o cuando una magnitud <em>pasa un límite</em>, aparece la señal clínica.</p>
+      </div>
+      <div class="grid g3" style="margin-top:1.3rem">
+        <div class="card fisio">
+          <p class="eyebrow">Síntoma · se refiere</p>
+          <h3>Disnea</h3>
+          <p>La orden de respirar <strong>no concuerda</strong> con lo que informan los sensores: <em>disociación neuromecánica</em>.</p>
+        </div>
+        <div class="card pato">
+          <p class="eyebrow">Signo · se ve</p>
+          <h3>Cianosis</h3>
+          <p>La hemoglobina reducida <strong>cruza un umbral</strong> (~5 g/dl) y la piel se ve azul.</p>
+        </div>
+        <div class="card amber">
+          <p class="eyebrow">Síntoma · se refiere</p>
+          <h3>Vértigo</h3>
+          <p>Los tres sistemas del equilibrio <strong>se contradicen</strong>: <em>conflicto sensorial</em>.</p>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:1.2rem">
+        <p class="eyebrow">La idea que ordena la sesión</p>
+        <p style="margin-top:.4rem">Guarda dos palabras: <strong>concordancia</strong> y <strong>umbral</strong>. La disnea y el vértigo nacen de una <em>discordancia</em> entre señales; la cianosis, de un <em>umbral</em> que se supera. Y en dos de las tres (cianosis y vértigo) la primera pregunta clínica es la misma: <strong>¿central o periférico?</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section id="disnea">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">02</span><h2>Disnea · qué es</h2></div>
+      <div class="prose stack">
+        <p>La <strong>disnea</strong> es la <strong>sensación consciente y desagradable de dificultad para respirar</strong>. Es enteramente <em>subjetiva</em>: no es un dato de laboratorio ni una observación clínica, sino la interpretación del propio paciente (falta de aire, ahogo, fatiga). La respiración trabajosa <em>normal</em> del ejercicio no es disnea, porque es la esperable para ese esfuerzo.</p>
+        <p>Se vuelve <strong>patológica</strong> cuando aparece <strong>en reposo</strong> o tras un esfuerzo que no debería producirla. La sociedad torácica americana (ATS) distingue además dos niveles: la <strong>sensación</strong> —la señal que generan los receptores— y la <strong>percepción</strong> —lo que la corteza y el sistema límbico hacen con esa señal—. Por eso la ansiedad y el estado de ánimo modifican la disnea sin cambiar el pulmón.</p>
+      </div>
+      <div class="callout note" style="margin-top:1.2rem">
+        <p class="eyebrow">Por qué es más parecida al hambre que al dolor</p>
+        <p style="margin-top:.4rem">El dolor suele venir de una sola terminación nerviosa localizable. La disnea, en cambio, es <strong>integral</strong>: surge de sumar muchas señales (químicas, mecánicas, corticales), como el hambre o la sed. No hay «un receptor de disnea».</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section id="control">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">03</span><h2>Disnea · el control de la ventilación</h2></div>
+      <div class="prose">
+        <p>Para entender la disnea hay que ver primero cómo se regula la respiración: es un <strong>lazo</strong> de tres piezas —<strong>sensores</strong> que miden, <strong>controladores</strong> que deciden y <strong>efectores</strong> que ejecutan— que ajusta la ventilación a las necesidades del metabolismo, casi siempre sin que seamos conscientes.</p>
+      </div>
+
+      <figure class="fig">
+        <svg viewBox="0 0 860 300" role="img" aria-label="El control de la ventilación como un lazo de retroalimentación. Los sensores (quimiorreceptores periféricos que miden el oxígeno, quimiorreceptores centrales que miden el CO2 y el pH, y receptores pulmonares) informan al centro respiratorio del bulbo y el puente, que ordena a los efectores (diafragma inervado por C3 a C5 e intercostales) ventilar; la ventilación cambia los gases de la sangre, que los sensores vuelven a medir, cerrando el lazo.">
+          <defs>
+            <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--fisio)"/></marker>
+          </defs>
+          <g font-family="system-ui,sans-serif" text-anchor="middle">
+            <rect x="20" y="70" width="200" height="120" rx="10" fill="var(--fisio-soft)" stroke="var(--fisio)"/>
+            <text x="120" y="92" font-size="13" font-weight="700" class="svg-ink">SENSORES</text>
+            <text x="120" y="114" font-size="10.5" class="svg-mut">periféricos (carótida/aorta): O₂</text>
+            <text x="120" y="132" font-size="10.5" class="svg-mut">centrales (bulbo): CO₂ y pH</text>
+            <text x="120" y="150" font-size="10.5" class="svg-mut">pulmonares: estiram., irritantes,</text>
+            <text x="120" y="166" font-size="10.5" class="svg-mut">receptores J (intersticio)</text>
+
+            <rect x="330" y="90" width="200" height="80" rx="10" fill="var(--surface)" stroke="var(--line)"/>
+            <text x="430" y="120" font-size="13" font-weight="700" class="svg-ink">CONTROLADORES</text>
+            <text x="430" y="140" font-size="10.5" class="svg-mut">centro respiratorio</text>
+            <text x="430" y="156" font-size="10.5" class="svg-mut">bulbo y puente</text>
+
+            <rect x="640" y="90" width="200" height="80" rx="10" fill="var(--surface)" stroke="var(--line)"/>
+            <text x="740" y="120" font-size="13" font-weight="700" class="svg-ink">EFECTORES</text>
+            <text x="740" y="140" font-size="10.5" class="svg-mut">diafragma (C3–C5)</text>
+            <text x="740" y="156" font-size="10.5" class="svg-mut">e intercostales</text>
+
+            <rect x="330" y="232" width="200" height="42" rx="9" fill="var(--fisio-soft)" stroke="var(--fisio)"/>
+            <text x="430" y="250" font-size="12" font-weight="600" fill="var(--fisio)">Ventilación</text>
+            <text x="430" y="266" font-size="10" class="svg-mut">cambia O₂, CO₂ y pH de la sangre</text>
+          </g>
+          <g fill="none" stroke="var(--fisio)" stroke-width="2" marker-end="url(#ah)">
+            <line x1="220" y1="130" x2="326" y2="130"/>
+            <line x1="530" y1="130" x2="636" y2="130"/>
+            <path d="M740,170 V253 H534"/>
+            <path d="M330,253 H120 V190"/>
+          </g>
+          <g font-family="ui-monospace,monospace" font-size="10" class="svg-mut" text-anchor="middle">
+            <text x="273" y="122">informan</text>
+            <text x="583" y="122">ordenan</text>
+            <text x="640" y="245">ejecuta</text>
+            <text x="185" y="223">mide de nuevo</text>
+          </g>
+        </svg>
+        <figcaption><b>La respiración es un lazo que se corrige solo.</b> Los sensores miden los gases de la sangre, el centro respiratorio decide y los músculos ejecutan; el resultado vuelve a medirse. Los quimiorreceptores <b>centrales</b> responden sobre todo al <b>CO₂/pH</b> (dos tercios de la respuesta); los <b>periféricos</b>, al <b>O₂</b> (sobre todo cuando la PaO₂ cae por debajo de 60 mmHg).</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section id="mecanismos">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">04</span><h2>Disnea · los cuatro mecanismos y la disociación neuromecánica</h2></div>
+      <div class="prose">
+        <p>La disnea se produce por cuatro vías, que suelen coexistir:</p>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Mecanismo</th><th>Qué lo activa</th><th>Ejemplo</th></tr></thead>
+          <tbody>
+            <tr><td class="k">1 · Quimiorreceptores</td><td>Hipercapnia (centrales) e hipoxemia (periféricos) → más orden motora</td><td>EPOC, altitud, acidosis</td></tr>
+            <tr><td class="k">2 · Receptores intrapulmonares</td><td>Fibras C / receptores J: distensión del intersticio, congestión</td><td>Edema pulmonar, embolia</td></tr>
+            <tr><td class="k">3 · Mecanorreceptores</td><td>Pared torácica y músculos respiratorios fatigados o con carga</td><td>Enfermedad neuromuscular, asma</td></tr>
+            <tr><td class="k">4 · Aumento del comando motor</td><td>La corteza manda «respira más» y copia esa orden a la corteza sensitiva</td><td>Debilidad muscular, gran esfuerzo</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="prose" style="margin-top:1.2rem">
+        <p>Los cuatro convergen en una sola idea que conviene tatuarse: la <strong>disociación (o disparidad) neuromecánica</strong>. El cerebro envía una <strong>orden</strong> a los músculos («ventila así») y, a la vez, recibe la <strong>retroalimentación</strong> de los sensores sobre lo que de verdad ocurrió. Si ambas <em>concuerdan</em>, no hay disnea. Si <em>no concuerdan</em> —se ordena mucho y entra poco aire, o el tórax no se mueve como se esperaba— aparece la disnea, <strong>aunque no cambien ni el trabajo respiratorio ni la química de la sangre</strong>.</p>
+      </div>
+
+      <figure class="fig">
+        <svg viewBox="0 0 860 250" role="img" aria-label="La disociación neuromecánica. La corteza envía una orden motora a los músculos respiratorios y una copia de esa orden a la corteza sensitiva; los sensores devuelven la retroalimentación de lo que realmente ocurrió. Un comparador central confronta la orden con la retroalimentación: si concuerdan no hay disnea; si no concuerdan aparece la disnea.">
+          <defs>
+            <marker id="ad" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker>
+          </defs>
+          <g font-family="system-ui,sans-serif" text-anchor="middle">
+            <rect x="320" y="16" width="220" height="56" rx="10" fill="var(--surface)" stroke="var(--line)"/>
+            <text x="430" y="40" font-size="13" font-weight="700" class="svg-ink">Corteza · comparador</text>
+            <text x="430" y="58" font-size="10.5" class="svg-mut">¿la orden = lo que pasó?</text>
+
+            <rect x="60" y="150" width="230" height="56" rx="10" fill="var(--surface)" stroke="var(--line)"/>
+            <text x="175" y="174" font-size="12" font-weight="600" class="svg-ink">Orden motora</text>
+            <text x="175" y="192" font-size="10.5" class="svg-mut">a los músculos: «respira más»</text>
+
+            <rect x="570" y="150" width="230" height="56" rx="10" fill="var(--surface)" stroke="var(--line)"/>
+            <text x="685" y="174" font-size="12" font-weight="600" class="svg-ink">Retroalimentación</text>
+            <text x="685" y="192" font-size="10.5" class="svg-mut">sensores: «entró esto»</text>
+          </g>
+          <g fill="none" stroke="var(--muted)" stroke-width="1.8" marker-end="url(#ad)">
+            <path d="M360,72 C300,100 240,120 210,148"/>
+            <path d="M650,148 C620,120 560,100 500,72"/>
+          </g>
+          <text x="250" y="112" font-family="ui-monospace,monospace" font-size="10" class="svg-mut" text-anchor="middle">copia de la orden</text>
+          <text x="610" y="112" font-family="ui-monospace,monospace" font-size="10" class="svg-mut" text-anchor="middle">lo que de verdad ocurrió</text>
+          <g font-family="system-ui,sans-serif" text-anchor="middle">
+            <text x="240" y="235" font-size="11.5"><tspan fill="var(--fisio)" font-weight="700">concuerdan</tspan> <tspan class="svg-mut">→ sin disnea</tspan></text>
+            <text x="620" y="235" font-size="11.5"><tspan fill="var(--pato)" font-weight="700">no concuerdan</tspan> <tspan class="svg-mut">→ disnea</tspan></text>
+          </g>
+        </svg>
+        <figcaption><b>La disnea es una alarma de discordancia, no de un solo dato.</b> Por eso un paciente puede sentir ahogo con gases normales (la orden no cuadra con la respuesta mecánica), y por eso la ansiedad —que altera el patrón respiratorio— la empeora sin que el pulmón cambie.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section id="cianosis" class="band-d">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">05</span><h2>Cianosis · qué es</h2></div>
+      <div class="prose stack">
+        <p>La <strong>cianosis</strong> (del griego <em>kyánosis</em>, azul) es un <strong>signo</strong>: el color azulado o violáceo de la piel y las mucosas, más visible en labios, lengua, lóbulos de las orejas, pómulos y lecho ungueal —zonas acras donde el lecho capilar se ve mejor—.</p>
+        <p>Lo que se ve azul es la <strong>hemoglobina reducida (desoxihemoglobina)</strong>: la que ya soltó su oxígeno. Por eso la cianosis casi siempre significa <strong>hipoxia tisular</strong>. La otra causa son <strong>pigmentos anómalos</strong> —metahemoglobina, sulfohemoglobina— que no transportan O₂ y dan un azul que <em>no</em> mejora al dar oxígeno.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section id="umbral" class="band-d">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">06</span><h2>Cianosis · el umbral que lo explica todo</h2></div>
+      <div class="prose">
+        <p>La clave de la cianosis es un número: aparece cuando hay <strong>más de ~5 g/dl de hemoglobina reducida</strong> en la sangre capilar. Y ese umbral es una <strong>cantidad absoluta</strong>, no un porcentaje. De ahí sale la trampa clínica más importante del signo.</p>
+      </div>
+
+      <figure class="fig">
+        <svg viewBox="0 0 860 300" role="img" aria-label="El umbral de la cianosis en tres pacientes con el mismo grado de desaturación (30 por ciento de la hemoglobina reducida). El paciente anémico (8 g/dl de hemoglobina total) alcanza solo 2,4 g/dl de hemoglobina reducida y no cruza el umbral de 5, por lo que no muestra cianosis aunque esté hipóxico. El paciente normal (15) llega a 4,5, en el límite. El paciente con policitemia (20) llega a 6 y sí muestra cianosis. La cianosis depende de la cantidad absoluta de hemoglobina reducida, no del porcentaje.">
+          <!-- eje -->
+          <g stroke="var(--line)" stroke-width="1"><line x1="70" y1="40" x2="70" y2="240"/><line x1="70" y1="240" x2="820" y2="240"/></g>
+          <text x="30" y="150" font-family="ui-monospace,monospace" font-size="10.5" class="svg-mut" transform="rotate(-90 30 150)" text-anchor="middle">Hb reducida (g/dl)</text>
+          <!-- umbral -->
+          <line x1="70" y1="140" x2="820" y2="140" stroke="var(--pato)" stroke-width="2" stroke-dasharray="7 5"/>
+          <text x="815" y="132" font-family="system-ui,sans-serif" font-size="11.5" font-weight="700" fill="var(--pato)" text-anchor="end">umbral ≈ 5 g/dl → se ve azul</text>
+          <!-- barras: y de 240 (0) a 40 (20 g/dl): escala 10px/g -->
+          <g font-family="system-ui,sans-serif" text-anchor="middle">
+            <!-- Anemia: reducida 2.4 -> altura 24 -->
+            <rect x="150" y="216" width="120" height="24" fill="var(--fisio-soft)" stroke="var(--fisio)"/>
+            <text x="210" y="232" font-size="11" fill="var(--fisio)">2,4</text>
+            <text x="210" y="258" font-size="12" font-weight="600" class="svg-ink">Anemia</text>
+            <text x="210" y="274" font-size="10" class="svg-mut">Hb total 8 · NO cianosis</text>
+
+            <!-- Normal: reducida 4.5 -> altura 45 -->
+            <rect x="380" y="195" width="120" height="45" fill="var(--amber-soft)" stroke="var(--amber)"/>
+            <text x="440" y="211" font-size="11" fill="var(--amber)">4,5</text>
+            <text x="440" y="258" font-size="12" font-weight="600" class="svg-ink">Normal</text>
+            <text x="440" y="274" font-size="10" class="svg-mut">Hb total 15 · al límite</text>
+
+            <!-- Policitemia: reducida 6 -> altura 60 -->
+            <rect x="610" y="180" width="120" height="60" fill="var(--pato-soft)" stroke="var(--pato)"/>
+            <text x="670" y="196" font-size="11" fill="var(--pato)">6,0</text>
+            <text x="670" y="258" font-size="12" font-weight="600" class="svg-ink">Policitemia</text>
+            <text x="670" y="274" font-size="10" class="svg-mut">Hb total 20 · SÍ cianosis</text>
+          </g>
+          <text x="445" y="30" font-family="system-ui,sans-serif" font-size="11" class="svg-mut" text-anchor="middle">Los tres con la misma desaturación (30 % de su Hb reducida)</text>
+        </svg>
+        <figcaption><b>Con la misma hipoxia, solo el policitémico se ve azul.</b> Como el umbral es una cantidad <b>absoluta</b> de hemoglobina reducida, el <b>anémico puede estar gravemente hipóxico sin cianosis</b> (no le alcanza la hemoglobina para acumular 5 g/dl reducidos) y el <b>policitémico se pone azul con facilidad</b>. La cianosis mide hemoglobina reducida, no oxigenación.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section id="central" class="band-d">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">07</span><h2>Cianosis · central o periférica</h2></div>
+      <div class="fork">
+        <div class="lane b">
+          <p class="eyebrow">El problema es la oxigenación</p>
+          <h3>Central</h3>
+          <p>La sangre arterial sale <strong>mal oxigenada</strong> del pulmón o del corazón (neumopatía, cortocircuito cardíaco de derecha a izquierda). Como toda la sangre está desaturada, la cianosis <strong>afecta también las mucosas y la lengua</strong>, y la piel suele estar <strong>caliente</strong>. Da igual frotar o calentar: no mejora.</p>
+        </div>
+        <div class="lane a">
+          <p class="eyebrow">El problema es el flujo local</p>
+          <h3>Periférica</h3>
+          <p>La sangre arterial <strong>sí</strong> viene bien oxigenada, pero el tejido <strong>extrae más O₂</strong> porque el flujo es lento (frío, bajo gasto cardíaco, vasoconstricción, estasis venosa). Es <strong>acra</strong> (dedos, nariz, orejas), <strong>respeta las mucosas y la lengua</strong>, y las extremidades están <strong>frías</strong>. Mejora al calentar.</p>
+        </div>
+      </div>
+      <p class="prose" style="margin-top:1.1rem">Regla de bolsillo: <strong>mira la lengua</strong>. Lengua azul = central (toda la sangre está desaturada). Lengua rosada con dedos azules y fríos = periférica (es un problema de circulación, no de oxigenación).</p>
+    </div>
+  </section>
+
+  <!-- 08 -->
+  <section id="vertigo" class="band-f">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">08</span><h2>Vértigo · el conflicto de los tres sistemas</h2></div>
+      <div class="prose stack">
+        <p>El <strong>vértigo</strong> es una <strong>alucinación de movimiento</strong>: la sensación de que uno gira, o de que gira el entorno, sin que haya movimiento real. Es un <strong>síntoma</strong>, no una enfermedad, y casi siempre nace en el <strong>sistema vestibular</strong> del oído interno. No es lo mismo que «mareo» (una desazón inespecífica) ni que «cinetosis» (el mareo del vehículo).</p>
+        <p>El equilibrio se sostiene con <strong>tres sistemas</strong> que informan a la vez dónde estamos y cómo nos movemos: el <strong>vestibular</strong> (oído interno), el <strong>visual</strong> (los ojos) y el <strong>propioceptivo</strong> (músculos y articulaciones). Mientras los tres concuerdan, hay equilibrio. Cuando uno falla y <strong>contradice a los otros dos</strong>, el sistema nervioso no puede integrar una sola versión de la realidad: eso es el vértigo.</p>
+      </div>
+
+      <figure class="fig">
+        <svg viewBox="0 0 860 260" role="img" aria-label="El equilibrio depende de tres sistemas —vestibular del oído interno, visual y propioceptivo— que informan al sistema nervioso central. Cuando los tres concuerdan hay equilibrio; cuando uno, por ejemplo el vestibular, falla y contradice a los otros dos, el sistema nervioso no puede integrar el equilibrio y aparece el vértigo con nistagmo y náusea.">
+          <defs>
+            <marker id="av" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker>
+          </defs>
+          <g font-family="system-ui,sans-serif" text-anchor="middle">
+            <rect x="30" y="30" width="180" height="46" rx="9" fill="var(--pato-soft)" stroke="var(--pato)"/>
+            <text x="120" y="52" font-size="12.5" font-weight="700" fill="var(--pato)">Vestibular ⚡</text>
+            <text x="120" y="68" font-size="10" class="svg-mut">oído interno · el que falla</text>
+
+            <rect x="30" y="107" width="180" height="46" rx="9" fill="var(--surface)" stroke="var(--line)"/>
+            <text x="120" y="129" font-size="12.5" font-weight="600" class="svg-ink">Visual</text>
+            <text x="120" y="145" font-size="10" class="svg-mut">los ojos</text>
+
+            <rect x="30" y="184" width="180" height="46" rx="9" fill="var(--surface)" stroke="var(--line)"/>
+            <text x="120" y="206" font-size="12.5" font-weight="600" class="svg-ink">Propioceptivo</text>
+            <text x="120" y="222" font-size="10" class="svg-mut">músculos y articulaciones</text>
+
+            <rect x="360" y="95" width="180" height="70" rx="10" fill="var(--surface)" stroke="var(--line)"/>
+            <text x="450" y="125" font-size="13" font-weight="700" class="svg-ink">SNC</text>
+            <text x="450" y="145" font-size="10.5" class="svg-mut">integra el equilibrio</text>
+
+            <rect x="640" y="95" width="200" height="70" rx="10" fill="var(--amber-soft)" stroke="var(--amber)"/>
+            <text x="740" y="120" font-size="12.5" font-weight="700" fill="var(--amber)">¿concuerdan?</text>
+            <text x="740" y="140" font-size="10.5" class="svg-ink">sí → equilibrio</text>
+            <text x="740" y="156" font-size="10.5" fill="var(--pato)">no → vértigo + nistagmo</text>
+          </g>
+          <g fill="none" stroke="var(--muted)" stroke-width="1.8" marker-end="url(#av)">
+            <line x1="210" y1="53" x2="356" y2="115"/>
+            <line x1="210" y1="130" x2="356" y2="130"/>
+            <line x1="210" y1="207" x2="356" y2="145"/>
+            <line x1="540" y1="130" x2="636" y2="130"/>
+          </g>
+        </svg>
+        <figcaption><b>El vértigo es un desacuerdo entre tres testigos.</b> Cuando el vestibular, la vista y la propiocepción cuentan la misma historia, hay equilibrio; cuando uno la contradice, el cerebro no puede decidir y aparece el giro. Es la misma cinetosis del barco: los ojos dicen «quieto», el oído dice «me muevo».</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 09 -->
+  <section id="equilibrio" class="band-f">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">09</span><h2>Vértigo · el oído interno y central vs. periférico</h2></div>
+      <div class="grid g2">
+        <div class="card amber">
+          <h3>La máquina del equilibrio</h3>
+          <p>El laberinto posterior del oído interno tiene dos detectores:</p>
+          <ul>
+            <li><strong>Conductos semicirculares</strong> (tres, en tres planos): detectan el movimiento <strong>angular</strong> (giros de la cabeza).</li>
+            <li><strong>Utrículo y sáculo</strong>, con sus <strong>máculas otolíticas</strong>: detectan el movimiento <strong>lineal</strong> y la gravedad.</li>
+          </ul>
+          <p style="margin-top:.5rem">Las células ciliadas funcionan gracias a la diferencia entre la <strong>endolinfa</strong> (rica en K⁺) y la <strong>perilinfa</strong> (rica en Na⁺, como el LCR). Esa diferencia electroquímica es la «batería» del sensor.</p>
+        </div>
+        <div class="card">
+          <h3>La pregunta que salva: ¿central o periférico?</h3>
+          <p><strong>Periférico</strong> (oído interno / vestibular): el más común. Vértigo intenso, <strong>nistagmo</strong> agotable, mucho cortejo neurovegetativo (sudor frío, palidez, náusea, vómito). Suele ser benigno.</p>
+          <p style="margin-top:.5rem"><strong>Central</strong> (tronco, cerebelo, vías): vértigo a veces menos intenso pero con <strong>signos neurológicos</strong> acompañantes. Es el que hay que <strong>no dejar pasar</strong>.</p>
+          <p class="ocular">Siempre acompaña al vértigo el <strong>nistagmo</strong>: los ojos delatan al oído por el reflejo vestíbulo-ocular.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="ocular">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">10</span><h2>Qué ve el optómetra</h2></div>
+      <p class="prose" style="margin-bottom:1.3rem">Los tres cuadros dejan huella en el ojo o cerca de él. Ninguno se estudia hoy a fondo; están para reconocer el mecanismo que acabas de aprender.</p>
+      <div class="grid g3">
+        <div class="card amber">
+          <p class="eyebrow">Vértigo · el ojo delata al oído</p>
+          <h3>Nistagmo</h3>
+          <p>El <strong>reflejo vestíbulo-ocular</strong> conecta el oído interno con los músculos del ojo: por eso todo vértigo verdadero se acompaña de <strong>nistagmo</strong>. Observar su dirección y si se agota ayuda a separar el periférico del central.</p>
+        </div>
+        <div class="card pato">
+          <p class="eyebrow">Cianosis · mucosas visibles</p>
+          <h3>El azul en la conjuntiva</h3>
+          <p>La <strong>conjuntiva</strong> y la mucosa del saco lagrimal son lechos donde la cianosis <strong>central</strong> se aprecia bien. Una conjuntiva y una lengua azuladas orientan a desaturación arterial, no a un problema local.</p>
+        </div>
+        <div class="card fisio">
+          <p class="eyebrow">Disnea · hipoxia y retina</p>
+          <h3>El fondo de ojo en la hipoxia</h3>
+          <p>La hipoxia y la hipercapnia crónicas (que cursan con disnea) dilatan los vasos retinianos y, en casos graves, producen <strong>edema de papila</strong>. El fondo de ojo es una ventana a la oxigenación del sistema nervioso.</p>
+        </div>
+      </div>
+      <p class="prose" style="margin-top:1.1rem">Regla común a los tres: son <strong>señales del cuerpo entero que asoman por el ojo</strong>. El optómetra que las reconoce reencuadra el hallazgo ocular dentro del paciente completo.</p>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section id="autoeval">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">11</span><h2>Autoevaluación</h2></div>
+      <p class="prose" style="margin-bottom:1rem">Responde mentalmente antes de decidir.</p>
+
+      <h3 style="margin-bottom:.4rem; font-size:1.05rem">A · Cianosis: ¿central o periférica?</h3>
+      <p style="color:var(--muted); font-size:.9rem; margin-bottom:.6rem">Pista: mira la lengua y la temperatura.</p>
+      <div class="card" id="drillA"></div>
+
+      <h3 style="margin:2rem 0 .4rem; font-size:1.05rem">B · Vértigo: ¿central o periférico?</h3>
+      <div class="card" id="drillB"></div>
+
+      <h3 style="margin:2rem 0 .8rem; font-size:1.05rem">C · Diez preguntas</h3>
+      <div id="quiz"></div>
+
+      <div class="grid g2" style="margin-top:1.6rem">
+        <div class="card">
+          <h3>Trabajo independiente</h3>
+          <ul>
+            <li>Esquema del <strong>lazo de control ventilatorio</strong> (sensores → controladores → efectores) con lo que mide cada sensor</li>
+            <li>Explicar con un ejemplo la <strong>disociación neuromecánica</strong></li>
+            <li>Dibujar el <strong>umbral de la cianosis</strong> en anemia, normal y policitemia</li>
+            <li>Clasificar tres casos de <strong>vértigo</strong> y tres de <strong>cianosis</strong> en central o periférico</li>
+            <li>Lectura de los capítulos 8 (Disnea), 9 (Vértigo) y 14 (Cianosis) del texto guía</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Fuentes de la sesión</h3>
+          <ul>
+            <li>Uribe Olivares, R. A. (2018). <em>Fisiopatología. La ciencia del porqué y el cómo</em>. Elsevier. Cap. 8 (Disnea), cap. 9 (Vértigo) y cap. 14 (Cianosis).</li>
+            <li>American Thoracic Society — definición y dimensiones de la disnea.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Fisiopatología General (01008430) · Programa de Optometría · Facultad de Ciencias de la Salud · Universidad de La Salle · Semestre 2026-2</p>
+    <p style="margin-top:.4rem">Clase 11 de 16. Los ejemplos oculares ilustran el mecanismo general; su estudio detallado corresponde a espacios académicos posteriores.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  document.getElementById('themeBtn').addEventListener('click', function(){
+    var dark = root.getAttribute('data-theme') === 'dark'
+      || (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+    root.setAttribute('data-theme', dark ? 'light' : 'dark');
+  });
+
+  function buildDrill(mount, items, opts){
+    var A = document.getElementById(mount); if(!A) return;
+    var ok=0, ans=0;
+    var score = document.createElement('p'); score.className='score';
+    items.forEach(function(it){
+      var row=document.createElement('div'); row.className='drill-row';
+      var q=document.createElement('span'); q.className='drill-q'; q.textContent=it.t;
+      var v=document.createElement('span'); v.className='verdict'; row.appendChild(q);
+      var done=false;
+      opts.forEach(function(o){
+        var b=document.createElement('button'); b.className='btn'; b.type='button'; b.textContent=o[1];
+        b.addEventListener('click', function(){
+          row.querySelectorAll('.btn').forEach(function(x){x.classList.remove('ok','no');});
+          var good=o[0]===it.a; b.classList.add(good?'ok':'no');
+          v.innerHTML=(good?'<b>Correcto.</b> ':'<b>Revisa.</b> ')+it.e;
+          if(!done){done=true; ans++; if(good)ok++; score.textContent='Primer intento: '+ok+' de '+ans+' ('+items.length+' en total)';}
+        });
+        row.appendChild(b);
+      });
+      row.appendChild(v); A.appendChild(row);
+    });
+    A.appendChild(score);
+  }
+
+  buildDrill('drillA', [
+    { t:'Labios y lengua azules, piel caliente, en un paciente con neumopatía grave', a:'cen', e:'Toda la sangre sale mal oxigenada del pulmón: afecta mucosas y lengua. Central.' },
+    { t:'Dedos y nariz azules y fríos, pero la lengua está rosada; hace mucho frío', a:'per', e:'Sangre arterial bien oxigenada; el frío enlentece el flujo y el tejido extrae más O₂. Periférica.' },
+    { t:'Recién nacido con cortocircuito cardíaco de derecha a izquierda, cianosis generalizada que no mejora con O₂', a:'cen', e:'La sangre venosa se mezcla con la arterial: desaturación central. Central.' },
+    { t:'Manos azuladas por vasoconstricción tras una hemorragia con bajo gasto cardíaco', a:'per', e:'Flujo lento y vasoconstricción con saturación arterial normal. Periférica.' }
+  ], [['cen','Central'],['per','Periférica']]);
+
+  buildDrill('drillB', [
+    { t:'Vértigo rotatorio intenso con sudor frío, náusea y nistagmo que se agota; sin otros signos', a:'per', e:'Cuadro vestibular con cortejo neurovegetativo y nistagmo agotable: periférico (oído interno).' },
+    { t:'Vértigo con visión doble y dificultad para hablar', a:'cen', e:'Signos neurológicos acompañantes: central. No dejarlo pasar.' },
+    { t:'Anciano con isquemia transitoria vertebrobasilar y vértigo', a:'cen', e:'Origen en la circulación del SNC: central.' },
+    { t:'Niño con otitis media que desarrolla vértigo', a:'per', e:'El oído interno/medio afectado: periférico.' }
+  ], [['cen','Central'],['per','Periférico']]);
+
+  var qs = [
+    ['¿Qué es la disnea y cuándo se considera patológica?',
+     'Es la sensación consciente, subjetiva y desagradable de dificultad para respirar (falta de aire, ahogo). Es patológica cuando aparece en reposo o tras un esfuerzo que no debería producirla; la respiración trabajosa normal del ejercicio no es disnea.'],
+    ['Nombra los sensores del control de la ventilación y qué mide cada uno.',
+     'Quimiorreceptores periféricos (cuerpos carotídeos y aórticos): sobre todo O₂, con respuesta enérgica cuando la PaO₂ cae por debajo de 60 mmHg. Quimiorreceptores centrales (cara ventral del bulbo): CO₂ y pH del LCR, responsables de dos tercios de la respuesta a la PaCO₂. Y receptores pulmonares (de estiramiento, de irritantes y J/yuxtacapilares).'],
+    ['¿Qué son los receptores J y qué provocan?',
+     'Son receptores yuxtacapilares, inervados por fibras C amielínicas del vago, situados junto a los capilares alveolares. Responden a la distensión del intersticio (edema pulmonar, congestión, embolia) y provocan una respiración rápida y superficial, además de broncoconstricción y más secreción.'],
+    ['Explica la disociación neuromecánica como mecanismo unificador de la disnea.',
+     'El cerebro envía una orden motora a los músculos respiratorios y una copia de esa orden a la corteza sensitiva; los sensores devuelven la retroalimentación de lo que realmente ocurrió. Si la orden y la respuesta concuerdan no hay disnea; si no concuerdan (se ordena mucho y entra poco aire, o el tórax no responde), aparece la disnea, aun sin cambios en el trabajo respiratorio ni en la química de la sangre.'],
+    ['¿A qué umbral aparece la cianosis y por qué la anemia la enmascara?',
+     'Aparece cuando hay más de ~5 g/dl de hemoglobina reducida en la sangre capilar. Como es una cantidad absoluta y no un porcentaje, un paciente anémico (poca Hb total) puede estar gravemente hipóxico sin llegar a acumular 5 g/dl reducidos y por tanto sin cianosis; en cambio un policitémico la muestra con facilidad.'],
+    ['Distingue cianosis central de periférica.',
+     'Central: la sangre arterial sale mal oxigenada del pulmón o del corazón (cortocircuito), afecta también mucosas y lengua, la piel está caliente y no mejora al frotar. Periférica: la sangre arterial está bien oxigenada pero el flujo es lento y el tejido extrae más O₂ (frío, bajo gasto, vasoconstricción, estasis); es acra, respeta las mucosas y la lengua, con extremidades frías, y mejora al calentar.'],
+    ['¿Por qué la metahemoglobinemia produce cianosis que no mejora con oxígeno?',
+     'La metahemoglobina es un pigmento anómalo (hierro en estado férrico) que no puede transportar O₂. Da color azulado por sí misma, independiente de la saturación, así que administrar oxígeno no corrige el color porque el problema no es la disponibilidad de O₂ sino la incapacidad de la hemoglobina para transportarlo.'],
+    ['¿Cuáles son los tres sistemas del equilibrio y cómo se produce el vértigo?',
+     'El vestibular (oído interno), el visual (los ojos) y el propioceptivo (músculos y articulaciones). Mientras sus señales concuerdan hay equilibrio; cuando uno falla y contradice a los otros dos, el sistema nervioso no puede integrar una sola versión del movimiento y aparece el vértigo (conflicto sensorial), acompañado de nistagmo.'],
+    ['¿Qué detecta cada estructura del laberinto posterior?',
+     'Los tres conductos semicirculares detectan el movimiento angular (los giros de la cabeza). El utrículo y el sáculo, con sus máculas otolíticas, detectan el movimiento lineal y la gravedad. Las células ciliadas funcionan gracias a la diferencia iónica entre la endolinfa (rica en K⁺) y la perilinfa (rica en Na⁺).'],
+    ['¿Por qué todo vértigo verdadero se acompaña de nistagmo, y qué relevancia tiene para el optómetra?',
+     'Porque el reflejo vestíbulo-ocular conecta el sistema vestibular con los músculos oculares: una alteración vestibular genera movimientos oculares involuntarios (nistagmo). Para el optómetra es clave porque el ojo delata el origen: observar la dirección del nistagmo y si se agota ayuda a separar el vértigo periférico (benigno) del central (que exige descartar causa neurológica).']
+  ];
+  var quiz=document.getElementById('quiz');
+  qs.forEach(function(pair,i){
+    var d=document.createElement('div'); d.className='q';
+    var h=document.createElement('button'); h.className='q-head'; h.type='button'; h.setAttribute('aria-expanded','false');
+    h.innerHTML='<span class="q-n">'+String(i+1).padStart(2,'0')+'</span><span>'+pair[0]+'</span>';
+    var b=document.createElement('div'); b.className='q-body'; b.textContent=pair[1];
+    h.addEventListener('click', function(){ var open=d.classList.toggle('open'); h.setAttribute('aria-expanded', open?'true':'false'); });
+    d.appendChild(h); d.appendChild(b); quiz.appendChild(d);
+  });
+})();
+</script>
+</body>
+</html>
