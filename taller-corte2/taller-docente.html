@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Taller Corte 2 · Docente</title>
+<style>
+  :root{
+    --ink:#12212b; --paper:#f4f7f7; --surface:#ffffff; --surface-2:#eaf0f0;
+    --line:#cbd8da; --muted:#516268;
+    --fisio:#10505e; --fisio-soft:#dceaec;
+    --pato:#a8412c; --pato-soft:#f5e2dc;
+    --amber:#a06a12; --amber-soft:#f6e9cf;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 12px 30px -18px rgba(18,33,43,.4);
+    --display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{ --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d; --line:#2c3d43; --muted:#9bafb4;
+      --fisio:#5cb6c6; --fisio-soft:#12313a; --pato:#e08a70; --pato-soft:#3a2119; --amber:#e0b464; --amber-soft:#3a2f16;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.9); }
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font-family:var(--body); line-height:1.55; -webkit-font-smoothing:antialiased; min-height:100dvh; padding:clamp(.8rem,3vw,2rem)}
+  .wrap{max-width:1000px; margin:0 auto}
+  .hide{display:none !important}
+  .eyebrow{font-family:var(--mono); font-size:.65rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin:0}
+  h1{font-family:var(--display); font-weight:600; line-height:1.15; font-size:clamp(1.5rem,6vw,2.1rem); margin:.3rem 0 .5rem}
+  h2{font-family:var(--display); font-weight:600; font-size:1.2rem; margin:1.4rem 0 .6rem}
+  .sub{color:var(--muted); font-size:.95rem; margin:0 0 1.4rem}
+  .panel{background:var(--surface); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow); padding:clamp(1rem,4vw,1.6rem); margin-bottom:1rem}
+  label{display:block; font-size:.74rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin:0 0 .35rem}
+  input{width:100%; font:inherit; font-size:1rem; color:var(--ink); background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:.7rem .8rem}
+  input:focus{outline:2px solid var(--fisio); outline-offset:1px; border-color:var(--fisio)}
+  .field{margin-bottom:1rem}
+  .btn{font:inherit; font-weight:600; font-size:.9rem; cursor:pointer; background:var(--fisio); color:#fff; border:0; border-radius:99px; padding:.6rem 1.1rem}
+  .btn:hover{filter:brightness(1.08)} .btn:disabled{opacity:.5; cursor:progress}
+  .btn.full{width:100%; padding:.85rem 1rem; font-size:1rem} .btn.sec{background:transparent; color:var(--fisio); border:1px solid color-mix(in srgb,var(--fisio) 45%,transparent)}
+  .msg{margin-top:1rem; padding:.8rem 1rem; border-radius:10px; font-size:.9rem; display:none}
+  .msg.err{display:block; background:var(--pato-soft); color:var(--pato)}
+  .barra{display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; margin:0 0 1rem}
+  .espacio{flex:1}
+  .kpis{display:flex; gap:.6rem; flex-wrap:wrap; margin-bottom:1rem}
+  .kpi{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:.7rem 1rem; min-width:110px}
+  .kpi .n{font-family:var(--display); font-size:1.6rem; line-height:1}
+  .kpi .l{font-family:var(--mono); font-size:.62rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+  table{width:100%; border-collapse:collapse; font-size:.9rem}
+  th,td{border-bottom:1px solid var(--line); padding:.5rem .6rem; text-align:left; vertical-align:middle}
+  th{font-family:var(--mono); font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:500}
+  td.nota{font-weight:700; font-variant-numeric:tabular-nums} .falta{color:var(--pato)}
+  .bar{position:relative; background:var(--surface-2); border-radius:99px; height:16px; min-width:120px; overflow:hidden}
+  .bar span{display:block; height:100%; background:var(--fisio)}
+  .bar.lo span{background:var(--pato)}
+  .itemrow{display:grid; grid-template-columns:2.2rem 1fr 130px 3rem; gap:.6rem; align-items:center; padding:.4rem 0; border-bottom:1px solid var(--line); font-size:.88rem}
+  .itemrow .tema{font-family:var(--mono); font-size:.58rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+  footer{margin-top:1.6rem; padding-top:.9rem; border-top:1px solid var(--line); font-family:var(--mono); font-size:.66rem; color:var(--muted)}
+</style>
+</head>
+<body>
+
+<div class="wrap" id="vClave">
+  <p class="eyebrow">Fisiopatología General · 01008430</p>
+  <h1>Taller de repaso · Corte 2</h1>
+  <p class="sub">Acceso del docente.</p>
+  <div class="panel">
+    <div class="field"><label for="usuario">Usuario</label><input id="usuario" type="text" autocomplete="username" spellcheck="false"></div>
+    <div class="field"><label for="clave">Clave</label><input id="clave" type="password" autocomplete="current-password"></div>
+    <button class="btn full" id="entrar" type="button">Entrar</button>
+    <div class="msg" id="msgClave" role="status" aria-live="polite"></div>
+  </div>
+  <footer>La clave se comprueba en el servidor. Esta página no la contiene.</footer>
+</div>
+
+<div class="wrap hide" id="vTablero">
+  <div class="barra"><div><p class="eyebrow">Taller de repaso · Corte 2</p><h1 style="margin:.2rem 0 0">Entregas y análisis</h1></div>
+    <span class="espacio"></span><button class="btn sec" id="recargar" type="button">Recargar</button></div>
+  <p class="sub" id="resumen"></p>
+  <div class="kpis" id="kpis"></div>
+
+  <h2>Notas por estudiante</h2>
+  <div class="panel" style="overflow-x:auto"><table id="tablaEst"><thead><tr><th>#</th><th>Estudiante</th><th>Aciertos</th><th>Nota</th><th>Entregado</th></tr></thead><tbody></tbody></table></div>
+
+  <h2>Análisis por pregunta</h2>
+  <div class="panel" id="items"></div>
+  <footer>Las preguntas en rojo (menos del 50 % de acierto) son las que conviene repasar en clase antes del parcial.</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  // ⚠️ PEGAR LA URL /exec DEL BACKEND DEL TALLER DESPUÉS DE DESPLEGARLO.
+  var API = "PEGAR_URL_EXEC_AQUI";
+  var ESPERA = 30000;
+  var $ = function(id){ return document.getElementById(id); };
+  var cred = { usuario:"", clave:"" };
+
+  function conTiempo(p){ return new Promise(function(ok,mal){ var t=setTimeout(function(){mal(new Error("timeout"));},ESPERA);
+    p.then(function(v){clearTimeout(t);ok(v);},function(e){clearTimeout(t);mal(e);}); }); }
+  function get(params){ var qs=Object.keys(params).map(function(k){return encodeURIComponent(k)+"="+encodeURIComponent(params[k]);}).join("&");
+    return conTiempo(fetch(API+"?"+qs).then(function(r){return r.json();})); }
+  function ver(el,cls,txt){ el.className="msg "+cls; el.textContent=txt; }
+  function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
+  function com(x){ return String(x).replace(".",","); }
+
+  function entrar(){
+    var btn=$("entrar"); cred.usuario=$("usuario").value.trim(); cred.clave=$("clave").value;
+    if(!cred.usuario||!cred.clave){ ver($("msgClave"),"err","Faltan los datos."); return; }
+    btn.disabled=true; btn.textContent="Entrando…";
+    get({action:"docente",usuario:cred.usuario,clave:cred.clave}).then(function(r){
+      btn.disabled=false; btn.textContent="Entrar";
+      if(!r.ok){ ver($("msgClave"),"err",r.error); return; }
+      $("vClave").classList.add("hide"); $("vTablero").classList.remove("hide"); pintar(r);
+    }).catch(function(){ btn.disabled=false; btn.textContent="Entrar"; ver($("msgClave"),"err","No hubo respuesta del servidor."); });
+  }
+  $("entrar").addEventListener("click", entrar);
+  $("clave").addEventListener("keydown", function(e){ if(e.key==="Enter") entrar(); });
+  $("recargar").addEventListener("click", function(){ var b=this; b.disabled=true; b.textContent="…";
+    get({action:"docente",usuario:cred.usuario,clave:cred.clave}).then(function(r){ b.disabled=false; b.textContent="Recargar"; if(r.ok) pintar(r); }).catch(function(){ b.disabled=false; b.textContent="Recargar"; }); });
+
+  function pintar(d){
+    $("resumen").textContent=d.entregados+" de "+d.total+" entregados"+
+      (d.abierto?" · abierto hasta el "+d.cierra:" · cerrado")+(d.prueba?"  ⚠️ MODO PRUEBA":"");
+    $("kpis").innerHTML=
+      kpi(d.entregados+"/"+d.total,"Entregas")+
+      kpi(d.media!=null?com(d.media):"—","Media (0–5)")+
+      kpi(d.preguntasTotal,"Preguntas");
+    // tabla estudiantes
+    var tb=$("tablaEst").querySelector("tbody");
+    tb.innerHTML=d.estudiantes.map(function(e,i){
+      if(!e.entregado) return '<tr><td>'+(i+1)+'</td><td>'+esc(e.nombre)+'</td><td>—</td><td class="nota falta">—</td><td class="falta">no entregó</td></tr>';
+      var g=e.datos; return '<tr><td>'+(i+1)+'</td><td>'+esc(e.nombre)+'</td><td>'+g.aciertos+'/'+g.total+'</td><td class="nota">'+com(g.nota)+'</td><td>'+esc(g.cuando)+'</td></tr>';
+    }).join("");
+    // items
+    $("items").innerHTML=d.items.map(function(it){
+      var lo=it.pct<50?" lo":"";
+      return '<div class="itemrow"><div class="tema">'+it.n+'</div>'+
+        '<div><div class="tema">'+esc(it.tema)+'</div>'+esc(it.q)+'</div>'+
+        '<div class="bar'+lo+'"><span style="width:'+it.pct+'%"></span></div>'+
+        '<div style="text-align:right; font-variant-numeric:tabular-nums">'+it.pct+'%</div></div>';
+    }).join("");
+  }
+  function kpi(n,l){ return '<div class="kpi"><div class="n">'+esc(n)+'</div><div class="l">'+esc(l)+'</div></div>'; }
+})();
+</script>
+</body>
+</html>

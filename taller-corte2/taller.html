@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Taller de repaso · Corte 2</title>
+<style>
+  :root{
+    --ink:#12212b; --paper:#f4f7f7; --surface:#ffffff; --surface-2:#eaf0f0;
+    --line:#cbd8da; --muted:#516268;
+    --fisio:#10505e; --fisio-soft:#dceaec;
+    --pato:#a8412c; --pato-soft:#f5e2dc;
+    --amber:#a06a12; --amber-soft:#f6e9cf;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 12px 30px -18px rgba(18,33,43,.4);
+    --display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+      --line:#2c3d43; --muted:#9bafb4;
+      --fisio:#5cb6c6; --fisio-soft:#12313a;
+      --pato:#e08a70; --pato-soft:#3a2119;
+      --amber:#e0b464; --amber-soft:#3a2f16;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.9);
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font-family:var(--body); line-height:1.55;
+    -webkit-font-smoothing:antialiased; min-height:100dvh; padding:clamp(.8rem,3vw,2rem)}
+  .wrap{max-width:760px; margin:0 auto}
+  .hide{display:none !important}
+  .eyebrow{font-family:var(--mono); font-size:.65rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin:0}
+  h1{font-family:var(--display); font-weight:600; line-height:1.15; font-size:clamp(1.5rem,6vw,2.1rem); margin:.3rem 0 .5rem; text-wrap:balance}
+  h2{font-family:var(--display); font-weight:600; font-size:1.1rem; margin:0 0 .6rem}
+  .sub{color:var(--muted); font-size:.95rem; margin:0 0 1.4rem}
+  .panel{background:var(--surface); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow); padding:clamp(1rem,4vw,1.6rem); margin-bottom:1rem}
+  .aviso{background:var(--fisio-soft); border-left:3px solid var(--fisio); border-radius:0 10px 10px 0; padding:.8rem 1rem; margin:0 0 1.3rem; font-size:.9rem}
+  .aviso b{color:var(--fisio)}
+  label{display:block; font-size:.74rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin:0 0 .35rem}
+  select,input{width:100%; font:inherit; font-size:1rem; color:var(--ink); background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:.7rem .8rem; -webkit-appearance:none; appearance:none}
+  select:focus,input:focus{outline:2px solid var(--fisio); outline-offset:1px; border-color:var(--fisio)}
+  .field{margin-bottom:1rem}
+  .pista{font-size:.8rem; color:var(--muted); margin:.35rem 0 0}
+  .btn{width:100%; font:inherit; font-weight:600; font-size:1rem; cursor:pointer; background:var(--fisio); color:#fff; border:0; border-radius:99px; padding:.85rem 1rem; transition:filter .15s}
+  .btn:hover{filter:brightness(1.08)}
+  .btn:disabled{opacity:.5; cursor:progress}
+  .btn.sec{background:transparent; color:var(--fisio); border:1px solid color-mix(in srgb,var(--fisio) 45%,transparent)}
+  .msg{margin-top:1rem; padding:.8rem 1rem; border-radius:10px; font-size:.9rem; display:none}
+  .msg.ok{display:block; background:var(--fisio-soft); color:var(--fisio); border:1px solid color-mix(in srgb,var(--fisio) 35%,transparent)}
+  .msg.err{display:block; background:var(--pato-soft); color:var(--pato); border:1px solid color-mix(in srgb,var(--pato) 35%,transparent)}
+  .msg.warn{display:block; background:var(--amber-soft); color:var(--amber); border:1px solid color-mix(in srgb,var(--amber) 35%,transparent)}
+
+  .barra{position:sticky; top:0; z-index:5; background:color-mix(in srgb,var(--paper) 90%,transparent); backdrop-filter:blur(8px);
+    display:flex; align-items:center; gap:.8rem; padding:.6rem 0; margin-bottom:.6rem; border-bottom:1px solid var(--line)}
+  .prog{flex:1; height:7px; background:var(--surface-2); border-radius:99px; overflow:hidden}
+  .prog span{display:block; height:100%; width:0; background:var(--fisio); transition:width .2s}
+  .cont{font-family:var(--mono); font-size:.72rem; color:var(--muted); white-space:nowrap}
+
+  .q{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:1rem 1.1rem; margin-bottom:.8rem}
+  .q .tema{font-family:var(--mono); font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+  .q .enun{font-weight:600; margin:.3rem 0 .7rem; display:flex; gap:.5rem}
+  .q .enun .n{color:var(--fisio); font-family:var(--mono); font-size:.85rem; flex:none}
+  .opt{display:flex; gap:.6rem; align-items:flex-start; padding:.55rem .7rem; border:1px solid var(--line); border-radius:9px; margin:.35rem 0; cursor:pointer; font-size:.94rem}
+  .opt:hover{border-color:var(--fisio)}
+  .opt input{width:auto; margin-top:.2rem; accent-color:var(--fisio)}
+  .opt.sel{background:var(--fisio-soft); border-color:var(--fisio)}
+  .opt .l{font-family:var(--mono); font-weight:700; flex:none}
+
+  /* resultado */
+  .score{text-align:center; padding:1.2rem}
+  .score .big{font-family:var(--display); font-size:3rem; line-height:1; color:var(--fisio)}
+  .score .of{color:var(--muted); font-size:1rem}
+  .fb{border:1px solid var(--line); border-left:4px solid var(--fisio); border-radius:10px; padding:.8rem 1rem; margin-bottom:.7rem; background:var(--surface)}
+  .fb.mal{border-left-color:var(--pato)}
+  .fb .cab{display:flex; gap:.5rem; align-items:baseline; font-weight:600; font-size:.95rem}
+  .fb .cab .ic{flex:none; font-family:var(--mono)}
+  .fb.bien .ic{color:var(--fisio)} .fb.mal .ic{color:var(--pato)}
+  .fb .det{font-size:.86rem; color:var(--muted); margin-top:.4rem}
+  .fb .det b{color:var(--ink)}
+  .fb .buena{color:var(--fisio)}
+  footer{margin-top:1.6rem; padding-top:.9rem; border-top:1px solid var(--line); font-family:var(--mono); font-size:.66rem; letter-spacing:.04em; color:var(--muted)}
+</style>
+</head>
+<body>
+
+<!-- 1 · INGRESO -->
+<div class="wrap" id="vLogin">
+  <p class="eyebrow">Fisiopatología General · 01008430 · Corte 2</p>
+  <h1>Taller de repaso · Corte 2</h1>
+  <p class="sub">Repaso calificable de todo el corte: inmunidad, fiebre y dolor, edema y síncope. Son
+    <strong>18 preguntas</strong> de opción única. Al terminar verás tu nota y la explicación de cada una.
+    Es de <strong>un solo intento</strong> y cierra el <strong>martes 23 de septiembre</strong>, la víspera del parcial.</p>
+  <div class="aviso"><b>Contra la copia:</b> a cada quien le aparecen las opciones en distinto orden, así que copiar la letra del vecino da mal. La calificación la hace el servidor.</div>
+  <div class="panel">
+    <div class="field"><label for="nombre">Tu nombre</label>
+      <select id="nombre"><option value="">Cargando la lista…</option></select></div>
+    <div class="field"><label for="correo">Correo institucional</label>
+      <input id="correo" type="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="tuusuario@unisalle.edu.co">
+      <p class="pista">Basta con la parte antes de la arroba.</p></div>
+    <div class="field"><label for="codigo">Código estudiantil</label>
+      <input id="codigo" type="text" inputmode="numeric" autocomplete="off" spellcheck="false" placeholder="10 dígitos"></div>
+    <button class="btn" id="entrar" type="button" disabled>Empezar el taller</button>
+    <div class="msg" id="msgLogin" role="status" aria-live="polite"></div>
+  </div>
+  <footer>Un solo intento · cierra el martes 23 de septiembre, 11:59 p. m.</footer>
+</div>
+
+<!-- 2 · TALLER -->
+<div class="wrap hide" id="vTaller">
+  <div class="barra"><div class="prog"><span id="progBar"></span></div><span class="cont" id="progTxt">0 / 18</span></div>
+  <div id="preguntas"></div>
+  <button class="btn" id="enviar" type="button">Entregar el taller</button>
+  <div class="msg" id="msgTaller" role="status" aria-live="polite"></div>
+  <footer>Puedes cambiar tus respuestas hasta que entregues. Una vez entregado, no se puede repetir.</footer>
+</div>
+
+<!-- 3 · RESULTADO -->
+<div class="wrap hide" id="vFin">
+  <p class="eyebrow">Taller entregado</p>
+  <h1>Tu resultado</h1>
+  <div class="panel">
+    <div class="score"><div><span class="big" id="notaBig">—</span><span class="of"> / 5,0</span></div>
+      <p class="sub" id="aciertosTxt" style="margin:.5rem 0 0"></p></div>
+  </div>
+  <h2>Revisa cada pregunta</h2>
+  <div id="feedback"></div>
+  <footer>Estudia las que fallaste: son justo el tipo de razonamiento del parcial del 24.</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  // ⚠️ PEGAR LA URL /exec DEL BACKEND DEL TALLER DESPUÉS DE DESPLEGARLO.
+  var API   = "PEGAR_URL_EXEC_AQUI";
+  var TOKEN = "yFD18aMsFpAnojRYHDKw7WQgFkzNH1tk";
+  var CLAVE = "taller-c2-2026";
+  var ESPERA = 25000;
+
+  var $ = function(id){ return document.getElementById(id); };
+  var estado = { nombre:"", correo:"", codigo:"", total:0, respuestas:{} };
+  var enviando = false;
+
+  if (API.indexOf("script.google.com") === -1){
+    $("nombre").innerHTML = '<option value="">—</option>';
+    ver($("msgLogin"), "warn", "El taller todavía no está habilitado. Vuelve más tarde o escríbele al docente.");
+    return;
+  }
+
+  function conTiempo(p){ return new Promise(function(ok,mal){ var t=setTimeout(function(){mal(new Error("timeout"));},ESPERA);
+    p.then(function(v){clearTimeout(t);ok(v);},function(e){clearTimeout(t);mal(e);}); }); }
+  function get(params){ var qs=Object.keys(params).map(function(k){return encodeURIComponent(k)+"="+encodeURIComponent(params[k]);}).join("&");
+    return conTiempo(fetch(API+"?"+qs).then(function(r){return r.json();})); }
+  function post(payload){ payload.token=TOKEN; return conTiempo(fetch(API,{method:"POST",body:JSON.stringify(payload)}).then(function(r){return r.json();})); }
+  function ver(el,cls,txt){ el.className="msg "+cls; el.textContent=txt; }
+  function limpiar(el){ el.className="msg"; el.textContent=""; }
+  function esc(s){ return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
+  function mostrar(v){ ["vLogin","vTaller","vFin"].forEach(function(x){$(x).classList.add("hide");}); $(v).classList.remove("hide"); window.scrollTo(0,0); }
+
+  // ---------- roster ----------
+  get({ action:"roster", token:TOKEN }).then(function(r){
+    var sel=$("nombre");
+    if(!r.ok){ sel.innerHTML='<option value="">—</option>'; ver($("msgLogin"),"warn",r.error||"No se pudo cargar la lista."); return; }
+    sel.innerHTML='<option value="">Selecciona tu nombre…</option>'+r.alumnos.map(function(n){return '<option>'+esc(n)+'</option>';}).join("");
+    $("entrar").disabled=false;
+    if(!r.abierto) ver($("msgLogin"),"warn","El taller no está abierto en este momento.");
+    try{ var prev=JSON.parse(localStorage.getItem(CLAVE)||"null"); if(prev){ if(prev.nombre)sel.value=prev.nombre; $("correo").value=prev.correo||""; $("codigo").value=prev.codigo||""; } }catch(e){}
+  }).catch(function(){ $("nombre").innerHTML='<option value="">—</option>'; ver($("msgLogin"),"err","No hay conexión con el servidor. Revisa tu internet."); });
+
+  $("entrar").addEventListener("click", function(){
+    limpiar($("msgLogin"));
+    var nombre=$("nombre").value, correo=$("correo").value.trim(), codigo=$("codigo").value.trim();
+    if(!nombre){ver($("msgLogin"),"err","Selecciona tu nombre.");return;}
+    if(!correo){ver($("msgLogin"),"err","Escribe tu correo institucional.");return;}
+    if(!codigo){ver($("msgLogin"),"err","Escribe tu código estudiantil.");return;}
+    try{ localStorage.setItem(CLAVE, JSON.stringify({nombre:nombre,correo:correo,codigo:codigo})); }catch(e){}
+    this.disabled=true; this.textContent="Cargando…"; var btn=this;
+    get({ action:"preguntas", token:TOKEN, nombre:nombre, correo:correo, codigo:codigo }).then(function(r){
+      btn.disabled=false; btn.textContent="Empezar el taller";
+      if(!r.ok){ ver($("msgLogin"),"err",r.error); return; }
+      estado.nombre=nombre; estado.correo=correo; estado.codigo=codigo; estado.total=r.total;
+      if(r.yaEntregado && r.resultado){ ver($("msgLogin"),"warn","Ya entregaste este taller (nota "+String(r.resultado.nota).replace('.',',')+"). Es de un solo intento."); return; }
+      pintarPreguntas(r.preguntas);
+    }).catch(function(){ btn.disabled=false; btn.textContent="Empezar el taller"; ver($("msgLogin"),"err","No hubo respuesta del servidor. Inténtalo de nuevo."); });
+  });
+
+  // ---------- pintar preguntas ----------
+  function pintarPreguntas(preguntas){
+    var cont=$("preguntas"); cont.innerHTML="";
+    preguntas.forEach(function(p){
+      var d=document.createElement("div"); d.className="q"; d.dataset.n=p.n;
+      var ops=p.opciones.map(function(txt,i){
+        var L="ABCD".charAt(i);
+        return '<label class="opt"><input type="radio" name="q'+p.n+'" value="'+L+'">'+
+               '<span class="l">'+L+'</span><span>'+esc(txt)+'</span></label>';
+      }).join("");
+      d.innerHTML='<div class="tema">'+esc(p.tema)+'</div>'+
+        '<div class="enun"><span class="n">'+p.n+'</span><span>'+esc(p.q)+'</span></div>'+ops;
+      cont.appendChild(d);
+    });
+    cont.addEventListener("change", function(e){
+      if(e.target.name && e.target.name.charAt(0)==="q"){
+        var n=e.target.name.slice(1); estado.respuestas[n]=e.target.value;
+        var q=cont.querySelector('.q[data-n="'+n+'"]');
+        q.querySelectorAll(".opt").forEach(function(o){o.classList.remove("sel");});
+        e.target.closest(".opt").classList.add("sel");
+        actualizarProg();
+      }
+    });
+    actualizarProg(); mostrar("vTaller");
+  }
+  function actualizarProg(){
+    var hechas=Object.keys(estado.respuestas).length;
+    $("progBar").style.width=(hechas/estado.total*100)+"%";
+    $("progTxt").textContent=hechas+" / "+estado.total;
+  }
+
+  // ---------- entregar ----------
+  $("enviar").addEventListener("click", function(){
+    if(enviando) return;
+    limpiar($("msgTaller"));
+    var faltan=estado.total-Object.keys(estado.respuestas).length;
+    if(faltan>0 && !confirm("Te faltan "+faltan+" pregunta(s) por responder. ¿Entregar de todas formas? No podrás volver a intentarlo.")) return;
+    var btn=this; enviando=true; btn.disabled=true; btn.textContent="Calificando…";
+    post({ action:"entregar", nombre:estado.nombre, correo:estado.correo, codigo:estado.codigo, respuestas:estado.respuestas })
+      .then(function(r){
+        enviando=false; btn.disabled=false; btn.textContent="Entregar el taller";
+        if(!r.ok){ ver($("msgTaller"),"err",r.error); return; }
+        try{ localStorage.removeItem(CLAVE); }catch(e){}
+        pintarResultado(r);
+      })
+      .catch(function(){ enviando=false; btn.disabled=false; btn.textContent="Entregar el taller"; ver($("msgTaller"),"err","No hubo respuesta del servidor. Inténtalo otra vez en un momento."); });
+  });
+
+  function pintarResultado(r){
+    $("notaBig").textContent=String(r.nota).replace(".",",");
+    $("aciertosTxt").textContent=r.aciertos+" de "+r.total+" correctas";
+    $("feedback").innerHTML=r.detalle.map(function(d){
+      var cls=d.correcta?"bien":"mal", ic=d.correcta?"✓":"✗";
+      var extra=d.correcta?"":'<div class="det"><b>Tu respuesta:</b> '+esc(d.tuya)+'<br><b class="buena">Correcta ('+d.letraBuena+'):</b> '+esc(d.buena)+'</div>';
+      return '<div class="fb '+cls+'"><div class="cab"><span class="ic">'+ic+'</span><span>'+d.n+' · '+esc(d.tema)+'</span></div>'+
+             extra+'<div class="det">'+esc(d.exp)+'</div></div>';
+    }).join("");
+    mostrar("vFin");
+  }
+})();
+</script>
+</body>
+</html>
