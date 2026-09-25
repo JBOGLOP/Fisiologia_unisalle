@@ -78,6 +78,15 @@
   .barra i{display:block; height:100%; background:var(--fisio)}
   .pie{font-size:.78rem; color:var(--muted); text-align:center}
 
+  /* un bloque por corte */
+  .corte{margin-bottom:1.8rem}
+  .corte h2{font-family:var(--display); font-weight:600; font-size:1.25rem;
+    margin:0 0 .7rem; display:flex; align-items:baseline; gap:.6rem}
+  .corte h2 em{font-style:normal; font-family:var(--mono); font-size:.62rem;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--muted);
+    border:1px solid var(--line); border-radius:99px; padding:.15rem .5rem}
+  .corte.cerrado h2 em{color:var(--fisio); border-color:color-mix(in srgb,var(--fisio) 45%,transparent)}
+
   /* lista de actividades */
   .act{display:flex; align-items:center; gap:.8rem; padding:.75rem 0;
     border-bottom:1px solid var(--line)}
@@ -133,20 +142,9 @@
 <!-- ══════════ 2 · RESULTADO ══════════ -->
 <div class="wrap hide" id="vNotas">
   <p class="eyebrow" id="quien"></p>
-  <h1>Primer corte</h1>
+  <h1>Mis notas</h1>
 
-  <div class="panel">
-    <div class="grande">
-      <b id="nota">—</b>
-      <span id="rotulo">nota provisional</span>
-    </div>
-    <div class="barra"><i id="fill"></i></div>
-    <p class="pie" id="cubierto"></p>
-  </div>
-
-  <div class="panel">
-    <div id="lista"></div>
-  </div>
+  <div id="cortes"></div>
 
   <div class="aviso" id="explica"></div>
 
@@ -228,7 +226,9 @@
       });
   });
 
-  // ---------- 2 · notas ----------
+  // ---------- 2 · notas, un bloque por corte ----------
+  var NOMBRE_CORTE = { 1:"Primer corte", 2:"Segundo corte", 3:"Tercer corte" };
+
   function mostrar(r){
     $("vLogin").classList.add("hide");
     $("vNotas").classList.remove("hide");
@@ -237,38 +237,76 @@
 
     var n = r.notas;
     var esc5 = n.escala || 5;
+    var cont = $("cortes"); cont.innerHTML = "";
 
-    if (n.provisional === null){
-      $("nota").textContent = "—";
-      $("rotulo").textContent = "aún sin notas";
-      $("fill").style.width = "0%";
-    } else {
-      $("nota").textContent = n.provisional.toFixed(1);
-      $("rotulo").textContent = "nota provisional del corte";
-      $("fill").style.width = Math.min(100, n.provisional/esc5*100)+"%";
-    }
-    $("cubierto").textContent = "Calculada sobre el "+n.pesoCubierto+
-      " del corte, que es lo que llevas calificado.";
-
-    var cont = $("lista"); cont.innerHTML = "";
+    // Las actividades vienen en una sola lista; se agrupan por su corte.
+    var porCorte = {};
     n.items.forEach(function(it){
-      var d = document.createElement("div");
-      d.className = "act";
-      var val;
-      if (it.nota === null){
-        val = '<span class="pend">sin calificar</span>';
-      } else {
-        var cls = it.nota >= 4 ? "buena" : (it.nota >= 3 ? "floja" : "mala");
-        val = '<span class="act-n '+cls+'">'+it.nota.toFixed(1)+'</span>';
-      }
-      d.innerHTML = '<span class="act-t"><b>'+esc(it.t)+'</b>'+
-                    '<span>'+it.peso+' % del corte</span></span>'+val;
-      cont.appendChild(d);
+      var c = it.corte || 1;
+      (porCorte[c] = porCorte[c] || []).push(it);
+    });
+
+    // El servidor manda el resumen de cada corte. Si es una versión anterior
+    // que no lo trae, se cae con elegancia a un único bloque con lo que haya.
+    var resumenes = (n.cortes && n.cortes.length) ? n.cortes.slice() : null;
+    if (!resumenes){
+      resumenes = Object.keys(porCorte).sort().map(function(c){
+        return { corte:Number(c), nota:n.provisional, pesoCubierto:null, pesoTotal:null };
+      });
+    }
+
+    var pintados = {};
+    resumenes.forEach(function(rc){
+      pintados[rc.corte] = true;
+      cont.appendChild(bloqueCorte(rc, porCorte[rc.corte] || [], esc5));
+    });
+    // Un corte cuyas actividades existen pero ninguna está calificada todavía.
+    Object.keys(porCorte).sort().forEach(function(c){
+      if (pintados[c]) return;
+      cont.appendChild(bloqueCorte(
+        { corte:Number(c), nota:null, pesoCubierto:0, pesoTotal:null }, porCorte[c], esc5));
     });
 
     $("explica").innerHTML = "Tu asistencia registrada es <strong>"+esc(n.asistencia)+
-      "</strong>. La nota de arriba es <strong>provisional</strong>: se calcula solo con lo "+
-      "que ya está calificado y cambiará cuando se sumen las actividades que faltan.";
+      "</strong>. Cada corte se calcula solo con lo que ya está calificado: si a un "+
+      "corte le falta alguna actividad, su nota todavía puede cambiar.";
+  }
+
+  function bloqueCorte(rc, items, esc5){
+    var sec = document.createElement("section");
+    var hayNota = rc.nota !== null && rc.nota !== undefined;
+    var completo = !!(rc.pesoTotal && rc.pesoCubierto >= rc.pesoTotal);
+    sec.className = "corte" + (completo ? " cerrado" : "");
+
+    var titulo = NOMBRE_CORTE[rc.corte] || ("Corte " + rc.corte);
+    var sello  = completo ? "cerrado" : "en curso";
+    var pie = (rc.pesoCubierto === null || rc.pesoCubierto === undefined) ? ""
+      : (completo
+          ? "Corte completo: vale el " + rc.pesoTotal + " % del semestre."
+          : "Calculada sobre " + rc.pesoCubierto + " de " +
+            (rc.pesoTotal ? rc.pesoTotal + " %" : "—") + " del semestre. Es provisional.");
+
+    var html =
+      '<h2>' + esc(titulo) + ' <em>' + sello + '</em></h2>' +
+      '<div class="panel">' +
+        '<div class="grande"><b>' + (hayNota ? Number(rc.nota).toFixed(1) : "—") + '</b>' +
+        '<span>' + (completo ? "nota del corte" : "nota provisional") + '</span></div>' +
+        '<div class="barra"><i style="width:' +
+          (hayNota ? Math.min(100, rc.nota / esc5 * 100) : 0) + '%"></i></div>' +
+        '<p class="pie">' + esc(pie) + '</p>' +
+      '</div>';
+
+    html += '<div class="panel">' + items.map(function(it){
+      var val = (it.nota === null)
+        ? '<span class="pend">sin calificar</span>'
+        : '<span class="act-n ' + (it.nota >= 4 ? "buena" : (it.nota >= 3 ? "floja" : "mala")) +
+          '">' + it.nota.toFixed(1) + '</span>';
+      return '<div class="act"><span class="act-t"><b>' + esc(it.t) + '</b>' +
+             '<span>' + it.peso + ' % del semestre</span></span>' + val + '</div>';
+    }).join("") + '</div>';
+
+    sec.innerHTML = html;
+    return sec;
   }
 
   $("salir").addEventListener("click", function(){
