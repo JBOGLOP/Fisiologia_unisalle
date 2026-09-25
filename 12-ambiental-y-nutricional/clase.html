@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clase 12 — Patología ambiental y nutricional: el ojo como órgano diana</title>
+<style>
+  :root{
+    --ink:#12212b; --paper:#f4f7f7; --surface:#ffffff; --surface-2:#eaf0f0;
+    --line:#cbd8da; --muted:#516268;
+    --fisio:#10505e; --fisio-soft:#dceaec;
+    --pato:#a8412c; --pato-soft:#f5e2dc;
+    --amber:#9a6b12; --amber-soft:#f6ecd6;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 8px 24px -16px rgba(18,33,43,.35);
+    --display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+    --measure:66ch;
+    --pad:clamp(1rem,4vw,2.5rem);
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+      --line:#2c3d43; --muted:#9bafb4;
+      --fisio:#5cb6c6; --fisio-soft:#12313a;
+      --pato:#e08a70; --pato-soft:#3a2119;
+      --amber:#d5a446; --amber-soft:#33290f;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.9);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+    --line:#2c3d43; --muted:#9bafb4;
+    --fisio:#5cb6c6; --fisio-soft:#12313a;
+    --pato:#e08a70; --pato-soft:#3a2119;
+    --amber:#d5a446; --amber-soft:#33290f;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.9);
+  }
+  :root[data-theme="light"]{
+    --ink:#12212b; --paper:#f4f7f7; --surface:#ffffff; --surface-2:#eaf0f0;
+    --line:#cbd8da; --muted:#516268;
+    --fisio:#10505e; --fisio-soft:#dceaec;
+    --pato:#a8412c; --pato-soft:#f5e2dc;
+    --amber:#9a6b12; --amber-soft:#f6ecd6;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 8px 24px -16px rgba(18,33,43,.35);
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--body); font-size:clamp(15px,.5vw + 14px,17px); line-height:1.62; -webkit-font-smoothing:antialiased}
+  h1,h2,h3,h4{font-family:var(--display); font-weight:600; line-height:1.15; text-wrap:balance; margin:0}
+  p{margin:0}
+  a{color:var(--fisio)}
+  .wrap{max-width:1040px; margin:0 auto; padding-inline:var(--pad)}
+  .prose{max-width:var(--measure)}
+  .stack{display:flex; flex-direction:column}
+  .stack>*+*{margin-top:1rem}
+  .eyebrow{font-family:var(--mono); font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)}
+
+  header.top{position:sticky; top:0; z-index:50; background:color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter:blur(10px); border-bottom:1px solid var(--line)}
+  .top-in{display:flex; align-items:center; gap:1rem; height:54px}
+  .brand{font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); white-space:nowrap}
+  nav.jump{margin-left:auto; display:flex; gap:.15rem; overflow-x:auto; scrollbar-width:none}
+  nav.jump::-webkit-scrollbar{display:none}
+  nav.jump a{font-size:.78rem; text-decoration:none; color:var(--muted); padding:.3rem .55rem; border-radius:99px; white-space:nowrap}
+  nav.jump a:hover{color:var(--ink); background:var(--surface-2)}
+  .theme-btn{border:1px solid var(--line); background:var(--surface); color:var(--muted); border-radius:99px; width:32px; height:32px; cursor:pointer; flex:none; font-size:.85rem}
+  .theme-btn:hover{color:var(--ink)}
+
+  .hero{padding:clamp(2.5rem,7vw,5rem) 0 clamp(2rem,5vw,3.5rem)}
+  .hero h1{font-size:clamp(2.1rem,5.5vw,3.6rem); letter-spacing:-.01em; margin-top:.6rem}
+  .hero .sub{max-width:60ch; color:var(--muted); font-size:1.05rem; margin-top:1.1rem}
+  .hero-meta{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.6rem}
+  .chip{font-family:var(--mono); font-size:.7rem; letter-spacing:.06em; border:1px solid var(--line); border-radius:99px; padding:.3rem .7rem; background:var(--surface); color:var(--muted)}
+  .chip strong{color:var(--ink); font-weight:600}
+  .split-word{display:inline-flex; flex-wrap:wrap; gap:.1em}
+  .split-word .a{color:var(--fisio)}
+  .split-word .b{color:var(--pato)}
+  .split-word .c{color:var(--amber)}
+
+  section{padding:clamp(2.2rem,5vw,3.6rem) 0; border-top:1px solid var(--line)}
+  .sec-head{display:flex; align-items:baseline; gap:.9rem; margin-bottom:1.4rem; flex-wrap:wrap}
+  .sec-num{font-family:var(--mono); font-size:.72rem; color:var(--fisio); border:1px solid var(--fisio); border-radius:4px; padding:.1rem .4rem; flex:none}
+  .sec-head h2{font-size:clamp(1.4rem,3vw,2rem)}
+  .band-f .sec-num{color:var(--amber); border-color:var(--amber)}
+  .band-d .sec-num{color:var(--pato); border-color:var(--pato)}
+
+  .grid{display:grid; gap:1rem}
+  @media(min-width:720px){ .g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)} }
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:1.1rem 1.2rem; box-shadow:var(--shadow)}
+  .card h3{font-size:1.02rem; margin-bottom:.45rem}
+  .card p, .card li{font-size:.92rem; color:var(--muted)}
+  .card.fisio{border-left:3px solid var(--fisio)}
+  .card.pato{border-left:3px solid var(--pato)}
+  .card.amber{border-left:3px solid var(--amber)}
+  .card ul{margin:.4rem 0 0; padding-left:1.1rem}
+  .card li+li{margin-top:.25rem}
+  .card .ocular{margin-top:.7rem; padding-top:.6rem; border-top:1px dashed var(--line); font-size:.82rem; color:var(--fisio)}
+
+  .callout{background:var(--fisio-soft); border:1px solid color-mix(in srgb,var(--fisio) 30%, transparent); border-radius:10px; padding:1rem 1.2rem}
+  .callout .eyebrow{color:var(--fisio)}
+  .callout.warn{background:var(--pato-soft); border-color:color-mix(in srgb,var(--pato) 30%, transparent)}
+  .callout.warn .eyebrow{color:var(--pato)}
+  .callout.note{background:var(--amber-soft); border-color:color-mix(in srgb,var(--amber) 35%, transparent)}
+  .callout.note .eyebrow{color:var(--amber)}
+
+  .table-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface); margin-top:1.1rem}
+  table{border-collapse:collapse; width:100%; font-size:.88rem; min-width:520px}
+  th,td{text-align:left; padding:.6rem .8rem; border-bottom:1px solid var(--line); vertical-align:top}
+  th{font-family:var(--mono); font-size:.68rem; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); font-weight:500}
+  tbody tr:last-child td{border-bottom:none}
+  td.k{font-weight:600; white-space:nowrap}
+
+  .fork{display:grid; gap:.8rem; margin-top:1rem}
+  @media(min-width:720px){.fork{grid-template-columns:1fr 1fr}}
+  .fork .lane{border:1px solid var(--line); border-radius:10px; padding:1rem; background:var(--surface)}
+  .fork .lane.a{border-top:3px solid var(--fisio)}
+  .fork .lane.b{border-top:3px solid var(--pato)}
+  .fork .lane h3{font-size:1rem; margin-bottom:.4rem}
+  .fork .lane p, .fork .lane li{font-size:.9rem; color:var(--muted)}
+  .fork .lane ul{margin:.4rem 0 0; padding-left:1.1rem}
+
+  .drill-row{display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; padding:.65rem 0; border-bottom:1px solid var(--line)}
+  .drill-row:last-child{border-bottom:none}
+  .drill-q{flex:1 1 240px; font-size:.94rem}
+  .btn{font-family:var(--body); font-size:.78rem; cursor:pointer; border:1px solid var(--line); background:var(--surface); color:var(--ink); border-radius:99px; padding:.3rem .75rem}
+  .btn:hover{border-color:var(--fisio)}
+  .btn:focus-visible, a:focus-visible, .q-head:focus-visible{outline:2px solid var(--fisio); outline-offset:2px}
+  .btn.ok{background:var(--fisio); border-color:var(--fisio); color:#fff}
+  .btn.no{background:var(--pato); border-color:var(--pato); color:#fff}
+  .verdict{font-size:.82rem; flex-basis:100%; color:var(--muted)}
+  .verdict b{color:var(--ink)}
+  .score{font-family:var(--mono); font-size:.78rem; color:var(--muted); margin-top:.8rem}
+
+  .q{border:1px solid var(--line); border-radius:10px; background:var(--surface); overflow:hidden}
+  .q+.q{margin-top:.6rem}
+  .q-head{width:100%; text-align:left; background:none; border:0; color:inherit; font:inherit; padding:.85rem 1rem; cursor:pointer; display:flex; gap:.7rem; align-items:baseline}
+  .q-head:hover{background:var(--surface-2)}
+  .q-n{font-family:var(--mono); font-size:.72rem; color:var(--fisio); flex:none}
+  .q-body{padding:0 1rem 1rem 2.4rem; font-size:.9rem; color:var(--muted); display:none}
+  .q.open .q-body{display:block}
+  .q.open .q-head{background:var(--surface-2)}
+
+  footer{border-top:1px solid var(--line); padding:2rem 0 3rem; color:var(--muted); font-size:.83rem}
+  figure.fig{margin:1.4rem 0 0; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:1.1rem 1.2rem .9rem}
+  figure.fig svg{display:block; width:100%; height:auto; color:var(--ink)}
+  figure.fig figcaption{margin-top:.7rem; font-size:.84rem; color:var(--muted); line-height:1.5}
+  figure.fig figcaption b{color:var(--ink)}
+  .svg-mut{fill:var(--muted)} .svg-ink{fill:var(--ink)}
+  @media (prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-in">
+    <span class="brand">Fisiopatología General · Clase 12</span>
+    <nav class="jump">
+      <a href="#intro">Marco</a>
+      <a href="#vitamina">Vitamina A</a>
+      <a href="#xeroftalmia">Xeroftalmía</a>
+      <a href="#deficits">Otros déficits</a>
+      <a href="#quimica">Lesión química</a>
+      <a href="#ambiental">Ambiente</a>
+      <a href="#uv">Radiación UV</a>
+      <a href="#social">Determinantes</a>
+      <a href="#ocular">Ojo</a>
+      <a href="#autoeval">Autoevaluación</a>
+    </nav>
+    <button class="theme-btn" id="themeBtn" aria-label="Cambiar tema">◐</button>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <p class="eyebrow">Clase 12 · Aplicación disciplinar · Semana del 15 de octubre</p>
+    <h1>Patología <span class="split-word"><span class="a">ambiental</span>&nbsp;y&nbsp;<span class="c">nutricional</span></span>: el ojo como órgano diana</h1>
+    <p class="sub">Abrimos el bloque de aplicación. Hasta ahora el daño venía de dentro; hoy viene de <strong>fuera</strong>: lo que falta en el plato, lo que salpica, lo que el sol suma año tras año. Una sola idea ordena todo: el daño no depende solo del <strong>agente</strong>, sino de su <strong>dosis</strong>, del <strong>tiempo</strong> de exposición y del <strong>terreno</strong> de quien lo recibe.</p>
+    <div class="hero-meta">
+      <span class="chip">Sesión <strong>12 de 16</strong></span>
+      <span class="chip">Fecha <strong>15 oct 2026</strong></span>
+      <span class="chip">Duración <strong>2 horas</strong></span>
+      <span class="chip">Texto guía <strong>Uribe cap. 5 + compl.</strong></span>
+    </div>
+  </div>
+
+  <!-- 01 -->
+  <section id="intro">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">01</span><h2>El ambiente y la nutrición como causa de enfermedad</h2></div>
+      <div class="prose stack">
+        <p>Veníamos estudiando enfermedades que nacen <em>dentro</em> del cuerpo: inflamación, inmunidad, fiebre, edema. Hoy giramos la cámara hacia <strong>afuera</strong>. La misma célula que aprendimos a defender puede enfermar por lo que <strong>no le llega</strong> (un nutriente que falta) o por lo que <strong>le llega de más</strong> (un cáustico, la radiación del sol). Y el ojo —una superficie expuesta al aire, a la luz y al ambiente— es un <strong>órgano diana</strong> privilegiado para verlo.</p>
+        <p>La pregunta que atraviesa la clase no es «¿qué agente hay?», sino <strong>«¿cuánto, por cuánto tiempo y en qué terreno?»</strong>. Un mismo sol produce un pterigión en un pescador y nada en un oficinista; un mismo sarampión deja ciego a un niño desnutrido y no a uno bien alimentado. El agente es necesario, pero <strong>no suficiente</strong>.</p>
+      </div>
+      <div class="grid g2" style="margin-top:1.3rem">
+        <div class="card fisio">
+          <p class="eyebrow">Falta un factor</p>
+          <h3>Nutricional</h3>
+          <p>La célula no recibe lo que necesita para diferenciarse y funcionar. El caso mayor es el <strong>déficit de vitamina A</strong>: la causa evitable de ceguera infantil más importante del mundo.</p>
+        </div>
+        <div class="card pato">
+          <p class="eyebrow">Sobra un factor</p>
+          <h3>Ambiental</h3>
+          <p>Un agente externo agrede la superficie: <strong>cáusticos</strong> (en segundos), <strong>exposición ocupacional</strong> (a diario) y <strong>radiación ultravioleta</strong> (a lo largo de décadas).</p>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:1.2rem">
+        <p class="eyebrow">La idea que ordena la sesión</p>
+        <p style="margin-top:.4rem">Guarda cuatro palabras: <strong>agente · dosis · tiempo · terreno</strong>. El agente inicia; la <em>dosis</em> y el <em>tiempo</em> deciden la magnitud (segundos en el cáustico, décadas en el sol); el <em>terreno</em> —nutrición, defensas, condiciones de vida— explica por qué el mismo agente no produce el mismo daño en dos personas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section id="vitamina">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">02</span><h2>Vitamina A · el nutriente de la visión y del epitelio</h2></div>
+      <div class="prose stack">
+        <p>La <strong>vitamina A</strong> (retinol) es una vitamina <strong>liposoluble</strong> que llega de dos fuentes: <strong>retinol preformado</strong> de origen animal (hígado, huevo, lácteos) y <strong>provitamina A</strong> (betacaroteno) de vegetales de color intenso (zanahoria, hoja verde). El hígado la almacena; por eso el déficit tarda meses en manifestarse, pero también por eso las reservas se agotan en la infancia y el embarazo, cuando la demanda es alta.</p>
+        <p>Tiene <strong>dos trabajos</strong> que hoy nos importan:</p>
+      </div>
+      <div class="grid g2" style="margin-top:1rem">
+        <div class="card fisio">
+          <p class="eyebrow">Función 1 · la visión</p>
+          <h3>Materia prima de la rodopsina</h3>
+          <p>El retinol se convierte en <strong>11-cis-retinal</strong>, que se une a la <strong>opsina</strong> para formar la <strong>rodopsina</strong>, el pigmento de los <strong>bastones</strong>. Sin vitamina A no hay pigmento suficiente y la visión en penumbra falla: por eso el <strong>primer síntoma</strong> del déficit es la <strong>ceguera nocturna</strong>.</p>
+        </div>
+        <div class="card fisio">
+          <p class="eyebrow">Función 2 · el epitelio</p>
+          <h3>Mantiene los epitelios húmedos</h3>
+          <p>La vitamina A conserva la <strong>diferenciación</strong> del epitelio mucoso, con sus <strong>células caliciformes</strong> productoras de moco. Sin ella, el epitelio se transforma en uno <strong>seco y queratinizado</strong> (metaplasia escamosa): la base de la xerosis conjuntival y corneal.</p>
+        </div>
+      </div>
+      <div class="callout note" style="margin-top:1.2rem">
+        <p class="eyebrow">Por qué falla la visión nocturna primero</p>
+        <p style="margin-top:.4rem">Los <strong>bastones</strong> son los sensores de la penumbra y dependen por completo de la rodopsina, que se «gasta» con la luz y debe regenerarse con retinal nuevo. Cuando el retinal escasea, los primeros en quedarse sin pigmento son los bastones. Los <strong>conos</strong> (visión diurna y color) aguantan más. De ahí que el paciente vea bien de día y tropiece al anochecer.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section id="xeroftalmia">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">03</span><h2>Xeroftalmía · la cascada del déficit de vitamina A</h2></div>
+      <div class="prose stack">
+        <p>La <strong>xeroftalmía</strong> (del griego <em>xeros</em>, seco) es el conjunto de signos oculares del déficit de vitamina A. No aparecen de golpe: siguen una <strong>secuencia</strong> que la OMS clasifica por etapas. Y esa secuencia tiene una <strong>frontera crucial</strong>: mientras el daño está en la conjuntiva es <strong>reversible</strong> en días con vitamina A; cuando llega a la córnea, puede dejar <strong>ceguera permanente</strong>.</p>
+      </div>
+
+      <figure class="fig">
+        <svg viewBox="0 0 860 250" role="img" aria-label="La cascada de la xeroftalmía por déficit de vitamina A avanza en el tiempo por cinco etapas: ceguera nocturna, xerosis conjuntival con manchas de Bitot, xerosis corneal, queratomalacia o reblandecimiento de la córnea, y cicatriz corneal con ceguera. Las dos primeras etapas, en la conjuntiva, son reversibles en días con vitamina A; a partir de la afectación corneal el daño puede ser permanente.">
+          <defs>
+            <marker id="ax" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker>
+            <marker id="axg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--fisio)"/></marker>
+          </defs>
+          <text x="430" y="24" font-family="system-ui,sans-serif" font-size="11" class="svg-mut" text-anchor="middle">el déficit avanza en el tiempo (semanas–meses)  →</text>
+          <g font-family="system-ui,sans-serif" text-anchor="middle">
+            <!-- reversible: fisio -->
+            <rect x="12" y="70" width="158" height="72" rx="9" fill="var(--fisio-soft)" stroke="var(--fisio)"/>
+            <text x="91" y="96" font-size="11.5" font-weight="700" class="svg-ink">Ceguera nocturna</text>
+            <text x="91" y="114" font-size="9.5" class="svg-mut">falla la rodopsina</text>
+            <text x="91" y="130" font-size="9" fill="var(--fisio)">XN · reversible</text>
+
+            <rect x="184" y="70" width="158" height="72" rx="9" fill="var(--fisio-soft)" stroke="var(--fisio)"/>
+            <text x="263" y="92" font-size="11.5" font-weight="700" class="svg-ink">Xerosis conjuntival</text>
+            <text x="263" y="109" font-size="9.5" class="svg-mut">+ manchas de Bitot</text>
+            <text x="263" y="124" font-size="9.5" class="svg-mut">(espuma queratinizada)</text>
+            <text x="263" y="138" font-size="9" fill="var(--fisio)">X1 · reversible</text>
+
+            <!-- permanente: pato -->
+            <rect x="356" y="70" width="158" height="72" rx="9" fill="var(--pato-soft)" stroke="var(--pato)"/>
+            <text x="435" y="96" font-size="11.5" font-weight="700" class="svg-ink">Xerosis corneal</text>
+            <text x="435" y="114" font-size="9.5" class="svg-mut">la córnea se seca</text>
+            <text x="435" y="130" font-size="9" fill="var(--pato)">X2 · riesgo</text>
+
+            <rect x="528" y="70" width="158" height="72" rx="9" fill="var(--pato-soft)" stroke="var(--pato)"/>
+            <text x="607" y="96" font-size="11.5" font-weight="700" class="svg-ink">Queratomalacia</text>
+            <text x="607" y="114" font-size="9.5" class="svg-mut">la córnea se reblandece</text>
+            <text x="607" y="130" font-size="9" fill="var(--pato)">X3 · urgencia</text>
+
+            <rect x="700" y="70" width="148" height="72" rx="9" fill="var(--pato-soft)" stroke="var(--pato)"/>
+            <text x="774" y="96" font-size="11.5" font-weight="700" class="svg-ink">Cicatriz</text>
+            <text x="774" y="114" font-size="9.5" class="svg-mut">opacidad corneal</text>
+            <text x="774" y="130" font-size="9" fill="var(--pato)">XS · ceguera</text>
+          </g>
+          <g fill="none" stroke="var(--muted)" stroke-width="1.8" marker-end="url(#ax)">
+            <line x1="170" y1="106" x2="182" y2="106"/>
+            <line x1="342" y1="106" x2="354" y2="106"/>
+            <line x1="514" y1="106" x2="526" y2="106"/>
+            <line x1="686" y1="106" x2="698" y2="106"/>
+          </g>
+          <!-- frontera -->
+          <line x1="349" y1="58" x2="349" y2="200" stroke="var(--pato)" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <text x="349" y="214" font-family="ui-monospace,monospace" font-size="9.5" fill="var(--pato)" text-anchor="middle">frontera: conjuntiva → córnea</text>
+          <!-- flecha reversible -->
+          <path d="M263,158 H91" fill="none" stroke="var(--fisio)" stroke-width="1.8" marker-end="url(#axg)"/>
+          <text x="177" y="175" font-family="ui-monospace,monospace" font-size="9.5" fill="var(--fisio)" text-anchor="middle">reversible con vitamina A</text>
+        </svg>
+        <figcaption><b>La misma carencia, dos destinos según cuándo se trate.</b> En la conjuntiva (izquierda) el cuadro <b>revierte en días</b> con vitamina A; pasada la frontera hacia la córnea, la <b>queratomalacia</b> es una urgencia que puede perforar el ojo y dejar cicatriz. Por eso el tratamiento es barato y eficaz <em>si llega a tiempo</em>: el problema es de acceso, no de fármaco.</figcaption>
+      </figure>
+
+      <div class="callout warn" style="margin-top:1.2rem">
+        <p class="eyebrow">El mecanismo detrás de la sequedad: metaplasia escamosa</p>
+        <p style="margin-top:.4rem">Sin vitamina A, el epitelio conjuntival deja de fabricar <strong>moco</strong> (pierde células caliciformes) y se transforma en un epitelio <strong>escamoso y queratinizado</strong>, como el de la piel. Ese epitelio ya no se deja mojar por la lágrima: la superficie se vuelve <strong>seca, mate y rugosa</strong>. Las <strong>manchas de Bitot</strong> —placas espumosas, grisáceas, en la conjuntiva temporal— son ese epitelio queratinizado con restos y bacterias. Es el mismo concepto de <em>metaplasia</em> que vimos como respuesta adaptativa: el tejido cambia a un tipo más resistente pero <em>menos funcional</em>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section id="deficits">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">04</span><h2>Otros déficits con expresión ocular</h2></div>
+      <div class="prose">
+        <p>La vitamina A es la protagonista, pero no la única. Varios nutrientes dejan huella en el ojo; conviene reconocerlos porque un signo ocular puede ser la <strong>primera pista</strong> de un problema nutricional sistémico.</p>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Nutriente</th><th>Para qué sirve</th><th>Signo ocular del déficit</th></tr></thead>
+          <tbody>
+            <tr><td class="k">Vitamina A</td><td>Rodopsina y epitelio mucoso</td><td>Ceguera nocturna, xeroftalmía, queratomalacia</td></tr>
+            <tr><td class="k">Tiamina (B1)</td><td>Metabolismo neuronal</td><td>Oftalmoplejía y nistagmo (encefalopatía de Wernicke)</td></tr>
+            <tr><td class="k">Riboflavina (B2)</td><td>Trofismo del epitelio y la córnea</td><td>Blefaritis angular, neovascularización corneal</td></tr>
+            <tr><td class="k">B12 / folato</td><td>Mielina y ADN</td><td>Neuropatía óptica nutricional (ambliopía tabaco-alcohol)</td></tr>
+            <tr><td class="k">Vitamina C</td><td>Síntesis de colágeno</td><td>Hemorragia subconjuntival (escorbuto)</td></tr>
+            <tr><td class="k">Zinc</td><td>Cofactor del metabolismo del retinol</td><td>Agrava la ceguera nocturna; interviene en la DMAE</td></tr>
+            <tr><td class="k">Omega-3 / luteína</td><td>Película lagrimal y protección macular</td><td>Ojo seco; factor en la degeneración macular</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="prose" style="margin-top:1rem">Fíjate en el <strong>zinc</strong>: no da un signo propio llamativo, pero es el <strong>cofactor</strong> que moviliza y activa la vitamina A. Un niño con zinc bajo responde peor al tratamiento con vitamina A: otra vez, el <em>terreno</em> modula al agente.</p>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section id="quimica" class="band-d">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">05</span><h2>Lesión química · mecanismo directo y por qué el álcali es peor</h2></div>
+      <div class="prose stack">
+        <p>Pasamos del factor que <em>falta</em> al que <em>sobra</em>. Un agente químico daña de dos formas: por mecanismo <strong>directo</strong> (destruye la molécula que toca) o <strong>indirecto</strong> (desencadena inflamación, isquemia y respuesta inmune que prolongan el daño). En la quemadura ocular conviven ambos, pero lo que decide el pronóstico es una diferencia química elemental: <strong>ácido o álcali</strong>.</p>
+      </div>
+
+      <figure class="fig">
+        <svg viewBox="0 0 860 250" role="img" aria-label="Comparación de la penetración de un ácido y un álcali en la córnea. El ácido coagula las proteínas de la superficie y forma una barrera que limita su propia penetración, por lo que el daño es superficial y autolimitado. El álcali saponifica los lípidos de las membranas y produce necrosis por licuefacción, por lo que penetra en profundidad hasta el limbo y el interior del ojo, con daño progresivo y más grave.">
+          <defs>
+            <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--pato)"/></marker>
+          </defs>
+          <g font-family="system-ui,sans-serif">
+            <!-- Ácido -->
+            <text x="200" y="30" font-size="13" font-weight="700" fill="var(--fisio)" text-anchor="middle">ÁCIDO</text>
+            <text x="200" y="47" font-size="10" class="svg-mut" text-anchor="middle">coagula proteínas → barrera</text>
+            <rect x="120" y="60" width="160" height="150" rx="6" fill="var(--surface)" stroke="var(--line)"/>
+            <rect x="120" y="60" width="160" height="34" fill="var(--fisio-soft)" stroke="var(--fisio)"/>
+            <text x="200" y="81" font-size="10.5" fill="var(--fisio)" text-anchor="middle">costra coagulada</text>
+            <text x="200" y="120" font-size="9.5" class="svg-mut" text-anchor="middle">córnea</text>
+            <text x="200" y="160" font-size="9.5" class="svg-mut" text-anchor="middle">estroma</text>
+            <text x="200" y="199" font-size="9.5" class="svg-mut" text-anchor="middle">limbo · interior</text>
+            <text x="200" y="232" font-size="10.5" font-weight="600" fill="var(--fisio)" text-anchor="middle">superficial · autolimitado</text>
+
+            <!-- Álcali -->
+            <text x="640" y="30" font-size="13" font-weight="700" fill="var(--pato)" text-anchor="middle">ÁLCALI</text>
+            <text x="640" y="47" font-size="10" class="svg-mut" text-anchor="middle">saponifica lípidos → licuefacción</text>
+            <rect x="560" y="60" width="160" height="150" rx="6" fill="var(--surface)" stroke="var(--line)"/>
+            <rect x="560" y="60" width="160" height="140" fill="var(--pato-soft)" stroke="var(--pato)"/>
+            <text x="640" y="120" font-size="10.5" fill="var(--pato)" text-anchor="middle">necrosis que</text>
+            <text x="640" y="136" font-size="10.5" fill="var(--pato)" text-anchor="middle">avanza</text>
+            <text x="640" y="192" font-size="9.5" fill="var(--pato)" text-anchor="middle">daña el limbo (células madre)</text>
+            <text x="640" y="232" font-size="10.5" font-weight="600" fill="var(--pato)" text-anchor="middle">profundo · progresivo</text>
+          </g>
+          <path d="M200,96 V150" fill="none" stroke="var(--fisio)" stroke-width="2" marker-end="url(#aq)"/>
+          <path d="M640,96 V196" fill="none" stroke="var(--pato)" stroke-width="2" marker-end="url(#aq)"/>
+        </svg>
+        <figcaption><b>El ácido se pone su propio freno; el álcali no.</b> El ácido <b>coagula</b> las proteínas y esa costra frena su avance: daño superficial. El álcali <b>saponifica</b> los lípidos de las membranas (necrosis por licuefacción) y sigue penetrando hasta el <b>limbo</b> —donde viven las células madre del epitelio corneal— y el interior del ojo. Por eso el álcali (lejía, cal, amoníaco) es la quemadura ocular más temida. En ambos casos, lo primero es <b>irrigar de inmediato, abundante y prolongadamente</b>.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section id="ambiental" class="band-d">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">06</span><h2>Exposición ambiental y ocupacional sobre la superficie ocular</h2></div>
+      <div class="prose stack">
+        <p>No todo daño ambiental es dramático. El más frecuente es <strong>crónico y de baja intensidad</strong>: el que reciben a diario los ojos por el aire, el trabajo y las pantallas. Su blanco es la <strong>película lagrimal</strong>, la primera línea de la superficie ocular.</p>
+      </div>
+      <div class="grid g3" style="margin-top:1.1rem">
+        <div class="card pato">
+          <p class="eyebrow">Ambiente físico</p>
+          <h3>Ojo seco evaporativo</h3>
+          <p>El <strong>viento</strong>, la baja humedad, el aire acondicionado y la calefacción evaporan la lágrima más rápido de lo que se repone. La película se vuelve <strong>inestable</strong> y la superficie se irrita.</p>
+        </div>
+        <div class="card pato">
+          <p class="eyebrow">Conducta y pantallas</p>
+          <h3>Menos parpadeo</h3>
+          <p>Frente a una pantalla el <strong>parpadeo cae</strong> a la mitad: la lágrima no se redistribuye y aparece la fatiga y el escozor del uso prolongado. Es dosis-y-tiempo en versión cotidiana.</p>
+        </div>
+        <div class="card pato">
+          <p class="eyebrow">Trabajo</p>
+          <h3>Exposición ocupacional</h3>
+          <p>Polvo, humos de <strong>soldadura</strong>, solventes y agroquímicos agreden la superficie. El riesgo no es igual para todos: depende del <strong>oficio</strong> y de la protección disponible.</p>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:1.2rem">
+        <p class="eyebrow">Un puente hacia la próxima clase</p>
+        <p style="margin-top:.4rem">La superficie ocular seca y agredida es también más vulnerable a la <strong>infección</strong> y a otras enfermedades sistémicas. El ojo seco no es un cuadro «menor»: es el terreno sobre el que se montan muchos problemas que veremos en diabetes e hipertensión.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section id="uv" class="band-f">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">07</span><h2>Radiación ultravioleta acumulada · pterigión y catarata</h2></div>
+      <div class="prose stack">
+        <p>La <strong>radiación ultravioleta</strong> del sol es el ejemplo perfecto de <strong>dosis que se suma con el tiempo</strong>. Una exposición intensa y breve produce una lesión aguda —la <strong>queratitis actínica</strong> (el «ojo de soldador» o la ceguera de la nieve): dolorosa, pero autolimitada—. Lo que de verdad enferma el ojo es la <strong>dosis acumulada durante décadas</strong>, que no duele mientras se acumula y un día cruza un umbral.</p>
+      </div>
+
+      <figure class="fig">
+        <svg viewBox="0 0 860 300" role="img" aria-label="Dosis de radiación ultravioleta acumulada a lo largo de la vida en dos personas. Un trabajador al aire libre sin protección acumula dosis con una pendiente pronunciada y cruza pronto el umbral de daño, desarrollando pterigión y catarata. Una persona de trabajo bajo techo y con protección acumula con una pendiente suave y se mantiene por debajo del umbral. La lesión depende de la dosis acumulada en el tiempo, no de una exposición aislada.">
+          <g stroke="var(--line)" stroke-width="1"><line x1="70" y1="40" x2="70" y2="245"/><line x1="70" y1="245" x2="820" y2="245"/></g>
+          <text x="34" y="150" font-family="ui-monospace,monospace" font-size="10.5" class="svg-mut" transform="rotate(-90 34 150)" text-anchor="middle">Dosis UV acumulada</text>
+          <text x="445" y="272" font-family="ui-monospace,monospace" font-size="10.5" class="svg-mut" text-anchor="middle">años de vida  →</text>
+          <!-- umbral -->
+          <line x1="70" y1="110" x2="820" y2="110" stroke="var(--pato)" stroke-width="2" stroke-dasharray="7 5"/>
+          <text x="815" y="102" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="var(--pato)" text-anchor="end">umbral de daño → pterigión, catarata</text>
+          <!-- trabajador exterior: pendiente pronunciada -->
+          <polyline points="70,245 300,150 520,95 760,55" fill="none" stroke="var(--pato)" stroke-width="2.5"/>
+          <circle cx="410" cy="110" r="4" fill="var(--pato)"/>
+          <text x="500" y="70" font-family="system-ui,sans-serif" font-size="11" fill="var(--pato)" text-anchor="middle">trabajo al aire libre, sin protección</text>
+          <text x="418" y="128" font-family="ui-monospace,monospace" font-size="9.5" fill="var(--pato)">cruza el umbral</text>
+          <!-- interior: pendiente suave -->
+          <polyline points="70,245 300,225 520,208 760,190" fill="none" stroke="var(--fisio)" stroke-width="2.5"/>
+          <text x="640" y="182" font-family="system-ui,sans-serif" font-size="11" fill="var(--fisio)" text-anchor="middle">bajo techo + gafas y sombrero</text>
+        </svg>
+        <figcaption><b>El sol no cobra hoy; cobra a treinta años.</b> Como la dosis se <b>acumula</b>, quien pasa la vida al aire libre sin protección cruza el umbral y desarrolla <b>pterigión</b> (tejido fibrovascular que invade la córnea desde el lado nasal, el «ojo del surfista») y <b>catarata</b> cortical por daño oxidativo del cristalino. La protección —gafas con filtro UV, sombrero— aplana la pendiente. La misma lógica de <em>umbral acumulado</em> que vimos en otros signos.</figcaption>
+      </figure>
+
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Patrón</th><th>Dosis y tiempo</th><th>Efecto ocular</th></tr></thead>
+          <tbody>
+            <tr><td class="k">Agudo</td><td>Intenso y breve (soldadura, nieve, altura)</td><td>Queratitis actínica: dolorosa, autolimitada en 24–48 h</td></tr>
+            <tr><td class="k">Acumulado</td><td>Moderado, repetido, durante décadas</td><td>Pterigión, pinguécula, catarata cortical</td></tr>
+            <tr><td class="k">Sobre estructuras profundas</td><td>Crónico, con otros factores</td><td>Contribuye a la degeneración macular y a tumores de superficie y párpado</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 -->
+  <section id="social">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">08</span><h2>Determinantes sociales · por qué el mismo agente no produce el mismo daño</h2></div>
+      <div class="prose stack">
+        <p>Aquí se cierra el eje de la clase. Si el agente fuera suficiente, dos personas expuestas a lo mismo enfermarían igual. No ocurre. Entre el agente y el daño está el <strong>terreno</strong>, y el terreno lo modelan las <strong>condiciones de vida</strong>: la alimentación, el oficio, el acceso a protección y a tratamiento, el lugar donde se vive.</p>
+      </div>
+      <div class="fork">
+        <div class="lane a">
+          <p class="eyebrow">Mismo sol</p>
+          <h3>Distinta exposición</h3>
+          <p>El pescador, el agricultor y el albañil reciben una dosis UV enorme sin gafas ni sombra; el oficinista, casi ninguna. El <strong>pterigión</strong> es una enfermedad del trabajo al aire libre, no un azar.</p>
+        </div>
+        <div class="lane b">
+          <p class="eyebrow">Mismo sarampión</p>
+          <h3>Distinto desenlace</h3>
+          <p>El sarampión <strong>consume las reservas de vitamina A</strong>. En un niño bien nutrido es una infección; en uno con déficit marginal, precipita la <strong>queratomalacia</strong> y la ceguera. El agente es el mismo; el terreno decide.</p>
+        </div>
+      </div>
+      <div class="callout note" style="margin-top:1.2rem">
+        <p class="eyebrow">Por qué esto es fisiopatología, no sociología</p>
+        <p style="margin-top:.4rem">Los determinantes sociales no «acompañan» a la enfermedad: <strong>entran en su mecanismo</strong>. La pobreza baja las reservas de vitamina A (modifica el terreno), el oficio fija la dosis de UV (modifica la exposición) y el acceso al sistema de salud decide si la xeroftalmía se detiene antes o después de la frontera corneal. Entender esto es lo que convierte un hallazgo ocular en una historia clínica completa.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 -->
+  <section id="ocular">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">09</span><h2>Qué ve el optómetra</h2></div>
+      <p class="prose" style="margin-bottom:1.3rem">Toda la clase aterriza en la superficie del ojo y en el cristalino. Estos son los signos que hoy solo hay que <strong>reconocer y ubicar en su mecanismo</strong>; su manejo detallado corresponde a espacios posteriores.</p>
+      <div class="grid g3">
+        <div class="card fisio">
+          <p class="eyebrow">Nutricional</p>
+          <h3>Bitot y xerosis</h3>
+          <p>Placas <strong>espumosas grisáceas</strong> en la conjuntiva temporal (manchas de Bitot) y una superficie <strong>seca y mate</strong> señalan déficit de vitamina A. Buscar <strong>ceguera nocturna</strong> en la anamnesis, sobre todo en niños.</p>
+        </div>
+        <div class="card pato">
+          <p class="eyebrow">Químico agudo</p>
+          <h3>Isquemia del limbo</h3>
+          <p>Tras un cáustico, un <strong>limbo pálido</strong> (blanqueamiento perilímbico) y la córnea opaca son signos de gravedad: indican daño de las células madre. La conducta inmediata es <strong>irrigar</strong>.</p>
+        </div>
+        <div class="card amber">
+          <p class="eyebrow">Ambiental acumulado</p>
+          <h3>Pterigión y catarata</h3>
+          <p>El <strong>pterigión</strong> nasal que invade la córnea y la <strong>catarata</strong> en un paciente con vida al aire libre cuentan una historia de dosis UV acumulada. Recomendar <strong>protección</strong> es intervenir en el mecanismo.</p>
+        </div>
+      </div>
+      <p class="prose" style="margin-top:1.1rem">Regla común a los tres: son <strong>marcas del ambiente y del plato que asoman por el ojo</strong>. El optómetra que las lee no ve una lesión aislada, sino a la persona, su oficio y sus condiciones de vida.</p>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="autoeval">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">10</span><h2>Autoevaluación</h2></div>
+      <p class="prose" style="margin-bottom:1rem">Responde mentalmente antes de decidir.</p>
+
+      <h3 style="margin-bottom:.4rem; font-size:1.05rem">A · Xeroftalmía: ¿reversible con vitamina A o ya irreversible?</h3>
+      <p style="color:var(--muted); font-size:.9rem; margin-bottom:.6rem">Pista: la frontera está entre la conjuntiva y la córnea.</p>
+      <div class="card" id="drillA"></div>
+
+      <h3 style="margin:2rem 0 .4rem; font-size:1.05rem">B · Quemadura química: ¿ácido o álcali?</h3>
+      <p style="color:var(--muted); font-size:.9rem; margin-bottom:.6rem">Pista: piensa en coagulación (freno) frente a licuefacción (penetra).</p>
+      <div class="card" id="drillB"></div>
+
+      <h3 style="margin:2rem 0 .8rem; font-size:1.05rem">C · Diez preguntas</h3>
+      <div id="quiz"></div>
+
+      <div class="grid g2" style="margin-top:1.6rem">
+        <div class="card">
+          <h3>Trabajo independiente</h3>
+          <ul>
+            <li>Esquema de las <strong>dos funciones</strong> de la vitamina A (rodopsina y epitelio) y por qué falla primero la visión nocturna</li>
+            <li>Dibujar la <strong>cascada de la xeroftalmía</strong> marcando la frontera reversible / irreversible</li>
+            <li>Explicar con el mecanismo por qué el <strong>álcali</strong> es peor que el ácido</li>
+            <li>Curva de <strong>dosis UV acumulada</strong> para dos oficios distintos y su relación con pterigión y catarata</li>
+            <li>Un párrafo: por qué el mismo sarampión ciega a un niño y a otro no (<strong>terreno</strong>)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Fuentes de la sesión</h3>
+          <ul>
+            <li>Uribe Olivares, R. A. (2018). <em>Fisiopatología. La ciencia del porqué y el cómo</em>. Elsevier. Cap. 5 (repaso: lesión, adaptación y metaplasia).</li>
+            <li>Organización Mundial de la Salud — clasificación de la xeroftalmía y déficit de vitamina A.</li>
+            <li>Kanski / material complementario de superficie ocular: quemaduras químicas y patología por UV.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Fisiopatología General (01008430) · Programa de Optometría · Facultad de Ciencias de la Salud · Universidad de La Salle · Semestre 2026-2</p>
+    <p style="margin-top:.4rem">Clase 12 de 16. Los signos oculares ilustran el mecanismo general; su estudio y manejo detallados corresponden a espacios académicos posteriores.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  document.getElementById('themeBtn').addEventListener('click', function(){
+    var dark = root.getAttribute('data-theme') === 'dark'
+      || (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+    root.setAttribute('data-theme', dark ? 'light' : 'dark');
+  });
+
+  function buildDrill(mount, items, opts){
+    var A = document.getElementById(mount); if(!A) return;
+    var ok=0, ans=0;
+    var score = document.createElement('p'); score.className='score';
+    items.forEach(function(it){
+      var row=document.createElement('div'); row.className='drill-row';
+      var q=document.createElement('span'); q.className='drill-q'; q.textContent=it.t;
+      var v=document.createElement('span'); v.className='verdict'; row.appendChild(q);
+      var done=false;
+      opts.forEach(function(o){
+        var b=document.createElement('button'); b.className='btn'; b.type='button'; b.textContent=o[1];
+        b.addEventListener('click', function(){
+          row.querySelectorAll('.btn').forEach(function(x){x.classList.remove('ok','no');});
+          var good=o[0]===it.a; b.classList.add(good?'ok':'no');
+          v.innerHTML=(good?'<b>Correcto.</b> ':'<b>Revisa.</b> ')+it.e;
+          if(!done){done=true; ans++; if(good)ok++; score.textContent='Primer intento: '+ok+' de '+ans+' ('+items.length+' en total)';}
+        });
+        row.appendChild(b);
+      });
+      row.appendChild(v); A.appendChild(row);
+    });
+    A.appendChild(score);
+  }
+
+  buildDrill('drillA', [
+    { t:'Un niño ve bien de día pero tropieza al anochecer; el resto del examen es normal', a:'rev', e:'Ceguera nocturna (XN): falla la rodopsina, aún sin daño estructural. Revierte en días con vitamina A.' },
+    { t:'Placa espumosa grisácea en la conjuntiva temporal (mancha de Bitot), córnea clara', a:'rev', e:'Xerosis conjuntival con Bitot (X1): epitelio queratinizado en la conjuntiva. Todavía reversible con vitamina A.' },
+    { t:'Córnea reblandecida que amenaza con perforarse en un lactante con sarampión', a:'irr', e:'Queratomalacia (X3): urgencia; el daño corneal puede dejar ceguera permanente. Pasó la frontera.' },
+    { t:'Opacidad corneal blanquecina residual tras un episodio de xeroftalmía tratado tarde', a:'irr', e:'Cicatriz corneal (XS): secuela establecida. El tejido corneal ya no recupera transparencia.' }
+  ], [['rev','Reversible'],['irr','Irreversible']]);
+
+  buildDrill('drillB', [
+    { t:'Salpicadura de lejía (hipoclorito) doméstica; a los minutos la córnea se ve cada vez más opaca', a:'alc', e:'Álcali: saponifica lípidos, necrosis por licuefacción que penetra y progresa. El daño avanza con el tiempo.' },
+    { t:'Salpicadura de ácido de batería; se forma una costra superficial y el daño no progresa', a:'aci', e:'Ácido: coagula proteínas y esa costra frena su penetración. Daño superficial y autolimitado.' },
+    { t:'Contacto con cal (hidróxido de calcio) en una obra; limbo pálido y córnea turbia', a:'alc', e:'Álcali: el blanqueamiento del limbo indica daño de células madre, típico de la penetración profunda del álcali.' },
+    { t:'Quemadura por vinagre concentrado (ácido acético); molestia y erosión que no avanza', a:'aci', e:'Ácido: coagulación autolimitante. Menos penetrante que un álcali equivalente.' }
+  ], [['aci','Ácido'],['alc','Álcali']]);
+
+  var qs = [
+    ['¿Cuáles son las dos funciones de la vitamina A que explican su patología ocular?',
+     'Primera, la visión: el retinol se convierte en 11-cis-retinal, que con la opsina forma la rodopsina de los bastones. Segunda, el mantenimiento del epitelio mucoso y sus células caliciformes productoras de moco. Su déficit ataca ambas: ceguera nocturna por la primera, xerosis y metaplasia por la segunda.'],
+    ['¿Por qué la ceguera nocturna es el primer síntoma del déficit de vitamina A?',
+     'Porque los bastones, responsables de la visión en penumbra, dependen totalmente de la rodopsina, que se consume con la luz y debe regenerarse con retinal nuevo. Cuando el retinal escasea, los bastones se quedan sin pigmento antes que los conos, y falla la adaptación a la oscuridad mientras la visión diurna aún se conserva.'],
+    ['Describe la cascada de la xeroftalmía y dónde está la frontera clínica clave.',
+     'Avanza así: ceguera nocturna (XN) → xerosis conjuntival con manchas de Bitot (X1) → xerosis corneal (X2) → queratomalacia (X3) → cicatriz corneal (XS). La frontera clave está entre la conjuntiva y la córnea: hasta la conjuntiva el cuadro revierte en días con vitamina A; a partir de la afectación corneal el daño puede ser permanente.'],
+    ['¿Qué es la metaplasia escamosa y cómo produce la sequedad ocular en el déficit de vitamina A?',
+     'Es la transformación del epitelio mucoso normal (con células caliciformes que secretan moco) en un epitelio escamoso y queratinizado, parecido al de la piel. Ese epitelio ya no produce moco ni se deja mojar por la lágrima, de modo que la superficie se vuelve seca, mate y rugosa (xerosis). Las manchas de Bitot son ese epitelio queratinizado acumulado.'],
+    ['¿Por qué la queratomalacia es una urgencia?',
+     'Porque es el reblandecimiento y la fusión de la córnea por déficit grave de vitamina A: puede ulcerarse y perforarse en poco tiempo, dejando ceguera permanente por cicatriz o pérdida del ojo. Requiere vitamina A a dosis altas de inmediato; es la fase que ya pasó la frontera reversible.'],
+    ['¿Qué papel juega el zinc en la vitamina A y qué ilustra sobre el "terreno"?',
+     'El zinc es cofactor del metabolismo del retinol (su movilización desde el hígado y su conversión a retinal). Con zinc bajo, la vitamina A se aprovecha peor y el paciente responde menos al tratamiento. Ilustra que el terreno del huésped —aquí, otro déficit— modula el efecto del agente o del nutriente.'],
+    ['Explica por qué una quemadura por álcali es más grave que una por ácido.',
+     'El ácido coagula las proteínas de la superficie y forma una costra que frena su propia penetración: daño superficial y autolimitado. El álcali saponifica los lípidos de las membranas y produce necrosis por licuefacción, que sigue penetrando en profundidad hasta el limbo (células madre del epitelio corneal) y el interior del ojo, con daño progresivo y peor pronóstico.'],
+    ['¿Por qué es tan importante el daño del limbo en una quemadura ocular?',
+     'Porque en el limbo residen las células madre que regeneran el epitelio corneal. Si el cáustico las destruye, la córnea no puede reepitelizarse bien: se conjuntaliza, se vasculariza y pierde transparencia. Por eso el blanqueamiento perilímbico es un signo de gravedad y la irrigación inmediata es la primera medida.'],
+    ['Diferencia el efecto agudo del acumulado de la radiación ultravioleta sobre el ojo.',
+     'Agudo: una exposición intensa y breve produce queratitis actínica (ojo de soldador, ceguera de la nieve), dolorosa pero autolimitada en 24–48 h. Acumulado: la dosis moderada repetida durante décadas cruza un umbral y produce pterigión, pinguécula y catarata cortical por daño oxidativo del cristalino. Lo determinante es la dosis acumulada, no una exposición aislada.'],
+    ['Da un ejemplo de cómo un determinante social entra en el mecanismo de la enfermedad ocular.',
+     'El sarampión consume las reservas de vitamina A: en un niño con déficit marginal por pobreza, precipita la queratomalacia y la ceguera, mientras que en un niño bien nutrido es solo una infección. El mismo agente produce daños distintos porque el terreno —modelado por la alimentación y las condiciones de vida— forma parte del mecanismo, no es un simple acompañante.']
+  ];
+  var quiz=document.getElementById('quiz');
+  qs.forEach(function(pair,i){
+    var d=document.createElement('div'); d.className='q';
+    var h=document.createElement('button'); h.className='q-head'; h.type='button'; h.setAttribute('aria-expanded','false');
+    h.innerHTML='<span class="q-n">'+String(i+1).padStart(2,'0')+'</span><span>'+pair[0]+'</span>';
+    var b=document.createElement('div'); b.className='q-body'; b.textContent=pair[1];
+    h.addEventListener('click', function(){ var open=d.classList.toggle('open'); h.setAttribute('aria-expanded', open?'true':'false'); });
+    d.appendChild(h); d.appendChild(b); quiz.appendChild(d);
+  });
+})();
+</script>
+</body>
+</html>

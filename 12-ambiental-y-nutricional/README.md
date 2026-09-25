@@ -4,7 +4,7 @@
 
 | Estado | Material | Duración |
 |---|---|---|
-| ⬜ **Programada** | 🕓 En preparación | 2 horas |
+| ⬜ **Programada** | 📘 [Clase interactiva](clase.html) | 2 horas |
 
 ---
 
@@ -14,7 +14,7 @@ Abre el bloque de aplicación disciplinar. El déficit de vitamina A es el vínc
 
 ## Material de clase
 
-_En preparación._ La clase interactiva se publica aquí el día del encuentro o antes.
+- 📘 **[Clase interactiva](clase.html)** — 10 secciones, con tres diagramas originales (la cascada de la xeroftalmía con su frontera reversible/irreversible, ácido frente a álcali y su penetración en la córnea, y la dosis de radiación UV acumulada que cruza un umbral en el tiempo), tabla de déficits nutricionales con expresión ocular, dos ejercicios interactivos (reversible vs. irreversible; ácido vs. álcali) y autoevaluación de 10 preguntas. Eje: **agente · dosis · tiempo · terreno**.
 
 ## Contenidos
 
