@@ -42,4 +42,4 @@ _En preparación._ La clase interactiva se publica aquí el día del encuentro o
 
 ---
 
-← [Encuentro 13: Diabetes e hipertensión: el ojo como ventana sistémica](../13-diabetes-e-hipertension/) · [Índice del curso](../) · [Encuentro 15: Parcial final](../15-parcial-final/) →
+← [Encuentro 13: Diabetes e hipertensión: el ojo como ventana sistémica](../13-diabetes-e-hipertension/) · [Índice del curso](../) · [Encuentro 15: Repaso final con los resultados del taller](../15-repaso-final/) →

@@ -65,8 +65,8 @@ qué hacer con él.
 | ⬜ | **12** | 15 de octubre | Patología ambiental y nutricional: el ojo como órgano diana | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/12-ambiental-y-nutricional/clase.html)** · [detalle](12-ambiental-y-nutricional/) |
 | ⬜ | **13** | 22 de octubre | Diabetes e hipertensión: el ojo como ventana sistémica | _en preparación_ |
 | ⬜ | **14** | 29 de octubre | Trastornos ópticos desde la fisiopatología · cine-foro | _en preparación_ |
-| 📝 | **15** | 5 de noviembre | **Parcial final** | — |
-| 💬 | **16** | 12 de noviembre | Socialización de notas y cierre | — |
+| ⬜ | **15** | 5 de noviembre | Repaso final con los resultados del taller de repaso (el taller cierra el miércoles 4, 11:59 p. m.) | [detalle](15-repaso-final/) |
+| 📝 | **16** | 12 de noviembre | **Parcial final** (1.ª hora, en línea en el aula) · socialización de notas y cierre (2.ª hora) | [detalle](16-parcial-final-y-cierre/) |
 
 **Convenciones:** ✅ cumplida · 🔴 hoy · 🔜 próxima · ⬜ programada · 📝 evaluación · 💬 retroalimentación · ⏸️ receso · ❌ cancelada
 
@@ -82,7 +82,7 @@ e incluye ejercicios interactivos y autoevaluación.
 |---|---|---|---|
 | **1. Fundamentos** | 1–3 | Qué es la fisiopatología, salud y enfermedad, semiología básica, y la respuesta del tejido a la agresión: lesión, adaptación, inflamación y reparación | Primer parcial · 13 ago |
 | **2. Inmunidad, síntomas y signos** | 6–8 | Respuesta inmunitaria e infección; fiebre, dolor, edema y síncope | Segundo parcial · 24 sep |
-| **3. Aplicación disciplinar** | 11–14 | Disnea, cianosis y vértigo; ambiente y nutrición; diabetes e hipertensión; trastornos ópticos | Parcial final · 5 nov |
+| **3. Aplicación disciplinar** | 11–14 | Disnea, cianosis y vértigo; ambiente y nutrición; diabetes e hipertensión; trastornos ópticos | Parcial final · 12 nov |
 
 El orden no es casual: la inflamación se ve **antes** que la fiebre, el dolor y el edema, porque es
 el mecanismo que los explica.
