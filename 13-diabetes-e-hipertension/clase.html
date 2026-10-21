@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clase 13 — Diabetes e hipertensión: el ojo como ventana sistémica</title>
+<style>
+  :root{
+    --ink:#12212b; --paper:#f4f7f7; --surface:#ffffff; --surface-2:#eaf0f0;
+    --line:#cbd8da; --muted:#516268;
+    --fisio:#10505e; --fisio-soft:#dceaec;
+    --pato:#a8412c; --pato-soft:#f5e2dc;
+    --amber:#9a6b12; --amber-soft:#f6ecd6;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 8px 24px -16px rgba(18,33,43,.35);
+    --display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+    --measure:66ch;
+    --pad:clamp(1rem,4vw,2.5rem);
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+      --line:#2c3d43; --muted:#9bafb4;
+      --fisio:#5cb6c6; --fisio-soft:#12313a;
+      --pato:#e08a70; --pato-soft:#3a2119;
+      --amber:#d5a446; --amber-soft:#33290f;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.9);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+    --line:#2c3d43; --muted:#9bafb4;
+    --fisio:#5cb6c6; --fisio-soft:#12313a;
+    --pato:#e08a70; --pato-soft:#3a2119;
+    --amber:#d5a446; --amber-soft:#33290f;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.9);
+  }
+  :root[data-theme="light"]{
+    --ink:#12212b; --paper:#f4f7f7; --surface:#ffffff; --surface-2:#eaf0f0;
+    --line:#cbd8da; --muted:#516268;
+    --fisio:#10505e; --fisio-soft:#dceaec;
+    --pato:#a8412c; --pato-soft:#f5e2dc;
+    --amber:#9a6b12; --amber-soft:#f6ecd6;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 8px 24px -16px rgba(18,33,43,.35);
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--body); font-size:clamp(15px,.5vw + 14px,17px); line-height:1.62; -webkit-font-smoothing:antialiased}
+  h1,h2,h3,h4{font-family:var(--display); font-weight:600; line-height:1.15; text-wrap:balance; margin:0}
+  p{margin:0}
+  a{color:var(--fisio)}
+  .wrap{max-width:1040px; margin:0 auto; padding-inline:var(--pad)}
+  .prose{max-width:var(--measure)}
+  .stack{display:flex; flex-direction:column}
+  .stack>*+*{margin-top:1rem}
+  .eyebrow{font-family:var(--mono); font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)}
+
+  header.top{position:sticky; top:0; z-index:50; background:color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter:blur(10px); border-bottom:1px solid var(--line)}
+  .top-in{display:flex; align-items:center; gap:1rem; height:54px}
+  .brand{font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); white-space:nowrap}
+  nav.jump{margin-left:auto; display:flex; gap:.15rem; overflow-x:auto; scrollbar-width:none}
+  nav.jump::-webkit-scrollbar{display:none}
+  nav.jump a{font-size:.78rem; text-decoration:none; color:var(--muted); padding:.3rem .55rem; border-radius:99px; white-space:nowrap}
+  nav.jump a:hover{color:var(--ink); background:var(--surface-2)}
+  .theme-btn{border:1px solid var(--line); background:var(--surface); color:var(--muted); border-radius:99px; width:32px; height:32px; cursor:pointer; flex:none; font-size:.85rem}
+  .theme-btn:hover{color:var(--ink)}
+
+  .hero{padding:clamp(2.5rem,7vw,5rem) 0 clamp(2rem,5vw,3.5rem)}
+  .hero h1{font-size:clamp(2.1rem,5.5vw,3.6rem); letter-spacing:-.01em; margin-top:.6rem}
+  .hero .sub{max-width:60ch; color:var(--muted); font-size:1.05rem; margin-top:1.1rem}
+  .hero-meta{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.6rem}
+  .chip{font-family:var(--mono); font-size:.7rem; letter-spacing:.06em; border:1px solid var(--line); border-radius:99px; padding:.3rem .7rem; background:var(--surface); color:var(--muted)}
+  .chip strong{color:var(--ink); font-weight:600}
+  .split-word{display:inline-flex; flex-wrap:wrap; gap:.1em}
+  .split-word .a{color:var(--fisio)}
+  .split-word .b{color:var(--pato)}
+  .split-word .c{color:var(--amber)}
+
+  section{padding:clamp(2.2rem,5vw,3.6rem) 0; border-top:1px solid var(--line)}
+  .sec-head{display:flex; align-items:baseline; gap:.9rem; margin-bottom:1.4rem; flex-wrap:wrap}
+  .sec-num{font-family:var(--mono); font-size:.72rem; color:var(--fisio); border:1px solid var(--fisio); border-radius:4px; padding:.1rem .4rem; flex:none}
+  .sec-head h2{font-size:clamp(1.4rem,3vw,2rem)}
+  .band-f .sec-num{color:var(--amber); border-color:var(--amber)}
+  .band-d .sec-num{color:var(--pato); border-color:var(--pato)}
+
+  .grid{display:grid; gap:1rem}
+  @media(min-width:720px){ .g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)} }
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:1.1rem 1.2rem; box-shadow:var(--shadow)}
+  .card h3{font-size:1.02rem; margin-bottom:.45rem}
+  .card p, .card li{font-size:.92rem; color:var(--muted)}
+  .card.fisio{border-left:3px solid var(--fisio)}
+  .card.pato{border-left:3px solid var(--pato)}
+  .card.amber{border-left:3px solid var(--amber)}
+  .card ul{margin:.4rem 0 0; padding-left:1.1rem}
+  .card li+li{margin-top:.25rem}
+  .card .ocular{margin-top:.7rem; padding-top:.6rem; border-top:1px dashed var(--line); font-size:.82rem; color:var(--fisio)}
+
+  .callout{background:var(--fisio-soft); border:1px solid color-mix(in srgb,var(--fisio) 30%, transparent); border-radius:10px; padding:1rem 1.2rem}
+  .callout .eyebrow{color:var(--fisio)}
+  .callout.warn{background:var(--pato-soft); border-color:color-mix(in srgb,var(--pato) 30%, transparent)}
+  .callout.warn .eyebrow{color:var(--pato)}
+  .callout.note{background:var(--amber-soft); border-color:color-mix(in srgb,var(--amber) 35%, transparent)}
+  .callout.note .eyebrow{color:var(--amber)}
+
+  .table-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface); margin-top:1.1rem}
+  table{border-collapse:collapse; width:100%; font-size:.88rem; min-width:520px}
+  th,td{text-align:left; padding:.6rem .8rem; border-bottom:1px solid var(--line); vertical-align:top}
+  th{font-family:var(--mono); font-size:.68rem; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); font-weight:500}
+  tbody tr:last-child td{border-bottom:none}
+  td.k{font-weight:600; white-space:nowrap}
+
+  .fork{display:grid; gap:.8rem; margin-top:1rem}
+  @media(min-width:720px){.fork{grid-template-columns:1fr 1fr}}
+  .fork .lane{border:1px solid var(--line); border-radius:10px; padding:1rem; background:var(--surface)}
+  .fork .lane.a{border-top:3px solid var(--fisio)}
+  .fork .lane.b{border-top:3px solid var(--pato)}
+  .fork .lane h3{font-size:1rem; margin-bottom:.4rem}
+  .fork .lane p, .fork .lane li{font-size:.9rem; color:var(--muted)}
+  .fork .lane ul{margin:.4rem 0 0; padding-left:1.1rem}
+
+  .drill-row{display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; padding:.65rem 0; border-bottom:1px solid var(--line)}
+  .drill-row:last-child{border-bottom:none}
+  .drill-q{flex:1 1 240px; font-size:.94rem}
+  .btn{font-family:var(--body); font-size:.78rem; cursor:pointer; border:1px solid var(--line); background:var(--surface); color:var(--ink); border-radius:99px; padding:.3rem .75rem}
+  .btn:hover{border-color:var(--fisio)}
+  .btn:focus-visible, a:focus-visible, .q-head:focus-visible{outline:2px solid var(--fisio); outline-offset:2px}
+  .btn.ok{background:var(--fisio); border-color:var(--fisio); color:#fff}
+  .btn.no{background:var(--pato); border-color:var(--pato); color:#fff}
+  .verdict{font-size:.82rem; flex-basis:100%; color:var(--muted)}
+  .verdict b{color:var(--ink)}
+  .score{font-family:var(--mono); font-size:.78rem; color:var(--muted); margin-top:.8rem}
+
+  .q{border:1px solid var(--line); border-radius:10px; background:var(--surface); overflow:hidden}
+  .q+.q{margin-top:.6rem}
+  .q-head{width:100%; text-align:left; background:none; border:0; color:inherit; font:inherit; padding:.85rem 1rem; cursor:pointer; display:flex; gap:.7rem; align-items:baseline}
+  .q-head:hover{background:var(--surface-2)}
+  .q-n{font-family:var(--mono); font-size:.72rem; color:var(--fisio); flex:none}
+  .q-body{padding:0 1rem 1rem 2.4rem; font-size:.9rem; color:var(--muted); display:none}
+  .q.open .q-body{display:block}
+  .q.open .q-head{background:var(--surface-2)}
+
+  footer{border-top:1px solid var(--line); padding:2rem 0 3rem; color:var(--muted); font-size:.83rem}
+  figure.fig{margin:1.4rem 0 0; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:1.1rem 1.2rem .9rem}
+  figure.fig svg{display:block; width:100%; height:auto; color:var(--ink)}
+  figure.fig figcaption{margin-top:.7rem; font-size:.84rem; color:var(--muted); line-height:1.5}
+  figure.fig figcaption b{color:var(--ink)}
+  .svg-mut{fill:var(--muted)} .svg-ink{fill:var(--ink)}
+  @media (prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-in">
+    <span class="brand">Fisiopatología General · Clase 13</span>
+    <nav class="jump">
+      <a href="#intro">Marco</a>
+      <a href="#diabetes">Diabetes</a>
+      <a href="#vias">Vías de daño</a>
+      <a href="#rd">Retinopatía diabética</a>
+      <a href="#cristalino">Cristalino</a>
+      <a href="#hta">Hipertensión</a>
+      <a href="#rh">Retinopatía hipertensiva</a>
+      <a href="#juntas">Juntas</a>
+      <a href="#remision">Remisión</a>
+      <a href="#autoeval">Autoevaluación</a>
+    </nav>
+    <button class="theme-btn" id="themeBtn" aria-label="Cambiar tema">◐</button>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <p class="eyebrow">Clase 13 · Aplicación disciplinar · Semana del 22 de octubre</p>
+    <h1>Diabetes <span class="split-word"><span class="a">e</span>&nbsp;<span class="b">hipertensión</span></span>: el ojo como ventana sistémica</h1>
+    <p class="sub">La retina es el único lugar del cuerpo donde se ven arteriolas y capilares vivos sin hacer una sola incisión. Por eso el optómetra que mira un fondo de ojo está mirando, en pequeño, lo que les pasa al riñón, al cerebro y al corazón. Hoy estudiamos las dos enfermedades que más se leen ahí, y una idea las separa: la <strong>diabetes</strong> daña sobre todo el <strong>capilar</strong> (es un problema metabólico) y la <strong>hipertensión</strong> daña sobre todo la <strong>arteriola</strong> (es un problema de presión).</p>
+    <div class="hero-meta">
+      <span class="chip">Sesión <strong>13 de 16</strong></span>
+      <span class="chip">Fecha <strong>22 oct 2026</strong></span>
+      <span class="chip">Duración <strong>2 horas</strong></span>
+      <span class="chip">Texto guía <strong>Uribe caps. 41 y 62</strong></span>
+    </div>
+  </div>
+
+  <!-- 01 -->
+  <section id="intro">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">01</span><h2>Dos enfermedades silenciosas que se ven en el fondo de ojo</h2></div>
+      <div class="prose stack">
+        <p>La diabetes y la hipertensión comparten tres rasgos que las hacen centrales para la optometría. Primero, son <strong>muy frecuentes</strong>: la hipertensión afecta a cerca de mil millones de personas en el mundo, y en algunos países casi la mitad de los hipertensos no sabe que lo es. Segundo, son <strong>silenciosas</strong>: la hipertensión puede pasar de 10 a 20 años sin síntomas (por eso la llaman «asesina silenciosa») y la retinopatía diabética avanza sin que el paciente note nada hasta que el daño es grande. Tercero, ambas son <strong>enfermedades de los vasos</strong>, y los vasos de la retina se pueden mirar directamente.</p>
+        <p>Por eso un examen visual de rutina puede ser el primer lugar donde se sospecha una de las dos. El optómetra no las diagnostica ni las trata, pero sí puede <strong>reconocer el signo, entender su mecanismo y remitir a tiempo</strong>. Ese es el objetivo de hoy.</p>
+      </div>
+      <div class="grid g2" style="margin-top:1.3rem">
+        <div class="card fisio">
+          <p class="eyebrow">Problema metabólico</p>
+          <h3>Diabetes · el capilar</h3>
+          <p>El exceso de <strong>glucosa</strong> entra sin freno en las células que no necesitan insulina para captarla, entre ellas el endotelio y los <strong>pericitos</strong> de los capilares retinianos. Ahí la glucosa se vuelve tóxica: la pared del capilar se debilita, se escapa líquido y, al final, el capilar se cierra.</p>
+        </div>
+        <div class="card pato">
+          <p class="eyebrow">Problema de presión</p>
+          <h3>Hipertensión · la arteriola</h3>
+          <p>La presión alta y sostenida <strong>estira</strong> la pared de las arteriolas, que responden contrayéndose y engrosándose. La arteriola se estrecha y se endurece; si la presión sube mucho, la pared se rompe y aparecen hemorragias, exudados y edema de papila.</p>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:1.2rem">
+        <p class="eyebrow">La idea que ordena la sesión</p>
+        <p style="margin-top:.4rem">Ante un hallazgo en el fondo de ojo, pregunta <strong>qué vaso está enfermo y por qué</strong>. Si el daño está en el <em>capilar</em> (microaneurismas, fuga, cierre capilar), piensa en un agresor <em>metabólico</em>. Si está en la <em>arteriola</em> (estrechamiento, cruces, rotura por presión), piensa en un agresor <em>mecánico</em>. Muchos pacientes tienen las dos enfermedades, y entonces los dos daños se potencian.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section id="diabetes">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">02</span><h2>Diabetes mellitus · cuando la insulina no alcanza</h2></div>
+      <div class="prose stack">
+        <p>La <strong>insulina</strong>, que producen las <strong>células β</strong> de los islotes de Langerhans, es la llave que deja entrar la glucosa en el músculo y el tejido adiposo: activa su receptor y hace que el transportador <strong>GLUT-4</strong> suba a la membrana. La <strong>diabetes</strong> es la hiperglucemia crónica que aparece cuando esa acción falla, porque falta insulina, porque los tejidos no le responden, o por ambas cosas.</p>
+      </div>
+      <div class="fork">
+        <div class="lane a">
+          <p class="eyebrow">Diabetes tipo 1</p>
+          <h3>No hay insulina</h3>
+          <ul>
+            <li>Destrucción <strong>autoinmunitaria</strong> de las células β (linfocitos T y anticuerpos), sobre un terreno genético HLA de clase II; a veces la dispara una infección viral.</li>
+            <li>Déficit <strong>absoluto</strong> de insulina: suele empezar en la infancia o la juventud.</li>
+            <li>Sin insulina, las células «tienen hambre» en medio de la glucosa: queman grasa y aparece la <strong>cetoacidosis</strong>.</li>
+          </ul>
+        </div>
+        <div class="lane b">
+          <p class="eyebrow">Diabetes tipo 2 · cerca del 95 %</p>
+          <h3>Hay insulina, pero no funciona</h3>
+          <ul>
+            <li><strong>Resistencia a la insulina</strong>: menos receptores, peor señal, menos GLUT-4. La obesidad central la agrava.</li>
+            <li>Al principio las células β <strong>compensan</strong> produciendo más insulina y la glucemia se mantiene normal.</li>
+            <li>Con los años las células β se <strong>agotan</strong>: aparece la hiperglucemia, a menudo mucho después de que empezó el daño.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout note" style="margin-top:1.2rem">
+        <p class="eyebrow">De la glucosa alta a los síntomas clásicos</p>
+        <p style="margin-top:.4rem">La glucosa es <strong>osmóticamente activa</strong>. Cuando su concentración en sangre supera lo que el riñón puede reabsorber, sale por la orina (<strong>glucosuria</strong>) y arrastra agua (<strong>poliuria</strong>); la pérdida de agua da <strong>sed</strong> (polidipsia). Esa misma propiedad osmótica va a explicar, más adelante, por qué cambia la graduación de un diabético mal controlado.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section id="vias">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">03</span><h2>Por qué la glucosa alta daña los vasos · cuatro vías</h2></div>
+      <div class="prose stack">
+        <p>La pregunta clave es <strong>qué tejidos sufren</strong>. El músculo y la grasa solo dejan entrar la glucosa si hay insulina. Pero el <strong>endotelio</strong>, los <strong>pericitos</strong> de la retina, el <strong>nervio</strong>, el <strong>riñón</strong> y el <strong>cristalino</strong> la captan <em>sin necesidad de insulina</em>: cuando la glucosa en sangre sube, sube también dentro de ellos. Por eso las complicaciones crónicas de la diabetes son retinopatía, nefropatía, neuropatía y catarata, y no lesiones del músculo.</p>
+        <p>Dentro de esas células, el exceso de glucosa se desvía por cuatro vías que hacen daño:</p>
+      </div>
+
+      <figure class="fig">
+        <svg viewBox="0 0 860 330" role="img" aria-label="La glucosa alta entra sin insulina en el endotelio, los pericitos, el nervio y el cristalino. Dentro de la célula se desvía por cuatro vías: productos de glicación avanzada, activación de la proteína cinasa C, vía de los polioles con sorbitol y vía de las hexosaminas. Las cuatro convergen en el mismo daño del capilar: membrana basal engrosada, pérdida de pericitos, pared más permeable y estrés oxidativo.">
+          <defs>
+            <marker id="av" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker>
+          </defs>
+          <g font-family="system-ui,sans-serif" text-anchor="middle">
+            <rect x="20" y="125" width="170" height="80" rx="10" fill="var(--fisio-soft)" stroke="var(--fisio)"/>
+            <text x="105" y="152" font-size="12.5" font-weight="700" class="svg-ink">Glucosa alta</text>
+            <text x="105" y="171" font-size="10" class="svg-mut">entra SIN insulina en</text>
+            <text x="105" y="187" font-size="10" class="svg-mut">endotelio · pericito</text>
+            <text x="105" y="200" font-size="10" class="svg-mut">nervio · cristalino</text>
+
+            <rect x="300" y="20" width="250" height="56" rx="9" fill="var(--surface)" stroke="var(--line)"/>
+            <text x="425" y="43" font-size="11.5" font-weight="700" class="svg-ink">Productos de glicación (AGE)</text>
+            <text x="425" y="61" font-size="9.5" class="svg-mut">la glucosa se pega a las proteínas</text>
+
+            <rect x="300" y="96" width="250" height="56" rx="9" fill="var(--surface)" stroke="var(--line)"/>
+            <text x="425" y="119" font-size="11.5" font-weight="700" class="svg-ink">Proteína cinasa C (PKC)</text>
+            <text x="425" y="137" font-size="9.5" class="svg-mut">↑ VEGF, ↑ endotelina, ↓ óxido nítrico</text>
+
+            <rect x="300" y="172" width="250" height="56" rx="9" fill="var(--surface)" stroke="var(--line)"/>
+            <text x="425" y="195" font-size="11.5" font-weight="700" class="svg-ink">Vía de los polioles</text>
+            <text x="425" y="213" font-size="9.5" class="svg-mut">glucosa → sorbitol: agua + estrés oxidativo</text>
+
+            <rect x="300" y="248" width="250" height="56" rx="9" fill="var(--surface)" stroke="var(--line)"/>
+            <text x="425" y="271" font-size="11.5" font-weight="700" class="svg-ink">Vía de las hexosaminas</text>
+            <text x="425" y="289" font-size="9.5" class="svg-mut">más matriz y fibrosis (TGF-β)</text>
+
+            <rect x="650" y="95" width="190" height="140" rx="10" fill="var(--pato-soft)" stroke="var(--pato)"/>
+            <text x="745" y="122" font-size="12.5" font-weight="700" class="svg-ink">Capilar dañado</text>
+            <text x="745" y="145" font-size="10" class="svg-mut">membrana basal gruesa</text>
+            <text x="745" y="163" font-size="10" class="svg-mut">pérdida de pericitos</text>
+            <text x="745" y="181" font-size="10" class="svg-mut">pared permeable</text>
+            <text x="745" y="199" font-size="10" class="svg-mut">cierre capilar</text>
+            <text x="745" y="222" font-size="9.5" fill="var(--pato)">microangiopatía</text>
+          </g>
+          <g fill="none" stroke="var(--muted)" stroke-width="1.6" marker-end="url(#av)">
+            <path d="M190,150 C240,120 250,60 296,48"/>
+            <path d="M190,158 C240,140 260,124 296,124"/>
+            <path d="M190,172 C240,184 260,200 296,200"/>
+            <path d="M190,180 C240,210 250,270 296,276"/>
+            <path d="M550,48 C600,60 620,110 646,130"/>
+            <path d="M550,124 C590,128 620,140 646,150"/>
+            <path d="M550,200 C590,196 620,186 646,180"/>
+            <path d="M550,276 C600,270 620,230 646,210"/>
+          </g>
+        </svg>
+        <figcaption><b>Cuatro caminos, un mismo destino.</b> Las cuatro vías empiezan con la glucosa dentro de células que no pueden cerrarle la puerta, y todas terminan en el mismo capilar enfermo: <b>membrana basal engrosada</b>, <b>pericitos que mueren</b> y una pared que <b>deja escapar</b> plasma y que con los años se cierra. A eso se le llama <b>microangiopatía diabética</b>, y en la retina se ve.</figcaption>
+      </figure>
+
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Vía</th><th>Qué pasa</th><th>Por qué daña</th></tr></thead>
+          <tbody>
+            <tr><td class="k">AGE</td><td>La glucosa se une a las proteínas sin enzimas (glicación) y forma productos que no se degradan</td><td>Entrecruzan el colágeno (pared rígida, membrana basal gruesa y permeable) y activan su receptor RAGE: inflamación y radicales libres</td></tr>
+            <tr><td class="k">PKC</td><td>La glucosa intracelular eleva el diacilglicerol, que activa la proteína cinasa C</td><td>Más VEGF (vasos permeables y nuevos), más endotelina y menos óxido nítrico (vasoconstricción), más fibrosis</td></tr>
+            <tr><td class="k">Polioles</td><td>La aldosa reductasa convierte la glucosa en <strong>sorbitol</strong>, que no sale de la célula</td><td>El sorbitol atrae <strong>agua</strong> (daño osmótico) y gasta NADPH, que la célula necesita para defenderse del estrés oxidativo</td></tr>
+            <tr><td class="k">Hexosaminas</td><td>La glucosa se desvía hacia fructosa-6-fosfato</td><td>Exceso de proteoglucanos, TGF-β y PAI-1: más matriz, fibrosis y tendencia a la trombosis</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="prose" style="margin-top:1rem">La <strong>hemoglobina glicada (HbA1c)</strong> es la misma glicación medida en la sangre: como el eritrocito vive unos 120 días, refleja el promedio de la glucemia de los últimos tres meses. Por eso es el dato que pide el médico para saber si la diabetes está controlada.</p>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section id="rd" class="band-d">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">04</span><h2>Retinopatía diabética · del pericito al neovaso</h2></div>
+      <div class="prose stack">
+        <p>La retinopatía diabética es una de las principales causas de ceguera: el riesgo de un diabético es unas 25 veces mayor que el de la población general, y la padecen del 60 al 80 % de los pacientes a los 15–20 años del diagnóstico. Su mecanismo es la microangiopatía de la sección anterior, contada en el orden en que aparece en el fondo de ojo.</p>
+      </div>
+
+      <figure class="fig">
+        <svg viewBox="0 0 860 290" role="img" aria-label="La retinopatía diabética avanza en dos ramas. Primero, la pérdida de pericitos y el engrosamiento de la membrana basal producen microaneurismas. Por un lado, la pared permeable deja salir plasma: edema macular y exudados duros. Por otro lado, los capilares se cierran, la retina queda isquémica y produce VEGF, que hace crecer neovasos frágiles. Los neovasos sangran hacia el vítreo y su cicatriz tracciona la retina hasta desprenderla. La línea de la neovascularización separa la forma no proliferativa de la proliferativa.">
+          <defs>
+            <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker>
+          </defs>
+          <g font-family="system-ui,sans-serif" text-anchor="middle">
+            <rect x="12" y="105" width="150" height="74" rx="9" fill="var(--surface)" stroke="var(--line)"/>
+            <text x="87" y="130" font-size="11.5" font-weight="700" class="svg-ink">Pericitos perdidos</text>
+            <text x="87" y="148" font-size="9.5" class="svg-mut">+ membrana basal</text>
+            <text x="87" y="162" font-size="9.5" class="svg-mut">engrosada</text>
+
+            <rect x="196" y="105" width="150" height="74" rx="9" fill="var(--surface)" stroke="var(--line)"/>
+            <text x="271" y="130" font-size="11.5" font-weight="700" class="svg-ink">Microaneurismas</text>
+            <text x="271" y="148" font-size="9.5" class="svg-mut">la pared sin soporte</text>
+            <text x="271" y="162" font-size="9.5" class="svg-mut">se abomba</text>
+
+            <rect x="390" y="30" width="190" height="74" rx="9" fill="var(--amber-soft)" stroke="var(--amber)"/>
+            <text x="485" y="55" font-size="11.5" font-weight="700" class="svg-ink">Fuga</text>
+            <text x="485" y="73" font-size="9.5" class="svg-mut">edema macular</text>
+            <text x="485" y="87" font-size="9.5" class="svg-mut">exudados duros · hemorragias</text>
+
+            <rect x="390" y="180" width="190" height="74" rx="9" fill="var(--amber-soft)" stroke="var(--amber)"/>
+            <text x="485" y="205" font-size="11.5" font-weight="700" class="svg-ink">Cierre capilar</text>
+            <text x="485" y="223" font-size="9.5" class="svg-mut">retina isquémica</text>
+            <text x="485" y="237" font-size="9.5" class="svg-mut">produce VEGF</text>
+
+            <rect x="650" y="180" width="198" height="74" rx="9" fill="var(--pato-soft)" stroke="var(--pato)"/>
+            <text x="749" y="205" font-size="11.5" font-weight="700" class="svg-ink">Neovasos frágiles</text>
+            <text x="749" y="223" font-size="9.5" class="svg-mut">hemorragia vítrea</text>
+            <text x="749" y="237" font-size="9.5" class="svg-mut">tracción · desprendimiento</text>
+          </g>
+          <g fill="none" stroke="var(--muted)" stroke-width="1.8" marker-end="url(#ar)">
+            <line x1="162" y1="142" x2="192" y2="142"/>
+            <path d="M346,130 C366,110 370,72 386,68"/>
+            <path d="M346,154 C366,174 370,212 386,216"/>
+            <line x1="580" y1="217" x2="646" y2="217"/>
+          </g>
+          <line x1="615" y1="20" x2="615" y2="275" stroke="var(--pato)" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <text x="600" y="282" font-family="ui-monospace,monospace" font-size="9.5" class="svg-mut" text-anchor="end">no proliferativa</text>
+          <text x="630" y="282" font-family="ui-monospace,monospace" font-size="9.5" fill="var(--pato)">proliferativa</text>
+          <text x="485" y="140" font-family="ui-monospace,monospace" font-size="9.5" fill="var(--amber)" text-anchor="middle">la mácula se mancha:</text>
+          <text x="485" y="154" font-family="ui-monospace,monospace" font-size="9.5" fill="var(--amber)" text-anchor="middle">baja la visión central</text>
+        </svg>
+        <figcaption><b>Un capilar enfermo puede fallar de dos maneras.</b> Si <b>deja escapar</b> plasma, se acumula líquido en la retina: si ocurre en la mácula, es el <b>edema macular</b>, que baja la visión aunque no haya neovasos. Si <b>se cierra</b>, la retina queda sin oxígeno y responde con <b>VEGF</b>: crecen neovasos que no sirven, sangran y dejan cicatrices que tiran de la retina. La aparición de neovasos marca el paso a la forma <b>proliferativa</b>.</figcaption>
+      </figure>
+
+      <div class="grid g3" style="margin-top:1.2rem">
+        <div class="card pato">
+          <p class="eyebrow">El primer signo</p>
+          <h3>Microaneurismas</h3>
+          <p>Los <strong>pericitos</strong> rodean el capilar y le dan soporte. Cuando mueren, la pared pierde ese soporte y se <strong>abomba</strong>: se ven como puntos rojos diminutos. Son el signo más precoz y casi siempre el paciente todavía no nota nada.</p>
+        </div>
+        <div class="card pato">
+          <p class="eyebrow">La causa más frecuente de baja visión</p>
+          <h3>Edema macular</h3>
+          <p>La barrera hematorretiniana se rompe y el plasma se escapa. El agua engrosa la retina y los lípidos que quedan forman <strong>exudados duros</strong> amarillentos. En la mácula, eso es visión central borrosa.</p>
+        </div>
+        <div class="card pato">
+          <p class="eyebrow">La forma que amenaza el ojo</p>
+          <h3>Proliferativa</h3>
+          <p>La isquemia hace crecer <strong>neovasos</strong> en la papila o la retina. Son frágiles: sangran hacia el vítreo (pérdida brusca de visión) y su tejido fibroso tracciona la retina hasta <strong>desprenderla</strong>.</p>
+        </div>
+      </div>
+      <div class="callout warn" style="margin-top:1.2rem">
+        <p class="eyebrow">Por qué hay que mirar aunque el paciente vea bien</p>
+        <p style="margin-top:.4rem">Uribe describe tres fases: <strong>microangiopatía</strong> (los vasos ya están dañados pero no hay síntomas), <strong>retinopatía</strong> (se afecta la retina misma) y <strong>vitreorretinopatía</strong> (se compromete el vítreo). En la primera fase el paciente ve perfectamente, y ahí es cuando el diagnóstico temprano evita la pérdida de visión. Una agudeza visual normal <strong>no descarta</strong> una retinopatía.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section id="cristalino">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">05</span><h2>El resto del ojo diabético · cristalino, nervios y superficie</h2></div>
+      <div class="prose stack">
+        <p>La retina no es lo único. El <strong>cristalino</strong> también capta glucosa sin insulina, y en él la vía de los polioles se ve en la consulta.</p>
+      </div>
+      <div class="grid g2" style="margin-top:1rem">
+        <div class="card amber">
+          <p class="eyebrow">Polioles en el cristalino</p>
+          <h3>La graduación que no se queda quieta</h3>
+          <p>Con la glucemia alta, el cristalino acumula <strong>sorbitol</strong>, que atrae <strong>agua</strong>: el cristalino se hidrata, cambia su índice y su forma, y la refracción varía (a menudo hacia la miopía). Cuando la glucemia baja, vuelve. Un paciente cuya graduación cambia de una semana a otra puede tener una diabetes mal controlada: conviene <strong>no formular hasta que se estabilice</strong> y remitir para estudio. A largo plazo, ese daño osmótico y oxidativo favorece la <strong>catarata</strong>.</p>
+        </div>
+        <div class="card fisio">
+          <p class="eyebrow">Neuropatía</p>
+          <h3>Nervios craneales y córnea</h3>
+          <p>La neuropatía diabética mezcla daño metabólico del nervio e isquemia de sus pequeños vasos. En el ojo puede dar una <strong>parálisis súbita de un nervio craneal</strong> (visión doble) y una <strong>córnea menos sensible</strong>, que cicatriza peor y se infecta con más facilidad. La hiperglucemia, además, debilita a los neutrófilos: el diabético tiene <strong>más infecciones</strong>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section id="hta" class="band-f">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">06</span><h2>Hipertensión arterial · la presión que remodela la arteriola</h2></div>
+      <div class="prose stack">
+        <p>La presión arterial es el producto de dos cosas: <strong>PA = gasto cardíaco × resistencia vascular periférica</strong>. La mayor parte de esa resistencia la ponen las <strong>arteriolas</strong>, vasos con una capa muscular gruesa que se contraen o se relajan para regular cuánta sangre llega a los capilares. Se habla de hipertensión con cifras sostenidas de <strong>140/90 mmHg o más</strong>, aunque el riesgo empieza antes: se duplica por cada 20 mmHg de sistólica o 10 de diastólica por encima de 115/70.</p>
+        <p>En el 90 % de los casos no hay una causa única (hipertensión <strong>primaria</strong>): se suman genes, sal, obesidad, sedentarismo, estrés y resistencia a la insulina. En el 10 % restante hay una causa identificable (hipertensión <strong>secundaria</strong>: riñón, glándulas suprarrenales, coartación de la aorta, entre otras).</p>
+      </div>
+      <div class="grid g3" style="margin-top:1.1rem">
+        <div class="card amber">
+          <p class="eyebrow">Respuesta 1</p>
+          <h3>Vasoconstricción</h3>
+          <p>La arteriola distendida por la presión se <strong>contrae</strong> para proteger el capilar (autorregulación). La angiotensina II, la endotelina y el simpático refuerzan esa contracción.</p>
+        </div>
+        <div class="card amber">
+          <p class="eyebrow">Respuesta 2</p>
+          <h3>Hipertrofia de la pared</h3>
+          <p>Contraída por años, la capa muscular se <strong>engrosa</strong> y pierde fibras elásticas. La luz se estrecha, sube la resistencia y la presión aumenta más: un <strong>círculo vicioso</strong>.</p>
+        </div>
+        <div class="card amber">
+          <p class="eyebrow">Respuesta 3</p>
+          <h3>Endotelio dañado</h3>
+          <p>El roce de la sangre a presión lesiona el endotelio: produce menos <strong>óxido nítrico</strong> (vasodilatador) y más endotelina, deja pasar plasma a la pared y acelera la <strong>aterosclerosis</strong>.</p>
+        </div>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Lesión de la arteriola</th><th>Cuándo aparece</th><th>Qué se ve al microscopio</th></tr></thead>
+          <tbody>
+            <tr><td class="k">Arterioloesclerosis hialina</td><td>Hipertensión crónica moderada (y también en la diabetes)</td><td>El plasma se filtra a la pared y se suma matriz nueva: pared gruesa, rosada y homogénea, con la luz estrecha</td></tr>
+            <tr><td class="k">Arterioloesclerosis hiperplásica</td><td>Hipertensión maligna (cifras muy altas, de instalación rápida)</td><td>Capas concéntricas «en piel de cebolla» de músculo liso, a veces con necrosis de la pared (arteriolitis necrosante)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout note" style="margin-top:1.2rem">
+        <p class="eyebrow">Por qué la hipertensión no duele</p>
+        <p style="margin-top:.4rem">Los dolores de cabeza, el mareo o el zumbido que se le suelen atribuir <strong>son igual de frecuentes en personas con presión normal</strong>. La hipertensión no tiene un síntoma propio durante 10 a 20 años: lo que da síntomas es el daño que deja en el corazón, el cerebro, el riñón y la retina. Por eso hay que <strong>medirla</strong>, y por eso un fondo de ojo puede ser la primera pista.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section id="rh" class="band-f">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">07</span><h2>Retinopatía hipertensiva · cuatro grados, un mismo vaso</h2></div>
+      <div class="prose stack">
+        <p>En la retina se ven en vivo las mismas respuestas de la arteriola. Uribe las ordena en cuatro grados que siguen la gravedad de la hipertensión:</p>
+      </div>
+
+      <figure class="fig">
+        <svg viewBox="0 0 860 260" role="img" aria-label="Los cuatro grados de la retinopatía hipertensiva. Grado 1: la arteriola se estrecha por vasoconstricción. Grado 2: la pared engrosada de la arteriola comprime la vena donde se cruzan, formando la muesca arteriovenosa. Grado 3: los vasos pequeños se rompen y aparecen hemorragias en llama, exudados y manchas algodonosas. Grado 4: además hay edema de papila. Los grados 1 y 2 reflejan una adaptación crónica de la pared; los grados 3 y 4 reflejan que la pared ya se rompe y son una urgencia.">
+          <g font-family="system-ui,sans-serif" text-anchor="middle">
+            <!-- grado 1 -->
+            <rect x="12" y="40" width="195" height="150" rx="10" fill="var(--amber-soft)" stroke="var(--amber)"/>
+            <text x="110" y="64" font-size="12" font-weight="700" class="svg-ink">Grado 1</text>
+            <line x1="40" y1="100" x2="180" y2="100" stroke="var(--pato)" stroke-width="5" stroke-linecap="round"/>
+            <line x1="40" y1="122" x2="180" y2="122" stroke="var(--pato)" stroke-width="2" stroke-linecap="round"/>
+            <text x="110" y="92" font-size="8.5" class="svg-mut">normal</text>
+            <text x="110" y="140" font-size="8.5" class="svg-mut">estrechada</text>
+            <text x="110" y="168" font-size="10" class="svg-ink">arteriola fina</text>
+            <text x="110" y="182" font-size="9" class="svg-mut">vasoconstricción</text>
+
+            <!-- grado 2 -->
+            <rect x="221" y="40" width="195" height="150" rx="10" fill="var(--amber-soft)" stroke="var(--amber)"/>
+            <text x="318" y="64" font-size="12" font-weight="700" class="svg-ink">Grado 2</text>
+            <path d="M250,85 L390,135" stroke="var(--pato)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+            <path d="M250,135 L300,117" stroke="var(--fisio)" stroke-width="5" stroke-linecap="round" fill="none"/>
+            <path d="M340,103 L390,85" stroke="var(--fisio)" stroke-width="5" stroke-linecap="round" fill="none"/>
+            <text x="318" y="152" font-size="8.5" class="svg-mut">la vena se interrumpe</text>
+            <text x="318" y="168" font-size="10" class="svg-ink">cruce arteriovenoso</text>
+            <text x="318" y="182" font-size="9" class="svg-mut">pared engrosada</text>
+
+            <!-- grado 3 -->
+            <rect x="430" y="40" width="195" height="150" rx="10" fill="var(--pato-soft)" stroke="var(--pato)"/>
+            <text x="527" y="64" font-size="12" font-weight="700" class="svg-ink">Grado 3</text>
+            <path d="M470,98 l14,-8 l-2,12 z" fill="var(--pato)"/>
+            <path d="M560,112 l14,-8 l-2,12 z" fill="var(--pato)"/>
+            <circle cx="515" cy="125" r="8" fill="var(--surface)" stroke="var(--muted)"/>
+            <circle cx="585" cy="88" r="5" fill="var(--amber)"/>
+            <circle cx="492" cy="132" r="4" fill="var(--amber)"/>
+            <text x="527" y="152" font-size="8.5" class="svg-mut">llamas · algodonosas · exudados</text>
+            <text x="527" y="168" font-size="10" class="svg-ink">la pared se rompe</text>
+            <text x="527" y="182" font-size="9" class="svg-mut">hemorragias y exudados</text>
+
+            <!-- grado 4 -->
+            <rect x="639" y="40" width="209" height="150" rx="10" fill="var(--pato-soft)" stroke="var(--pato)"/>
+            <text x="743" y="64" font-size="12" font-weight="700" class="svg-ink">Grado 4</text>
+            <circle cx="743" cy="110" r="22" fill="var(--surface)" stroke="var(--pato)" stroke-width="2" stroke-dasharray="3 3"/>
+            <circle cx="743" cy="110" r="12" fill="var(--amber-soft)" stroke="var(--amber)"/>
+            <text x="743" y="152" font-size="8.5" class="svg-mut">bordes de la papila borrados</text>
+            <text x="743" y="168" font-size="10" class="svg-ink">edema de papila</text>
+            <text x="743" y="182" font-size="9" class="svg-mut">+ todo lo anterior</text>
+          </g>
+          <line x1="12" y1="214" x2="416" y2="214" stroke="var(--amber)" stroke-width="2"/>
+          <text x="214" y="234" font-family="ui-monospace,monospace" font-size="10" fill="var(--amber)" text-anchor="middle">adaptación crónica de la pared</text>
+          <line x1="430" y1="214" x2="848" y2="214" stroke="var(--pato)" stroke-width="2"/>
+          <text x="639" y="234" font-family="ui-monospace,monospace" font-size="10" fill="var(--pato)" text-anchor="middle">la pared ya no aguanta · urgencia</text>
+        </svg>
+        <figcaption><b>Primero la arteriola se adapta; después se rompe.</b> En los grados 1 y 2 la pared se contrae y se engruesa, y donde la arteriola engrosada cruza sobre la vena (comparten la adventicia) la comprime y la vena parece interrumpida: es el <b>cruce arteriovenoso</b>. En los grados 3 y 4 la presión vence a la pared: <b>hemorragias en llama</b>, <b>exudados</b>, <b>manchas algodonosas</b> (pequeños infartos de la capa de fibras nerviosas) y, al final, <b>edema de papila</b>. Esos dos últimos grados son propios de la hipertensión maligna.</figcaption>
+      </figure>
+
+      <div class="prose" style="margin-top:1.1rem">
+        <p>La <strong>coroides</strong> también sufre en la hipertensión maligna: sus vasos dañados producen pequeños infartos (<strong>manchas de Elschnig</strong>) y pueden dejar escapar líquido bajo la retina, hasta desprenderla sin que haya una rotura.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 -->
+  <section id="juntas">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">08</span><h2>Cuando llegan juntas · el capilar frágil bajo presión</h2></div>
+      <div class="prose stack">
+        <p>No son dos enfermedades separadas en la práctica: en los datos de México que cita Uribe, el <strong>65 % de los adultos con diabetes son hipertensos</strong>, frente al 28 % de quienes no la tienen. Y no es una coincidencia: comparten mecanismo.</p>
+      </div>
+      <div class="fork">
+        <div class="lane a">
+          <p class="eyebrow">La diabetes sube la presión</p>
+          <h3>Resistencia a la insulina</h3>
+          <ul>
+            <li>La insulina en exceso estimula el <strong>simpático</strong> y hace que el riñón <strong>retenga sodio</strong> y agua.</li>
+            <li>Normalmente la insulina libera <strong>óxido nítrico</strong> en el endotelio; con resistencia, ese freno vasodilatador se pierde.</li>
+            <li>La glicación endurece las arterias: sube sobre todo la <strong>sistólica</strong>.</li>
+          </ul>
+        </div>
+        <div class="lane b">
+          <p class="eyebrow">La presión agrava la retinopatía</p>
+          <h3>Más presión sobre un vaso débil</h3>
+          <ul>
+            <li>El capilar diabético ya perdió sus pericitos y tiene la pared permeable.</li>
+            <li>Si además le llega sangre a <strong>más presión</strong>, se escapa más plasma (más edema macular) y se rompen más vasos.</li>
+            <li>Por eso controlar la presión en un diabético <strong>frena la retinopatía</strong>, no solo el riesgo cardíaco.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:1.2rem">
+        <p class="eyebrow">El mismo razonamiento en el riñón</p>
+        <p style="margin-top:.4rem">En la nefropatía diabética, la hiperglucemia dilata la arteriola aferente y sube la presión dentro del glomérulo; la presión distiende el glomérulo, daña los podocitos y aparece la <strong>albúmina en la orina</strong>. Retina y riñón cuentan la misma historia: un capilar dañado por la glucosa que además recibe demasiada presión. Por eso el diabético con retinopatía suele tener también nefropatía.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 -->
+  <section id="remision">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">09</span><h2>Qué ve el optómetra · criterios de remisión</h2></div>
+      <p class="prose" style="margin-bottom:1.1rem">El mecanismo dice <strong>con qué urgencia</strong> remitir. Lo que amenaza la visión o la vida en horas o días va primero; lo que indica daño crónico se remite de forma programada. Esta tabla es una orientación para razonar: los intervalos exactos los fija la guía de práctica clínica vigente.</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Hallazgo</th><th>Qué significa</th><th>Conducta</th></tr></thead>
+          <tbody>
+            <tr><td class="k">Edema de papila, hemorragias y exudados con presión muy alta (≥ 180/110)</td><td>Hipertensión maligna: la pared arteriolar se está rompiendo, también en cerebro y riñón</td><td><strong>Urgencias, el mismo día</strong></td></tr>
+            <tr><td class="k">Neovasos, hemorragia vítrea o desprendimiento de retina en un diabético</td><td>Retinopatía proliferativa: riesgo de pérdida visual irreversible</td><td><strong>Oftalmología urgente</strong> (en días)</td></tr>
+            <tr><td class="k">Exudados o engrosamiento cerca de la mácula, visión central borrosa</td><td>Edema macular diabético</td><td>Oftalmología pronto (semanas)</td></tr>
+            <tr><td class="k">Microaneurismas y hemorragias aisladas, sin edema macular</td><td>Retinopatía no proliferativa leve: el capilar ya está dañado</td><td>Informar al médico tratante; control más frecuente</td></tr>
+            <tr><td class="k">Arteriolas finas o cruces arteriovenosos en alguien sin diagnóstico</td><td>Hipertensión crónica probable, todavía silenciosa</td><td>Remitir a medicina general para medir la presión y estudiar</td></tr>
+            <tr><td class="k">Graduación que cambia de semana en semana</td><td>Glucemia inestable que hidrata el cristalino (polioles)</td><td>No formular aún; remitir para estudio de glucemia</td></tr>
+            <tr><td class="k">Diabético sin retinopatía</td><td>Fase silenciosa: el daño puede empezar sin síntomas</td><td>Fondo de ojo con dilatación al menos una vez al año</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="prose" style="margin-top:1rem">Regla común: el fondo de ojo es una <strong>muestra</strong> de los vasos de todo el cuerpo. Un cruce arteriovenoso no es solo un hallazgo retiniano: es la arteriola renal, cerebral y coronaria de ese paciente vista a través de la pupila.</p>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="autoeval">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">10</span><h2>Autoevaluación</h2></div>
+      <p class="prose" style="margin-bottom:1rem">Responde mentalmente antes de decidir.</p>
+
+      <h3 style="margin-bottom:.4rem; font-size:1.05rem">A · ¿Diabética o hipertensiva?</h3>
+      <p style="color:var(--muted); font-size:.9rem; margin-bottom:.6rem">Pista: ¿el daño está en el capilar o en la arteriola?</p>
+      <div class="card" id="drillA"></div>
+
+      <h3 style="margin:2rem 0 .4rem; font-size:1.05rem">B · ¿Con qué urgencia remitir?</h3>
+      <p style="color:var(--muted); font-size:.9rem; margin-bottom:.6rem">Pista: ¿amenaza la visión o la vida en horas o días, o es daño crónico?</p>
+      <div class="card" id="drillB"></div>
+
+      <h3 style="margin:2rem 0 .8rem; font-size:1.05rem">C · Diez preguntas</h3>
+      <div id="quiz"></div>
+
+      <div class="grid g2" style="margin-top:1.6rem">
+        <div class="card">
+          <h3>Trabajo independiente</h3>
+          <ul>
+            <li>Lectura de Uribe, caps. <strong>41</strong> (hipertensión) y <strong>62</strong> (diabetes)</li>
+            <li>Esquema de las <strong>cuatro vías</strong> del daño por hiperglucemia y por qué afectan a la retina y no al músculo</li>
+            <li>Dibujar la cascada de la retinopatía diabética con sus dos ramas: <strong>fuga</strong> y <strong>cierre capilar</strong></li>
+            <li>Dibujar los cuatro grados de la retinopatía hipertensiva marcando dónde se pasa de <strong>adaptación</strong> a <strong>rotura</strong></li>
+            <li><strong>Cadena fisiopatológica II</strong>: caso integrador con manifestación ocular (causa → mecanismo → signo → qué ve el optómetra)</li>
+            <li>Para la próxima clase (cine-foro): ver <em>El hombre elefante</em> (David Lynch, 1980)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Fuentes de la sesión</h3>
+          <ul>
+            <li>Uribe Olivares, R. A. (2018). <em>Fisiopatología. La ciencia del porqué y el cómo</em>. Elsevier. Cap. 41 (hipertensión arterial sistémica) y cap. 62 (diabetes mellitus).</li>
+            <li>Kumar, V., Abbas, A. K. y Aster, J. C. <em>Compendio de Robbins y Cotran. Patología estructural y funcional</em>. Elsevier. Sistema endocrino (complicaciones crónicas de la diabetes), vasos sanguíneos (patología vascular de la hipertensión) y ojo (vasculopatías retinianas).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Fisiopatología General (01008430) · Programa de Optometría · Facultad de Ciencias de la Salud · Universidad de La Salle · Semestre 2026-2</p>
+    <p style="margin-top:.4rem">Clase 13 de 16. Los signos oculares ilustran el mecanismo general; su estudio y manejo detallados corresponden a espacios académicos posteriores.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  document.getElementById('themeBtn').addEventListener('click', function(){
+    var dark = root.getAttribute('data-theme') === 'dark'
+      || (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+    root.setAttribute('data-theme', dark ? 'light' : 'dark');
+  });
+
+  function buildDrill(mount, items, opts){
+    var A = document.getElementById(mount); if(!A) return;
+    var ok=0, ans=0;
+    var score = document.createElement('p'); score.className='score';
+    items.forEach(function(it){
+      var row=document.createElement('div'); row.className='drill-row';
+      var q=document.createElement('span'); q.className='drill-q'; q.textContent=it.t;
+      var v=document.createElement('span'); v.className='verdict'; row.appendChild(q);
+      var done=false;
+      opts.forEach(function(o){
+        var b=document.createElement('button'); b.className='btn'; b.type='button'; b.textContent=o[1];
+        b.addEventListener('click', function(){
+          row.querySelectorAll('.btn').forEach(function(x){x.classList.remove('ok','no');});
+          var good=o[0]===it.a; b.classList.add(good?'ok':'no');
+          v.innerHTML=(good?'<b>Correcto.</b> ':'<b>Revisa.</b> ')+it.e;
+          if(!done){done=true; ans++; if(good)ok++; score.textContent='Primer intento: '+ok+' de '+ans+' ('+items.length+' en total)';}
+        });
+        row.appendChild(b);
+      });
+      row.appendChild(v); A.appendChild(row);
+    });
+    A.appendChild(score);
+  }
+
+  buildDrill('drillA', [
+    { t:'Puntos rojos diminutos en el polo posterior, junto a pequeñas hemorragias en punto', a:'dm', e:'Microaneurismas: el capilar perdió sus pericitos y su pared se abomba. Es daño capilar, metabólico: diabetes.' },
+    { t:'Arteriolas finas y, donde cruzan sobre una vena, la vena parece interrumpida', a:'hta', e:'Cruce arteriovenoso (grado 2): la arteriola de pared engrosada comprime la vena con la que comparte adventicia. Es daño de la arteriola por presión.' },
+    { t:'Vasos nuevos, finos y enredados sobre la papila', a:'dm', e:'Neovascularización: la retina isquémica por cierre capilar produce VEGF. Es la retinopatía diabética proliferativa.' },
+    { t:'Bordes de la papila borrados en ambos ojos, con hemorragias en llama, en un paciente con 220/130 mmHg', a:'hta', e:'Grado 4: edema de papila de la hipertensión maligna. La pared arteriolar ya se rompe. Urgencia.' },
+    { t:'Exudados duros amarillentos en anillo alrededor de la mácula', a:'dm', e:'Fuga capilar: el plasma se escapa por la barrera hematorretiniana rota y los lípidos se quedan. Edema macular diabético.' },
+    { t:'Pequeñas manchas pálidas en la coroides, en una hipertensión de instalación brusca', a:'hta', e:'Manchas de Elschnig: infartos de la coroides por daño de sus vasos en la hipertensión maligna.' }
+  ], [['dm','Diabética'],['hta','Hipertensiva']]);
+
+  buildDrill('drillB', [
+    { t:'Diabético que ve «una cortina de sangre» desde esta mañana; en el fondo de ojo hay neovasos', a:'urg', e:'Hemorragia vítrea por neovasos: retinopatía proliferativa. Oftalmología urgente.' },
+    { t:'Cefalea intensa, visión borrosa, papilas con bordes borrados y presión de 210/125 mmHg', a:'urg', e:'Hipertensión maligna con edema de papila: el daño también está ocurriendo en cerebro y riñón. Urgencias el mismo día.' },
+    { t:'Persona de 48 años sin diagnósticos, con cruces arteriovenosos en ambos ojos', a:'rem', e:'Probable hipertensión crónica silenciosa. Remitir a medicina general para medir la presión y estudiar.' },
+    { t:'Diabético con exudados cerca de la mácula y visión central algo borrosa', a:'rem', e:'Edema macular: se remite pronto a oftalmología (semanas). No es una urgencia del día, pero amenaza la visión central.' },
+    { t:'Diabético de hace 3 años, fondo de ojo normal, buena agudeza visual', a:'ctl', e:'Fase silenciosa: el fondo de ojo normal no garantiza el futuro. Control anual con dilatación.' },
+    { t:'La graduación cambió dos dioptrías en tres semanas en un paciente con sed y orina frecuente', a:'rem', e:'Cristalino hidratado por sorbitol con glucemia inestable. No formular aún; remitir para estudio de glucemia.' }
+  ], [['urg','Urgente'],['rem','Remitir pronto'],['ctl','Control programado']]);
+
+  var qs = [
+    ['¿Por qué la diabetes daña la retina, el nervio y el riñón, pero no el músculo?',
+     'Porque el músculo y la grasa solo dejan entrar la glucosa si hay insulina (GLUT-4), mientras que el endotelio, los pericitos, el nervio, el riñón y el cristalino la captan sin insulina. Con hiperglucemia, la glucosa se acumula dentro de esas células y se desvía por vías tóxicas (AGE, PKC, polioles, hexosaminas).'],
+    ['¿Qué son los productos de glicación avanzada y qué le hacen a la pared del vaso?',
+     'Son compuestos que se forman cuando la glucosa se une a las proteínas sin enzimas. Entrecruzan el colágeno, de modo que la membrana basal se engruesa, se vuelve más permeable y el vaso pierde elasticidad; además, al unirse a su receptor (RAGE) activan inflamación y radicales libres.'],
+    ['Explica la vía de los polioles y por qué daña la célula.',
+     'La aldosa reductasa convierte la glucosa en sorbitol, que no puede salir de la célula. El sorbitol atrae agua (daño osmótico) y su formación gasta NADPH, que la célula necesita para regenerar el glutatión y defenderse del estrés oxidativo.'],
+    ['¿Por qué el microaneurisma es el primer signo de la retinopatía diabética?',
+     'Porque la hiperglucemia mata primero a los pericitos, las células que rodean y sostienen el capilar. Sin ese soporte, y con la membrana basal alterada, la pared del capilar se abomba y forma el microaneurisma. Ocurre antes de que el paciente note algo.'],
+    ['¿Cuáles son las dos maneras en que falla el capilar diabético y qué produce cada una?',
+     'Puede dejar escapar plasma (fuga): edema de la retina y exudados duros; si es en la mácula, baja la visión central (edema macular). O puede cerrarse (oclusión): la retina queda isquémica, produce VEGF y crecen neovasos frágiles que sangran hacia el vítreo y traccionan la retina (forma proliferativa).'],
+    ['¿Por qué cambia la graduación de un diabético mal controlado?',
+     'Porque el cristalino capta glucosa sin insulina y la convierte en sorbitol (vía de los polioles), que atrae agua. El cristalino se hidrata y cambia su poder refractivo; cuando la glucemia baja, vuelve. Por eso no conviene formular hasta que la glucemia se estabilice.'],
+    ['¿Cómo se adapta la arteriola a la hipertensión, y por qué esa adaptación empeora la presión?',
+     'Primero se contrae para proteger el capilar; con los años, su capa muscular se engruesa y pierde fibras elásticas. La luz más estrecha aumenta la resistencia vascular periférica, y como PA = gasto cardíaco × resistencia, la presión sube aún más: un círculo vicioso.'],
+    ['¿Qué es un cruce arteriovenoso y qué grado de retinopatía hipertensiva indica?',
+     'Es el punto donde una arteriola de pared engrosada cruza sobre una vena; como comparten adventicia, la arteriola rígida la comprime y la vena parece interrumpida. Indica grado 2: un cambio crónico de la pared, todavía sin rotura.'],
+    ['¿Qué diferencia los grados 1-2 de los grados 3-4 de la retinopatía hipertensiva?',
+     'En los grados 1 y 2 la arteriola se adapta (vasoconstricción, engrosamiento, cruces arteriovenosos). En los grados 3 y 4 la presión vence la pared: hay hemorragias, exudados y manchas algodonosas, y en el grado 4 edema de papila. Los grados 3 y 4 son propios de la hipertensión maligna y son una urgencia.'],
+    ['¿Por qué la hipertensión empeora la retinopatía diabética?',
+     'Porque el capilar diabético ya perdió los pericitos y tiene la pared permeable; si además recibe sangre a más presión, se escapa más plasma y se rompen más vasos (más edema macular y hemorragias). A la vez, la resistencia a la insulina sube la presión (simpático, retención de sodio, menos óxido nítrico). Por eso controlar la presión en un diabético protege la retina.']
+  ];
+  var quiz=document.getElementById('quiz');
+  qs.forEach(function(pair,i){
+    var d=document.createElement('div'); d.className='q';
+    var h=document.createElement('button'); h.className='q-head'; h.type='button'; h.setAttribute('aria-expanded','false');
+    h.innerHTML='<span class="q-n">'+String(i+1).padStart(2,'0')+'</span><span>'+pair[0]+'</span>';
+    var b=document.createElement('div'); b.className='q-body'; b.textContent=pair[1];
+    h.addEventListener('click', function(){ var open=d.classList.toggle('open'); h.setAttribute('aria-expanded', open?'true':'false'); });
+    d.appendChild(h); d.appendChild(b); quiz.appendChild(d);
+  });
+})();
+</script>
+</body>
+</html>

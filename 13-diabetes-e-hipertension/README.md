@@ -4,7 +4,7 @@
 
 | Estado | Material | Duración |
 |---|---|---|
-| ⬜ **Programada** | 🕓 En preparación | 2 horas |
+| ⬜ **Programada** | 📘 [Clase interactiva](clase.html) | 2 horas |
 
 ---
 
@@ -14,7 +14,8 @@ El encuentro que justifica todo el semestre. Son las dos enfermedades que el mar
 
 ## Material de clase
 
-_En preparación._ La clase interactiva se publica aquí el día del encuentro o antes.
+- 📘 **[Clase interactiva](clase.html)** — 10 secciones, con tres diagramas originales (las cuatro vías del daño por hiperglucemia que convergen en el capilar, la cascada de la retinopatía diabética con sus dos ramas, fuga y cierre capilar, y los cuatro grados de la retinopatía hipertensiva, de la adaptación a la rotura), tablas de mecanismos y de criterios de remisión, dos ejercicios interactivos (¿diabética o hipertensiva?; ¿con qué urgencia remitir?) y autoevaluación de 10 preguntas. Eje: **la diabetes daña el capilar; la hipertensión, la arteriola**.
+- ✍️ Taller de clase en papel (se entrega impreso en el aula).
 
 ## Contenidos
 
