@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clase 14 — Trastornos ópticos desde la fisiopatología</title>
+<style>
+  :root{
+    --ink:#12212b; --paper:#f4f7f7; --surface:#ffffff; --surface-2:#eaf0f0;
+    --line:#cbd8da; --muted:#516268;
+    --fisio:#10505e; --fisio-soft:#dceaec;
+    --pato:#a8412c; --pato-soft:#f5e2dc;
+    --amber:#9a6b12; --amber-soft:#f6ecd6;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 8px 24px -16px rgba(18,33,43,.35);
+    --display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+    --measure:66ch;
+    --pad:clamp(1rem,4vw,2.5rem);
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+      --line:#2c3d43; --muted:#9bafb4;
+      --fisio:#5cb6c6; --fisio-soft:#12313a;
+      --pato:#e08a70; --pato-soft:#3a2119;
+      --amber:#d5a446; --amber-soft:#33290f;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.9);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+    --line:#2c3d43; --muted:#9bafb4;
+    --fisio:#5cb6c6; --fisio-soft:#12313a;
+    --pato:#e08a70; --pato-soft:#3a2119;
+    --amber:#d5a446; --amber-soft:#33290f;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.9);
+  }
+  :root[data-theme="light"]{
+    --ink:#12212b; --paper:#f4f7f7; --surface:#ffffff; --surface-2:#eaf0f0;
+    --line:#cbd8da; --muted:#516268;
+    --fisio:#10505e; --fisio-soft:#dceaec;
+    --pato:#a8412c; --pato-soft:#f5e2dc;
+    --amber:#9a6b12; --amber-soft:#f6ecd6;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 8px 24px -16px rgba(18,33,43,.35);
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--body); font-size:clamp(15px,.5vw + 14px,17px); line-height:1.62; -webkit-font-smoothing:antialiased}
+  h1,h2,h3,h4{font-family:var(--display); font-weight:600; line-height:1.15; text-wrap:balance; margin:0}
+  p{margin:0}
+  a{color:var(--fisio)}
+  .wrap{max-width:1040px; margin:0 auto; padding-inline:var(--pad)}
+  .prose{max-width:var(--measure)}
+  .stack{display:flex; flex-direction:column}
+  .stack>*+*{margin-top:1rem}
+  .eyebrow{font-family:var(--mono); font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)}
+
+  header.top{position:sticky; top:0; z-index:50; background:color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter:blur(10px); border-bottom:1px solid var(--line)}
+  .top-in{display:flex; align-items:center; gap:1rem; height:54px}
+  .brand{font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); white-space:nowrap}
+  nav.jump{margin-left:auto; display:flex; gap:.15rem; overflow-x:auto; scrollbar-width:none}
+  nav.jump::-webkit-scrollbar{display:none}
+  nav.jump a{font-size:.78rem; text-decoration:none; color:var(--muted); padding:.3rem .55rem; border-radius:99px; white-space:nowrap}
+  nav.jump a:hover{color:var(--ink); background:var(--surface-2)}
+  .theme-btn{border:1px solid var(--line); background:var(--surface); color:var(--muted); border-radius:99px; width:32px; height:32px; cursor:pointer; flex:none; font-size:.85rem}
+  .theme-btn:hover{color:var(--ink)}
+
+  .hero{padding:clamp(2.5rem,7vw,5rem) 0 clamp(2rem,5vw,3.5rem)}
+  .hero h1{font-size:clamp(2.1rem,5.5vw,3.6rem); letter-spacing:-.01em; margin-top:.6rem}
+  .hero .sub{max-width:60ch; color:var(--muted); font-size:1.05rem; margin-top:1.1rem}
+  .hero-meta{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.6rem}
+  .chip{font-family:var(--mono); font-size:.7rem; letter-spacing:.06em; border:1px solid var(--line); border-radius:99px; padding:.3rem .7rem; background:var(--surface); color:var(--muted)}
+  .chip strong{color:var(--ink); font-weight:600}
+  .split-word{display:inline-flex; flex-wrap:wrap; gap:.1em}
+  .split-word .a{color:var(--fisio)}
+  .split-word .b{color:var(--pato)}
+  .split-word .c{color:var(--amber)}
+
+  section{padding:clamp(2.2rem,5vw,3.6rem) 0; border-top:1px solid var(--line)}
+  .sec-head{display:flex; align-items:baseline; gap:.9rem; margin-bottom:1.4rem; flex-wrap:wrap}
+  .sec-num{font-family:var(--mono); font-size:.72rem; color:var(--fisio); border:1px solid var(--fisio); border-radius:4px; padding:.1rem .4rem; flex:none}
+  .sec-head h2{font-size:clamp(1.4rem,3vw,2rem)}
+  .band-f .sec-num{color:var(--amber); border-color:var(--amber)}
+  .band-d .sec-num{color:var(--pato); border-color:var(--pato)}
+
+  .grid{display:grid; gap:1rem}
+  @media(min-width:720px){ .g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)} }
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:1.1rem 1.2rem; box-shadow:var(--shadow)}
+  .card h3{font-size:1.02rem; margin-bottom:.45rem}
+  .card p, .card li{font-size:.92rem; color:var(--muted)}
+  .card.fisio{border-left:3px solid var(--fisio)}
+  .card.pato{border-left:3px solid var(--pato)}
+  .card.amber{border-left:3px solid var(--amber)}
+  .card ul{margin:.4rem 0 0; padding-left:1.1rem}
+  .card li+li{margin-top:.25rem}
+  .card .ocular{margin-top:.7rem; padding-top:.6rem; border-top:1px dashed var(--line); font-size:.82rem; color:var(--fisio)}
+
+  .callout{background:var(--fisio-soft); border:1px solid color-mix(in srgb,var(--fisio) 30%, transparent); border-radius:10px; padding:1rem 1.2rem}
+  .callout .eyebrow{color:var(--fisio)}
+  .callout.warn{background:var(--pato-soft); border-color:color-mix(in srgb,var(--pato) 30%, transparent)}
+  .callout.warn .eyebrow{color:var(--pato)}
+  .callout.note{background:var(--amber-soft); border-color:color-mix(in srgb,var(--amber) 35%, transparent)}
+  .callout.note .eyebrow{color:var(--amber)}
+
+  .table-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface); margin-top:1.1rem}
+  table{border-collapse:collapse; width:100%; font-size:.88rem; min-width:520px}
+  th,td{text-align:left; padding:.6rem .8rem; border-bottom:1px solid var(--line); vertical-align:top}
+  th{font-family:var(--mono); font-size:.68rem; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); font-weight:500}
+  tbody tr:last-child td{border-bottom:none}
+  td.k{font-weight:600; white-space:nowrap}
+
+  .fork{display:grid; gap:.8rem; margin-top:1rem}
+  @media(min-width:720px){.fork{grid-template-columns:1fr 1fr}}
+  .fork .lane{border:1px solid var(--line); border-radius:10px; padding:1rem; background:var(--surface)}
+  .fork .lane.a{border-top:3px solid var(--fisio)}
+  .fork .lane.b{border-top:3px solid var(--pato)}
+  .fork .lane h3{font-size:1rem; margin-bottom:.4rem}
+  .fork .lane p, .fork .lane li{font-size:.9rem; color:var(--muted)}
+  .fork .lane ul{margin:.4rem 0 0; padding-left:1.1rem}
+
+  .drill-row{display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; padding:.65rem 0; border-bottom:1px solid var(--line)}
+  .drill-row:last-child{border-bottom:none}
+  .drill-q{flex:1 1 240px; font-size:.94rem}
+  .btn{font-family:var(--body); font-size:.78rem; cursor:pointer; border:1px solid var(--line); background:var(--surface); color:var(--ink); border-radius:99px; padding:.3rem .75rem}
+  .btn:hover{border-color:var(--fisio)}
+  .btn:focus-visible, a:focus-visible, .q-head:focus-visible{outline:2px solid var(--fisio); outline-offset:2px}
+  .btn.ok{background:var(--fisio); border-color:var(--fisio); color:#fff}
+  .btn.no{background:var(--pato); border-color:var(--pato); color:#fff}
+  .verdict{font-size:.82rem; flex-basis:100%; color:var(--muted)}
+  .verdict b{color:var(--ink)}
+  .score{font-family:var(--mono); font-size:.78rem; color:var(--muted); margin-top:.8rem}
+
+  .q{border:1px solid var(--line); border-radius:10px; background:var(--surface); overflow:hidden}
+  .q+.q{margin-top:.6rem}
+  .q-head{width:100%; text-align:left; background:none; border:0; color:inherit; font:inherit; padding:.85rem 1rem; cursor:pointer; display:flex; gap:.7rem; align-items:baseline}
+  .q-head:hover{background:var(--surface-2)}
+  .q-n{font-family:var(--mono); font-size:.72rem; color:var(--fisio); flex:none}
+  .q-body{padding:0 1rem 1rem 2.4rem; font-size:.9rem; color:var(--muted); display:none}
+  .q.open .q-body{display:block}
+  .q.open .q-head{background:var(--surface-2)}
+
+  footer{border-top:1px solid var(--line); padding:2rem 0 3rem; color:var(--muted); font-size:.83rem}
+  figure.fig{margin:1.4rem 0 0; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:1.1rem 1.2rem .9rem}
+  figure.fig svg{display:block; width:100%; height:auto; color:var(--ink)}
+  figure.fig figcaption{margin-top:.7rem; font-size:.84rem; color:var(--muted); line-height:1.5}
+  figure.fig figcaption b{color:var(--ink)}
+  .svg-mut{fill:var(--muted)} .svg-ink{fill:var(--ink)}
+  @media (prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-in">
+    <span class="brand">Fisiopatología General · Clase 14</span>
+    <nav class="jump">
+      <a href="#intro">Marco</a>
+      <a href="#emetropizacion">Emetropización</a>
+      <a href="#miopia">Miopía</a>
+      <a href="#ambiente">Ambiente</a>
+      <a href="#presbicia">Presbicia</a>
+      <a href="#hiper">Hipermetropía y astigmatismo</a>
+      <a href="#signo">Señal de alarma</a>
+      <a href="#cineforo">Cine-foro</a>
+      <a href="#autoeval">Autoevaluación</a>
+    </nav>
+    <button class="theme-btn" id="themeBtn" aria-label="Cambiar tema">◐</button>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <p class="eyebrow">Clase 14 · Aplicación disciplinar · Semana del 29 de octubre</p>
+    <h1>Trastornos ópticos <span class="split-word"><span class="a">desde</span>&nbsp;<span class="b">la fisiopatología</span></span></h1>
+    <p class="sub">En los cursos de óptica, la miopía es «el foco delante de la retina». Esa frase describe dónde cae la imagen, pero no explica por qué. Hoy hacemos la otra pregunta: <strong>qué le pasó al tejido</strong> para que el ojo dejara de enfocar. Casi siempre la respuesta es un tejido que cambia. La <strong>esclera</strong> se remodela y el ojo se alarga, el <strong>cristalino</strong> se endurece con la edad o la <strong>córnea</strong> se deforma. Cerramos con el cine-foro de <em>El hombre elefante</em>.</p>
+    <div class="hero-meta">
+      <span class="chip">Sesión <strong>14 de 16</strong></span>
+      <span class="chip">Fecha <strong>29 oct 2026</strong></span>
+      <span class="chip">Duración <strong>2 horas</strong></span>
+      <span class="chip">Textos guía <strong>Fox cap. 10 · Boron cap. 15 · Robbins, ojo</strong></span>
+    </div>
+  </div>
+
+  <!-- 01 -->
+  <section id="intro">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">01</span><h2>Un vicio de refracción es una desproporción</h2></div>
+      <div class="prose stack">
+        <p>Para que la imagen de un objeto lejano caiga nítida sobre la retina, deben coincidir dos magnitudes: la <strong>potencia</strong> del sistema óptico, cuánto dobla la luz, y la <strong>longitud axial</strong> del ojo, la distancia de la córnea a la retina. En el adulto la potencia total ronda las 60 dioptrías. La <strong>córnea</strong> con su película lagrimal aporta unas dos terceras partes (Robbins insiste en que es la principal superficie de refracción, no el cristalino), y el cristalino en reposo, el resto. El ojo mide unos 24 mm.</p>
+        <p>Cuando potencia y longitud coinciden, el ojo es <strong>emétrope</strong>. Cuando no, hay un vicio de refracción, y la pregunta fisiopatológica es <strong>cuál de las dos cambió y por qué</strong>. El margen es muy pequeño: <strong>cada milímetro de longitud axial equivale a unas 3 dioptrías</strong>. Un ojo solo 2 mm más largo de lo que su córnea necesita ya es un miope de unas −6 D.</p>
+      </div>
+
+      <figure class="fig">
+        <svg viewBox="0 0 860 250" role="img" aria-label="Tres ojos con la misma córnea y el mismo cristalino. En el ojo emétrope, la longitud coincide con la potencia y los rayos se enfocan sobre la retina. En el ojo miope, el ojo es más largo y los rayos se enfocan delante de la retina, que recibe una mancha borrosa. En el ojo hipermétrope, el ojo es más corto y los rayos llegarían a enfocarse detrás de la retina.">
+          <g font-family="system-ui,sans-serif" text-anchor="middle">
+            <!-- emétrope -->
+            <ellipse cx="140" cy="115" rx="70" ry="62" fill="var(--fisio-soft)" stroke="var(--fisio)" stroke-width="1.6"/>
+            <path d="M210,85 A70,62 0 0 1 210,145" fill="none" stroke="var(--fisio)" stroke-width="5"/>
+            <g stroke="var(--amber)" stroke-width="1.6" fill="none">
+              <line x1="20" y1="95" x2="70" y2="95"/><line x1="20" y1="115" x2="70" y2="115"/><line x1="20" y1="135" x2="70" y2="135"/>
+              <line x1="70" y1="95" x2="210" y2="115"/><line x1="70" y1="115" x2="210" y2="115"/><line x1="70" y1="135" x2="210" y2="115"/>
+            </g>
+            <circle cx="210" cy="115" r="4" fill="var(--amber)"/>
+            <text x="140" y="205" font-size="12.5" font-weight="700" class="svg-ink">Emétrope</text>
+            <text x="140" y="222" font-size="10" class="svg-mut">longitud = potencia</text>
+            <text x="140" y="237" font-size="10" class="svg-mut">foco sobre la retina</text>
+
+            <!-- miope -->
+            <ellipse cx="455" cy="115" rx="95" ry="62" fill="var(--pato-soft)" stroke="var(--pato)" stroke-width="1.6"/>
+            <path d="M550,85 A95,62 0 0 1 550,145" fill="none" stroke="var(--pato)" stroke-width="5"/>
+            <g stroke="var(--amber)" stroke-width="1.6" fill="none">
+              <line x1="310" y1="95" x2="360" y2="95"/><line x1="310" y1="115" x2="360" y2="115"/><line x1="310" y1="135" x2="360" y2="135"/>
+              <line x1="360" y1="95" x2="550" y2="124.3"/><line x1="360" y1="115" x2="550" y2="115"/><line x1="360" y1="135" x2="550" y2="105.7"/>
+            </g>
+            <circle cx="500" cy="115" r="4" fill="var(--amber)"/>
+            <text x="500" y="142" font-size="9.5" fill="var(--amber)">foco</text>
+            <text x="455" y="205" font-size="12.5" font-weight="700" class="svg-ink">Miope · ojo largo</text>
+            <text x="455" y="222" font-size="10" class="svg-mut">el foco cae delante</text>
+            <text x="455" y="237" font-size="10" class="svg-mut">a la retina llega una mancha</text>
+
+            <!-- hipermétrope -->
+            <ellipse cx="710" cy="115" rx="50" ry="62" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="1.6"/>
+            <path d="M760,85 A50,62 0 0 1 760,145" fill="none" stroke="var(--amber)" stroke-width="5"/>
+            <g stroke="var(--amber)" stroke-width="1.6" fill="none">
+              <line x1="610" y1="95" x2="660" y2="95"/><line x1="610" y1="115" x2="660" y2="115"/><line x1="610" y1="135" x2="660" y2="135"/>
+              <line x1="660" y1="95" x2="760" y2="109.3"/><line x1="660" y1="115" x2="760" y2="115"/><line x1="660" y1="135" x2="760" y2="120.7"/>
+            </g>
+            <g stroke="var(--amber)" stroke-width="1.4" stroke-dasharray="4 3" fill="none">
+              <line x1="760" y1="109.3" x2="800" y2="115"/><line x1="760" y1="120.7" x2="800" y2="115"/>
+            </g>
+            <circle cx="800" cy="115" r="4" fill="none" stroke="var(--amber)" stroke-width="1.6"/>
+            <text x="800" y="100" font-size="9.5" fill="var(--amber)">foco</text>
+            <text x="710" y="205" font-size="12.5" font-weight="700" class="svg-ink">Hipermétrope · ojo corto</text>
+            <text x="710" y="222" font-size="10" class="svg-mut">el foco caería detrás</text>
+            <text x="710" y="237" font-size="10" class="svg-mut">el cristalino debe compensar</text>
+          </g>
+        </svg>
+        <figcaption><b>La misma óptica en tres ojos distintos.</b> Los tres tienen la misma córnea y el mismo cristalino; solo cambia la <b>longitud</b>. La miopía y la hipermetropía más frecuentes son, ante todo, problemas de <b>tamaño del globo ocular</b>, y el tamaño depende de un tejido vivo que crece y se remodela: la esclera. La línea gruesa marca la retina.</figcaption>
+      </figure>
+
+      <div class="grid g3" style="margin-top:1.2rem">
+        <div class="card pato">
+          <p class="eyebrow">Cambia la longitud</p>
+          <h3>Miopía e hipermetropía axiales</h3>
+          <p>El ojo creció de más o de menos para la potencia que tiene. El tejido protagonista es la <strong>esclera</strong>.</p>
+        </div>
+        <div class="card amber">
+          <p class="eyebrow">Cambia la potencia</p>
+          <h3>Cristalino y córnea</h3>
+          <p>El cristalino se endurece (presbicia) o cambia su índice (catarata, glucosa); la córnea se curva de forma desigual (astigmatismo) o se adelgaza (queratocono).</p>
+        </div>
+        <div class="card fisio">
+          <p class="eyebrow">La pregunta de hoy</p>
+          <h3>¿Qué tejido cambió?</h3>
+          <p>Ante cada vicio de refracción: ¿cambió la longitud o la potencia?, ¿qué tejido lo hizo?, ¿por qué?, ¿es estable o progresa?</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section id="emetropizacion">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">02</span><h2>Emetropización · el ojo crece guiado por la imagen</h2></div>
+      <div class="prose stack">
+        <p>Si potencia y longitud tienen que coincidir con un margen de décimas de milímetro, sería casi imposible que coincidieran por azar. No coinciden por azar. El recién nacido suele ser <strong>hipermétrope</strong>: su ojo es corto. Durante la infancia el globo crece y, al mismo tiempo, la córnea y el cristalino se aplanan, de modo que la potencia baja a medida que la longitud sube. Al final de ese proceso la mayoría de los niños queda cerca de la emetropía. A eso se le llama <strong>emetropización</strong>.</p>
+        <p>Lo decisivo es que el crecimiento está <strong>regulado por la propia imagen</strong>. En animales de experimentación, si se le pone al ojo una lente que desplaza el foco <em>detrás</em> de la retina (desenfoque hipermetrópico), el ojo acelera su crecimiento axial hasta «alcanzar» el foco; si el foco queda <em>delante</em>, el crecimiento se frena. La retina detecta el signo del desenfoque y envía señales que, atravesando la coroides, llegan a la esclera y le ordenan crecer o detenerse.</p>
+      </div>
+      <div class="callout" style="margin-top:1.2rem">
+        <p class="eyebrow">Por qué esto es fisiopatología y no solo óptica</p>
+        <p style="margin-top:.4rem">La emetropización es un <strong>sistema de control con retroalimentación</strong>, como los que estudiamos en homeostasis: un sensor (la retina), una vía de señales (retina → coroides → esclera) y un efector (los fibroblastos de la esclera, que remodelan su matriz). La miopía axial es, en este marco, un <strong>fallo del control</strong>: el efector sigue alargando el ojo después de alcanzar la emetropía. Igual que en otras enfermedades del curso, el daño no está en una pieza aislada sino en una regulación que se desajusta.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section id="miopia" class="band-d">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">03</span><h2>Miopía axial · la esclera que cede</h2></div>
+      <div class="prose stack">
+        <p>La causa estructural de la gran mayoría de las miopías es una <strong>longitud axial excesiva</strong>, concretamente una cámara vítrea demasiado profunda. Y como el ojo no puede alargarse sin que la esclera lo haga, la esclera es el tejido central de la miopía (McBrien y Gentle, 2003). La esclera es un tejido conectivo denso: fibroblastos dentro de una matriz de <strong>colágeno tipo I</strong> y proteoglucanos. Robbins recuerda que tiene pocos vasos y pocos fibroblastos, y por eso cicatriza mal. En la miopía, esa matriz se <strong>remodela</strong>:</p>
+      </div>
+
+      <figure class="fig">
+        <svg viewBox="0 0 860 240" role="img" aria-label="Cascada de la miopía axial. Un desenfoque hipermetrópico sostenido, con poco tiempo al aire libre, actúa sobre la retina, que lo detecta y emite señales. Las señales atraviesan la coroides, que se adelgaza. En la esclera, los fibroblastos producen menos colágeno tipo I, las fibrillas se adelgazan, se pierden proteoglucanos y aumentan las metaloproteinasas. La esclera se vuelve más débil y se estira bajo la presión intraocular. La cámara vítrea se alarga y aparece la miopía. Si el proceso continúa, la miopía alta trae complicaciones: estafiloma, maculopatía y desprendimiento de retina.">
+          <defs>
+            <marker id="am" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker>
+          </defs>
+          <g font-family="system-ui,sans-serif" text-anchor="middle">
+            <rect x="10" y="40" width="150" height="96" rx="9" fill="var(--amber-soft)" stroke="var(--amber)"/>
+            <text x="85" y="64" font-size="11.5" font-weight="700" class="svg-ink">Estímulo</text>
+            <text x="85" y="84" font-size="9.5" class="svg-mut">desenfoque</text>
+            <text x="85" y="98" font-size="9.5" class="svg-mut">hipermetrópico</text>
+            <text x="85" y="112" font-size="9.5" class="svg-mut">poca luz exterior</text>
+            <text x="85" y="126" font-size="9.5" class="svg-mut">mucho trabajo de cerca</text>
+
+            <rect x="184" y="40" width="150" height="96" rx="9" fill="var(--surface)" stroke="var(--line)"/>
+            <text x="259" y="64" font-size="11.5" font-weight="700" class="svg-ink">Retina</text>
+            <text x="259" y="84" font-size="9.5" class="svg-mut">detecta el signo</text>
+            <text x="259" y="98" font-size="9.5" class="svg-mut">del desenfoque</text>
+            <text x="259" y="112" font-size="9.5" class="svg-mut">emite señales</text>
+            <text x="259" y="126" font-size="9.5" class="svg-mut">(¿dopamina ↓?)</text>
+
+            <rect x="358" y="40" width="150" height="96" rx="9" fill="var(--surface)" stroke="var(--line)"/>
+            <text x="433" y="64" font-size="11.5" font-weight="700" class="svg-ink">Coroides</text>
+            <text x="433" y="84" font-size="9.5" class="svg-mut">transmite la señal</text>
+            <text x="433" y="98" font-size="9.5" class="svg-mut">se adelgaza</text>
+
+            <rect x="532" y="40" width="150" height="96" rx="9" fill="var(--pato-soft)" stroke="var(--pato)"/>
+            <text x="607" y="64" font-size="11.5" font-weight="700" class="svg-ink">Esclera</text>
+            <text x="607" y="84" font-size="9.5" class="svg-mut">↓ colágeno tipo I</text>
+            <text x="607" y="98" font-size="9.5" class="svg-mut">fibrillas más finas</text>
+            <text x="607" y="112" font-size="9.5" class="svg-mut">↓ proteoglucanos</text>
+            <text x="607" y="126" font-size="9.5" class="svg-mut">↑ metaloproteinasas</text>
+
+            <rect x="706" y="40" width="144" height="96" rx="9" fill="var(--pato-soft)" stroke="var(--pato)"/>
+            <text x="778" y="64" font-size="11.5" font-weight="700" class="svg-ink">Ojo más largo</text>
+            <text x="778" y="84" font-size="9.5" class="svg-mut">la esclera débil</text>
+            <text x="778" y="98" font-size="9.5" class="svg-mut">se estira con la</text>
+            <text x="778" y="112" font-size="9.5" class="svg-mut">presión intraocular</text>
+            <text x="778" y="126" font-size="9.5" fill="var(--pato)">MIOPÍA</text>
+
+            <rect x="532" y="170" width="318" height="56" rx="9" fill="var(--surface)" stroke="var(--pato)" stroke-dasharray="5 4"/>
+            <text x="691" y="193" font-size="11" font-weight="700" fill="var(--pato)">Miopía alta: el ojo se estira de más</text>
+            <text x="691" y="212" font-size="9.5" class="svg-mut">estafiloma posterior · maculopatía · desprendimiento de retina</text>
+          </g>
+          <g fill="none" stroke="var(--muted)" stroke-width="1.8" marker-end="url(#am)">
+            <line x1="160" y1="88" x2="180" y2="88"/>
+            <line x1="334" y1="88" x2="354" y2="88"/>
+            <line x1="508" y1="88" x2="528" y2="88"/>
+            <line x1="682" y1="88" x2="702" y2="88"/>
+            <path d="M778,136 L778,166"/>
+          </g>
+          <text x="259" y="20" font-family="ui-monospace,monospace" font-size="9.5" class="svg-mut" text-anchor="middle">señal retina → coroides → esclera</text>
+          <line x1="184" y1="27" x2="508" y2="27" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+        </svg>
+        <figcaption><b>La miopía empieza en la imagen y termina en la matriz extracelular.</b> El ojo no se «estira» porque sí: una señal que nace en la retina llega a los fibroblastos de la esclera, que fabrican menos colágeno y más enzimas que lo degradan. La pared queda más delgada y menos rígida, y la presión intraocular de siempre basta para alargarla. Si el proceso no se detiene, la esclera adelgazada protruye hacia atrás (<b>estafiloma</b>) y arrastra a la coroides y a la retina. El papel exacto de la dopamina retiniana es todavía una <b>hipótesis</b>.</figcaption>
+      </figure>
+
+      <div class="grid g2" style="margin-top:1.2rem">
+        <div class="card pato">
+          <p class="eyebrow">Miopía simple</p>
+          <h3>Un vicio de refracción</h3>
+          <p>Empieza en la edad escolar, progresa durante el crecimiento y se estabiliza al final de la adolescencia. Se corrige con <strong>lentes cóncavas</strong>, que divergen la luz y llevan el foco hacia atrás, sobre la retina (Fox). El ojo es largo, pero sus tejidos están sanos.</p>
+        </div>
+        <div class="card pato">
+          <p class="eyebrow">Miopía alta (patológica)</p>
+          <h3>Una enfermedad del globo ocular</h3>
+          <p>Por encima de unas −5 a −6 D, el estiramiento ya daña los tejidos: la retina y la coroides se adelgazan, aparecen roturas, el riesgo de <strong>desprendimiento de retina</strong>, de <strong>maculopatía</strong> y de glaucoma aumenta. La miopía alta es una causa importante de ceguera. Corregir la refracción <strong>no</strong> corrige el estiramiento.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section id="ambiente">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">04</span><h2>Genes, ambiente y una epidemia</h2></div>
+      <div class="prose stack">
+        <p>Los hijos de padres miopes tienen más riesgo de serlo: hay un componente genético. Pero los genes no cambian en una generación, y la miopía sí. Una revisión sistemática con 145 estudios y 2,1 millones de personas estimó que en el año 2000 el 23 % de la población mundial era miope y proyectó que para <strong>2050 lo será cerca de la mitad</strong>, unos 4.800 millones de personas, de las cuales casi mil millones con miopía alta (Holden y cols., 2016). Algo del <strong>ambiente</strong> está empujando a la esclera.</p>
+      </div>
+      <div class="fork">
+        <div class="lane a">
+          <p class="eyebrow">Lo que protege</p>
+          <h3>Tiempo al aire libre</h3>
+          <ul>
+            <li>En un ensayo aleatorizado en Guangzhou (China), las escuelas que añadieron <strong>40 minutos diarios de clase al aire libre</strong> tuvieron una incidencia de miopía a 3 años del <strong>30,4 %</strong>, frente al <strong>39,5 %</strong> de las escuelas control (He y cols., 2015).</li>
+            <li>La hipótesis más aceptada es la <strong>luz intensa</strong> del exterior, que aumenta la liberación de dopamina en la retina, una señal que frena el crecimiento axial.</li>
+          </ul>
+        </div>
+        <div class="lane b">
+          <p class="eyebrow">Lo que empuja</p>
+          <h3>Trabajo de cerca sostenido</h3>
+          <ul>
+            <li>Leer, estudiar y usar pantallas a corta distancia durante horas se asocia a más miopía, aunque la relación es menos consistente que la del aire libre.</li>
+            <li>Se propone que el <strong>desenfoque hipermetrópico</strong> en la retina periférica durante la visión de cerca sea la señal que activa la cascada de la sección anterior.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout note" style="margin-top:1.2rem">
+        <p class="eyebrow">Fíjate en el nivel de evidencia</p>
+        <p style="margin-top:.4rem">No todas estas afirmaciones pesan igual. Que el tiempo al aire libre <strong>reduce la aparición</strong> de miopía viene de un <strong>ensayo aleatorizado</strong>: evidencia fuerte de causa. Que lo haga <strong>a través de la dopamina</strong> viene sobre todo de modelos animales: es un mecanismo plausible, no demostrado en niños. Que la lectura cause miopía viene de estudios observacionales con resultados mixtos. Esta misma distinción la vas a necesitar en el cine-foro.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section id="presbicia" class="band-f">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">05</span><h2>Presbicia · el cristalino que ya no se redondea</h2></div>
+      <div class="prose stack">
+        <p>Para enfocar de cerca, el ojo aumenta su potencia mediante la <strong>acomodación</strong>. El cristalino cuelga del cuerpo ciliar por las <strong>fibras zonulares</strong>. Con el músculo ciliar relajado, la zónula está tensa y tira del cristalino, que queda aplanado: el ojo enfoca de lejos. Al mirar de cerca, el músculo ciliar se <strong>contrae</strong>, su anillo se estrecha, la zónula se afloja y el cristalino, por su <strong>elasticidad propia</strong>, se redondea y gana potencia (Fox; Boron).</p>
+      </div>
+
+      <figure class="fig">
+        <svg viewBox="0 0 860 230" role="img" aria-label="Acomodación en dos estados. Para ver de lejos, el músculo ciliar está relajado, la zónula tensa y el cristalino aplanado. Para ver de cerca, el músculo ciliar se contrae, la zónula se afloja y el cristalino elástico se redondea. En la presbicia, el músculo sigue contrayéndose y la zónula se afloja, pero el cristalino, rígido y más grande, ya no se redondea.">
+          <g font-family="system-ui,sans-serif" text-anchor="middle">
+            <!-- lejos -->
+            <rect x="40" y="45" width="40" height="24" rx="6" fill="var(--fisio-soft)" stroke="var(--fisio)"/>
+            <rect x="40" y="141" width="40" height="24" rx="6" fill="var(--fisio-soft)" stroke="var(--fisio)"/>
+            <ellipse cx="160" cy="105" rx="14" ry="44" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="1.6"/>
+            <g stroke="var(--ink)" stroke-width="1.2">
+              <line x1="80" y1="60" x2="152" y2="68"/><line x1="80" y1="64" x2="155" y2="78"/>
+              <line x1="80" y1="150" x2="152" y2="142"/><line x1="80" y1="146" x2="155" y2="132"/>
+            </g>
+            <text x="60" y="38" font-size="9.5" fill="var(--fisio)">músculo ciliar</text>
+            <text x="116" y="54" font-size="9.5" class="svg-mut">zónula</text>
+            <text x="182" y="109" font-size="9.5" fill="var(--amber)" text-anchor="start">cristalino</text>
+            <text x="150" y="20" font-size="12.5" font-weight="700" class="svg-ink">Ver de lejos</text>
+            <text x="150" y="190" font-size="10" class="svg-mut">ciliar relajado · zónula tensa</text>
+            <text x="150" y="206" font-size="10" class="svg-mut">cristalino plano · menos potencia</text>
+
+            <!-- cerca -->
+            <rect x="350" y="55" width="34" height="30" rx="6" fill="var(--fisio)" stroke="var(--fisio)"/>
+            <rect x="350" y="125" width="34" height="30" rx="6" fill="var(--fisio)" stroke="var(--fisio)"/>
+            <ellipse cx="450" cy="105" rx="24" ry="38" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="1.6"/>
+            <g stroke="var(--ink)" stroke-width="1.2" fill="none">
+              <path d="M384,70 Q410,80 432,78"/><path d="M384,78 Q408,90 428,90"/>
+              <path d="M384,140 Q410,130 432,132"/><path d="M384,132 Q408,120 428,120"/>
+            </g>
+            <text x="430" y="20" font-size="12.5" font-weight="700" class="svg-ink">Ver de cerca · ojo joven</text>
+            <text x="430" y="190" font-size="10" class="svg-mut">ciliar contraído · zónula floja</text>
+            <text x="430" y="206" font-size="10" class="svg-mut">cristalino elástico se redondea</text>
+
+            <!-- presbicia -->
+            <rect x="640" y="55" width="34" height="30" rx="6" fill="var(--fisio)" stroke="var(--fisio)"/>
+            <rect x="640" y="125" width="34" height="30" rx="6" fill="var(--fisio)" stroke="var(--fisio)"/>
+            <ellipse cx="745" cy="105" rx="17" ry="46" fill="var(--pato-soft)" stroke="var(--pato)" stroke-width="1.6"/>
+            <ellipse cx="745" cy="105" rx="8" ry="24" fill="var(--pato)" opacity=".55"/>
+            <g stroke="var(--ink)" stroke-width="1.2" fill="none">
+              <path d="M674,70 Q700,80 730,74"/><path d="M674,78 Q698,90 728,88"/>
+              <path d="M674,140 Q700,130 730,136"/><path d="M674,132 Q698,120 728,122"/>
+            </g>
+            <text x="725" y="20" font-size="12.5" font-weight="700" class="svg-ink">Ver de cerca · presbicia</text>
+            <text x="725" y="190" font-size="10" class="svg-mut">el ciliar sigue contrayéndose</text>
+            <text x="725" y="206" font-size="10" fill="var(--pato)">núcleo rígido: no se redondea</text>
+          </g>
+        </svg>
+        <figcaption><b>El músculo sigue funcionando; lo que falla es el cristalino.</b> En la presbicia la orden de acomodar llega y el músculo ciliar se contrae, pero el cristalino ya no tiene la elasticidad para redondearse. Su <b>núcleo</b> (en rojo) es el que más se endurece. Por eso la presbicia es una enfermedad del <b>tejido</b>, no del músculo ni del nervio.</figcaption>
+      </figure>
+
+      <div class="grid g3" style="margin-top:1.2rem">
+        <div class="card amber">
+          <p class="eyebrow">Mecanismo 1</p>
+          <h3>El núcleo se endurece</h3>
+          <p>Midiendo cristalinos humanos de distintas edades, la rigidez del <strong>núcleo</strong> aumentó en promedio unas <strong>450 veces</strong> a lo largo de la vida, y la de la corteza unas 20 (Heys y cols., 2004). Antes de los 30 años el núcleo es más blando que la corteza; después de los 50, mucho más rígido.</p>
+        </div>
+        <div class="card amber">
+          <p class="eyebrow">Mecanismo 2</p>
+          <h3>El cristalino nunca deja de crecer</h3>
+          <p>La cápsula del cristalino lo rodea por completo, así que las células y proteínas que produce su epitelio no se eliminan: se acumulan dentro y el cristalino <strong>aumenta de tamaño</strong> con la edad (Robbins). Las inserciones de la zónula se desplazan y la zónula queda tensa incluso con el músculo contraído (Fox).</p>
+        </div>
+        <div class="card amber">
+          <p class="eyebrow">Consecuencia</p>
+          <h3>El punto próximo se aleja</h3>
+          <p>Un niño pequeño puede acomodar 12 a 14 D y enfoca casi en la punta de su nariz. A los 30 años el punto próximo está a unos 10 cm; entre los 40 y los 50, más allá del largo del brazo (Boron). El paciente <strong>aleja el texto</strong> para leer.</p>
+        </div>
+      </div>
+      <div class="callout note" style="margin-top:1.2rem">
+        <p class="eyebrow">Universal no significa normal</p>
+        <p style="margin-top:.4rem">La presbicia le llega a todo el mundo, y por eso a veces no se la piensa como un proceso patológico. Pero cumple la definición del curso: un tejido cuyas propiedades cambian (las proteínas del núcleo se modifican y el núcleo se vuelve rígido) hasta que <strong>pierde una función</strong>. Además, ninguna cirugía refractiva de la córnea la corrige: el problema está en el cristalino (Fox).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section id="hiper">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">06</span><h2>Hipermetropía y astigmatismo · variantes del desarrollo</h2></div>
+      <div class="fork">
+        <div class="lane a">
+          <p class="eyebrow">Ojo demasiado corto</p>
+          <h3>Hipermetropía</h3>
+          <ul>
+            <li>Es, en la mayoría de los casos, una <strong>emetropización incompleta</strong>: el ojo del niño no creció lo suficiente para su potencia.</li>
+            <li>El joven la <strong>compensa acomodando</strong> todo el tiempo, aun de lejos. Puede ver bien y, sin embargo, quejarse de fatiga visual, cefalea o visión borrosa al leer.</li>
+            <li>La acomodación está acoplada a la convergencia: un niño con hipermetropía alta que acomoda mucho puede <strong>desviar un ojo hacia adentro</strong> (esotropía acomodativa).</li>
+            <li>Con la edad, la reserva de acomodación se agota y la hipermetropía «aparece»; la presbicia llega antes.</li>
+            <li>Se corrige con <strong>lentes convexas</strong>, que hacen converger la luz (Fox).</li>
+          </ul>
+        </div>
+        <div class="lane b">
+          <p class="eyebrow">Curvatura desigual</p>
+          <h3>Astigmatismo</h3>
+          <ul>
+            <li>La córnea, o el cristalino, no es igual de curva en todos sus meridianos: dobla más la luz en un eje que en otro, y un punto no se enfoca como un punto (Boron).</li>
+            <li><strong>Regular</strong>: la córnea tiene forma de balón de rugby, con dos meridianos perpendiculares; es una variante del desarrollo y se corrige con lentes cilíndricas.</li>
+            <li><strong>Irregular</strong>: la superficie se deforma sin un patrón. Aquí el astigmatismo es un <strong>signo de enfermedad</strong> de la córnea.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout warn" style="margin-top:1.2rem">
+        <p class="eyebrow">Cuando el astigmatismo es una enfermedad del colágeno · queratocono</p>
+        <p style="margin-top:.4rem">En el <strong>queratocono</strong> la córnea se <strong>adelgaza</strong> y protruye (ectasia) hasta adoptar una forma cónica en lugar de esférica, y la visión se distorsiona. Al microscopio se ven fracturas de la capa de Bowman; la activación de <strong>metaloproteinasas</strong> que degradan la matriz puede ser la causa, y no suele haber inflamación (Robbins). Es el mismo tema de la miopía: una matriz de colágeno que se debilita y cede. Suele empezar en la adolescencia, y su sello es un astigmatismo que <strong>aumenta y se vuelve irregular</strong> de un control a otro.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section id="signo">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">07</span><h2>Cuando la refracción es una señal de alarma</h2></div>
+      <p class="prose" style="margin-bottom:1.1rem">La mayoría de los vicios de refracción son estables y se corrigen con lentes. Pero una refracción que <strong>cambia</strong>, o que cambia de una forma que no encaja con la edad, es un dato fisiopatológico: algún tejido se está modificando. Esta tabla es una orientación para razonar; la conducta precisa la fija la guía clínica vigente.</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Hallazgo</th><th>Qué tejido está cambiando</th><th>Conducta</th></tr></thead>
+          <tbody>
+            <tr><td class="k">Miope alto que nota destellos, «moscas» nuevas o una cortina</td><td>La retina estirada se rompe y se desprende</td><td><strong>Oftalmología urgente, el mismo día</strong></td></tr>
+            <tr><td class="k">Graduación que cambia de una semana a otra en un paciente con sed y orina frecuente</td><td>El cristalino se hidrata por la glucosa (polioles, clase 13)</td><td>No formular aún; remitir para estudio de glucemia</td></tr>
+            <tr><td class="k">Astigmatismo que aumenta y se vuelve irregular en un adolescente</td><td>La córnea se adelgaza y se deforma (queratocono)</td><td>Remitir para estudio de la córnea</td></tr>
+            <tr><td class="k">Adulto mayor que de pronto lee sin gafas pero ve peor de lejos, con colores apagados</td><td>El núcleo del cristalino se opacifica y cambia su índice (catarata nuclear)</td><td>Remitir a oftalmología (programado)</td></tr>
+            <tr><td class="k">Niño cuya miopía avanza rápido, año tras año</td><td>La esclera sigue remodelándose; riesgo de miopía alta</td><td>Controles frecuentes, consejo de tiempo al aire libre y valorar estrategias de control de la miopía</td></tr>
+            <tr><td class="k">Niño con hipermetropía alta y un ojo que se desvía hacia adentro</td><td>Ojo corto que obliga a acomodar (y converger) de más</td><td>Corregir y remitir para estudio de la desviación</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="prose" style="margin-top:1rem">Regla común: la refracción es la <strong>consecuencia óptica</strong> de la forma de unos tejidos. Si la forma cambia rápido, el vicio de refracción deja de ser «solo óptico» y se convierte en el primer signo de una enfermedad.</p>
+    </div>
+  </section>
+
+  <!-- 08 -->
+  <section id="cineforo" class="band-d">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">08</span><h2>Cine-foro · <em>El hombre elefante</em></h2></div>
+      <div class="prose stack">
+        <p><em>El hombre elefante</em> (David Lynch, 1980) narra la vida de Joseph Merrick (en la película, «John»), un joven inglés del siglo XIX con un crecimiento desproporcionado de los huesos, la piel y el tejido subcutáneo, exhibido en ferias hasta que el cirujano Frederick Treves lo lleva al London Hospital. Es la película del <strong>Plan Institucional de Lecturas Selectas</strong> de este curso.</p>
+        <p>La trabajamos como un <strong>caso fisiopatológico narrado</strong>. Tiene que ver con la clase de hoy: es la historia de unos tejidos que <strong>no detienen su crecimiento</strong>, como la esclera del miope pero a una escala que deforma todo el cuerpo. También es la historia de lo que significa <strong>ser visto</strong> cuando la enfermedad está a la vista de todos.</p>
+      </div>
+      <div class="grid g3" style="margin-top:1.2rem">
+        <div class="card pato">
+          <p class="eyebrow">Eje A</p>
+          <h3>¿Qué signos permite inferir?</h3>
+          <p>Qué se ve en el cuerpo de Merrick, qué corresponde a la <strong>enfermedad</strong> y qué a la <strong>respuesta social</strong> ante ella.</p>
+        </div>
+        <div class="card pato">
+          <p class="eyebrow">Eje B</p>
+          <h3>¿Qué tenía y cómo lo sabemos?</h3>
+          <p>Las hipótesis que se han propuesto (neurofibromatosis, síndrome de Proteus) y con qué <strong>nivel de evidencia</strong> se sostiene cada una.</p>
+        </div>
+        <div class="card pato">
+          <p class="eyebrow">Eje C</p>
+          <h3>¿Cómo se atiende a alguien así?</h3>
+          <p>Qué implica para la relación profesional-paciente atender a alguien cuya enfermedad es <strong>visible</strong>, y qué haría distinto un optómetra.</p>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:1.2rem">
+        <p class="eyebrow">Guía, producto y rúbrica</p>
+        <p style="margin-top:.4rem">Las preguntas de cada eje, cómo será la discusión en clase, qué hay que entregar, cuándo y con qué rúbrica se califica están en la <a href="cine-foro.html"><strong>guía del cine-foro</strong></a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 -->
+  <section id="autoeval">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">09</span><h2>Autoevaluación</h2></div>
+      <p class="prose" style="margin-bottom:1rem">Responde mentalmente antes de decidir.</p>
+
+      <h3 style="margin-bottom:.4rem; font-size:1.05rem">A · ¿Qué tejido cambió?</h3>
+      <p style="color:var(--muted); font-size:.9rem; margin-bottom:.6rem">Pista: ¿cambió la longitud del ojo o su potencia? Si fue la potencia, ¿la córnea o el cristalino?</p>
+      <div class="card" id="drillA"></div>
+
+      <h3 style="margin:2rem 0 .4rem; font-size:1.05rem">B · ¿Solo óptico o señal de enfermedad?</h3>
+      <p style="color:var(--muted); font-size:.9rem; margin-bottom:.6rem">Pista: ¿es estable y esperable para la edad, o algo está cambiando rápido?</p>
+      <div class="card" id="drillB"></div>
+
+      <h3 style="margin:2rem 0 .8rem; font-size:1.05rem">C · Diez preguntas</h3>
+      <div id="quiz"></div>
+
+      <div class="grid g2" style="margin-top:1.6rem">
+        <div class="card">
+          <h3>Trabajo independiente</h3>
+          <ul>
+            <li>Dibujar la cascada de la miopía axial, de la señal en la retina hasta la matriz de la esclera, y marcar qué parte es evidencia fuerte y qué parte es hipótesis</li>
+            <li>Explicar con un esquema por qué la presbicia es un problema del cristalino y no del músculo ciliar</li>
+            <li><strong>Análisis del cine-foro</strong>: ver la <a href="cine-foro.html">guía</a> para la entrega</li>
+            <li><strong>Taller de repaso en línea</strong>: se abre después de esta clase y cierra el miércoles 4 de noviembre a las 11:59 p. m.</li>
+            <li>Repaso de los capítulos 8, 9, 14, 41 y 62 de Uribe para el parcial final</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Fuentes de la sesión</h3>
+          <ul>
+            <li>Fox, S. I. <em>Fisiología humana</em>. McGraw-Hill. Cap. 10, fisiología sensorial: acomodación, agudeza visual, miopía, hipermetropía y astigmatismo.</li>
+            <li>Boron, W. F. y Boulpaep, E. L. <em>Fisiología médica</em>. Elsevier. Cap. 15, transducción sensorial (óptica del ojo y presbicia).</li>
+            <li>Kumar, V., Abbas, A. K. y Aster, J. C. <em>Compendio de Robbins y Cotran. Patología estructural y funcional</em>. Elsevier. Ojo: esclerótica, córnea (queratocono) y cristalino (catarata).</li>
+            <li>McBrien, N. A. y Gentle, A. (2003). Role of the sclera in the development and pathological complications of myopia. <em>Progress in Retinal and Eye Research</em>, 22(3), 307–338.</li>
+            <li>Holden, B. A. y cols. (2016). Global prevalence of myopia and high myopia and temporal trends from 2000 through 2050. <em>Ophthalmology</em>, 123(5), 1036–1042.</li>
+            <li>He, M. y cols. (2015). Effect of time spent outdoors at school on the development of myopia among children in China: a randomized clinical trial. <em>JAMA</em>, 314(11), 1142–1148.</li>
+            <li>Heys, K. R., Cram, S. L. y Truscott, R. J. W. (2004). Massive increase in the stiffness of the human lens nucleus with age: the basis for presbyopia? <em>Molecular Vision</em>, 10, 956–963.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Fisiopatología General (01008430) · Programa de Optometría · Facultad de Ciencias de la Salud · Universidad de La Salle · Semestre 2026-2</p>
+    <p style="margin-top:.4rem">Clase 14 de 16. Los vicios de refracción se estudian aquí como procesos de los tejidos; su medición y corrección detalladas corresponden a los espacios académicos de óptica y refracción.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  document.getElementById('themeBtn').addEventListener('click', function(){
+    var dark = root.getAttribute('data-theme') === 'dark'
+      || (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+    root.setAttribute('data-theme', dark ? 'light' : 'dark');
+  });
+
+  function buildDrill(mount, items, opts){
+    var A = document.getElementById(mount); if(!A) return;
+    var ok=0, ans=0;
+    var score = document.createElement('p'); score.className='score';
+    items.forEach(function(it){
+      var row=document.createElement('div'); row.className='drill-row';
+      var q=document.createElement('span'); q.className='drill-q'; q.textContent=it.t;
+      var v=document.createElement('span'); v.className='verdict'; row.appendChild(q);
+      var done=false;
+      opts.forEach(function(o){
+        var b=document.createElement('button'); b.className='btn'; b.type='button'; b.textContent=o[1];
+        b.addEventListener('click', function(){
+          row.querySelectorAll('.btn').forEach(function(x){x.classList.remove('ok','no');});
+          var good=o[0]===it.a; b.classList.add(good?'ok':'no');
+          v.innerHTML=(good?'<b>Correcto.</b> ':'<b>Revisa.</b> ')+it.e;
+          if(!done){done=true; ans++; if(good)ok++; score.textContent='Primer intento: '+ok+' de '+ans+' ('+items.length+' en total)';}
+        });
+        row.appendChild(b);
+      });
+      row.appendChild(v); A.appendChild(row);
+    });
+    A.appendChild(score);
+  }
+
+  buildDrill('drillA', [
+    { t:'Niño de 9 años que cada año necesita una lente más negativa; pasa casi todo el día dentro de casa', a:'largo', e:'Miopía axial que progresa: la esclera se sigue remodelando y el ojo se alarga. Cambió la longitud.' },
+    { t:'Persona de 46 años que ve bien de lejos pero aleja el celular para leer', a:'cris', e:'Presbicia: el núcleo del cristalino se endureció y ya no se redondea al acomodar. Cambió la potencia, por el cristalino.' },
+    { t:'Adolescente que se frota mucho los ojos; su astigmatismo aumenta en cada control y ya no tiene ejes regulares', a:'cor', e:'Astigmatismo irregular progresivo: sugiere queratocono, una córnea que se adelgaza y protruye. Cambió la potencia, por la córnea.' },
+    { t:'Niño de 4 años con hipermetropía alta y un ojo que se desvía hacia adentro al mirar de cerca', a:'corto', e:'Ojo corto que no terminó de emetropizarse: el niño acomoda de más y, con la acomodación, converge de más. Cambió (le faltó) longitud.' },
+    { t:'Adulto de 70 años que de repente lee sin gafas, pero ve peor de lejos y los colores le parecen apagados', a:'cris', e:'Catarata nuclear: el núcleo del cristalino se opacifica y aumenta su índice, el ojo se vuelve más miope («segunda vista»). Cambió la potencia, por el cristalino.' },
+    { t:'Miopía de −9 D con un abombamiento posterior del globo en el fondo de ojo', a:'largo', e:'Miopía alta con estafiloma posterior: la esclera adelgazada cede hacia atrás. Cambió la longitud, y ya daña los tejidos.' }
+  ], [['largo','Ojo largo'],['corto','Ojo corto'],['cor','Córnea'],['cris','Cristalino']]);
+
+  buildDrill('drillB', [
+    { t:'Universitaria de 20 años con −1,50 D, igual que hace dos años', a:'opt', e:'Miopía simple estable en un adulto joven: se corrige y se controla. Ningún tejido está cambiando rápido.' },
+    { t:'Miope de −8 D que desde ayer ve destellos y una sombra que sube desde abajo', a:'enf', e:'Síntomas de desprendimiento de retina en un ojo estirado. Oftalmología urgente, el mismo día.' },
+    { t:'Persona de 45 años que empezó a alejar el texto para leer', a:'opt', e:'Presbicia esperable para la edad: se corrige con lentes para cerca.' },
+    { t:'La graduación cambió dos dioptrías en tres semanas en un paciente con sed y orina frecuente', a:'enf', e:'El cristalino se hidrata por la glucosa alta (polioles). No formular aún; remitir para estudio de glucemia.' },
+    { t:'Adolescente cuyo astigmatismo pasó de 0,75 a 3,00 D en un año y se volvió irregular', a:'enf', e:'Probable queratocono: la córnea se está adelgazando. Remitir para estudio de la córnea.' },
+    { t:'Niño de 10 años con +1,00 D, sin síntomas y con los ojos alineados', a:'opt', e:'Hipermetropía baja que el niño compensa sin esfuerzo: puede ser normal para la edad. Control.' }
+  ], [['opt','Solo óptico'],['enf','Señal de enfermedad']]);
+
+  var qs = [
+    ['¿Por qué se dice que un vicio de refracción es una desproporción?',
+     'Porque el enfoque depende de que coincidan dos magnitudes: la potencia del sistema óptico (córnea y cristalino) y la longitud axial del ojo. El vicio de refracción aparece cuando una no corresponde a la otra; la pregunta fisiopatológica es cuál cambió y qué tejido la cambió.'],
+    ['¿Qué es la emetropización y por qué se parece a un sistema homeostático?',
+     'Es el proceso por el que el ojo del niño, que suele nacer hipermétrope, crece hasta que su longitud coincide con su potencia. Es un control con retroalimentación: la retina detecta el signo del desenfoque (sensor), envía señales a través de la coroides (vía) y la esclera acelera o frena su crecimiento (efector).'],
+    ['¿Qué cambios de la esclera explican la miopía axial?',
+     'Los fibroblastos de la esclera producen menos colágeno tipo I, las fibrillas se adelgazan, se pierden proteoglucanos y aumentan las metaloproteinasas que degradan la matriz. La esclera queda más delgada y menos rígida, y la presión intraocular normal basta para alargar el ojo.'],
+    ['¿Por qué la miopía alta es más que un vicio de refracción?',
+     'Porque el estiramiento del globo daña los tejidos: la retina y la coroides se adelgazan, la esclera puede protruir hacia atrás (estafiloma) y aumenta el riesgo de desprendimiento de retina, maculopatía y glaucoma. La lente corrige el enfoque, pero no el estiramiento.'],
+    ['¿Qué evidencia hay de que el ambiente influye en la miopía, y qué tan fuerte es?',
+     'La más fuerte es un ensayo aleatorizado: añadir 40 minutos diarios al aire libre en la escuela redujo la incidencia de miopía a 3 años (30,4 % frente a 39,5 %). Que el mecanismo sea la dopamina liberada por la luz intensa viene sobre todo de modelos animales (hipótesis). La relación con el trabajo de cerca viene de estudios observacionales con resultados mixtos.'],
+    ['Describe la acomodación: ¿qué hacen el músculo ciliar, la zónula y el cristalino?',
+     'Para ver de cerca, el músculo ciliar se contrae y estrecha su anillo; la zónula se afloja; el cristalino, por su elasticidad, se redondea y aumenta su potencia. Para ver de lejos ocurre lo contrario: músculo relajado, zónula tensa, cristalino aplanado.'],
+    ['¿Por qué la presbicia es un problema del cristalino y no del músculo ciliar?',
+     'Porque el músculo ciliar sigue contrayéndose con la edad, pero el cristalino ya no responde: su núcleo se vuelve cientos de veces más rígido y el cristalino crece toda la vida, lo que cambia la geometría de la zónula. Aunque la zónula se afloje, el cristalino no se redondea.'],
+    ['¿Por qué un niño con hipermetropía puede ver bien y aun así tener síntomas?',
+     'Porque compensa el ojo corto acomodando de forma permanente, incluso de lejos. Ese esfuerzo produce fatiga visual y cefalea, y como la acomodación va acoplada a la convergencia, un exceso de acomodación puede desviar un ojo hacia adentro (esotropía acomodativa).'],
+    ['¿Qué tienen en común la miopía axial y el queratocono?',
+     'Ambos son una matriz de colágeno que se debilita y cede: en la miopía, la de la esclera, que deja alargarse al ojo; en el queratocono, la de la córnea, que se adelgaza y protruye en forma de cono. En los dos se ha implicado a las metaloproteinasas que degradan la matriz.'],
+    ['¿Cuándo un cambio de graduación debe hacer pensar en una enfermedad?',
+     'Cuando cambia rápido o no encaja con la edad: una graduación que varía en semanas (glucemia inestable que hidrata el cristalino), un astigmatismo que aumenta y se vuelve irregular (queratocono), un adulto mayor que se vuelve miope (catarata nuclear) o un miope alto con destellos o una cortina (desprendimiento de retina, urgencia).']
+  ];
+  var quiz=document.getElementById('quiz');
+  qs.forEach(function(pair,i){
+    var d=document.createElement('div'); d.className='q';
+    var h=document.createElement('button'); h.className='q-head'; h.type='button'; h.setAttribute('aria-expanded','false');
+    h.innerHTML='<span class="q-n">'+String(i+1).padStart(2,'0')+'</span><span>'+pair[0]+'</span>';
+    var b=document.createElement('div'); b.className='q-body'; b.textContent=pair[1];
+    h.addEventListener('click', function(){ var open=d.classList.toggle('open'); h.setAttribute('aria-expanded', open?'true':'false'); });
+    d.appendChild(h); d.appendChild(b); quiz.appendChild(d);
+  });
+})();
+</script>
+</body>
+</html>

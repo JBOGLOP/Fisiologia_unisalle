@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cine-foro — El hombre elefante</title>
+<style>
+  :root{
+    --ink:#12212b; --paper:#f4f7f7; --surface:#ffffff; --surface-2:#eaf0f0;
+    --line:#cbd8da; --muted:#516268;
+    --fisio:#10505e; --fisio-soft:#dceaec;
+    --pato:#a8412c; --pato-soft:#f5e2dc;
+    --amber:#9a6b12; --amber-soft:#f6ecd6;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 8px 24px -16px rgba(18,33,43,.35);
+    --display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+    --measure:66ch;
+    --pad:clamp(1rem,4vw,2.5rem);
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+      --line:#2c3d43; --muted:#9bafb4;
+      --fisio:#5cb6c6; --fisio-soft:#12313a;
+      --pato:#e08a70; --pato-soft:#3a2119;
+      --amber:#d5a446; --amber-soft:#33290f;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.9);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#e2ebea; --paper:#0d1518; --surface:#141f23; --surface-2:#1b282d;
+    --line:#2c3d43; --muted:#9bafb4;
+    --fisio:#5cb6c6; --fisio-soft:#12313a;
+    --pato:#e08a70; --pato-soft:#3a2119;
+    --amber:#d5a446; --amber-soft:#33290f;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.9);
+  }
+  :root[data-theme="light"]{
+    --ink:#12212b; --paper:#f4f7f7; --surface:#ffffff; --surface-2:#eaf0f0;
+    --line:#cbd8da; --muted:#516268;
+    --fisio:#10505e; --fisio-soft:#dceaec;
+    --pato:#a8412c; --pato-soft:#f5e2dc;
+    --amber:#9a6b12; --amber-soft:#f6ecd6;
+    --shadow:0 1px 2px rgba(18,33,43,.06), 0 8px 24px -16px rgba(18,33,43,.35);
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--body); font-size:clamp(15px,.5vw + 14px,17px); line-height:1.62; -webkit-font-smoothing:antialiased}
+  h1,h2,h3,h4{font-family:var(--display); font-weight:600; line-height:1.15; text-wrap:balance; margin:0}
+  p{margin:0}
+  a{color:var(--fisio)}
+  .wrap{max-width:1040px; margin:0 auto; padding-inline:var(--pad)}
+  .prose{max-width:var(--measure)}
+  .stack{display:flex; flex-direction:column}
+  .stack>*+*{margin-top:1rem}
+  .eyebrow{font-family:var(--mono); font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)}
+
+  header.top{position:sticky; top:0; z-index:50; background:color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter:blur(10px); border-bottom:1px solid var(--line)}
+  .top-in{display:flex; align-items:center; gap:1rem; height:54px}
+  .brand{font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); white-space:nowrap}
+  nav.jump{margin-left:auto; display:flex; gap:.15rem; overflow-x:auto; scrollbar-width:none}
+  nav.jump::-webkit-scrollbar{display:none}
+  nav.jump a{font-size:.78rem; text-decoration:none; color:var(--muted); padding:.3rem .55rem; border-radius:99px; white-space:nowrap}
+  nav.jump a:hover{color:var(--ink); background:var(--surface-2)}
+  .theme-btn{border:1px solid var(--line); background:var(--surface); color:var(--muted); border-radius:99px; width:32px; height:32px; cursor:pointer; flex:none; font-size:.85rem}
+  .theme-btn:hover{color:var(--ink)}
+
+  .hero{padding:clamp(2.5rem,7vw,5rem) 0 clamp(2rem,5vw,3.5rem)}
+  .hero h1{font-size:clamp(2.1rem,5.5vw,3.6rem); letter-spacing:-.01em; margin-top:.6rem}
+  .hero .sub{max-width:60ch; color:var(--muted); font-size:1.05rem; margin-top:1.1rem}
+  .hero-meta{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.6rem}
+  .chip{font-family:var(--mono); font-size:.7rem; letter-spacing:.06em; border:1px solid var(--line); border-radius:99px; padding:.3rem .7rem; background:var(--surface); color:var(--muted)}
+  .chip strong{color:var(--ink); font-weight:600}
+  .split-word{display:inline-flex; flex-wrap:wrap; gap:.1em}
+  .split-word .a{color:var(--fisio)}
+  .split-word .b{color:var(--pato)}
+  .split-word .c{color:var(--amber)}
+
+  section{padding:clamp(2.2rem,5vw,3.6rem) 0; border-top:1px solid var(--line)}
+  .sec-head{display:flex; align-items:baseline; gap:.9rem; margin-bottom:1.4rem; flex-wrap:wrap}
+  .sec-num{font-family:var(--mono); font-size:.72rem; color:var(--fisio); border:1px solid var(--fisio); border-radius:4px; padding:.1rem .4rem; flex:none}
+  .sec-head h2{font-size:clamp(1.4rem,3vw,2rem)}
+  .band-f .sec-num{color:var(--amber); border-color:var(--amber)}
+  .band-d .sec-num{color:var(--pato); border-color:var(--pato)}
+
+  .grid{display:grid; gap:1rem}
+  @media(min-width:720px){ .g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)} }
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:1.1rem 1.2rem; box-shadow:var(--shadow)}
+  .card h3{font-size:1.02rem; margin-bottom:.45rem}
+  .card p, .card li{font-size:.92rem; color:var(--muted)}
+  .card.fisio{border-left:3px solid var(--fisio)}
+  .card.pato{border-left:3px solid var(--pato)}
+  .card.amber{border-left:3px solid var(--amber)}
+  .card ul{margin:.4rem 0 0; padding-left:1.1rem}
+  .card li+li{margin-top:.25rem}
+  .card .ocular{margin-top:.7rem; padding-top:.6rem; border-top:1px dashed var(--line); font-size:.82rem; color:var(--fisio)}
+
+  .callout{background:var(--fisio-soft); border:1px solid color-mix(in srgb,var(--fisio) 30%, transparent); border-radius:10px; padding:1rem 1.2rem}
+  .callout .eyebrow{color:var(--fisio)}
+  .callout.warn{background:var(--pato-soft); border-color:color-mix(in srgb,var(--pato) 30%, transparent)}
+  .callout.warn .eyebrow{color:var(--pato)}
+  .callout.note{background:var(--amber-soft); border-color:color-mix(in srgb,var(--amber) 35%, transparent)}
+  .callout.note .eyebrow{color:var(--amber)}
+
+  .table-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface); margin-top:1.1rem}
+  table{border-collapse:collapse; width:100%; font-size:.88rem; min-width:520px}
+  th,td{text-align:left; padding:.6rem .8rem; border-bottom:1px solid var(--line); vertical-align:top}
+  th{font-family:var(--mono); font-size:.68rem; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); font-weight:500}
+  tbody tr:last-child td{border-bottom:none}
+  td.k{font-weight:600; white-space:nowrap}
+
+  .fork{display:grid; gap:.8rem; margin-top:1rem}
+  @media(min-width:720px){.fork{grid-template-columns:1fr 1fr}}
+  .fork .lane{border:1px solid var(--line); border-radius:10px; padding:1rem; background:var(--surface)}
+  .fork .lane.a{border-top:3px solid var(--fisio)}
+  .fork .lane.b{border-top:3px solid var(--pato)}
+  .fork .lane h3{font-size:1rem; margin-bottom:.4rem}
+  .fork .lane p, .fork .lane li{font-size:.9rem; color:var(--muted)}
+  .fork .lane ul{margin:.4rem 0 0; padding-left:1.1rem}
+
+  .drill-row{display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; padding:.65rem 0; border-bottom:1px solid var(--line)}
+  .drill-row:last-child{border-bottom:none}
+  .drill-q{flex:1 1 240px; font-size:.94rem}
+  .btn{font-family:var(--body); font-size:.78rem; cursor:pointer; border:1px solid var(--line); background:var(--surface); color:var(--ink); border-radius:99px; padding:.3rem .75rem}
+  .btn:hover{border-color:var(--fisio)}
+  .btn:focus-visible, a:focus-visible, .q-head:focus-visible{outline:2px solid var(--fisio); outline-offset:2px}
+  .btn.ok{background:var(--fisio); border-color:var(--fisio); color:#fff}
+  .btn.no{background:var(--pato); border-color:var(--pato); color:#fff}
+  .verdict{font-size:.82rem; flex-basis:100%; color:var(--muted)}
+  .verdict b{color:var(--ink)}
+  .score{font-family:var(--mono); font-size:.78rem; color:var(--muted); margin-top:.8rem}
+
+  .q{border:1px solid var(--line); border-radius:10px; background:var(--surface); overflow:hidden}
+  .q+.q{margin-top:.6rem}
+  .q-head{width:100%; text-align:left; background:none; border:0; color:inherit; font:inherit; padding:.85rem 1rem; cursor:pointer; display:flex; gap:.7rem; align-items:baseline}
+  .q-head:hover{background:var(--surface-2)}
+  .q-n{font-family:var(--mono); font-size:.72rem; color:var(--fisio); flex:none}
+  .q-body{padding:0 1rem 1rem 2.4rem; font-size:.9rem; color:var(--muted); display:none}
+  .q.open .q-body{display:block}
+  .q.open .q-head{background:var(--surface-2)}
+
+  footer{border-top:1px solid var(--line); padding:2rem 0 3rem; color:var(--muted); font-size:.83rem}
+  figure.fig{margin:1.4rem 0 0; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:1.1rem 1.2rem .9rem}
+  figure.fig svg{display:block; width:100%; height:auto; color:var(--ink)}
+  figure.fig figcaption{margin-top:.7rem; font-size:.84rem; color:var(--muted); line-height:1.5}
+  figure.fig figcaption b{color:var(--ink)}
+  .svg-mut{fill:var(--muted)} .svg-ink{fill:var(--ink)}
+  @media (prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-in">
+    <span class="brand">Fisiopatología General · Cine-foro</span>
+    <nav class="jump">
+      <a href="#pelicula">La película</a>
+      <a href="#ejes">Tres ejes</a>
+      <a href="#evidencia">Evidencia</a>
+      <a href="#clase">En clase</a>
+      <a href="#entrega">Entrega</a>
+      <a href="#rubrica">Rúbrica</a>
+    </nav>
+    <button class="theme-btn" id="themeBtn" aria-label="Cambiar tema">◐</button>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <p class="eyebrow">Plan Institucional de Lecturas Selectas · Clase 14 · 29 de octubre</p>
+    <h1>Cine-foro: <span class="split-word"><span class="b">El hombre elefante</span></span></h1>
+    <p class="sub">Una película como <strong>caso fisiopatológico narrado</strong>. No vamos a hacer una reseña de cine. Vamos a hacer lo que hacemos con un caso clínico: mirar con cuidado, separar lo que se ve de lo que se interpreta, razonar el mecanismo y preguntarnos qué tan seguros estamos. Al final, una pregunta que no tiene que ver con los tejidos: <strong>cómo se atiende a una persona</strong> cuya enfermedad todos pueden ver.</p>
+    <div class="hero-meta">
+      <span class="chip">Película <strong>David Lynch, 1980 · 2 h 4 min</strong></span>
+      <span class="chip">Trabajo <strong>individual</strong></span>
+      <span class="chip">Nota <strong>lectura selecta · corte 3</strong></span>
+      <span class="chip">Entrega <strong>domingo 1 nov, 11:59 p. m.</strong></span>
+    </div>
+  </div>
+
+  <!-- 01 -->
+  <section id="pelicula">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">01</span><h2>Antes de ver la película</h2></div>
+      <div class="prose stack">
+        <p><em>El hombre elefante</em> cuenta la historia de Joseph Merrick (1862–1890), a quien la película llama «John». Merrick tuvo desde niño un crecimiento desproporcionado de huesos, piel y tejido subcutáneo. Fue exhibido en ferias hasta que el cirujano Frederick Treves lo presentó a la Sociedad de Patología de Londres en 1884 y, más tarde, le dio un lugar en el London Hospital, donde vivió sus últimos años. Murió a los 27 años.</p>
+        <p>La película se basa en las memorias de Treves y en otros relatos, pero es una <strong>dramatización</strong>: hay escenas, personajes y diálogos que no ocurrieron así. Parte del trabajo es distinguir lo que la película muestra de lo que se sabe del caso real.</p>
+      </div>
+      <div class="grid g2" style="margin-top:1.2rem">
+        <div class="card fisio">
+          <p class="eyebrow">Mientras la ves</p>
+          <h3>Toma notas como en una consulta</h3>
+          <ul>
+            <li>¿Qué partes del cuerpo están afectadas y cuáles no? ¿Es simétrico?</li>
+            <li>¿Qué funciones están comprometidas (respirar, caminar, hablar, dormir, usar las manos)?</li>
+            <li>¿Qué dicen los médicos de la película sobre la causa?</li>
+            <li>¿Qué cambia en Merrick cuando cambia el trato que recibe?</li>
+          </ul>
+        </div>
+        <div class="card amber">
+          <p class="eyebrow">Sobre el lenguaje</p>
+          <h3>Hablamos de una persona</h3>
+          <p>El título y varios personajes usan palabras que hoy reconocemos como estigmatizantes. En el análisis habla de <strong>Merrick</strong>, de la <strong>persona</strong> o del <strong>paciente</strong>, y describe los signos con términos clínicos. El trato que le dan en la película es justamente uno de los temas del eje C.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section id="ejes" class="band-d">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">02</span><h2>Los tres ejes del análisis</h2></div>
+      <p class="prose" style="margin-bottom:1.1rem">El análisis responde a los tres ejes. Las preguntas de cada uno son una guía: no hay que contestarlas una por una, sino construir un texto que las atraviese.</p>
+
+      <div class="q open"><div class="q-head" style="cursor:default"><span class="q-n">A</span><span><strong>¿Qué signos permite inferir la película?</strong> De la observación a la cadena fisiopatológica</span></div>
+        <div class="q-body">
+          <ul>
+            <li>Describe los signos que se observan o se narran. Usa lenguaje clínico: localización, distribución, simetría, consistencia y evolución en el tiempo.</li>
+            <li>Separa lo que corresponde a la <strong>enfermedad</strong> (el crecimiento de los tejidos y sus consecuencias mecánicas) de lo que corresponde a la <strong>respuesta social</strong> (aislamiento, maltrato, desnutrición, la forma en que lo exhiben).</li>
+            <li>Construye una cadena con el formato del curso: <strong>defecto → mecanismo → signo → consecuencia funcional</strong>. Por ejemplo, ¿por qué un crecimiento desproporcionado del cráneo puede comprometer la respiración o el sueño?</li>
+            <li>Conecta con el curso: ¿qué adaptación o alteración del crecimiento celular estudiada antes se parece a lo que ves? ¿Qué tiene en común con la esclera del miope, que tampoco detiene su crecimiento?</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="q open"><div class="q-head" style="cursor:default"><span class="q-n">B</span><span><strong>¿Qué tenía Merrick y cómo lo sabemos?</strong> Hipótesis etiológicas y nivel de evidencia</span></div>
+        <div class="q-body">
+          <ul>
+            <li>A lo largo de más de un siglo se han propuesto al menos dos diagnósticos: la <strong>neurofibromatosis tipo 1</strong> y el <strong>síndrome de Proteus</strong>. Para cada uno: ¿quién lo propuso y cuándo?, ¿en qué datos se basó?, ¿qué datos lo contradicen?</li>
+            <li>¿Qué mecanismo genético se ha descrito para el síndrome de Proteus? ¿Qué significa que la alteración sea <strong>en mosaico</strong>, y por qué eso podría explicar que el crecimiento sea <strong>asimétrico</strong>?</li>
+            <li>¿Se ha confirmado ese mecanismo <strong>en Merrick</strong>, o se ha demostrado en otros pacientes y se infiere para él? ¿Qué cambia eso en la certeza del diagnóstico?</li>
+            <li>Clasifica cada fuente que uses según su <strong>nivel de evidencia</strong> (sección 03) y concluye: ¿qué diagnóstico es más probable y con cuánta seguridad se puede afirmar?</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="q open"><div class="q-head" style="cursor:default"><span class="q-n">C</span><span><strong>¿Cómo se atiende a alguien cuya enfermedad es visible?</strong> Relación profesional-paciente</span></div>
+        <div class="q-body">
+          <ul>
+            <li>Compara cómo miran a Merrick el empresario de la feria, el público, el personal del hospital y Treves. ¿Cambia la mirada de Treves a lo largo de la película? ¿En qué escena?</li>
+            <li>¿Dónde está el límite entre <strong>estudiar</strong> un caso y <strong>exhibir</strong> a una persona? Piensa en la presentación ante la Sociedad de Patología.</li>
+            <li>Lleva la pregunta a tu profesión: un paciente con una alteración visible de la cara o de los ojos (una proptosis, una cicatriz, un estrabismo, una prótesis ocular) llega a tu consulta. ¿Qué harías y qué evitarías desde el saludo hasta el final del examen?</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section id="evidencia">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">03</span><h2>Niveles de evidencia · versión de trabajo</h2></div>
+      <p class="prose" style="margin-bottom:1.1rem">Para el eje B, ubica cada fuente en esta escala simplificada, adaptada de los niveles del Oxford Centre for Evidence-Based Medicine. Cuanto más arriba, más confianza merece la conclusión.</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Nivel</th><th>Tipo de fuente</th><th>Ejemplo en este caso</th></tr></thead>
+          <tbody>
+            <tr><td class="k">Alto</td><td>Estudios con muchos pacientes y método controlado; revisiones sistemáticas</td><td>Un estudio genético que analiza el ADN de decenas de pacientes con el mismo cuadro</td></tr>
+            <tr><td class="k">Intermedio</td><td>Series de casos con criterios diagnósticos explícitos; estudios de un solo paciente con pruebas objetivas</td><td>Un análisis radiológico de los huesos conservados de Merrick</td></tr>
+            <tr><td class="k">Bajo</td><td>Reportes de un caso basados en la descripción clínica; opinión de expertos</td><td>Un artículo que propone un diagnóstico a partir de las descripciones y fotografías de la época</td></tr>
+            <tr><td class="k">No es evidencia</td><td>Ficción, divulgación sin fuentes</td><td>La propia película, un blog o un video sin referencias</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout note" style="margin-top:1.2rem">
+        <p class="eyebrow">La trampa de este caso</p>
+        <p style="margin-top:.4rem">Una fuente de nivel alto puede demostrar la causa de una enfermedad <strong>en otros pacientes</strong>, pero eso no prueba que <strong>Merrick</strong> la tuviera. Para aplicarla a él hace falta un paso más: que su cuadro cumpla los criterios de esa enfermedad. Fíjate en cuál de los dos pasos se apoya cada afirmación que leas.</p>
+      </div>
+      <div class="card" style="margin-top:1.2rem">
+        <h3>Fuentes para empezar</h3>
+        <p>Puedes usar otras, siempre que las cites. Las tres primeras están disponibles en PubMed.</p>
+        <ul>
+          <li>Tibbles, J. A. y Cohen, M. M. Jr. (1986). The Proteus syndrome: the Elephant Man diagnosed. <em>British Medical Journal</em>, 293(6548), 683–685.</li>
+          <li>Lindhurst, M. J. y cols. (2011). A mosaic activating mutation in <em>AKT1</em> associated with the Proteus syndrome. <em>New England Journal of Medicine</em>, 365(7), 611–619.</li>
+          <li>Biesecker, L. G. y cols. (1999). Proteus syndrome: diagnostic criteria, differential diagnosis, and patient evaluation. <em>American Journal of Medical Genetics</em>, 84(5), 389–395.</li>
+          <li>Treves, F. (1923). <em>The Elephant Man and Other Reminiscences</em>. Londres: Cassell. (Fuente histórica de primera mano: el testimonio del médico, no un estudio).</li>
+          <li>Uribe Olivares, R. A. (2018). <em>Fisiopatología. La ciencia del porqué y el cómo</em>. Elsevier. Para los conceptos de crecimiento y adaptación celular.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section id="clase" class="band-f">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">04</span><h2>Cómo será el cine-foro en clase</h2></div>
+      <p class="prose" style="margin-bottom:1.1rem">Segunda hora del encuentro del 29 de octubre. Llega con la película vista y tus notas: no se proyecta en clase.</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Tiempo</th><th>Momento</th><th>Qué se hace</th></tr></thead>
+          <tbody>
+            <tr><td class="k">5 min</td><td>Encuadre</td><td>El caso real frente a la película: qué es dramatización y qué es historia</td></tr>
+            <tr><td class="k">15 min</td><td>Grupos por eje</td><td>Tres grupos, uno por eje (A, B, C). Cada grupo prepara tres ideas y una pregunta para los demás</td></tr>
+            <tr><td class="k">25 min</td><td>Plenaria</td><td>Cada grupo expone; los otros dos responden y discuten. El docente conecta con la clase del día</td></tr>
+            <tr><td class="k">10 min</td><td>Cierre</td><td>Qué cambió en tu lectura del caso después de la discusión. Ese cambio es un buen punto de partida para tu análisis escrito</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section id="entrega">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">05</span><h2>Qué entregar</h2></div>
+      <div class="grid g2">
+        <div class="card fisio">
+          <p class="eyebrow">Producto</p>
+          <h3>Análisis fisiopatológico breve</h3>
+          <ul>
+            <li><strong>Individual</strong>, escrito con tus palabras.</li>
+            <li>Entre <strong>600 y 900 palabras</strong> (unas dos páginas), sin contar las referencias.</li>
+            <li>Tres apartados, uno por eje (A, B, C), más una conclusión de uno o dos párrafos.</li>
+            <li>La cadena del eje A puede ir como esquema dentro del texto.</li>
+            <li>Al menos <strong>dos fuentes</strong> citadas en el texto y listadas al final, en formato APA.</li>
+          </ul>
+        </div>
+        <div class="card amber">
+          <p class="eyebrow">Cuándo y cómo</p>
+          <h3>Domingo 1 de noviembre, 11:59 p. m.</h3>
+          <ul>
+            <li>En <strong>PDF</strong>, al correo del docente, con el asunto <em>Cine-foro – Apellidos Nombres</em>.</li>
+            <li>Nombre del archivo: <code>cineforo_apellido_nombre.pdf</code>.</li>
+            <li>Cuenta como la nota de <strong>lectura selecta</strong> del corte 3.</li>
+            <li>Si usas una herramienta de inteligencia artificial, decláralo al final y explica para qué la usaste. La redacción y el razonamiento deben ser tuyos.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section id="rubrica">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">06</span><h2>Rúbrica · sobre 5,0</h2></div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Criterio</th><th>Completo</th><th>Parcial</th><th>Insuficiente</th></tr></thead>
+          <tbody>
+            <tr><td class="k">A · Signos y cadena<br><span style="font-weight:400; color:var(--muted)">1,5</span></td>
+              <td><strong>1,5</strong> · Describe los signos con lenguaje clínico, separa enfermedad de respuesta social y construye una cadena defecto → mecanismo → signo → consecuencia sin saltos</td>
+              <td><strong>0,75</strong> · Describe signos, pero mezcla enfermedad y respuesta social, o la cadena tiene saltos</td>
+              <td><strong>0</strong> · Narra la película sin razonamiento fisiopatológico</td></tr>
+            <tr><td class="k">B · Hipótesis y evidencia<br><span style="font-weight:400; color:var(--muted)">1,5</span></td>
+              <td><strong>1,5</strong> · Contrasta al menos dos hipótesis con datos a favor y en contra, clasifica sus fuentes por nivel de evidencia y distingue lo demostrado en otros pacientes de lo inferido para Merrick</td>
+              <td><strong>0,75</strong> · Presenta las hipótesis, pero sin contrastarlas o sin valorar la evidencia</td>
+              <td><strong>0</strong> · Da un diagnóstico como hecho, sin fuentes o con la película como única fuente</td></tr>
+            <tr><td class="k">C · Relación profesional-paciente<br><span style="font-weight:400; color:var(--muted)">1,0</span></td>
+              <td><strong>1,0</strong> · Analiza escenas concretas y propone conductas aplicables en la consulta de optometría</td>
+              <td><strong>0,5</strong> · Reflexión general, sin escenas concretas o sin llevarla a la consulta</td>
+              <td><strong>0</strong> · No aborda el eje</td></tr>
+            <tr><td class="k">D · Fuentes y escritura<br><span style="font-weight:400; color:var(--muted)">1,0</span></td>
+              <td><strong>1,0</strong> · Dos o más fuentes válidas citadas en APA, extensión dentro del rango, redacción propia y clara</td>
+              <td><strong>0,5</strong> · Una sola fuente válida, citas incompletas o extensión fuera del rango</td>
+              <td><strong>0</strong> · Sin fuentes o con texto copiado</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="prose" style="margin-top:1rem; color:var(--muted); font-size:.9rem">Un texto copiado de otra persona o de una fuente sin citar se califica con 0.</p>
+      <p class="prose" style="margin-top:1.2rem"><a href="clase.html">← Volver a la clase 14</a></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Fisiopatología General (01008430) · Programa de Optometría · Facultad de Ciencias de la Salud · Universidad de La Salle · Semestre 2026-2</p>
+    <p style="margin-top:.4rem">Actividad del Plan Institucional de Lecturas Selectas (área de fundamentación, forma discursiva: película).</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  document.getElementById('themeBtn').addEventListener('click', function(){
+    var dark = root.getAttribute('data-theme') === 'dark'
+      || (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+    root.setAttribute('data-theme', dark ? 'light' : 'dark');
+  });
+})();
+</script>
+</body>
+</html>

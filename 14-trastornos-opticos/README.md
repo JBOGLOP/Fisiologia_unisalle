@@ -4,7 +4,7 @@
 
 | Estado | Material | Duración |
 |---|---|---|
-| ⬜ **Programada** | 🕓 En preparación | 2 horas |
+| ⬜ **Programada** | 📘 [Clase interactiva](clase.html) · 🎬 [Guía del cine-foro](cine-foro.html) | 2 horas |
 
 ---
 
@@ -14,7 +14,8 @@ Reencuadra los vicios de refracción como procesos, no como descripciones: qué 
 
 ## Material de clase
 
-_En preparación._ La clase interactiva se publica aquí el día del encuentro o antes.
+- 📘 **[Clase interactiva](clase.html)** — 9 secciones, con tres diagramas originales (tres ojos con la misma óptica y distinta longitud; la cascada de la miopía axial, de la señal en la retina a la matriz de la esclera; la acomodación en el ojo joven y en la presbicia), una tabla de cuándo un cambio de refracción es señal de enfermedad, dos ejercicios interactivos (¿qué tejido cambió?; ¿solo óptico o señal de enfermedad?) y autoevaluación de 10 preguntas. Eje: **un vicio de refracción es un tejido que cambió de forma**.
+- 🎬 **[Guía del cine-foro](cine-foro.html)** — *El hombre elefante* como caso fisiopatológico narrado: tres ejes (signos, hipótesis etiológicas y nivel de evidencia, relación profesional-paciente), dinámica en clase, entrega y rúbrica. Es la nota de **lectura selecta** del corte 3.
 
 ## Contenidos
 

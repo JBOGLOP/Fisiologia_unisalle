@@ -63,8 +63,8 @@ qué hacer con él.
 | ⬜ | **11** | 1 de octubre | Fisiopatología de la disnea, la cianosis y el vértigo | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/11-disnea-cianosis-y-vertigo/clase.html)** · [detalle](11-disnea-cianosis-y-vertigo/) |
 | ⏸️ | — | 8 de octubre | _Semana de receso institucional_ | — |
 | ⬜ | **12** | 15 de octubre | Patología ambiental y nutricional: el ojo como órgano diana | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/12-ambiental-y-nutricional/clase.html)** · [detalle](12-ambiental-y-nutricional/) |
-| ⬜ | **13** | 22 de octubre | Diabetes e hipertensión: el ojo como ventana sistémica | _en preparación_ |
-| ⬜ | **14** | 29 de octubre | Trastornos ópticos desde la fisiopatología · cine-foro | _en preparación_ |
+| ⬜ | **13** | 22 de octubre | Diabetes e hipertensión: el ojo como ventana sistémica | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/13-diabetes-e-hipertension/clase.html)** · [detalle](13-diabetes-e-hipertension/) |
+| ⬜ | **14** | 29 de octubre | Trastornos ópticos desde la fisiopatología · cine-foro | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/14-trastornos-opticos/clase.html)** · [🎬 cine-foro](https://jboglop.github.io/Fisiologia_unisalle/14-trastornos-opticos/cine-foro.html) · [detalle](14-trastornos-opticos/) |
 | ⬜ | **15** | 5 de noviembre | Repaso final con los resultados del taller de repaso (el taller cierra el miércoles 4, 11:59 p. m.) | [detalle](15-repaso-final/) |
 | 📝 | **16** | 12 de noviembre | **Parcial final** (1.ª hora, en línea en el aula) · socialización de notas y cierre (2.ª hora) | [detalle](16-parcial-final-y-cierre/) |
 
