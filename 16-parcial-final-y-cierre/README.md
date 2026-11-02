@@ -1,22 +1,31 @@
-# Encuentro 16 — Parcial final, socialización de notas y cierre
+# Encuentro 16 — Examen final y cierre
 
-**12 de noviembre de 2026** · Evaluación y retroalimentación · Fisiopatología General (`01008430`) · Optometría · Universidad de La Salle
+**12 de noviembre de 2026** · Evaluación · Fisiopatología General (`01008430`) · Optometría · Universidad de La Salle
 
 | Estado | Material | Duración |
 |---|---|---|
-| ⬜ **Programada** | — | 2 horas |
+| ⬜ **Programada** | — | 90 minutos de examen |
 
 ---
 
 ## De qué trata
 
-Última sesión del semestre, en dos tiempos. En la **primera hora** se presenta el parcial final, en
-línea y en el aula. Como el parcial se califica al entregar, en la **segunda hora** ya están las notas:
-se revisa el parcial, se socializan las notas del tercer corte y la definitiva, y se cierra el curso.
+Última sesión del semestre. El examen final se presenta **por Teams**, con el examen en PDF.
+
+| Hora | Qué pasa |
+|---|---|
+| **1:30 p. m.** | El docente envía el examen en PDF |
+| **2:00 p. m.** | Empieza el examen. Debes estar conectado en Teams con la **cámara encendida**; la sesión se **graba** |
+| **3:30 p. m.** | Termina el examen (90 minutos). Envías tus respuestas en un solo PDF al correo del docente |
+
+El examen tiene preguntas de selección múltiple y casos para explicar la cadena fisiopatológica. Las
+preguntas de selección se marcan en la hoja de respuestas del propio examen; los casos se responden a
+mano.
+
+El mismo día, hasta las **11:59 p. m.**, se entrega el análisis del **cine-foro** (ver la
+[guía](../14-trastornos-opticos/cine-foro.html)).
 
 ## Contenidos
-
-**Primera hora · parcial final**
 
 - Alcance: capítulos 8, 9, 14, 41 y 62; encuentros 11 a 14
 - Disnea, cianosis y vértigo
@@ -25,17 +34,13 @@ se revisa el parcial, se socializan las notas del tercer corte y la definitiva, 
 - Trastornos ópticos desde la fisiopatología
 - Criterios de remisión
 
-**Segunda hora · socialización y cierre**
+## Qué necesitas
 
-- Revisión del parcial final
-- Socialización de las notas del tercer corte y de la definitiva
-- Retroalimentación de la cadena fisiopatológica II
-- Cierre: qué se lleva el estudiante a semiología y clínica
-
-## Qué traer
-
-- Celular o computador con la batería cargada y conexión a internet
-- Tu correo institucional y tu código estudiantil: con ellos se ingresa al parcial
+- Computador o celular con **cámara**, micrófono y Teams instalado, con la batería cargada y buena conexión
+- Hojas blancas y bolígrafo
+- Una aplicación para escanear desde el celular (por ejemplo, CamScanner o la de Google Drive), para
+  entregar tus hojas en un solo PDF
+- Probar todo antes de la 1:30 p. m.: si algo falla durante el examen, avísale al docente por el chat de Teams
 
 ## Lectura previa
 
@@ -43,7 +48,7 @@ se revisa el parcial, se socializan las notas del tercer corte y la definitiva, 
 
 ## Trabajo independiente
 
-- No se asigna trabajo nuevo
+- Entrega del cine-foro: jueves 12 de noviembre, 11:59 p. m.
 
 ## Resultados de aprendizaje que se movilizan
 

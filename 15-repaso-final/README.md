@@ -4,14 +4,15 @@
 
 | Estado | Material | Duración |
 |---|---|---|
-| ⬜ **Programada** | 🕓 En preparación | 2 horas |
+| ⬜ **Programada** | 📝 [Taller de repaso](taller.html) | 2 horas |
 
 ---
 
 ## De qué trata
 
-Sesión de repaso antes del parcial final, acordada con el grupo. El **taller de repaso intenso** se
-resuelve en línea antes de la clase y cierra el **miércoles 4 de noviembre a las 11:59 p. m.** La clase
+Sesión de repaso antes del examen final, acordada con el grupo. El **taller de repaso** de toda la
+asignatura (encuentros 1 a 14, selección múltiple) se resuelve en línea antes de la clase y cierra el
+**miércoles 4 de noviembre a las 11:59 p. m.** La clase
 se dedica a las preguntas que el grupo más falló en el taller: no se repasa todo por igual, se repasa
 lo que todavía no está claro.
 
@@ -23,7 +24,8 @@ lo que todavía no está claro.
 - Diabetes e hipertensión: mecanismos de daño y correlato retiniano
 - Trastornos ópticos desde la fisiopatología
 - Criterios de remisión
-- Cómo será el parcial final: en línea, en el aula, en la primera hora del 12 de noviembre
+- Cómo será el examen final del 12 de noviembre: en PDF, por Teams con cámara encendida y sesión grabada,
+  de 2:00 a 3:30 p. m.
 
 ## Lectura previa
 
@@ -31,9 +33,9 @@ lo que todavía no está claro.
 
 ## Trabajo independiente
 
-- **Taller de repaso intenso** (calificable): se abre después del encuentro 14 y cierra el miércoles
-  4 de noviembre a las 11:59 p. m. Un solo intento.
-- Si no tienes celular o computador para presentar el parcial en línea, avísale al docente en esta
+- **Taller de repaso** (calificable, en línea, selección múltiple de toda la asignatura): cierra el
+  miércoles 4 de noviembre a las 11:59 p. m. Un solo intento.
+- Si no tienes computador o celular con cámara y Teams para el examen final, avísale al docente en esta
   sesión.
 
 ## Resultados de aprendizaje que se movilizan
