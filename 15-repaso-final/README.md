@@ -11,14 +11,14 @@
 ## De qué trata
 
 Sesión de repaso antes del examen final, acordada con el grupo. El **taller de repaso** de toda la
-asignatura (encuentros 1 a 14, selección múltiple) se resuelve en línea antes de la clase y cierra el
-**miércoles 4 de noviembre a las 11:59 p. m.** La clase
-se dedica a las preguntas que el grupo más falló en el taller: no se repasa todo por igual, se repasa
-lo que todavía no está claro.
+asignatura (encuentros 1 a 14, selección múltiple) se resuelve en línea y cierra el
+**martes 10 de noviembre a las 11:59 p. m.** Como el taller sigue abierto ese día, la clase usa los
+resultados parciales por tema, sin revelar preguntas ni respuestas: no se repasa todo por igual, se
+repasa lo que todavía no está claro.
 
 ## Contenidos
 
-- Resultados del taller de repaso: las preguntas con menos aciertos y por qué
+- Resultados parciales del taller de repaso: los temas con menos aciertos y por qué
 - Disnea, cianosis y vértigo
 - Patología ambiental y nutricional con expresión ocular
 - Diabetes e hipertensión: mecanismos de daño y correlato retiniano
@@ -34,7 +34,7 @@ lo que todavía no está claro.
 ## Trabajo independiente
 
 - **Taller de repaso** (calificable, en línea, selección múltiple de toda la asignatura): cierra el
-  miércoles 4 de noviembre a las 11:59 p. m. Un solo intento.
+  martes 10 de noviembre a las 11:59 p. m. Un solo intento.
 - Si no tienes computador o celular con cámara y Teams para el examen final, avísale al docente en esta
   sesión.
 
