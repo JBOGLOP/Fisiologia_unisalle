@@ -66,7 +66,7 @@ qué hacer con él.
 | ⬜ | **13** | 22 de octubre | Diabetes e hipertensión: el ojo como ventana sistémica | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/13-diabetes-e-hipertension/clase.html)** · [detalle](13-diabetes-e-hipertension/) |
 | ⬜ | **14** | 29 de octubre | Trastornos ópticos desde la fisiopatología · cine-foro | **[▶ Ver clase](https://jboglop.github.io/Fisiologia_unisalle/14-trastornos-opticos/clase.html)** · [🎬 cine-foro](https://jboglop.github.io/Fisiologia_unisalle/14-trastornos-opticos/cine-foro.html) · [detalle](14-trastornos-opticos/) |
 | ⬜ | **15** | 5 de noviembre | Repaso final con los resultados parciales del taller de repaso (el taller cierra el martes 10 de noviembre, 11:59 p. m.) | **[▶ Taller de repaso](https://jboglop.github.io/Fisiologia_unisalle/15-repaso-final/taller.html)** · [detalle](15-repaso-final/) |
-| 📝 | **16** | 12 de noviembre | **Examen final** en PDF por Teams, 2:00 a 3:30 p. m. (cámara encendida, sesión grabada) · entrega del cine-foro hasta las 11:59 p. m. | [detalle](16-parcial-final-y-cierre/) |
+| 📝 | **16** | 12 de noviembre | **Examen final** en línea, con Teams y cámara encendida, 2:00 a 3:30 p. m. (sesión grabada) · entrega del cine-foro hasta las 11:59 p. m. | [detalle](16-parcial-final-y-cierre/) |
 
 **Convenciones:** ✅ cumplida · 🔴 hoy · 🔜 próxima · ⬜ programada · 📝 evaluación · 💬 retroalimentación · ⏸️ receso · ❌ cancelada
 

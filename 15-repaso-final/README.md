@@ -24,7 +24,7 @@ repasa lo que todavía no está claro.
 - Diabetes e hipertensión: mecanismos de daño y correlato retiniano
 - Trastornos ópticos desde la fisiopatología
 - Criterios de remisión
-- Cómo será el examen final del 12 de noviembre: en PDF, por Teams con cámara encendida y sesión grabada,
+- Cómo será el examen final del 12 de noviembre: en línea, con Teams, cámara encendida y sesión grabada,
   de 2:00 a 3:30 p. m.
 
 ## Lectura previa
