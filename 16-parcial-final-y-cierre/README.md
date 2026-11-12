@@ -4,47 +4,66 @@
 
 | Estado | Material | Duración |
 |---|---|---|
-| ⬜ **Programada** | — | 90 minutos de examen |
+| ⬜ **Programada** | [Examen en línea](examen.html) | 90 minutos de examen |
 
 ---
 
 ## De qué trata
 
-Última sesión del semestre. El examen final se presenta **por Teams**, con el examen en PDF.
+Última sesión del semestre. El examen final se presenta **en línea**, en una página web, mientras
+estás conectado **por Teams** con la cámara encendida.
 
 | Hora | Qué pasa |
 |---|---|
-| **1:30 p. m.** | El docente envía el examen en PDF |
-| **2:00 p. m.** | Empieza el examen. Debes estar conectado en Teams con la **cámara encendida**; la sesión se **graba** |
-| **3:30 p. m.** | Termina el examen (90 minutos). Envías tus respuestas en un solo PDF al correo del docente |
+| **1:30 p. m.** | El docente envía el enlace del examen por Teams y por correo. Conéctate a Teams |
+| **2:00 p. m.** | Abre el examen. Debes estar en Teams con la **cámara encendida**; la sesión se **graba** |
+| **3:30 p. m.** | Último momento para entregar. Después el examen ya no recibe respuestas |
 
-El examen tiene preguntas de selección múltiple y casos para explicar la cadena fisiopatológica. Las
-preguntas de selección se marcan en la hoja de respuestas del propio examen; los casos se responden a
-mano.
+Enlace del examen: [examen.html](https://jboglop.github.io/Fisiologia_unisalle/16-parcial-final-y-cierre/examen.html).
+Antes de las 2:00 p. m. la página dice que el examen no está abierto.
 
 El mismo día, hasta las **11:59 p. m.**, se entrega el análisis del **cine-foro** (ver la
 [guía](../14-trastornos-opticos/cine-foro.html)).
 
+## Cómo es el examen
+
+- **24 preguntas de selección múltiple** (50 % de la nota). Se califican al entregar.
+- **3 casos** para explicar la cadena fisiopatológica (50 %). Cada caso tiene partes (a), (b) y (c), que
+  respondes en orden en el mismo cuadro. Los califica el docente.
+- Entras con tu nombre, tu correo institucional y tu código. Es de **un solo intento**.
+- A cada estudiante le aparecen las preguntas y las opciones en distinto orden.
+- Lo que escribes se guarda en tu navegador: si la página se recarga, vuelve a entrar con los mismos
+  datos y tus respuestas siguen ahí.
+
+## Reglas del examen
+
+- Antes de empezar aceptas una declaración: presentas el examen **solo**, sin inteligencia artificial,
+  sin otras páginas, documentos ni aplicaciones abiertas y sin ayuda de otras personas.
+- La página **no deja copiar ni pegar**. Si sales de ella, **oculta las preguntas** hasta que vuelvas.
+- La página **registra** las salidas, los intentos de pegar, las capturas de pantalla y cómo escribes
+  tus respuestas. El docente revisa ese registro.
+- Cámara encendida durante todo el examen, con el celular boca abajo y a la vista.
+
 ## Contenidos
 
-- Alcance: capítulos 8, 9, 14, 41 y 62; encuentros 11 a 14
-- Disnea, cianosis y vértigo
-- Patología ambiental y nutricional con expresión ocular
-- Diabetes e hipertensión: mecanismos de daño y correlato retiniano
-- Trastornos ópticos desde la fisiopatología
-- Criterios de remisión
+El examen cubre toda la asignatura, con mayor peso en el tercer corte:
+
+- Encuentros 11 a 14 (16 preguntas de selección y los 3 casos): disnea, cianosis y vértigo; patología
+  ambiental y nutricional con expresión ocular; diabetes e hipertensión; trastornos ópticos; criterios de remisión
+- Segundo corte (4 preguntas): inmunidad, fiebre y dolor, edema y síncope
+- Primer corte (4 preguntas): lesión celular, inflamación y reparación
 
 ## Qué necesitas
 
-- Computador o celular con **cámara**, micrófono y Teams instalado, con la batería cargada y buena conexión
-- Hojas blancas y bolígrafo
-- Una aplicación para escanear desde el celular (por ejemplo, CamScanner o la de Google Drive), para
-  entregar tus hojas en un solo PDF
+- Un **computador** con cámara, micrófono, Teams y buena conexión. No presentes el examen en el celular:
+  al cambiar entre Teams y el examen, la página registraría salidas
+- Un navegador actualizado (Chrome, Edge o Firefox)
+- Tu código estudiantil a la mano
 - Probar todo antes de la 1:30 p. m.: si algo falla durante el examen, avísale al docente por el chat de Teams
 
 ## Lectura previa
 
-- Uribe Olivares, caps. 8, 9, 14, 41 y 62
+- Uribe Olivares, caps. 8, 9, 14, 41 y 62 (tercer corte) y lo visto en los encuentros 2 a 8
 
 ## Trabajo independiente
 
