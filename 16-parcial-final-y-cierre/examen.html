@@ -214,9 +214,18 @@
   function confirmar(m){ dialogo=true; var r=confirm(m); dialogo=false; fueraDesde=0; return r; }
   // Al perder el foco se ocultan las preguntas: la herramienta de recortes (Win+Mayús+S)
   // toma el foco antes de capturar, y quien pone otra ventana al lado no puede leerlas desde allá.
-  function salir(){ if(!enExamen||dialogo||fueraDesde) return; fueraDesde=Date.now(); document.body.classList.add("oculto"); integ.salidas++; guardarInteg(); }
+  // La salida se avisa al servidor en el momento, no solo al volver: si el estudiante
+  // cierra o recarga sin regresar, el registro ya quedó en la hoja.
+  function salir(){ if(!enExamen||dialogo||fueraDesde) return; fueraDesde=Date.now(); document.body.classList.add("oculto"); integ.salidas++; guardarInteg();
+    evento("salida","salió de la página · salida n.º "+integ.salidas); }
   function volver(){ document.body.classList.remove("oculto"); if(!enExamen||!fueraDesde) return; var s=Math.round((Date.now()-fueraDesde)/1000); fueraDesde=0; integ.segFuera+=s; guardarInteg();
-    evento("salida","fuera "+s+" s · salida n.º "+integ.salidas); alerta("Saliste de la página del examen ("+s+" s). Quedó registrado."); }
+    evento("regreso","volvió tras "+s+" s · salida n.º "+integ.salidas); alerta("Saliste de la página del examen ("+s+" s). Quedó registrado."); }
+  // Cerrar la pestaña o recargar: aviso con sendBeacon, que sale aunque la página se esté cerrando.
+  window.addEventListener("pagehide", function(){
+    if(!enExamen) return;
+    try{ navigator.sendBeacon(API, JSON.stringify({ token:TOKEN, action:"evento", nombre:estado.nombre, correo:estado.correo, codigo:estado.codigo,
+      tipo:"cierre", detalle:"cerró o recargó la página sin entregar" })); }catch(err){}
+  });
   document.addEventListener("visibilitychange", function(){ if(document.hidden) salir(); else volver(); });
   window.addEventListener("blur", salir); window.addEventListener("focus", volver);
   ["copy","cut"].forEach(function(t){ document.addEventListener(t, function(e){ if(!enExamen) return; e.preventDefault(); integ.copiar++; guardarInteg(); alerta("Copiar no está permitido en el examen."); }, true); });
