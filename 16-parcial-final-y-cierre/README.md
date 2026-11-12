@@ -27,8 +27,8 @@ El mismo día, hasta las **11:59 p. m.**, se entrega el análisis del **cine-for
 
 ## Cómo es el examen
 
-- **24 preguntas de selección múltiple** (50 % de la nota). Se califican al entregar.
-- **3 casos** para explicar la cadena fisiopatológica (50 %). Cada caso tiene partes (a), (b) y (c), que
+- **24 preguntas de selección múltiple** (70 % de la nota). Se califican al entregar.
+- **3 casos** para explicar la cadena fisiopatológica (30 %). Cada caso tiene partes (a), (b) y (c), que
   respondes en orden en el mismo cuadro. Los califica el docente.
 - Entras con tu nombre, tu correo institucional y tu código. Es de **un solo intento**.
 - A cada estudiante le aparecen las preguntas y las opciones en distinto orden.
