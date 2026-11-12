@@ -205,7 +205,7 @@
   // ---------- integridad ----------
   // Nada de esto impide usar otro dispositivo: bloquea copiar y pegar aquí, detecta
   // cuándo se sale de la página y deja registro de cómo se escribió cada caso.
-  var integ=null, enExamen=false, fueraDesde=0, dialogo=false, largoPrevio={};
+  var integ=null, enExamen=false, fueraDesde=0, dialogo=false, largoPrevio={}, textoPrevio={};
   function claveInteg(){ return CLAVE+":integ:"+estado.correo.toLowerCase(); }
   function guardarInteg(){ if(integ) guardarLS(claveInteg(), integ); }
   function alerta(txt){ var a=$("alertaEx"); if(!a){ a=document.createElement("div"); a.id="alertaEx"; a.className="alertaEx"; a.setAttribute("role","alert"); document.body.appendChild(a); }
@@ -243,10 +243,15 @@
   }, true);
   document.addEventListener("input", function(e){
     var t=e.target; if(!enExamen||!t||t.tagName!=="TEXTAREA") return;
-    var id=t.dataset.id, n=t.value.length, d=n-(largoPrevio[id]==null?n:largoPrevio[id]); largoPrevio[id]=n;
+    var id=t.dataset.id, n=t.value.length, d=n-(largoPrevio[id]==null?n:largoPrevio[id]);
     if(!integ.inicio[id]) integ.inicio[id]=Date.now(); integ.fin[id]=Date.now();
-    if(d>=30){ integ.grandes++; evento("insercion", id+": +"+d+" caracteres de una vez"); }
-    else if(d>0) integ.escritos[id]=(integ.escritos[id]||0)+d;
+    // Texto que entra de golpe sin pasar por «pegar» (dictado, extensiones, portapapeles del sistema):
+    // se rechaza y se vuelve al texto anterior. El manejador de la página corre después y guarda lo revertido.
+    if(d>=30){ integ.grandes++; evento("insercion", id+": +"+d+" caracteres de una vez (rechazada)");
+      t.value=textoPrevio[id]||""; largoPrevio[id]=t.value.length; guardarInteg();
+      alerta("Solo se acepta texto escrito con el teclado. La inserción se rechazó y quedó registrada."); return; }
+    largoPrevio[id]=n; textoPrevio[id]=t.value;
+    if(d>0) integ.escritos[id]=(integ.escritos[id]||0)+d;
     guardarInteg();
   }, true);
   function iniciarIntegridad(){
@@ -254,7 +259,7 @@
     integ=previo||{ declara:true, salidas:0, segFuera:0, pegar:0, copiar:0, capturas:0, grandes:0, recargas:0, escritos:{}, inicio:{}, fin:{} };
     if(previo){ integ.recargas++; evento("recarga","volvió a cargar el examen (n.º "+integ.recargas+")"); }
     guardarInteg();
-    document.querySelectorAll("#preguntas textarea").forEach(function(t){ largoPrevio[t.dataset.id]=t.value.length; });
+    document.querySelectorAll("#preguntas textarea").forEach(function(t){ largoPrevio[t.dataset.id]=t.value.length; textoPrevio[t.dataset.id]=t.value; });
     var m=document.createElement("div"); m.className="marca"; m.setAttribute("aria-hidden","true");
     m.textContent=new Array(260).join(estado.nombre+" · "+estado.codigo+"      "); document.body.appendChild(m);
     enExamen=true;
