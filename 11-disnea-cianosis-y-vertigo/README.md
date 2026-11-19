@@ -32,7 +32,7 @@ Cierra los síntomas y signos con el eje de la oxigenación, y añade el vértig
 ## Trabajo independiente
 
 - Lectura de los capítulos 8, 9 y 14 del texto guía
-- Inicio del caso integrador de la cadena fisiopatológica II
+- ~~Inicio del caso integrador de la cadena fisiopatológica II~~ (actividad eliminada el 19 nov: no se aplicó)
 
 ## Resultados de aprendizaje que se movilizan
 

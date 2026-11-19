@@ -95,10 +95,13 @@ Tres cortes. Dentro de cada uno, los porcentajes son sobre el total del corte.
 
 | Primer corte · 35 % | Segundo corte · 35 % | Tercer corte · 30 % |
 |---|---|---|
-| Parcial 1 — 55 % | Parcial 2 — 50 % | Parcial final — 45 % |
-| Quices — 20 % | Cadena fisiopatológica I — 25 % | Cadena fisiopatológica II — 30 % |
-| Glosario y búsqueda en PubMed — 15 % | Quices — 15 % | Lectura selecta — 15 % |
-| Participación — 10 % | Participación — 10 % | Participación — 10 % |
+| Parcial 1 — 55 % | Parcial 2 — 50 % | Parcial final — 50 % |
+| Quices — 20 % | Cadena fisiopatológica I — 25 % | Talleres de clase E11, E12 y E13 y taller de repaso — 33,3 % |
+| Glosario y búsqueda en PubMed — 15 % | Quices — 15 % | Lectura selecta · cine-foro — 8,3 % |
+| Participación — 10 % | Participación — 10 % | Participación — 8,3 % |
+
+En el tercer corte, las seis actividades valen lo mismo (2,5 % del semestre cada una). La cadena
+fisiopatológica II se eliminó el 19 de noviembre porque no se aplicó, y su peso se repartió entre las demás.
 
 **Los quices** son breves y se aplican en los primeros diez minutos de cada encuentro, sobre lo visto
 la semana anterior. No son para calificar asistencia: sirven para que el repaso ocurra cada semana y

@@ -33,7 +33,7 @@ El encuentro que justifica todo el semestre. Son las dos enfermedades que el mar
 ## Trabajo independiente
 
 - Lectura de los capítulos 41 y 62 del texto guía
-- Entrega final de la cadena fisiopatológica II: caso integrador con manifestación ocular
+- ~~Entrega final de la cadena fisiopatológica II: caso integrador con manifestación ocular~~ (actividad eliminada el 19 nov: no se aplicó; su peso se repartió entre las demás actividades del corte)
 
 ## Resultados de aprendizaje que se movilizan
 
