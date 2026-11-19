@@ -86,6 +86,9 @@
     letter-spacing:.1em; text-transform:uppercase; color:var(--muted);
     border:1px solid var(--line); border-radius:99px; padding:.15rem .5rem}
   .corte.cerrado h2 em{color:var(--fisio); border-color:color-mix(in srgb,var(--fisio) 45%,transparent)}
+  .definitiva .panel{border-color:color-mix(in srgb,var(--fisio) 45%,var(--line)); border-width:2px}
+  .definitiva .grande b{font-size:3.8rem}
+  .grande b.mala{color:var(--pato)}
 
   /* lista de actividades */
   .act{display:flex; align-items:center; gap:.8rem; padding:.75rem 0;
@@ -255,6 +258,11 @@
       });
     }
 
+    // Definitiva del semestre, arriba de todo. La calcula SOLO el servidor, con las
+    // notas oficiales de los cortes ya reportados (ninguna regla de redondeo las
+    // reproduce todas). Un servidor anterior no la manda y entonces no se muestra.
+    if (n.definitiva) cont.appendChild(bloqueDefinitiva(n.definitiva, esc5));
+
     var pintados = {};
     resumenes.forEach(function(rc){
       pintados[rc.corte] = true;
@@ -272,9 +280,38 @@
       "corte le falta alguna actividad, su nota todavía puede cambiar.";
   }
 
+  // Una cifra decimal, mitad hacia arriba: toFixed(1) muestra 3,65 como 3,6.
+  function r1(x){ return Math.floor(x * 10 + 0.5 + 1e-9) / 10; }
+  function una(x){ return r1(Number(x)).toFixed(1).replace(".", ","); }
+  // La nota del corte con una cifra: la que manda el servidor (oficial si ya se reportó).
+  function notaCorte(rc){
+    if (rc.nota1 !== undefined && rc.nota1 !== null) return rc.nota1;
+    return (rc.nota === null || rc.nota === undefined) ? null : r1(rc.nota);
+  }
+  function bloqueDefinitiva(d, esc5){
+    var sec = document.createElement("section");
+    sec.className = "corte definitiva" + (d.completa ? " cerrado" : "");
+    var formula = d.partes.map(function(p){
+      return (NOMBRE_CORTE[p.corte] || ("Corte " + p.corte)) + " " + una(p.nota) + " × " + p.peso + " %";
+    }).join(" + ");
+    var pie = formula + "." + (d.completa
+      ? ""
+      : " Es provisional: a algún corte todavía le falta una actividad por calificar.");
+    sec.innerHTML =
+      '<h2>Definitiva del semestre <em>' + (d.completa ? "completa" : "provisional") + '</em></h2>' +
+      '<div class="panel">' +
+        '<div class="grande"><b class="' + (d.nota >= 3 ? "" : "mala") + '">' + una(d.nota) + '</b>' +
+        '<span>' + (d.completa ? (d.nota >= 3 ? "aprobada · " : "no aprobada · ") : "") + 'sobre ' + una(esc5) + '</span></div>' +
+        '<div class="barra"><i style="width:' + Math.min(100, d.nota / esc5 * 100) + '%"></i></div>' +
+        '<p class="pie">' + esc(pie) + '</p>' +
+      '</div>';
+    return sec;
+  }
+
   function bloqueCorte(rc, items, esc5){
     var sec = document.createElement("section");
-    var hayNota = rc.nota !== null && rc.nota !== undefined;
+    var n1 = notaCorte(rc);
+    var hayNota = n1 !== null;
     var completo = !!(rc.pesoTotal && rc.pesoCubierto >= rc.pesoTotal);
     sec.className = "corte" + (completo ? " cerrado" : "");
 
@@ -283,16 +320,16 @@
     var pie = (rc.pesoCubierto === null || rc.pesoCubierto === undefined) ? ""
       : (completo
           ? "Corte completo: vale el " + rc.pesoTotal + " % del semestre."
-          : "Calculada sobre " + rc.pesoCubierto + " de " +
+          : "Calculada sobre " + String(rc.pesoCubierto).replace(".", ",") + " de " +
             (rc.pesoTotal ? rc.pesoTotal + " %" : "—") + " del semestre. Es provisional.");
 
     var html =
       '<h2>' + esc(titulo) + ' <em>' + sello + '</em></h2>' +
       '<div class="panel">' +
-        '<div class="grande"><b>' + (hayNota ? Number(rc.nota).toFixed(1) : "—") + '</b>' +
+        '<div class="grande"><b>' + (hayNota ? una(n1) : "—") + '</b>' +
         '<span>' + (completo ? "nota del corte" : "nota provisional") + '</span></div>' +
         '<div class="barra"><i style="width:' +
-          (hayNota ? Math.min(100, rc.nota / esc5 * 100) : 0) + '%"></i></div>' +
+          (hayNota ? Math.min(100, n1 / esc5 * 100) : 0) + '%"></i></div>' +
         '<p class="pie">' + esc(pie) + '</p>' +
       '</div>';
 
@@ -300,9 +337,9 @@
       var val = (it.nota === null)
         ? '<span class="pend">sin calificar</span>'
         : '<span class="act-n ' + (it.nota >= 4 ? "buena" : (it.nota >= 3 ? "floja" : "mala")) +
-          '">' + it.nota.toFixed(1) + '</span>';
+          '">' + una(it.nota) + '</span>';
       return '<div class="act"><span class="act-t"><b>' + esc(it.t) + '</b>' +
-             '<span>' + it.peso + ' % del semestre</span></span>' + val + '</div>';
+             '<span>' + String(it.peso).replace(".", ",") + ' % del semestre</span></span>' + val + '</div>';
     }).join("") + '</div>';
 
     sec.innerHTML = html;
